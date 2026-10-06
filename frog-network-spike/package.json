@@ -13,7 +13,9 @@
     "test:network": "node --import tsx scripts/network-tests.ts",
     "stress": "node --import tsx scripts/stress.ts",
     "test:browser": "node scripts/browser-check.cjs",
-    "test:lifecycle": "node --import tsx scripts/lifecycle-tests.ts"
+    "test:lifecycle": "node --import tsx scripts/lifecycle-tests.ts",
+    "test:outbreak": "node --import tsx scripts/outbreak-tests.ts",
+    "test:outbreak-browser": "node scripts/outbreak-browser.cjs"
   },
   "dependencies": {
     "@colyseus/core": "^0.16.26",
