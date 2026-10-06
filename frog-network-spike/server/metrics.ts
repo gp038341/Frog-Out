@@ -1,0 +1,1 @@
+export function summary(values:number[]){const v=[...values].sort((a,b)=>a-b);const p=(q:number)=>v[Math.min(v.length-1,Math.floor(v.length*q))]??0;return {p50:p(.5),p95:p(.95),p99:p(.99),max:v[v.length-1]??0};}

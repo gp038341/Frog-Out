@@ -1,0 +1,66 @@
+{
+  "environment": "Two isolated headless Chromium browser contexts over loopback, artificial delay; not physical devices or human acceptance",
+  "results": [
+    {
+      "lag": 50,
+      "charging": true,
+      "jump": -16.7,
+      "terrainAttached": true,
+      "released": true,
+      "first": {
+        "slot": 0,
+        "room": "VZF4SdhFQ",
+        "rtt": 50.48000000000001,
+        "pending": 2,
+        "snaps": 0
+      },
+      "second": {
+        "slot": 1,
+        "room": "VZF4SdhFQ",
+        "rtt": 48.36
+      },
+      "status": "connected · room VZF4SdhFQ · P1\nRTT 52ms · added RTT 50ms ± 10ms/leg · prediction ON · coupled false\ntick 183 · ack 100/103 · pending 3 · state age 56ms\ncorrection last 0.000m / p95 0.008m · large snaps 0\nserver tick p95 0.565ms / p99 1.763ms / max 2.023ms · overruns 0"
+    },
+    {
+      "lag": 100,
+      "charging": true,
+      "jump": -16.266666666666666,
+      "terrainAttached": true,
+      "released": true,
+      "first": {
+        "slot": 0,
+        "room": "PI8Jy44_7",
+        "rtt": 107.40000000000002,
+        "pending": 7,
+        "snaps": 0
+      },
+      "second": {
+        "slot": 1,
+        "room": "PI8Jy44_7",
+        "rtt": 99.20000000000002
+      },
+      "status": "connected · room PI8Jy44_7 · P1\nRTT 106ms · added RTT 100ms ± 10ms/leg · prediction ON · coupled false\ntick 181 · ack 98/103 · pending 5 · state age 89ms\ncorrection last 0.000m / p95 0.132m · large snaps 0\nserver tick p95 0.257ms / p99 0.361ms / max 0.459ms · overruns 0"
+    },
+    {
+      "lag": 150,
+      "charging": true,
+      "jump": -16.01875000000001,
+      "terrainAttached": true,
+      "released": true,
+      "first": {
+        "slot": 0,
+        "room": "l2U3TKJhH",
+        "rtt": 148.68000000000004,
+        "pending": 8,
+        "snaps": 0
+      },
+      "second": {
+        "slot": 1,
+        "room": "l2U3TKJhH",
+        "rtt": 140.88
+      },
+      "status": "connected · room l2U3TKJhH · P1\nRTT 152ms · added RTT 150ms ± 10ms/leg · prediction ON · coupled false\ntick 187 · ack 100/106 · pending 6 · state age 113ms\ncorrection last 0.000m / p95 0.192m · large snaps 0\nserver tick p95 0.193ms / p99 0.315ms / max 0.396ms · overruns 0"
+    }
+  ],
+  "errors": []
+}

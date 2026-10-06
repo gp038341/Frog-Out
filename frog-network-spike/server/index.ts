@@ -1,0 +1,17 @@
+import express from 'express';
+import {createServer} from 'node:http';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+import {Server} from '@colyseus/core';
+import {WebSocketTransport} from '@colyseus/ws-transport';
+import {SpikeRoom} from './room';
+import {StressRoom} from './stress-room';
+const app=express();const http=createServer(app);
+app.get('/health',(_req,res)=>res.json({ok:true,milestone:2}));
+app.use(express.static(path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../dist')));
+const game=new Server({transport:new WebSocketTransport({server:http,pingInterval:5000,pingMaxRetries:3,maxPayload:16384})});
+game.define('physics_spike',SpikeRoom);
+if(process.env.ENABLE_STRESS==='1')game.define('physics_stress',StressRoom);
+const port=Number(process.env.PORT??2567);
+await game.listen(port,process.env.HOST??'0.0.0.0');
+console.log(`Frog network spike listening on ${port}`);

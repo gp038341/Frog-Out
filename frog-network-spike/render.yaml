@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: frog-network-spike
+    runtime: node
+    rootDir: frog-network-spike
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
