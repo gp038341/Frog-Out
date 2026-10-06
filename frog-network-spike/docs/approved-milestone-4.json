@@ -1,0 +1,18 @@
+{
+  "approvedRevision": "9c74d3f1a6edb0ee827256058bcf465ea2228e23",
+  "checkpointBranch": "checkpoint/milestone-4-approved",
+  "publicUrl": "https://frog-out-milestone-2.onrender.com/",
+  "approvedBy": "User personal Outbreak playtest, 2026-10-06",
+  "sha256": {
+    "src/simulation/config.ts": "68c292b5b2fbb45f78c602bda2c5d83a5ac6455bc29b5d4e53429618c388a870",
+    "src/simulation/world.ts": "d20a53e8db7790293e4ea53cbda64fa0e564d9c2663fe5ff75d0117fcf012002",
+    "src/simulation/roster.ts": "2e22eec3ec8a611240f6d30608eaf217e23f5daa6f52c3235ef00cef94fe44c4",
+    "src/network/protocol.ts": "8c853975a6fef85b381afefd3779ea5fadab54a2fe32307b6a0d5b3f7feae7f0",
+    "src/network/predictor.ts": "c823758202607bd9e6b3abf6cbe8b684c0ac4ae7e22f232355c4d05a05a83aa7",
+    "src/network/client.ts": "d04cb08e1b6a0ea9011b188fb851c96d3082acd7e5f37649d2ea884e1b3df445",
+    "server/room.ts": "30d71cb9f7bd7bf67e8ae92e2afc0763b9db022dfd15c89d50596597301a9f99",
+    "server/party-room.ts": "627d72e22ee00eaf376803cfd605def046158fb6788631fd0fe03fb6ad2e1b05",
+    "server/outbreak-room.ts": "68bcb74b8279d635624ad873a4946a38e83e8a6dd6ba85383daf55f78b15e6df",
+    "src/game/outbreak.ts": "3f915237a3c70f014f66933dc7a23ec203c0521cf6e43641536f5c431da762e5"
+  }
+}
