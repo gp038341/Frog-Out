@@ -1,0 +1,59 @@
+{
+  "environment": "Three isolated local headless Chromium contexts, production announcement/countdown/grace timing, test-only body arrangement; not human acceptance",
+  "checks": [
+    "Patient Zero announcement visible; countdown input locked",
+    "infection feedback and distinct healthy/Patient Zero/grace states displayed",
+    "three rounds, Patient Zero rotation, tied infection rows, final totals/placements and stopped timer",
+    "return-to-lobby rematch resets roster/scores; two-player final shared victory"
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "patientZero": 1,
+      "points": [
+        1,
+        0,
+        2
+      ],
+      "winners": [
+        2
+      ],
+      "elapsedMs": 1183.3333333333333
+    },
+    {
+      "round": 2,
+      "patientZero": 2,
+      "points": [
+        1,
+        1,
+        0
+      ],
+      "winners": [
+        0,
+        1
+      ],
+      "elapsedMs": 50
+    },
+    {
+      "round": 3,
+      "patientZero": 0,
+      "points": [
+        0,
+        1,
+        1
+      ],
+      "winners": [
+        1,
+        2
+      ],
+      "elapsedMs": 50
+    }
+  ],
+  "totals": [
+    2,
+    2,
+    3
+  ],
+  "durationSeconds": 23.286,
+  "errors": []
+}

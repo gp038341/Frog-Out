@@ -1,0 +1,96 @@
+{
+  "environment": "Two isolated local headless Chromium contexts; not separate physical devices or human acceptance",
+  "results": [
+    {
+      "lag": 50,
+      "code": "6Z5VKK",
+      "charging": true,
+      "jump": -17.133333333333333,
+      "terrainAttached": true,
+      "released": true,
+      "reloadIdentityRestored": true,
+      "diagnosticsExportPassed": true,
+      "postReloadAcknowledgement": 102,
+      "canvas": {
+        "x": 178,
+        "y": 439,
+        "width": 924,
+        "height": 519.75
+      },
+      "first": {
+        "slot": 0,
+        "room": "QKPzS3H8_",
+        "rtt": 60,
+        "pending": 3,
+        "snaps": 0
+      },
+      "second": {
+        "slot": 1,
+        "room": "QKPzS3H8_",
+        "rtt": 54.18224640000001
+      },
+      "status": "connected · room QKPzS3H8_ · P1\nRTT 60ms · added RTT 50ms ± 10ms/leg · prediction ON · coupled false\ntick 439 · ack 105/108 · pending 3 · state age 36ms\ncorrection last 0.000m / p95 0.108m · large snaps 0\nserver tick p95 1.564ms / p99 3.654ms / max 11.981ms · overruns 0"
+    },
+    {
+      "lag": 100,
+      "code": "GDT9M2",
+      "charging": true,
+      "jump": -16.266666666666666,
+      "terrainAttached": true,
+      "released": true,
+      "reloadIdentityRestored": true,
+      "diagnosticsExportPassed": true,
+      "postReloadAcknowledgement": 96,
+      "canvas": {
+        "x": 178,
+        "y": 439,
+        "width": 924,
+        "height": 519.75
+      },
+      "first": {
+        "slot": 0,
+        "room": "cKojecgCF",
+        "rtt": 103,
+        "pending": 4,
+        "snaps": 0
+      },
+      "second": {
+        "slot": 1,
+        "room": "cKojecgCF",
+        "rtt": 104.57500160000004
+      },
+      "status": "connected · room cKojecgCF · P1\nRTT 103ms · added RTT 100ms ± 10ms/leg · prediction ON · coupled false\ntick 430 · ack 97/101 · pending 4 · state age 81ms\ncorrection last 0.000m / p95 0.025m · large snaps 0\nserver tick p95 0.244ms / p99 0.702ms / max 5.262ms · overruns 0"
+    },
+    {
+      "lag": 150,
+      "code": "Y6P4YF",
+      "charging": true,
+      "jump": -16.01875000000001,
+      "terrainAttached": true,
+      "released": true,
+      "reloadIdentityRestored": true,
+      "diagnosticsExportPassed": true,
+      "postReloadAcknowledgement": 95,
+      "canvas": {
+        "x": 178,
+        "y": 439,
+        "width": 924,
+        "height": 519.75
+      },
+      "first": {
+        "slot": 0,
+        "room": "T1phI84KP",
+        "rtt": 139,
+        "pending": 6,
+        "snaps": 0
+      },
+      "second": {
+        "slot": 1,
+        "room": "T1phI84KP",
+        "rtt": 150.68381440000002
+      },
+      "status": "connected · room T1phI84KP · P1\nRTT 139ms · added RTT 150ms ± 10ms/leg · prediction ON · coupled false\ntick 424 · ack 93/100 · pending 7 · state age 93ms\ncorrection last 0.019m / p95 0.031m · large snaps 0\nserver tick p95 0.156ms / p99 0.298ms / max 0.389ms · overruns 0"
+    }
+  ],
+  "errors": []
+}

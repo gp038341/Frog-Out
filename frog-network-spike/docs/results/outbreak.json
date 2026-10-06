@@ -1,0 +1,349 @@
+{
+  "environment": "Independent loopback WebSocket clients using actual OutbreakRoom/Planck contacts; test-only arrangements and shortened announcement/countdown (6/12 ticks), production grace remains 60 ticks; not human acceptance",
+  "checks": [
+    "two-player full match ends with a shared victory and no tiebreak",
+    "2-client complete match: rotation, timer, scoring, round/final results, return and fresh rematch",
+    "3-client complete match: rotation, timer, scoring, round/final results, return and fresh rematch",
+    "four-player physical same-tick infections receive equal placement and score",
+    "real body contact cannot chain during grace; ongoing contact infects at 60 ticks",
+    "4-client complete match: rotation, timer, scoring, round/final results, return and fresh rematch",
+    "8-client complete match: rotation, timer, scoring, round/final results, return and fresh rematch",
+    "authoritative frog-to-frog tongue attachment and release do not directly infect",
+    "disconnected healthy frog remains infectable and reconnect restores same identity/current infection and score"
+  ],
+  "matches": [
+    {
+      "clients": 2,
+      "patientZeroOrder": [
+        1,
+        0
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "patientZero": 1,
+          "points": [
+            1,
+            0
+          ],
+          "winners": [
+            0
+          ],
+          "elapsedMs": 50
+        },
+        {
+          "round": 2,
+          "patientZero": 0,
+          "points": [
+            0,
+            1
+          ],
+          "winners": [
+            1
+          ],
+          "elapsedMs": 33.333333333333336
+        }
+      ],
+      "totalPoints": [
+        1,
+        1
+      ]
+    },
+    {
+      "clients": 3,
+      "patientZeroOrder": [
+        0,
+        2,
+        1
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "patientZero": 0,
+          "points": [
+            0,
+            1,
+            2
+          ],
+          "winners": [
+            2
+          ],
+          "elapsedMs": 66.66666666666667
+        },
+        {
+          "round": 2,
+          "patientZero": 2,
+          "points": [
+            1,
+            2,
+            0
+          ],
+          "winners": [
+            1
+          ],
+          "elapsedMs": 50
+        },
+        {
+          "round": 3,
+          "patientZero": 1,
+          "points": [
+            1,
+            0,
+            2
+          ],
+          "winners": [
+            2
+          ],
+          "elapsedMs": 66.66666666666667
+        }
+      ],
+      "totalPoints": [
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "clients": 4,
+      "patientZeroOrder": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "patientZero": 0,
+          "points": [
+            0,
+            1,
+            1,
+            3
+          ],
+          "winners": [
+            3
+          ],
+          "elapsedMs": 1066.6666666666667
+        },
+        {
+          "round": 2,
+          "patientZero": 1,
+          "points": [
+            1,
+            0,
+            2,
+            3
+          ],
+          "winners": [
+            3
+          ],
+          "elapsedMs": 100
+        },
+        {
+          "round": 3,
+          "patientZero": 3,
+          "points": [
+            1,
+            2,
+            3,
+            0
+          ],
+          "winners": [
+            2
+          ],
+          "elapsedMs": 100
+        },
+        {
+          "round": 4,
+          "patientZero": 2,
+          "points": [
+            1,
+            2,
+            0,
+            3
+          ],
+          "winners": [
+            3
+          ],
+          "elapsedMs": 100
+        }
+      ],
+      "totalPoints": [
+        3,
+        5,
+        6,
+        9
+      ]
+    },
+    {
+      "clients": 8,
+      "patientZeroOrder": [
+        7,
+        5,
+        1,
+        2,
+        3,
+        4,
+        6,
+        0
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "patientZero": 7,
+          "points": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            0
+          ],
+          "winners": [
+            6
+          ],
+          "elapsedMs": 233.33333333333334
+        },
+        {
+          "round": 2,
+          "patientZero": 5,
+          "points": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            0,
+            6,
+            7
+          ],
+          "winners": [
+            7
+          ],
+          "elapsedMs": 216.66666666666669
+        },
+        {
+          "round": 3,
+          "patientZero": 1,
+          "points": [
+            1,
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "winners": [
+            7
+          ],
+          "elapsedMs": 233.33333333333334
+        },
+        {
+          "round": 4,
+          "patientZero": 2,
+          "points": [
+            1,
+            2,
+            0,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "winners": [
+            7
+          ],
+          "elapsedMs": 233.33333333333334
+        },
+        {
+          "round": 5,
+          "patientZero": 3,
+          "points": [
+            1,
+            2,
+            3,
+            0,
+            4,
+            5,
+            6,
+            7
+          ],
+          "winners": [
+            7
+          ],
+          "elapsedMs": 233.33333333333334
+        },
+        {
+          "round": 6,
+          "patientZero": 4,
+          "points": [
+            1,
+            2,
+            3,
+            4,
+            0,
+            5,
+            6,
+            7
+          ],
+          "winners": [
+            7
+          ],
+          "elapsedMs": 233.33333333333334
+        },
+        {
+          "round": 7,
+          "patientZero": 6,
+          "points": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            0,
+            7
+          ],
+          "winners": [
+            7
+          ],
+          "elapsedMs": 233.33333333333334
+        },
+        {
+          "round": 8,
+          "patientZero": 0,
+          "points": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "winners": [
+            7
+          ],
+          "elapsedMs": 233.33333333333334
+        }
+      ],
+      "totalPoints": [
+        7,
+        13,
+        19,
+        25,
+        31,
+        37,
+        43,
+        49
+      ]
+    }
+  ]
+}

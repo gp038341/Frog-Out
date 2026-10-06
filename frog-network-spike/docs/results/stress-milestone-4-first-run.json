@@ -1,0 +1,26 @@
+{
+  "environment": "One local production OutbreakRoom, eight real loopback WebSocket clients at 30 inputs/client/sec, bots jumping/grappling/colliding; host advances results and rematches; production countdown/grace timing; not a production-host capacity claim",
+  "seconds": 60,
+  "clients": 8,
+  "physicsBodies": 8,
+  "authoritativeClockTicks": 3594,
+  "activeGameplayTicks": 2873,
+  "completedRounds": 2,
+  "completedMatches": 0,
+  "tickMs": {
+    "p50": 0.1441340000001219,
+    "p95": 0.41098000000056345,
+    "p99": 1.0743270000020857,
+    "max": 7.1907460000002175
+  },
+  "overruns": 1,
+  "receivedSnapshotMessages": 14416,
+  "snapshotGapMs": {
+    "p50": 33,
+    "p95": 37,
+    "p99": 41,
+    "max": 173
+  },
+  "payloadBytesReceivedAllClients": 49680440,
+  "attachedObservations": 4314
+}
