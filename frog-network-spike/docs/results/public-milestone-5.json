@@ -1,0 +1,22 @@
+{
+  "deployedRevision": "a2d61546fe5ef9d70cd4f9029c9d18a9662aae70",
+  "deploy": "dep-db2mua6i0phs7396gad0",
+  "status": "live",
+  "url": "https://frog-out-milestone-2.onrender.com/",
+  "health": {
+    "ok": true,
+    "milestone": 5
+  },
+  "checks": [
+    "Two public browser clients create/join same room",
+    "Ready and host Start",
+    "Synchronized Outbreak countdown and active round",
+    "Public authoritative snapshots and input acknowledgments",
+    "Touch layout visible with controls outside arena",
+    "Reload restored same room/session",
+    "Leave returned other client to lobby"
+  ],
+  "servicePlan": "free",
+  "physicalDeviceAcceptance": "pending user testing",
+  "note": "Public touch layout forced with ?touch=1 in cloud desktop browser; multi-touch tested locally with Chromium emulation. No physical iOS/Android testing claimed."
+}
