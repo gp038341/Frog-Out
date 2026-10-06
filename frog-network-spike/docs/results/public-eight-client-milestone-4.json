@@ -1,0 +1,8 @@
+{
+  "environment": "Attempt through execution-environment HTTPS proxy to existing Free Render service",
+  "revision": "3a862125cd51050e411af0340e993819af032114",
+  "completed": false,
+  "error": "colyseus.js onError (0): seat reservation expired during client admission; attempt stopped before eight-player load measurement. No production capacity result can be claimed.",
+  "localEightClientFullMatchPassed": true,
+  "publicTwoClientFullMatchPassed": true
+}

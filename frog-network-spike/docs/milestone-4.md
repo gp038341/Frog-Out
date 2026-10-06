@@ -37,6 +37,12 @@ Labels supplement color: HEALTHY; GRACE with ring; POISON with X; Patient Zero w
 
 Reports in `docs/results/`: `outbreak.json`, `outbreak-browser.json`, `lifecycle-milestone-4.json`, `browser-milestone-4.json`, `latency.json`, `stress-milestone-4.json`. Screenshots `outbreak-grace.png` and `outbreak-final.png` show functional UI.
 
+## Public deployment sanity
+
+Revision `3a862125cd51050e411af0340e993819af032114` deployed live on existing Free Render service. `/health` returned milestone 4. Two independent secure-WebSocket clients completed a full two-round match with ordinary movement/body contact, restored the same player during an in-round reconnect, finished 1–1 with shared victory and returned to lobby. Public tick p99 0.482 ms, max 2.633 ms, zero overruns in this short check. Browser UI confirmed code join, Ready/host Start, timer and Patient Zero/healthy labels; screenshot `public-outbreak-20261006.jpg`. No Render error logs were reported during the check.
+
+An additional attempted public eight-client stress run could not establish all clients: the execution-proxy connection encountered a seat-reservation expiry. It was stopped before a capacity measurement; no public eight-player performance result is claimed. Local eight-client full-match tests passed, but local strict zero-overrun stress failed as described above. Reports: `public-milestone-4.json` and `public-eight-client-milestone-4.json`. These automated checks do not approve Milestone 4.
+
 ## Known limits
 
 Keyboard gameplay; touch remains a later MVP task. Names/state labels can overlap when frogs converge. Art, sound and arena remain placeholders. Existing out-of-bounds debug recovery remains unchanged. Free Render sleeps/cold-starts; in-memory rooms are lost on restart/deploy. Test-only hooks are disabled in production. Rare eight-client stress stalls remain unresolved; the strict zero-overrun performance check did not pass. No paid resources introduced. Milestone 4 awaits the user's personal playtest.
