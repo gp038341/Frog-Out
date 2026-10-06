@@ -103,10 +103,6 @@ export class Simulation {
   step() {
     const t = this.tuning;
     this.world.setGravity(Vec2(0, t.gravity));
-    const coupled = new Set<Body>();
-    for (const f of this.frogs) if (f.tongue?.phase === 'attached' && f.tongue.target?.isDynamic()) {
-      coupled.add(f.body); coupled.add(f.tongue.target);
-    }
     for (const f of this.frogs) {
       f.suppressSupport = Math.max(0, f.suppressSupport - DT);
       f.grounded = this.grounded(f);
@@ -154,18 +150,14 @@ export class Simulation {
       if (x) f.facing = x;
       const v = f.body.getLinearVelocity();
       let dv = x * t.airAcceleration * DT;
-      if (f.grounded && coupled.has(f.body)) {
-        // Do not let a neutral ground controller erase reciprocal grapple momentum.
-        dv = x * Math.max(0, Math.min(t.groundAcceleration * DT, t.groundSpeed - x * v.x));
-      } else if (f.grounded && !f.tongue) {
+      if (f.grounded && !f.tongue) {
         const target = x * t.groundSpeed;
         const a = x ? t.groundAcceleration : t.groundBrake;
         dv = Math.max(-a * DT, Math.min(a * DT, target - v.x));
       }
       f.body.applyLinearImpulse(Vec2(dv * f.body.getMass(), 0), f.body.getWorldCenter(), true);
+      this.updateTongue(f);
     }
-    // Apply pulls after every movement controller: frog order must not cancel target impulses.
-    for (const f of this.frogs) this.updateTongue(f);
     this.world.step(DT, t.velocityIterations, t.positionIterations);
     this.tick++;
     for (const f of this.frogs) {
@@ -188,10 +180,9 @@ export class Simulation {
     tongue.tip = { x: anchor.x, y: anchor.y };
     const p = f.body.getWorldCenter();
     const dx = anchor.x - p.x, dy = anchor.y - p.y, d = Math.hypot(dx, dy);
-    const minLength = target.isDynamic() ? this.tuning.frogRadius * 2 + this.tuning.frogGrappleClearance
-      : Math.max(this.tuning.grappleMinLength, this.tuning.frogRadius + 0.05);
+    const minLength = Math.max(this.tuning.grappleMinLength, this.tuning.frogRadius + 0.05);
     // Take up existing slack only. Never forcibly shorten a taut constraint.
-    tongue.length = Math.max(target.isDynamic() ? minLength : Math.min(minLength, tongue.length), tongue.length - Math.min(
+    tongue.length = Math.max(Math.min(minLength, tongue.length), tongue.length - Math.min(
       this.tuning.grappleTakeupSpeed * DT, Math.max(0, tongue.length - Math.max(minLength, d)),
     ));
     tongue.joint!.setMaxLength(tongue.length);
@@ -231,9 +222,8 @@ export class Simulation {
     if (hit) {
       const h = hit as { body: Body; point: { x: number; y: number } };
       tongue.tip = h.point;
-      // Dynamic attachments use centers, avoiding offset ropes fighting body contact.
-      const a = h.body.isDynamic() ? h.body.getWorldCenter().clone() : Vec2(h.point.x, h.point.y);
-      tongue.length = Math.max(h.body.isDynamic() ? t.frogRadius * 2 + t.frogGrappleClearance : 0.05, Vec2.distance(p, a));
+      const a = Vec2(h.point.x, h.point.y);
+      tongue.length = Math.max(0.05, Vec2.distance(p, a));
       const local = h.body.getLocalPoint(a);
       tongue.target = h.body; tongue.localAnchor = { x: local.x, y: local.y };
       tongue.joint = this.world.createJoint(new RopeJoint({

@@ -5,6 +5,7 @@ import {DelayLink} from '../src/network/link';
 import {Predictor} from '../src/network/predictor';
 import type {Snapshot,Command} from '../src/network/protocol';
 import type {Input} from '../src/simulation/world';
+import {defaults} from '../src/simulation/config';
 import {summary} from '../server/metrics';
 const wait=(ms:number)=>new Promise(r=>setTimeout(r,ms));
 const endpoint=process.env.TEST_URL??'ws://127.0.0.1:2667';
@@ -29,7 +30,7 @@ class TestPeer {
    const [a,b]=s.state.frogs;
    if(a.tongue?.phase==='attached'&&b.tongue?.phase==='attached'&&a.tongue.target&&'frog'in a.tongue.target&&b.tongue.target&&'frog'in b.tongue.target)this.mutualPullSnapshots++;
    if(Math.hypot(a.x-b.x,a.y-b.y)<.93)this.collisionSnapshots++;
-   if(a.vy < -17)this.chargedLaunchObserved=true;
+   if(a.vy < -(defaults.chargedJumpImpulse - 1))this.chargedLaunchObserved=true;
    for(const f of s.state.frogs)if(f.tongue)this.modes.add(f.tongue.phase==='attached'?(f.tongue.target&&'frog'in f.tongue.target?'frog-attachment':'terrain-attachment'):f.tongue.phase);
   }));
   this.room.send('hello');this.offset=-this.link.rtt/2;

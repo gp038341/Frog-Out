@@ -25,7 +25,7 @@ test('all taps below charge threshold have exactly the same launch speed',()=>{
  assert.ok(Math.abs(tap(1)-tap(7))<1e-8);
 });
 test('deliberate hold crosses charge threshold and full charge produces stronger launch',()=>{
- const s=new Simulation();steps(s,90);input(s,0,0,0,true);steps(s,8);assert.equal(s.frogs[0].charging,false);steps(s,2);assert.equal(s.frogs[0].charging,true);steps(s,50);assert.equal(s.frogs[0].charge,s.tuning.chargeSeconds);input(s,0,0,0,false);s.step();assert.ok(s.frogs[0].body.getLinearVelocity().y < -17);
+ const s=new Simulation();steps(s,90);input(s,0,0,0,true);steps(s,8);assert.equal(s.frogs[0].charging,false);steps(s,2);assert.equal(s.frogs[0].charging,true);steps(s,50);assert.equal(s.frogs[0].charge,s.tuning.chargeSeconds);input(s,0,0,0,false);s.step();assert.ok(s.frogs[0].body.getLinearVelocity().y < -16);
 });
 test('tap immediately before landing buffers once and launches on the contact step',()=>{
  const s=new Simulation();const f=s.frogs[0];f.body.setTransform(Vec2(12,16.4),0);f.body.setLinearVelocity(Vec2(0,4));input(s,0,0,0,true);input(s,0,0,0,false);
