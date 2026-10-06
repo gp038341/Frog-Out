@@ -1,0 +1,332 @@
+{
+  "environment": "Local authoritative server; Chromium trusted touch and keyboard, hybrid + desktop; capability fault injection only in isolated tests; not physical acceptance",
+  "checks": [
+    "grounded: 3 keyboard→touch→keyboard→touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "airborne: 3 keyboard→touch→keyboard→touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "charge: 3 keyboard→touch→keyboard→touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "terrain-grapple: 3 keyboard→touch→keyboard→touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "frog-grapple: 3 keyboard→touch→keyboard→touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "held-key auto-repeat after handoff cannot resurrect stale direction",
+    "5 landscape sizes × both input layouts: aspect ratio, FIT maximum dimension, footer and arena in viewport, no horizontal overflow",
+    "user gesture Fullscreen API enter/exit and label/resize work in headless Chromium",
+    "portrait/landscape preserves identity and restores controls",
+    "reload reconnect after repeated switching restores same frog and both input methods",
+    "authoritative survival score + 2 bonus displayed as separate round-results components",
+    "fullscreen absent/restricted: hidden unsupported button or readable failure, ordinary play unaffected"
+  ],
+  "layouts": [
+    {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "touch": false,
+      "canvas": {
+        "x": 115,
+        "y": 79,
+        "width": 1136,
+        "height": 639
+      },
+      "available": {
+        "x": 10,
+        "y": 79,
+        "width": 1346,
+        "height": 639
+      },
+      "footer": {
+        "x": 6,
+        "y": 726,
+        "width": 1354,
+        "height": 34
+      }
+    },
+    {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "touch": true,
+      "canvas": {
+        "x": 134,
+        "y": 85,
+        "width": 1098,
+        "height": 617.625
+      },
+      "available": {
+        "x": 134,
+        "y": 71,
+        "width": 1098,
+        "height": 647
+      },
+      "footer": {
+        "x": 6,
+        "y": 726,
+        "width": 1354,
+        "height": 34
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "touch": false,
+      "canvas": {
+        "x": 10,
+        "y": 116,
+        "width": 1004,
+        "height": 564.75
+      },
+      "available": {
+        "x": 10,
+        "y": 79,
+        "width": 1004,
+        "height": 639
+      },
+      "footer": {
+        "x": 6,
+        "y": 726,
+        "width": 1012,
+        "height": 34
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "touch": true,
+      "canvas": {
+        "x": 134,
+        "y": 181,
+        "width": 756,
+        "height": 425.25
+      },
+      "available": {
+        "x": 134,
+        "y": 71,
+        "width": 756,
+        "height": 647
+      },
+      "footer": {
+        "x": 6,
+        "y": 726,
+        "width": 1012,
+        "height": 34
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "touch": false,
+      "canvas": {
+        "x": 190,
+        "y": 79,
+        "width": 464,
+        "height": 261
+      },
+      "available": {
+        "x": 10,
+        "y": 79,
+        "width": 824,
+        "height": 261
+      },
+      "footer": {
+        "x": 6,
+        "y": 348,
+        "width": 832,
+        "height": 34
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "touch": true,
+      "canvas": {
+        "x": 182.15625,
+        "y": 71,
+        "width": 478.21875,
+        "height": 269
+      },
+      "available": {
+        "x": 132.15625,
+        "y": 71,
+        "width": 579.6875,
+        "height": 269
+      },
+      "footer": {
+        "x": 6,
+        "y": 348,
+        "width": 832,
+        "height": 34
+      }
+    },
+    {
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "touch": false,
+      "canvas": {
+        "x": 114,
+        "y": 79,
+        "width": 437.328125,
+        "height": 246
+      },
+      "available": {
+        "x": 10,
+        "y": 79,
+        "width": 647,
+        "height": 246
+      },
+      "footer": {
+        "x": 6,
+        "y": 333,
+        "width": 655,
+        "height": 34
+      }
+    },
+    {
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "touch": true,
+      "canvas": {
+        "x": 107.375,
+        "y": 71,
+        "width": 451.546875,
+        "height": 254
+      },
+      "available": {
+        "x": 107.375,
+        "y": 71,
+        "width": 452.25,
+        "height": 254
+      },
+      "footer": {
+        "x": 6,
+        "y": 333,
+        "width": 655,
+        "height": 34
+      }
+    },
+    {
+      "viewport": {
+        "width": 568,
+        "height": 320
+      },
+      "touch": false,
+      "canvas": {
+        "x": 131,
+        "y": 98,
+        "width": 305.765625,
+        "height": 172
+      },
+      "available": {
+        "x": 10,
+        "y": 98,
+        "width": 548,
+        "height": 172
+      },
+      "footer": {
+        "x": 6,
+        "y": 278,
+        "width": 556,
+        "height": 34
+      }
+    },
+    {
+      "viewport": {
+        "width": 568,
+        "height": 320
+      },
+      "touch": true,
+      "canvas": {
+        "x": 124,
+        "y": 90,
+        "width": 320,
+        "height": 180
+      },
+      "available": {
+        "x": 102,
+        "y": 90,
+        "width": 364,
+        "height": 180
+      },
+      "footer": {
+        "x": 6,
+        "y": 278,
+        "width": 556,
+        "height": 34
+      }
+    }
+  ],
+  "round": {
+    "phase": "round-results",
+    "round": 1,
+    "roundCount": 3,
+    "patientZero": 1,
+    "patientZeroOrder": [
+      1,
+      2,
+      0
+    ],
+    "tick": 1360,
+    "elapsedMs": 22266.666666666664,
+    "remainingMs": 0,
+    "players": [
+      {
+        "infectedTick": 875,
+        "infectiousTick": 935,
+        "infectionPlace": 2,
+        "roundPoints": 14.2,
+        "placementBonus": 0,
+        "survivalMs": 14283.333333333334,
+        "survivalPoints": 14.2,
+        "slot": 0,
+        "state": "infectious",
+        "patientZero": false,
+        "totalPoints": 14.2,
+        "finalPlace": 2
+      },
+      {
+        "infectedTick": 18,
+        "infectiousTick": 18,
+        "infectionPlace": 1,
+        "roundPoints": 0,
+        "placementBonus": 0,
+        "survivalMs": 0,
+        "survivalPoints": 0,
+        "slot": 1,
+        "state": "infectious",
+        "patientZero": true,
+        "totalPoints": 0,
+        "finalPlace": 3
+      },
+      {
+        "infectedTick": 1354,
+        "infectiousTick": 1414,
+        "infectionPlace": 3,
+        "roundPoints": 24.2,
+        "placementBonus": 2,
+        "survivalMs": 22266.666666666664,
+        "survivalPoints": 22.2,
+        "slot": 2,
+        "state": "transforming",
+        "patientZero": false,
+        "totalPoints": 24.2,
+        "finalPlace": 1
+      }
+    ],
+    "roundWinners": [
+      2
+    ],
+    "matchWinners": []
+  },
+  "errors": []
+}
