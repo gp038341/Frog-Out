@@ -1,0 +1,32 @@
+{
+  "testedRuntimeCommit": "544ffdf73ce75d23589bbf6f2e521bd1ae80d800",
+  "service": "frog-out-milestone-2",
+  "url": "https://frog-out-milestone-2.onrender.com/",
+  "renderPlan": "free",
+  "renderDeployment": "dep-db2kihegekts73c7pthg",
+  "deploymentStatus": "live",
+  "health": {"ok": true, "milestone": 3},
+  "environment": "Two tabs in an agent-operated cloud browser over public HTTPS/WSS; not two physical devices or a human acceptance test",
+  "checks": [
+    "Home page and understandable blank-code error",
+    "Create room and join by code from second public client",
+    "Copy code and copy join link match the room",
+    "Ready states and host start transition",
+    "Distinct P1/P2 slots, same authoritative room, advancing ticks and input acknowledgements",
+    "Refresh reconnect restores original P1 slot and same room with new inputs acknowledged",
+    "Public late join blocked with clear already-playing error",
+    "Explicit in-match Leave returns remaining client to lobby, resets ready, transfers host",
+    "Public HTTP GET /health passed",
+    "No Render application error logs observed after deployment"
+  ],
+  "publicTickObservation": {
+    "p99MsEarly": 0.396,
+    "maxMsEarly": 48.478,
+    "overrunsObserved": 3,
+    "largeSnapsObserved": 0,
+    "note": "Occasional Free-host tick/scheduling spikes; ordinary ticks were sub-millisecond. This is a limited sanity observation, not a capacity or game-feel guarantee."
+  },
+  "diagnostics": "Managed cloud-browser download event was not captured; isolated local Chromium export is checked separately.",
+  "milestone3Acceptance": "Pending user playtest",
+  "milestone4Started": false
+}

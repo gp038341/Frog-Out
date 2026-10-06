@@ -3,13 +3,14 @@
   "results": [
     {
       "lag": 50,
-      "code": "42443R",
+      "code": "ZVYGBP",
       "charging": true,
-      "jump": -17.133333333333333,
+      "jump": -16.266666666666666,
       "terrainAttached": true,
       "released": true,
       "reloadIdentityRestored": true,
-      "postReloadAcknowledgement": 102,
+      "diagnosticsExportPassed": true,
+      "postReloadAcknowledgement": 101,
       "canvas": {
         "x": 178,
         "y": 308,
@@ -18,26 +19,27 @@
       },
       "first": {
         "slot": 0,
-        "room": "iX6GKY9LP",
-        "rtt": 59,
-        "pending": 2,
+        "room": "M4GXLWD9L",
+        "rtt": 53,
+        "pending": 3,
         "snaps": 0
       },
       "second": {
         "slot": 1,
-        "room": "iX6GKY9LP",
-        "rtt": 44.34400000000001
+        "room": "M4GXLWD9L",
+        "rtt": 49.144000000000005
       },
-      "status": "connected · room iX6GKY9LP · P1\nRTT 59ms · added RTT 50ms ± 10ms/leg · prediction ON · coupled false\ntick 179 · ack 99/102 · pending 3 · state age 81ms\ncorrection last 0.350m / p95 0.350m · large snaps 0\nserver tick p95 0.708ms / p99 2.254ms / max 2.977ms · overruns 0"
+      "status": "connected · room M4GXLWD9L · P1\nRTT 53ms · added RTT 50ms ± 10ms/leg · prediction ON · coupled false\ntick 179 · ack 100/102 · pending 2 · state age 51ms\ncorrection last 0.000m / p95 0.019m · large snaps 0\nserver tick p95 0.789ms / p99 2.177ms / max 4.722ms · overruns 0"
     },
     {
       "lag": 100,
-      "code": "2QQH85",
+      "code": "998ZXZ",
       "charging": true,
-      "jump": -16.266666666666666,
+      "jump": -16.7,
       "terrainAttached": true,
       "released": true,
       "reloadIdentityRestored": true,
+      "diagnosticsExportPassed": true,
       "postReloadAcknowledgement": 99,
       "canvas": {
         "x": 178,
@@ -47,27 +49,28 @@
       },
       "first": {
         "slot": 0,
-        "room": "CrhpuIKkM",
-        "rtt": 86,
-        "pending": 3,
+        "room": "nGLyCSyHY",
+        "rtt": 104,
+        "pending": 4,
         "snaps": 0
       },
       "second": {
         "slot": 1,
-        "room": "CrhpuIKkM",
-        "rtt": 104.36
+        "room": "nGLyCSyHY",
+        "rtt": 100.06400000000002
       },
-      "status": "connected · room CrhpuIKkM · P1\nRTT 86ms · added RTT 100ms ± 10ms/leg · prediction ON · coupled false\ntick 180 · ack 98/101 · pending 3 · state age 54ms\ncorrection last 0.000m / p95 0.025m · large snaps 0\nserver tick p95 0.289ms / p99 0.468ms / max 0.644ms · overruns 0"
+      "status": "connected · room nGLyCSyHY · P1\nRTT 104ms · added RTT 100ms ± 10ms/leg · prediction ON · coupled false\ntick 179 · ack 98/102 · pending 4 · state age 70ms\ncorrection last 0.000m / p95 0.144m · large snaps 0\nserver tick p95 0.509ms / p99 1.430ms / max 2.066ms · overruns 0"
     },
     {
       "lag": 150,
-      "code": "ZZU8BZ",
+      "code": "PG2K7H",
       "charging": true,
-      "jump": -16.01875000000001,
+      "jump": -16.62916666666668,
       "terrainAttached": true,
       "released": true,
       "reloadIdentityRestored": true,
-      "postReloadAcknowledgement": 98,
+      "diagnosticsExportPassed": true,
+      "postReloadAcknowledgement": 99,
       "canvas": {
         "x": 178,
         "y": 308,
@@ -76,17 +79,17 @@
       },
       "first": {
         "slot": 0,
-        "room": "SpLJoRNUA",
-        "rtt": 152,
-        "pending": 5,
+        "room": "nW3tfIJga",
+        "rtt": 153,
+        "pending": 6,
         "snaps": 0
       },
       "second": {
         "slot": 1,
-        "room": "SpLJoRNUA",
-        "rtt": 149.64000000000001
+        "room": "nW3tfIJga",
+        "rtt": 158.93600000000004
       },
-      "status": "connected · room SpLJoRNUA · P1\nRTT 152ms · added RTT 150ms ± 10ms/leg · prediction ON · coupled false\ntick 183 · ack 98/102 · pending 4 · state age 56ms\ncorrection last 0.000m / p95 0.036m · large snaps 0\nserver tick p95 0.252ms / p99 0.356ms / max 1.170ms · overruns 0"
+      "status": "connected · room nW3tfIJga · P1\nRTT 153ms · added RTT 150ms ± 10ms/leg · prediction ON · coupled false\ntick 182 · ack 97/104 · pending 7 · state age 95ms\ncorrection last 0.025m / p95 0.319m · large snaps 0\nserver tick p95 0.374ms / p99 0.752ms / max 0.979ms · overruns 0"
     }
   ],
   "errors": []
