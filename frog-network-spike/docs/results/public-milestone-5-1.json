@@ -1,0 +1,26 @@
+{
+  "deployedRevision": "960a969664c3d24c0f9b0e542b84e572b280ec15",
+  "checkpoint": "checkpoint/milestone-5-1-acceptance",
+  "service": "frog-out-milestone-2",
+  "deploy": "dep-db2nenrtqb8s73e50qbg",
+  "status": "live",
+  "finishedAt": "2026-10-06T22:34:57.083365Z",
+  "publicUrl": "https://frog-out-milestone-2.onrender.com/",
+  "health": {
+    "ok": true,
+    "milestone": 5.1
+  },
+  "renderPlan": "free",
+  "newPaidResources": false,
+  "checks": [
+    "Two public browser clients create/join same room",
+    "Ready and host Start",
+    "Both show synchronized Outbreak phase/timer",
+    "Control layout switch in active round retains room connection",
+    "Public Fullscreen request rejected by cloud browser; readable fallback and gameplay continue",
+    "Recent Render error logs empty"
+  ],
+  "fullscreenEnterExit": "Passed in isolated local Chromium; public cloud browser restricts it",
+  "physicalWindowsRetest": "Pending user acceptance; original permanent-freeze symptom not reproduced in isolated Chromium",
+  "nextMilestoneStarted": false
+}
