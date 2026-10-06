@@ -1,0 +1,12 @@
+{
+  "approvedRevision": "c4c607be1607a8fd50e2da4eed42b8d69117b350",
+  "checkpointBranch": "checkpoint/milestone-2-approved",
+  "approvedBy": "User acceptance playtest, 2026-10-06",
+  "sha256": {
+    "src/simulation/config.ts": "68c292b5b2fbb45f78c602bda2c5d83a5ac6455bc29b5d4e53429618c388a870",
+    "src/simulation/world.ts": "d20a53e8db7790293e4ea53cbda64fa0e564d9c2663fe5ff75d0117fcf012002",
+    "src/network/protocol.ts": "fc0642f472dae12db666e7c8773efedaff6e737e0e527e807c6e28a4cff18a85",
+    "src/network/predictor.ts": "f59cd2f8ab91fcb32a40abc4ba637c26d3a1b03859d543164cfa49b746dc4986",
+    "src/network/client.ts": "7a434d6ccc7bae4e7b6f903cb7989068cad2199a7dccabb7883939d8c09a7043"
+  }
+}
