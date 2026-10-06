@@ -16,7 +16,8 @@
     "test:lifecycle": "node --import tsx scripts/lifecycle-tests.ts",
     "test:outbreak": "node --import tsx scripts/outbreak-tests.ts",
     "test:outbreak-browser": "node scripts/outbreak-browser.cjs",
-    "test:mobile": "node scripts/mobile-browser.cjs"
+    "test:mobile": "node scripts/mobile-browser.cjs",
+    "test:compat": "node scripts/compat-browser.cjs"
   },
   "dependencies": {
     "@colyseus/core": "^0.16.26",
