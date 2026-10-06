@@ -1,0 +1,96 @@
+{
+  "environment": "Two isolated local headless Chromium contexts; not separate physical devices or human acceptance",
+  "results": [
+    {
+      "lag": 50,
+      "code": "5THAT3",
+      "charging": true,
+      "jump": -17.133333333333333,
+      "terrainAttached": true,
+      "released": true,
+      "reloadIdentityRestored": true,
+      "diagnosticsExportPassed": true,
+      "postReloadAcknowledgement": 99,
+      "canvas": {
+        "x": 178,
+        "y": 267,
+        "width": 924,
+        "height": 519.75
+      },
+      "first": {
+        "slot": 0,
+        "room": "eiU6yf1Fc",
+        "rtt": 67,
+        "pending": 2,
+        "snaps": 0
+      },
+      "second": {
+        "slot": 1,
+        "room": "eiU6yf1Fc",
+        "rtt": 54.27144960000001
+      },
+      "status": "connected · room eiU6yf1Fc · P1\nRTT 67ms · added RTT 50ms ± 10ms/leg · prediction ON · coupled false\ntick 419 · ack 97/101 · pending 4 · state age 61ms\ncorrection last 0.000m / p95 0.014m · large snaps 0\nserver tick p95 0.500ms / p99 1.317ms / max 2.520ms · overruns 0"
+    },
+    {
+      "lag": 100,
+      "code": "B648Z7",
+      "charging": true,
+      "jump": -16.7,
+      "terrainAttached": true,
+      "released": true,
+      "reloadIdentityRestored": true,
+      "diagnosticsExportPassed": true,
+      "postReloadAcknowledgement": 97,
+      "canvas": {
+        "x": 178,
+        "y": 267,
+        "width": 924,
+        "height": 519.75
+      },
+      "first": {
+        "slot": 0,
+        "room": "NaIhi1_fX",
+        "rtt": 107,
+        "pending": 4,
+        "snaps": 0
+      },
+      "second": {
+        "slot": 1,
+        "room": "NaIhi1_fX",
+        "rtt": 109.14880000000002
+      },
+      "status": "connected · room NaIhi1_fX · P1\nRTT 107ms · added RTT 100ms ± 10ms/leg · prediction ON · coupled false\ntick 423 · ack 97/100 · pending 3 · state age 55ms\ncorrection last 0.000m / p95 0.025m · large snaps 0\nserver tick p95 0.274ms / p99 0.528ms / max 1.229ms · overruns 0"
+    },
+    {
+      "lag": 150,
+      "code": "QFZ4X3",
+      "charging": true,
+      "jump": -16.195833333333347,
+      "terrainAttached": true,
+      "released": true,
+      "reloadIdentityRestored": true,
+      "diagnosticsExportPassed": true,
+      "postReloadAcknowledgement": 92,
+      "canvas": {
+        "x": 178,
+        "y": 267,
+        "width": 924,
+        "height": 519.75
+      },
+      "first": {
+        "slot": 0,
+        "room": "IMmve2r-7",
+        "rtt": 169,
+        "pending": 6,
+        "snaps": 0
+      },
+      "second": {
+        "slot": 1,
+        "room": "IMmve2r-7",
+        "rtt": 148.74821120000001
+      },
+      "status": "connected · room IMmve2r-7 · P1\nRTT 169ms · added RTT 150ms ± 10ms/leg · prediction ON · coupled false\ntick 421 · ack 91/98 · pending 7 · state age 104ms\ncorrection last 0.031m / p95 0.042m · large snaps 0\nserver tick p95 0.179ms / p99 0.308ms / max 0.447ms · overruns 0"
+    }
+  ],
+  "errors": []
+}

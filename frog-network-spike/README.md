@@ -1,17 +1,17 @@
-# Frog-Out — Milestone 4 acceptance build
+# Frog-Out — Milestone 5 acceptance build
 
 Public prototype: https://frog-out-milestone-2.onrender.com/
 
-Milestone 2/2.1 was approved by the user after multiplayer playtesting. Its exact revision is `c4c607be1607a8fd50e2da4eed42b8d69117b350`, recoverable on `checkpoint/milestone-2-approved` and recorded in `docs/approved-milestone-2.json`. Milestone 3 was personally approved with four players at `db9a7f53df0a5baf77bdf12224fee49355212681`, preserved on `checkpoint/milestone-3-approved` and documented in `docs/approved-milestone-3.json`. Milestone 4 adds authoritative Outbreak rules. **Milestone 4 awaits the user's acceptance playtest; no later milestone has started.**
+Milestone 2/2.1 was approved by the user after multiplayer playtesting. Its exact revision is `c4c607be1607a8fd50e2da4eed42b8d69117b350`, recoverable on `checkpoint/milestone-2-approved` and recorded in `docs/approved-milestone-2.json`. Milestone 3 was personally approved with four players at `db9a7f53df0a5baf77bdf12224fee49355212681`, preserved on `checkpoint/milestone-3-approved` and documented in `docs/approved-milestone-3.json`. Milestone 4 adds authoritative Outbreak rules. Milestone 4 is now personally approved at `9c74d3f1a6edb0ee827256058bcf465ea2228e23`, checkpointed on `checkpoint/milestone-4-approved`. **Milestone 5 mobile controls await the user's acceptance playtest; no next milestone has started.**
 
 ## Play
 
-1. Open the public URL on two keyboard-equipped devices. Enter your display name and choose **Create Room** on the first.
+1. Open the public URL on 2–8 phones, tablets or desktop devices. Enter your display name and choose **Create Room** on the first.
 2. Share the six-character room code using **Copy code**, or use **Copy join link**. On the second device enter a name and the code, then choose **Join Room**. Everyone uses the same public URL; the optional link only pre-fills the code.
 3. Each player selects **Ready**. The host selects **Start session** after at least two connected players are ready. All players must be ready. Up to eight players can join the lobby.
 4. Read the Patient Zero announcement and three-second countdown, then play Outbreak in the approved placeholder physics arena. WASD or Arrow Keys move/aim; Space is the action button. Tap/release grounded for a normal jump; hold past 0.14 seconds to charge and release to launch. Airborne, press/hold to shoot and maintain a pulling tongue, release to detach with momentum.
 
-Poison spreads only through frog-body contact; tongues never directly infect. Newly infected frogs have a one-second GRACE state before infecting others. Everyone serves as Patient Zero once. Points equal the number infected in earlier ticks; same-tick infections share placement/score. After everyone is infected the host selects Next Round, then Final Standings after the last round. Final score ties share victory. Return to Lobby / Rematch retains the room, resets readiness, and allows a fresh match. See `docs/milestone-4.md` for exact rules and acceptance testing. Mobile touch controls are not implemented yet; joining the lobby works in a mobile browser, but gameplay currently requires a keyboard.
+Poison spreads only through frog-body contact; tongues never directly infect. Newly infected frogs have a one-second GRACE state before infecting others. Everyone serves as Patient Zero once. Points equal the number infected in earlier ticks; same-tick infections share placement/score. After everyone is infected the host selects Next Round, then Final Standings after the last round. Final score ties share victory. Return to Lobby / Rematch retains the room, resets readiness, and allows a fresh match. See `docs/milestone-4.md` for exact rules and acceptance testing. Phones/tablets now support an eight-direction left pad and one right action button in landscape, mapping to the same controls as Space. Portrait gameplay prompts rotation. Lobby/results remain touch usable. See `docs/milestone-5.md` for precise mobile behavior, tested configurations and acceptance checklist.
 
 ## Connection behavior
 
@@ -51,6 +51,7 @@ npm run test:outbreak-browser
 npm run test:lifecycle
 npm run test:network
 npm run test:browser
+npm run test:mobile
 npm run stress
 ```
 
@@ -64,4 +65,4 @@ Repository-root build command: `cd frog-network-spike && npm ci && npm run build
 
 Start command: `cd frog-network-spike && npm start`.
 
-`NODE_VERSION=22`, `NODE_ENV=production`, `NPM_CONFIG_PRODUCTION=false` (build tools are needed). HTTP `/health` returns `{ok:true,milestone:4}`. The same host serves the frontend and secure WebSockets. The checked-in `render.yaml` describes a free service for reference; do not apply it to create another service. No database, disk, worker or account system is needed.
+`NODE_VERSION=22`, `NODE_ENV=production`, `NPM_CONFIG_PRODUCTION=false` (build tools are needed). HTTP `/health` returns `{ok:true,milestone:5}`. The same host serves the frontend and secure WebSockets. The checked-in `render.yaml` describes a free service for reference; do not apply it to create another service. No database, disk, worker or account system is needed.
