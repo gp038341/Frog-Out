@@ -21,7 +21,8 @@ export class Predictor {
    this.sim.step();this.time+=DT*1000;
   }
   while(next<this.pending.length&&this.pending[next].at+offset<=limit)this.sim.setInput(this.slot,this.pending[next++].input);
-  if(prior){for(let i=0;i<2;i++){const p=this.sim.frogs[i].body.getPosition();const d=Math.hypot(p.x-prior[i].x,p.y-prior[i].y);if(d>NETWORK.snapDistance)this.visualOffsets[i]={x:0,y:0};else{this.visualOffsets[i].x+=prior[i].x-p.x;this.visualOffsets[i].y+=prior[i].y-p.y;}}const p=this.sim.frogs[this.slot].body.getPosition();this.lastCorrection=Math.hypot(p.x-prior[this.slot].x,p.y-prior[this.slot].y);this.corrections.push(this.lastCorrection);if(this.corrections.length>1000)this.corrections.shift();if(this.lastCorrection>NETWORK.snapDistance)this.snaps++;}
+  while(this.visualOffsets.length<this.sim.frogs.length)this.visualOffsets.push({x:0,y:0});
+  if(prior&&prior.length===this.sim.frogs.length){for(let i=0;i<this.sim.frogs.length;i++){const p=this.sim.frogs[i].body.getPosition();const d=Math.hypot(p.x-prior[i].x,p.y-prior[i].y);if(d>NETWORK.snapDistance)this.visualOffsets[i]={x:0,y:0};else{this.visualOffsets[i].x+=prior[i].x-p.x;this.visualOffsets[i].y+=prior[i].y-p.y;}}const p=this.sim.frogs[this.slot].body.getPosition();this.lastCorrection=Math.hypot(p.x-prior[this.slot].x,p.y-prior[this.slot].y);this.corrections.push(this.lastCorrection);if(this.corrections.length>1000)this.corrections.shift();if(this.lastCorrection>NETWORK.snapDistance)this.snaps++;}
  }
  advance(nowServer:number){if(!this.initialized)return;let n=0;while(this.time+DT*1000<=nowServer&&n<6){this.sim.step();this.time+=DT*1000;n++;}}
 }

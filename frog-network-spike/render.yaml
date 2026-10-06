@@ -4,6 +4,7 @@ services:
     runtime: node
     rootDir: frog-network-spike
     plan: free
+    autoDeploy: false
     buildCommand: npm ci && npm run build
     startCommand: npm start
     healthCheckPath: /health
@@ -12,3 +13,5 @@ services:
         value: "22"
       - key: NODE_ENV
         value: production
+      - key: NPM_CONFIG_PRODUCTION
+        value: "false"

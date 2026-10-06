@@ -1,3 +1,4 @@
+import {sizeSimulation} from './roster';
 import {Vec2, RopeJoint, type Body} from 'planck';
 import {Simulation, type Input, type Tongue} from './world';
 export type FrogState = {
@@ -23,6 +24,7 @@ export function capture(sim:Simulation):PhysicsState {
  })};
 }
 export function restore(sim:Simulation,state:PhysicsState){
+ sizeSimulation(sim,state.frogs.length);
  const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if(!b.isDynamic())terrain.push(b);
  for(const f of sim.frogs)sim.detach(f);
  sim.tick=state.tick;
