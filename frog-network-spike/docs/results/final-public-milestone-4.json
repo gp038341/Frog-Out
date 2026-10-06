@@ -1,0 +1,48 @@
+{
+  "environment": "Public Render deployment, two independent Node Colyseus clients via the execution environment HTTPS proxy; ordinary inputs only, no test hooks; not human acceptance",
+  "revision": "9c74d3f1a6edb0ee827256058bcf465ea2228e23",
+  "checks": [
+    "Public create/join and two independent secure WebSocket connections",
+    "Patient Zero announcement and production countdown before GO",
+    "Public reconnect restores the same player/slot during Outbreak",
+    "Public authoritative input acknowledgements, movement/body infection, two Patient Zero rounds, scoring and shared 1–1 final victory",
+    "Public final-results return to lobby"
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "patientZero": 0,
+      "points": [
+        0,
+        1
+      ],
+      "winners": [
+        1
+      ],
+      "elapsedMs": 13950
+    },
+    {
+      "round": 2,
+      "patientZero": 1,
+      "points": [
+        1,
+        0
+      ],
+      "winners": [
+        0
+      ],
+      "elapsedMs": 750
+    }
+  ],
+  "tickMs": {
+    "p50": 0.21425300001283176,
+    "p95": 0.37583500000619097,
+    "p99": 0.6303069999994477,
+    "max": 69.85891999999876
+  },
+  "overruns": 1,
+  "ack": [
+    49,
+    48
+  ]
+}

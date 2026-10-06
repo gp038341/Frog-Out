@@ -43,6 +43,8 @@ Revision `3a862125cd51050e411af0340e993819af032114` deployed live on existing Fr
 
 An additional attempted public eight-client stress run could not establish all clients: the execution-proxy connection encountered a seat-reservation expiry. It was stopped before a capacity measurement; no public eight-player performance result is claimed. Local eight-client full-match tests passed, but local strict zero-overrun stress failed as described above. Reports: `public-milestone-4.json` and `public-eight-client-milestone-4.json`. These automated checks do not approve Milestone 4.
 
+Final deployed revision `9c74d3f1a6edb0ee827256058bcf465ea2228e23` passed the same public two-player full match, reconnect and lobby return again. Latest tick p99 was 0.630 ms, but maximum was 69.859 ms with one overrun. Rare stalls therefore also occurred on Render; the earlier zero-overrun short check is not a guarantee. `final-public-milestone-4.json` records this final check. This post-deploy evidence is preserved on `evidence/milestone-4-final-deployment`; main/deployed application revision remains unchanged.
+
 ## Known limits
 
 Keyboard gameplay; touch remains a later MVP task. Names/state labels can overlap when frogs converge. Art, sound and arena remain placeholders. Existing out-of-bounds debug recovery remains unchanged. Free Render sleeps/cold-starts; in-memory rooms are lost on restart/deploy. Test-only hooks are disabled in production. Rare eight-client stress stalls remain unresolved; the strict zero-overrun performance check did not pass. No paid resources introduced. Milestone 4 awaits the user's personal playtest.
