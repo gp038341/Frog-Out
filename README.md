@@ -1,3 +1,5 @@
+Current deployed multiplayer project: [frog-network-spike](frog-network-spike/README.md). The files below preserve the original Milestone 1 prototype.
+
 # Frog Physics Spike — Milestone 1
 
 A local, two-body physics prototype. No networking or Outbreak systems are included.

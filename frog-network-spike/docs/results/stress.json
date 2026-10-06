@@ -1,24 +1,24 @@
 {
-  "environment": "One local authoritative eight-body Colyseus room, eight real loopback WebSocket clients, 30 input updates/client/sec, jumping/grappling/colliding bots; not a production-host capacity claim",
+  "environment": "One local production PartyRoom started through lobby/ready, eight-body Colyseus room, eight real loopback WebSocket clients, 30 input updates/client/sec, jumping/grappling/colliding bots; not a production-host capacity claim",
   "seconds": 60,
   "clients": 8,
   "physicsBodies": 8,
-  "tick": 3602,
-  "effectivePhysicsHz": 60.03333333333333,
+  "tick": 3605,
+  "effectivePhysicsHz": 60.083333333333336,
   "tickMs": {
-    "p50": 0.12395799999649171,
-    "p95": 0.2419750000044587,
-    "p99": 0.5242120000000341,
-    "max": 3.70828199999994
+    "p50": 0.19992099999944912,
+    "p95": 0.43288099999972474,
+    "p99": 0.9272750000018277,
+    "max": 7.420145999999477
   },
   "overruns": 0,
-  "receivedSnapshotMessages": 14405,
+  "receivedSnapshotMessages": 14432,
   "snapshotGapMs": {
     "p50": 33,
     "p95": 37,
     "p99": 37,
-    "max": 39
+    "max": 41
   },
-  "payloadBytesReceivedAllClients": 51750449,
-  "attachedObservations": 4486
+  "payloadBytesReceivedAllClients": 50732872,
+  "attachedObservations": 4020
 }

@@ -1,12 +1,30 @@
-# Frog Network Physics Spike — Milestone 2
+# Frog-Out — Milestone 3 acceptance build
 
-Two keyboard-controlled browser clients share one authoritative Planck simulation. The approved Milestone 1 physics configuration and simulation source are unchanged. This deliverable does not include Outbreak, scoring, match flow, lobby UX, room codes, mobile touch controls, final art, or audio.
+Public prototype: https://frog-out-milestone-2.onrender.com/
 
-**Status:** implemented and tested locally. Public deployment and separate-physical-device acceptance remain pending a connected deployment provider. No public testing URL has been created. Do not approve Milestone 2 based solely on automated local results.
+Milestone 2/2.1 was approved by the user after multiplayer playtesting. Its exact revision is `c4c607be1607a8fd50e2da4eed42b8d69117b350`, recoverable on `checkpoint/milestone-2-approved` and recorded in `docs/approved-milestone-2.json`. Milestone 3 adds rooms, a lobby, and connection lifecycle around that simulation. **Milestone 3 requires the user's acceptance playtest; Milestone 4 has not started.**
+
+## Play
+
+1. Open the public URL on two keyboard-equipped devices. Enter your display name and choose **Create Room** on the first.
+2. Share the six-character room code using **Copy code**, or use **Copy join link**. On the second device enter a name and the code, then choose **Join Room**. Everyone uses the same public URL; the optional link only pre-fills the code.
+3. Each player selects **Ready**. The host selects **Start session** after at least two connected players are ready. All players must be ready. Up to eight players can join the lobby.
+4. Play the existing placeholder physics arena. WASD or Arrow Keys move/aim; Space is the action button. Tap/release grounded for a normal jump; hold past 0.14 seconds to charge and release to launch. Airborne, press/hold to shoot and maintain a pulling tongue, release to detach with momentum.
+
+No Outbreak rules, scoring, rounds or final presentation are included. Mobile touch controls are not implemented yet; joining the lobby works in a mobile browser, but gameplay currently requires a keyboard.
+
+## Connection behavior
+
+- New players may join only while the room is in its lobby. Start freezes the roster and locks admission. Refreshing during gameplay restores the same player/frog if the reservation is still valid; it is not a late join.
+- Accidental gameplay disconnects reserve the slot for **30 seconds after server detection**. Inputs and the outgoing tongue clear immediately on detection; stale inputs also clear after 350 ms without updates. The body stays in the authoritative world. Incoming tongues and collisions can still affect it.
+- The client retries automatically and retains its reconnect token in **sessionStorage for that tab**. A page refresh retains it. Closing a tab and opening an entirely new tab does not reliably retain identity. Do not share tokens.
+- Expiry interrupts the placeholder session and returns connected players to the lobby with an explanation. Disconnected entries are removed and all readiness resets. Lobby disconnects remove the player immediately; host responsibility transfers to another connected player.
+- Explicit **Leave room** during gameplay interrupts immediately rather than waiting 30 seconds. This is deliberate; use refresh or a temporary network disconnect to test the reconnection reservation.
+- Room state is in memory. Server restart/redeploy loses rooms. Free Render may sleep after inactivity and take about a minute to wake; reload if the first connection fails. No paid resources were introduced.
 
 ## Run locally
 
-Node.js 22 or newer is required. Extract the ZIP and open the folder containing package.json in a terminal.
+From this `frog-network-spike` directory with Node.js 22+:
 
 ```sh
 npm ci
@@ -14,96 +32,34 @@ npm run build
 npm start
 ```
 
-Open http://127.0.0.1:2567/. The first client automatically takes one frog. Copy the “Copy this link for player 2” link and open it in another browser window/profile. The link pins the same internal room. There is no lobby screen or room-code UX. Two clients fill the room; additional clients using that exact link are rejected.
+Open http://127.0.0.1:2567/ on two independent browser tabs or profiles and follow the same Create/Join/Ready/Start flow. For development run `npm run dev:server` and `npm run dev` in separate terminals; open http://127.0.0.1:5173/. `npm run preview` does not run multiplayer.
 
-Both clients use WASD or Arrow keys + Space:
+## Diagnostics
 
-- Grounded tap/release: normal jump.
-- Hold past 0.14 seconds: begin charging; another 0.8 seconds reaches maximum. Release to launch.
-- Airborne press/hold: fire tongue, attach, actively pull and take up slack. Release: detach with momentum preserved.
-- A short near-landing tap is buffered; holding through landing begins charging.
-- Eight-direction aiming and facing fallback are unchanged.
+Gameplay's temporary debug panel shows RTT, input acknowledgements, state age, prediction corrections, coupling and server tick statistics. **Export diagnostics** downloads a JSON file without reconnect tokens. Export from both clients after an issue; report browser/device/network, room code, approximate time and the exact action sequence. A short screen recording from both sides helps diagnose collision/grapple discrepancies.
 
-The server binds to 0.0.0.0 and uses PORT (default 2567). For a LAN test, use the computer's LAN IP and port from another keyboard-equipped device, with the host firewall allowing it. This is not a public internet deployment. Mobile touch controls are not implemented in this milestone.
+Optional per-client URL parameters: `?lag=50&jitter=10`, `?lag=100&jitter=10`, `?lag=150&jitter=10`. `lag` adds RTT on top of actual network latency; jitter is ±ms per leg, with message order preserved. Add `&prediction=0` only for comparison. Do not use it for acceptance testing. With a copied join link append parameters using `&`.
 
-For development, run npm run dev:server in one terminal and npm run dev in another. Use Vite's localhost URL. npm run preview only serves static files and is not the multiplayer server.
+## Implementation and tests
 
-## Diagnostics and artificial latency
-
-The temporary debug panel shows room/player assignment, connection state, measured ping RTT, injected delay/jitter, pending inputs, acknowledgements, state age, correction distances, large correction count, coupling mode, and server tick statistics. Download diagnostics on BOTH devices after a playtest.
-
-URL query parameters apply to each client independently. Copy the pinned room link, then add these with & if it already has ?room=...:
-
-- lag=50&jitter=10
-- lag=100&jitter=10
-- lag=150&jitter=10
-- prediction=0 disables local prediction for an A/B comparison.
-
-lag is ADDED round-trip delay, split across outgoing inputs/pings and incoming snapshots/pongs. jitter is ± milliseconds per leg. Message delivery order is preserved. Real internet RTT is additional; use measured RTT to interpret a WAN test. Keep both devices at the same profile initially. Do not confuse added delay with total RTT.
-
-After losing the connection, refresh the pinned room link to join again. Identity-preserving reconnection, seat reservations and lobby lifecycle are later-milestone work. Inputs time out after 350 ms without updates; on a detected disconnect, actions clear and the outgoing tongue releases.
-
-## Networking implementation
-
-- Colyseus 0.16 rooms and secure WebSockets in production.
-- One independent Planck world per room, two physical frogs, fixed 60-Hz server stepping.
-- Small explicit authoritative snapshots at 30 Hz; no schema delta system yet.
-- Inputs at 30 Hz plus immediate direction/action changes. Ordered sequence numbers; press/release edges are queued independently of physics frames. No accepted client positions or hits.
-- Remote bodies interpolate 65 ms behind estimated server time. Snapshot history is bounded.
-- Local prediction runs the same unchanged physics core. On a snapshot it restores body/controller/tongue state and replays only unacknowledged local inputs, bounded to 250 ms of catch-up.
-- A two-body prediction world is necessary for physical joints/collisions. Remote inputs use their latest known values. When frogs grapple or approach contact, both displayed bodies use that predicted world so their rope endpoints share a timeline.
-- Small correction offsets decay over 80 ms without modifying physics. Corrections above 2 m snap. Pure server rendering remains available with prediction=0.
-- This is snapshot reconciliation, not deterministic rollback. Solver warm-start impulses are not serialized. New remote actions, collisions and attachment disagreements can require correction.
-
-## Approved baseline
-
-- docs/approved-physics-baseline.json stores all current tuning values, timestep, arena, behavior notes and source hashes.
-- docs/approved-physics-config.ts is a frozen copy of the approved configuration.
-- npm test asserts both config.ts and world.ts remain byte-for-byte unchanged from Milestone 1.
-- Historical tuning details remain in docs/tuning-pass.md.
-
-## Automated verification
+`server/party-room.ts` subclasses the existing authoritative room. Physics remains 60 Hz with 30 Hz snapshots and inputs plus immediate input changes. Existing prediction, reconciliation, interpolation and tuning remain; the adapter supports a roster of 2–8 bodies. The approved `config.ts`, `world.ts`, and original Milestone 1 frozen copies are checked byte-for-byte. See `docs/milestone-3.md` and `docs/results/` for test reports.
 
 ```sh
 npm test
+npm run test:lifecycle
 npm run test:network
+npm run test:browser
 npm run stress
 ```
 
-The network test launches its own local server, connects two Colyseus clients, uses 50/100/150 ms added RTT with ±10 ms jitter per leg, and exercises charged jumps, terrain pulls, mutual frog grapples, collisions and landing inputs. It writes docs/results/latency.json.
+Lifecycle tests use independent local WebSocket clients and a real 30-second reservation, covering admission, names, readiness, roster locking, reconnect identity and timeout recovery. Network tests exercise charge, terrain/frog grapples, collision and landing at 50/100/150 ms added RTT with jitter. Browser tests use isolated local headless Chromium contexts. These are regression checks, not substitutes for personal playtesting. Test-only rooms and repositioning require `ENABLE_TESTS=1`; the isolated stress room requires `ENABLE_STRESS=1`. Neither flag is set in production.
 
-The stress test launches an isolated room with eight real WebSocket clients and eight physical bodies for 60 seconds, writing docs/results/stress.json. The test-only room is registered ONLY when ENABLE_STRESS=1. It does not add an eight-player UI. Test scenario repositioning is registered ONLY when ENABLE_TESTS=1. Neither variable should be enabled in production.
+## Existing Free Render deployment
 
-scripts/browser-check.cjs checks two isolated headless Chromium contexts at each latency profile, including separate ownership and charging/jumping. npm run test:browser requires a Linux environment compatible with the bundled Chromium. Its JSON report is in docs/results/browser.json. Those tests are not a substitute for physical-device or human acceptance.
+Use the existing `frog-out-milestone-2` service, one **Free** Node instance. Do not create a second service, upgrade plans, or add paid resources. Automatic deploys are disabled; release only after tests.
 
-The stress output's payload count is JSON-equivalent encoded state size, not measured WebSocket wire bandwidth. Tick statistics measure input application plus physics stepping, not complete end-to-end rendering latency.
+Repository-root build command: `cd frog-network-spike && npm ci && npm run build`.
 
-## Deploy to Render
+Start command: `cd frog-network-spike && npm start`.
 
-Deploy the repository root as one Node Web Service. Render serves the page and WebSockets through the same public URL.
-
-- Build command: npm ci && npm run build
-- Start command: npm start
-- Health check: /health
-- Node version: 22
-- One instance; choose an always-on plan for reliable playtests.
-- Do not set ENABLE_TESTS or ENABLE_STRESS.
-
-render.yaml provides an always-on Starter-plan blueprint; review its billing in the hosting account before deployment. Dockerfile is also supplied. The server honors Render's PORT automatically. Browser clients select WSS automatically on HTTPS.
-
-Hosting connection and a deployable source repository are still required. Current local results cannot establish host CPU performance, geographic RTT, mobile network behavior, or the public-URL acceptance requirement. Keep the single-process topology; do not add horizontal scaling yet.
-
-## Multiplayer playtest checklist
-
-1. Use two keyboard-equipped physical devices on separate networks. Player 1 opens the deployed URL; player 2 opens the pinned room link. Confirm different YOU labels and the same room identifier.
-2. First test without injected lag. Run, stop, reverse, normal-jump, charge-jump and steer in air. Compare to the approved Milestone 1 baseline.
-3. Tap just before and immediately after landing. Test the charge threshold and full-charge duration. Watch for ignored taps, double jumps or unintended tongues.
-4. Grapple ceilings/platform undersides from rest. Swing and release at several points. Check attachment/release timing and retained momentum.
-5. One frog grapples the other while the target runs, jumps or changes direction. Swap roles. Both frogs grapple each other; steer apart, collide and release one tongue at a time.
-6. Collide head-on at low and high speed and during a grapple. Ask the other player whether the same collision/attachment happened. Look for repeated corrections, false attachments or bodies passing through each other visually.
-7. Repeat at approximately 50/100/150 ms MEASURED RTT, accounting for existing network latency. Use the injected profiles for controlled local comparisons, not blindly on a high-RTT WAN path.
-8. Compare prediction=0 briefly. Return to prediction on for acceptance. Watch state age, correction p95, large snaps, and whether latency affects charge/landing behavior disproportionately.
-9. Change tabs while holding controls, then disconnect a client. Verify controls stop and stale state is clearly shown. Reconnect/identity restoration is not an acceptance feature for this milestone.
-10. Export diagnostics from both devices. Report device/browser, network type, measured RTT, added delay/jitter, action sequence, and whether jitter/snapping was frequent enough to spoil play.
-
-**Milestone 2 acceptance remains pending:** two people on separate physical devices must find grappling, collisions, jumping, swinging and launching responsive without frequent visible desynchronization. No Milestone 3 work is authorized.
+`NODE_VERSION=22`, `NODE_ENV=production`, `NPM_CONFIG_PRODUCTION=false` (build tools are needed). HTTP `/health` returns `{ok:true,milestone:3}`. The same host serves the frontend and secure WebSockets. The checked-in `render.yaml` describes a free service for reference; do not apply it to create another service. No database, disk, worker or account system is needed.
