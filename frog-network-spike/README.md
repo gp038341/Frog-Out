@@ -1,6 +1,6 @@
 # Frog-Out — current game
 
-**[Play online](https://frog-out-milestone-2.onrender.com/)** · 2–8 players · Two selectable arenas · Outbreak.
+**[Play online](https://frog-out-milestone-2.onrender.com/)** · 2–8 players · Two selectable arenas · Poison Tag.
 
 No player account, installation or special player-specific URL. Enter a display name, create/join by six-character code, use Copy Code/Copy Join Link. All connected players ready up; the host starts with at least two players. The match roster then freezes. Controls & Rules appears before play; How to Play stays available. The round continues while Help is open, with held inputs cleared; use fresh inputs after closing.
 
@@ -17,23 +17,23 @@ No player account, installation or special player-specific URL. Enter a display 
 
 Without aim input, the shot follows the frog's facing direction; fired direction stays committed. Terrain and frog grapples actively pull. Both attached frogs remain physical and receive reciprocal forces. Touch uses the same normalized commands/physics as keyboard. Input layouts can switch during play. Fullscreen is optional where available; unsupported/rejected requests preserve ordinary play. Portrait touch gameplay prompts rotation without losing the session.
 
-## Outbreak / scoring
+## Poison Tag / scoring
 
-Everyone in the frozen roster is Patient Zero exactly once in randomized order. Each round has a named reveal, three-second countdown, Outbreak, results and host continuation.
+Everyone in the frozen roster is Poison Dart Frog exactly once in randomized order. Each round has a named reveal, three-second countdown, Poison Tag, results and host continuation.
 
-- Patient Zero starts infectious; others are healthy. **Body contact alone spreads poison. Tongues never directly infect.**
-- Newly infected frogs remain controllable with **one second of grace** before spreading poison; then help hunt.
-- Infection lasts the round. It ends only when everyone is infected. The server count-up timer starts after countdown and stops at final infection; no time limit.
-- Healthy survival earns **1 point/second**, credited in complete tenths of a second, and stops on infection. Patient Zero earns zero.
-- Last healthy frog(s) receive **+2 points**. Same-tick infections share placement; tied final survivors each get the full bonus.
+- Poison Dart Frog starts able to tag; others are safe. **Body contact alone spreads poison. Tongues never directly infect.**
+- Newly poisoned frogs remain controllable with **one second of grace** before spreading poison; then help hunt.
+- Infection lasts the round. It ends only when everyone is poisoned. The server count-up timer starts after countdown and stops at final poison; no time limit.
+- Healthy survival earns **1 point/second**, credited in complete tenths of a second, and stops on poison. Poison Dart Frog earns zero.
+- Last safe frog(s) receive **+2 points**. Same-tick poisons share placement; tied final survivors each get the full bonus.
 - Round Score = Survival + Bonus. Match totals accumulate; equal top totals share victory without a tiebreaker.
 - Host advances results/final standings. Return to Lobby / Rematch retains the room and resets readiness.
 
-Text/markings/effects supplement infection colors. Non-lethal out-of-bounds recovery does not directly infect or change scoring; the existing emergency fallback resets all frogs and has not been redesigned.
+Text/markings/effects supplement poison colors. Non-lethal out-of-bounds recovery does not directly infect or change scoring; the existing emergency fallback resets all frogs and has not been redesigned.
 
 ## Connection lifecycle
 
-During a match, accidental disconnects reserve the same player/frog for up to **30 seconds after server detection**. Inputs/outgoing tongue clear; the body stays physical and can be infected. Automatic reconnect or refresh of the **same tab** restores current state within the reservation. A new tab does not reliably retain identity. Expiry interrupts the match, returns connected players to the lobby and resets readiness.
+During a match, accidental disconnects reserve the same player/frog for up to **30 seconds after server detection**. Inputs/outgoing tongue clear; the body stays physical and can be poisoned. Automatic reconnect or refresh of the **same tab** restores current state within the reservation. A new tab does not reliably retain identity. Expiry interrupts the match, returns connected players to the lobby and resets readiness.
 
 Lobby disconnects remove entries; host responsibility transfers if needed. Explicit Leave during a match ends it for everyone immediately and now asks for confirmation, for both host and non-host. Lobby Leave does not end the room for others. Rooms are in memory: restart/redeploy loses them.
 
@@ -51,7 +51,7 @@ Open http://127.0.0.1:2567/ in independent tabs/profiles. For frontend developme
 
 ## Architecture / deployment
 
-TypeScript, Phaser 3 presentation, shared Planck 1.4.2 physics. One Node/Express + Colyseus server owns membership, input acceptance, **60 Hz physics**, infection/scoring and **30 Hz snapshots**. Clients send normalized direction/action at 30 Hz plus immediate changes, with the approved prediction/reconciliation and interpolation. HTTP and secure WebSockets share the same public host.
+TypeScript, Phaser 3 presentation, shared Planck 1.4.2 physics. One Node/Express + Colyseus server owns membership, input acceptance, **60 Hz physics**, poison/scoring and **30 Hz snapshots**. Clients send normalized direction/action at 30 Hz plus immediate changes, with the approved prediction/reconciliation and interpolation. HTTP and secure WebSockets share the same public host.
 
 Existing Render `frog-out-milestone-2`: one **Free** instance, auto-deploy off; no paid resource, migration or plan change. Build/start from repository root:
 
@@ -107,3 +107,7 @@ Simultaneous iPhone multitouch is physically validated at `eb7bfd5a58b134af42879
 ## Accepted release and static-camera decision
 
 The user physically accepted iPhone multitouch and Safari screen fit at `cc0c09b8fa0e021f2195ec6b12848081f6d1cefa`, preserved as `checkpoint/approved-release-pre-m10`; this supersedes earlier pending compatibility notes. The M10 dynamic-camera experiment was rejected after user playtesting. Production restores the exact accepted static-camera source with no experimental framing or A/B controls. No HUD, arena, physics, rules, input or viewport changes are retained from M10. See [static-camera decision](docs/post-m10-static-camera.md). Future arena-space work requires separate approval.
+
+## Milestone 11 — Poison Dart Frog identity
+
+Poison Tag keeps the approved body-contact rules, one-second transformation, starting tagger rotation and survival + placement-bonus scoring. Safe frogs become spotted Poison Frogs; the starting Poison Dart Frog wears its crown/badge. Sounds, static camera, arenas and physically accepted iPhone input/viewport systems are unchanged. See [M11 scope and playtest](docs/milestone-11.md).

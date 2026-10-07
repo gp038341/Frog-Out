@@ -5,6 +5,7 @@ import {arena,WIDTH,HEIGHT,defaults} from '../simulation/config';
 import type {FrogState} from '../simulation/state';
 import type {OutbreakView,OutbreakPlayer} from '../game/outbreak';
 import {FROG_COLORS} from './identity';
+import {POISON_ACCENTS,poisonRole} from './poison-identity';
 import {GameAudio} from './audio';
 const S=30,INK=0x142f35;
 type Point={x:number;y:number};
@@ -70,15 +71,15 @@ export class Courtyard {
     if(before.grounded&&!f.grounded&&f.vy< -5){const charged=before.charging;this.pop(p.x,p.y+.3,charged?0xffe79b:color,charged?'charge':'jump');if(i===local)this.audio.play(charged?'charge':'jump');}
     if(f.tongue?.phase==='flying'&&!before.tongue&&i===local)this.audio.play('fire');
     if(f.tongue?.phase==='attached'&&before.tongue!=='attached'){this.pop(f.tongue.tip.x,f.tongue.tip.y,0xffbbc9,'attach');if(i===local)this.audio.play('attach');}
-    if(state==='transforming'&&before.state==='healthy'){this.pop(p.x,p.y,0xe9baff,'infect');this.reactions[i]=180;}
+    if(state==='transforming'&&before.state==='healthy'){this.pop(p.x,p.y,POISON_ACCENTS[i],'infect');this.reactions[i]=180;}
     // React only to velocity changes in a physical body-contact neighborhood, not ordinary control acceleration.
     const bump=states.some((other,j)=>i!==j&&Math.hypot(other.x-f.x,other.y-f.y)<defaults.frogRadius*2+.15);
     if(bump&&Math.hypot(f.vx-before.vx,f.vy-before.vy)>3.5&&this.reactions[i]<=0){this.reactions[i]=130;this.pop(p.x,p.y,color,'bump');}
    }
    this.reactions[i]=Math.max(0,this.reactions[i]-delta);this.frog(g,p.x*S,p.y*S,f,i,infection,connected[i]!==false,i===local,time);
-   const status=connected[i]===false?'OFFLINE':infection?.state==='transforming'?'GRACE · 1s':infection?.state==='infectious'?(infection.patientZero?'☠ ZERO':'☠ POISON'):view?.phase==='playing'&&view.players.filter(v=>v.state==='healthy').length===1?'LAST HEALTHY':'HEALTHY';
+   const status=connected[i]===false?'OFFLINE':infection?.state==='transforming'?'CHANGING · 1s':infection?.state==='infectious'?(infection.patientZero?'◆ DART FROG':'◆ POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.state==='healthy').length===1?'LAST SAFE':'SAFE';
    const label=this.labels[i];
-   label.setVisible(true).setText(`${i===local?'▾ ':''}${names[i]}\n${status}`).setPosition(p.x*S,Math.max(42,(p.y-defaults.frogRadius-.3)*S)).setColor(connected[i]===false?'#b2c7c2':state==='transforming'?'#ffe5a3':state==='infectious'?'#eccbff':'#fff8d9');
+   label.setVisible(true).setText(`${i===local?'▾ ':''}${names[i]}\n${status}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-defaults.frogRadius-.3)*S)).setColor(connected[i]===false?'#b2c7c2':state==='transforming'?'#ffe5a3':state==='infectious'?`#${POISON_ACCENTS[i].toString(16).padStart(6,'0')}`:'#fff8d9');
    this.previous[i]={vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state,x:f.x,y:f.y};
   });
   this.labels.forEach((l,i)=>{if(i>=states.length)l.setVisible(false);});
@@ -86,20 +87,23 @@ export class Courtyard {
   this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;e.lineStyle(2,p.color,1-q);const radius=(p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});
  }
  frog(g:Phaser.GameObjects.Graphics,x:number,y:number,f:FrogState,slot:number,infection:OutbreakPlayer|undefined,online:boolean,local:boolean,time:number){
-  const charging=f.charging,q=Math.min(1,f.charge/defaults.chargeSeconds),poison=infection?.state==='infectious',grace=infection?.state==='transforming';
+  const charging=f.charging,q=Math.min(1,f.charge/defaults.chargeSeconds),role=poisonRole(infection?.state),poison=role.tagging,grace=role.transforming,accent=POISON_ACCENTS[slot%8];
   const squish=charging ? .8-.12*q : this.reactions[slot]>0 ? .84 : 1;
   const sy=f.grounded?squish:Math.min(1.14,1+Math.abs(f.vy)*.006),sx=f.grounded?1+(1-sy)*.6:1/Math.sqrt(sy);
   const bob=f.grounded&&!charging?Math.sin(time*15)*Math.min(1.2,Math.abs(f.vx)*.18):0;const r=defaults.frogRadius*S,bodyColor=FROG_COLORS[slot];y+=bob;
   g.fillStyle(INK,.35);g.fillEllipse(x,y+r*.95,r*2.7,6);
   if(local){g.lineStyle(2,0xfff4ba,.7);g.strokeEllipse(x,y,r*2.6,r*2.5);}
   if(grace){g.lineStyle(3,0xffe09b);const rr=r+7+Math.sin(time*14)*2;for(let j=0;j<4;j++)g.lineBetween(x+Math.cos(time+j*Math.PI/2)*rr,y+Math.sin(time+j*Math.PI/2)*rr,x+Math.cos(time+j*Math.PI/2)*(rr+5),y+Math.sin(time+j*Math.PI/2)*(rr+5));}
-  // Distinct poisoned outline + X cheeks + bubble spores; slot body color always survives.
-  if(poison){g.lineStyle(3,0xcf9ff5);g.strokeCircle(x,y,r+5);for(let j=0;j<3;j++){const a=time*1.4+j*2.1;g.fillStyle(0xcf9ff5,.7);g.fillCircle(x+Math.cos(a)*(r+8),y+Math.sin(a)*(r+8),2.4);}}
+  // Dart-frog outline and diamond motes; permanent slot color/mark remains visible.
+  if(poison){g.lineStyle(3,accent);g.strokeCircle(x,y,r+5);for(let j=0;j<3;j++){const a=time*1.4+j*2.1,cx=x+Math.cos(a)*(r+8),cy=y+Math.sin(a)*(r+8);g.fillStyle(accent,.7);g.fillTriangle(cx,cy-3,cx-2.5,cy+2,cx+2.5,cy+2);}}
   const feet=charging?0:Math.sin(time*16)*Math.min(3,Math.abs(f.vx)*.6);g.fillStyle(INK);g.fillEllipse(x-r*.78,y+r*.68,r*1.12,10);g.fillEllipse(x+r*.78,y+r*.68,r*1.12,10);g.fillStyle(bodyColor);g.fillEllipse(x-r*.78,y+r*.65+feet,r*.88,6);g.fillEllipse(x+r*.78,y+r*.65-feet,r*.88,6);
   g.fillStyle(INK);g.fillEllipse(x,y,r*2.18*sx,r*2.07*sy);g.fillStyle(online?bodyColor:0x8caaa3);g.fillEllipse(x,y,r*1.93*sx,r*1.81*sy);
   g.fillStyle(0xfff4bc,.48);g.fillEllipse(x,y+r*.34*sy,r*1.13,r*.65*sy);
   for(const side of [-1,1]){const ex=x+side*r*.57*sx,ey=y-r*.67*sy;g.fillStyle(INK);g.fillCircle(ex,ey,r*.47);g.fillStyle(0xfffbea);g.fillCircle(ex,ey,r*.37);g.fillStyle(INK);g.fillCircle(ex+f.facing*2,ey+(charging?1:-1),charging?3:3.4);}
   g.lineStyle(1.8,INK);g.lineBetween(x-r*.34,y+r*.12,x+r*.34,y+r*.12);if(f.tongue){g.fillStyle(INK);g.fillEllipse(x+f.facing*r*.24,y+r*.14,6,5);}
+  // Black dart-frog flank spots with bright rims appear immediately during transformation.
+  // Kept below eyes/forehead so every permanent player mark remains readable.
+  if(role.spotted){for(const side of [-1,1])for(const [px,py,rr]of [[.73,.12,.16],[.56,.58,.19]]){const cx=x+side*r*px*sx,cy=y+r*py*sy;g.fillStyle(INK);g.fillEllipse(cx,cy,r*rr*2,r*rr*2.35);g.lineStyle(1,accent,grace ? .6 : 1);g.strokeEllipse(cx,cy,r*rr*2,r*rr*2.35);}}
   // Eight permanent non-color markings, including small headband/diamond/stripe variants.
   g.lineStyle(2,INK);g.fillStyle(INK);const mark=slot%8;
   if(mark===0)g.fillTriangle(x-3,y-3,x+3,y-3,x,y-8);
@@ -109,7 +113,6 @@ export class Courtyard {
   if(mark===5)g.strokePoints([{x,y:y-7},{x:x+3,y:y-4},{x,y:y-1},{x:x-3,y:y-4}],true);
   if(mark===6)g.lineBetween(x-r*.78,y-3,x+r*.78,y-3);
   if(mark===7){g.lineBetween(x-3,y-5,x+3,y-1);g.lineBetween(x+3,y-5,x-3,y-1);}
-  if(poison){g.lineStyle(2,INK);for(const d of [-1,1]){const cx=x+d*r*.65;g.lineBetween(cx-2,y,cx+2,y+4);g.lineBetween(cx+2,y,cx-2,y+4);}}
   if(infection?.patientZero){g.fillStyle(0xffe487);g.lineStyle(2,INK);const points=[{x:x-7,y:y-r-7},{x:x-7,y:y-r-14},{x:x-3,y:y-r-10},{x,y:y-r-16},{x:x+3,y:y-r-10},{x:x+7,y:y-r-14},{x:x+7,y:y-r-7}];g.fillPoints(points,true);g.strokePoints(points,true);}
   if(charging){g.lineStyle(3,INK);g.strokeCircle(x,y,r+9);g.lineStyle(3,0xffe29c);g.beginPath();g.arc(x,y,r+9,-Math.PI/2,-Math.PI/2+Math.PI*2*Math.max(.03,q));g.strokePath();}
  }

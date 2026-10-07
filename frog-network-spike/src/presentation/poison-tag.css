@@ -1,0 +1,4 @@
+/* Cosmetic only: no viewport, canvas, control or layout sizing overrides. */
+#phase-overlay .reveal-card{border-color:#ffe077;background:#173c42ee}
+#phase-overlay .reveal-card .eyebrow{color:#ffe077}
+#phase-overlay .pond-reveal-caption{color:#9ce9df}

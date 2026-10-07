@@ -12,13 +12,13 @@ export class Moments {
   const healthy=view.players.filter(p=>p.state==='healthy').length;
   if(view.phase!==this.phase){
    if(view.phase==='announcement')events.push({cue:'reveal'});
-   if(view.phase==='playing')events.push({cue:'go',text:'OUTBREAK!'});
+   if(view.phase==='playing')events.push({cue:'go',text:'POISON TAG!'});
    if(view.phase==='round-results')events.push({cue:'round'});
    if(view.phase==='match-results')events.push({cue:'win'});
   }
   if(view.phase==='countdown'){const count=Math.max(1,Math.ceil(view.remainingMs/1000));if(this.phase!=='countdown'||count!==this.count)events.push({cue:'count'});this.count=count;}
   if(view.phase==='playing'){
-   if(healthy===1&&this.healthy!==1)events.push({cue:'last',text:'LAST FROG STANDING!'});
+   if(healthy===1&&this.healthy!==1)events.push({cue:'last',text:'LAST SAFE FROG!'});
    if(view.players.some((p,i)=>!p.patientZero&&this.states[i]==='healthy'&&p.state!=='healthy'))events.push({cue:'infect'});
    if(this.states[local]==='transforming'&&view.players[local]?.state==='infectious')events.push({cue:'transform'});
   }

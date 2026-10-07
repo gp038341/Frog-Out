@@ -1,0 +1,15 @@
+{
+  "baseline": "6cd9ddc668741e0e5c41da5308df16c48f62718a",
+  "productionBuild": "passed",
+  "unitTests": {
+    "passed": 80,
+    "failed": 0
+  },
+  "protectedSystems": "Exact accepted sound/input/mobile CSS/physics/networking/arenas/rules hashes; main/UI edits reverse exactly to accepted static-camera source",
+  "desktopAndMobile": "Chromium desktop, 844x390 phone DPR3, 667x375 Android-sized phone DPR2 and 1024x768 tablet/desktop; actual independent clients, not physical devices",
+  "currentBrowserFlow": "5 grouped checks passed; 4-client full match and updated onboarding/status/results language",
+  "nativeTouch": "19 Chromium compatibility checks passed; 60 seconds, 94 synthetic native two-thumb cycles, trusted single taps, mock toolbar/zoom fixtures, reconnect and two complete matches",
+  "webkit": "Unable to rerun in current environment. Browser downloaded but launch requires unavailable system libraries (including libgstreamer-1.0.so.0); official dependency installation failed under container setgroups/setuid restrictions. Not a pass and not physical-device verification.",
+  "harnessNotes": "Bundled Chromium graphics libraries had to be restored locally after an extraction failure. UI checks now wait for rendered DOM text after authoritative phase changes. Chromium touch stress initially raced post-refresh layout; it now waits for visible touch-game controls and a settled frame before synthetic input. No production input/layout change was made.",
+  "physicalDeviceStatus": "User accepted pre-M11 iPhone multitouch/viewport baseline; M11 keeps those sources frozen. No new physical iPhone/Android test is claimed."
+}

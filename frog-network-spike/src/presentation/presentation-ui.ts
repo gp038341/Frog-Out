@@ -2,6 +2,7 @@ import {GameAudio} from './audio';
 import {Moments} from './moments';
 import type {OutbreakView} from '../game/outbreak';
 import './feel.css';
+import './poison-tag.css';
 /** Decorative children and non-intercepting overlays; existing input, layout and match timing stay untouched. */
 export class PresentationUI {
  private moments=new Moments();private toast:HTMLElement;private until=0;private key='';private count=-1;
@@ -10,7 +11,7 @@ export class PresentationUI {
   try{const stored=localStorage.getItem('frog-out-volume');if(stored!==null&&Number.isFinite(Number(stored)))audio.setVolume(Number(stored));}catch{}
   // Audio settings live in existing collapsible lobby help, never in the gameplay footer.
   const settings=document.createElement('label');settings.className='pond-audio-settings';settings.textContent='Sound volume ';const volume=document.createElement('input');volume.type='range';volume.min='0';volume.max='100';volume.value=String(Math.round(audio.volume*100));volume.setAttribute('aria-label','Sound volume');settings.append(volume);const output=document.createElement('output');output.textContent=volume.value+'%';settings.append(output);volume.oninput=()=>{audio.setVolume(Number(volume.value)/100);output.textContent=volume.value+'%';};document.querySelector('#lobby-rules')?.append(settings);
-  const card=document.createElement('p');card.className='pond-reveal-caption';card.textContent='ONE SMALL FROG. ONE BIG PROBLEM.';document.querySelector('#phase-overlay .reveal-card')?.append(card);
+  const card=document.createElement('p');card.className='pond-reveal-caption';card.textContent='TINY FROG. BIG DART ENERGY.';document.querySelector('#phase-overlay .reveal-card')?.append(card);
   const end=document.createElement('p');end.id='pond-results-caption';end.className='pond-results-caption';document.querySelector('#winner-message')?.after(end);
   document.addEventListener('click',e=>{const b=(e.target as Element)?.closest?.('button');if(b&&!['sound','fullscreen','touch-toggle','touch-action','input-monitor-toggle','mobile-export'].includes(b.id))audio.play('ui');});
   document.addEventListener('visibilitychange',()=>{if(document.hidden){audio.silence();this.toast.hidden=true;}});
