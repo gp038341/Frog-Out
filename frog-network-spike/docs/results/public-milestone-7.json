@@ -1,0 +1,41 @@
+{
+  "milestone": 7,
+  "acceptance": "pending user playtest",
+  "deployedCommit": "e97bbcb418468149e5b936c7ff9e95a0ccbe5b9b",
+  "checkpoint": "checkpoint/milestone-7-acceptance",
+  "url": "https://frog-out-milestone-2.onrender.com/",
+  "service": "frog-out-milestone-2",
+  "renderDeploy": "dep-db2rvku7bikc73apeiig",
+  "status": "live",
+  "finishedAt": "2026-10-07T03:44:07.99204Z",
+  "computePlan": "free",
+  "paidChanges": false,
+  "health": "Render deployment live; default port health, public root and actual two-client WebSocket game verified",
+  "environment": "Public cloud Chrome browser, two independent tabs; not two physical mobile devices",
+  "checks": [
+    "Public home controls/rules and accessible Help",
+    "create/join/ready/host start",
+    "Help during active round and host Leave confirmation cancellation",
+    "Native keyboard input, body contact infection and round scoring",
+    "Round 1 of 2 and Round 2 of 2 context",
+    "Patient Zero rotation, both rounds and final standings",
+    "Peer same-tab refresh restored slot 1 in ongoing Round 2",
+    "Return to original room with both players not ready for rematch",
+    "Diagnostics export: milestone 7, connected, stale false, ack 640 / seq 644, authoritative tick 2272, no token"
+  ],
+  "initialColdStartObservation": "Render Application loading interstitial seen before deployment; later reload loaded Frog-Out; duration not measured",
+  "diagnostics": {
+    "milestone": 7,
+    "slot": 1,
+    "status": "connected",
+    "stale": false,
+    "ack": 640,
+    "sequence": 644,
+    "tick": 2272,
+    "lastReceiveAgeMs": 39
+  },
+  "physicalIOS": "Outstanding pre-release requirement, not verified",
+  "limits": "Current workspace remaining usage and payment/spend settings not exposed by connector",
+  "cleanup": "Both QA clients returned to home after lobby Leave; stale match-complete notice cleared; both QA tabs closed.",
+  "renderErrorLogs": "No errors returned for post-deployment verification window"
+}

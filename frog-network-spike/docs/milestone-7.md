@@ -2,6 +2,10 @@
 
 Starting checkpoint: M6 release candidate `6b85ff332bb12ffd539f7392a742f966ae9542bb`; documentation/history head before work `7885bfee39cbd0c6fb6ed297d403285454e3cdd5`. User accepts this as the current checkpoint; physical iOS compatibility remains outstanding.
 
+## Release checkpoint
+
+Public build: `e97bbcb418468149e5b936c7ff9e95a0ccbe5b9b`, checkpoint `checkpoint/milestone-7-acceptance`. Render service: `frog-out-milestone-2`, https://frog-out-milestone-2.onrender.com/ ; existing Free instance in My Workspace. Deployment verification is recorded in `results/public-milestone-7.json`. Any subsequent evidence-only commit does not change the deployed game. Milestone 7 personal acceptance remains pending.
+
 ## Changes
 
 - Home/lobby controls and concise Outbreak rules, with desktop keycaps or the actual left-pad/right-button touch concepts. Home has a visible Controls & Rules button.
