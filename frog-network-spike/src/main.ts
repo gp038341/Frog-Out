@@ -17,7 +17,7 @@ const audio=new GameAudio();
 const net=new Connection();void net.boot();
 const down=new Set<string>();
 const inputSwitches:{at:number;touch:boolean;phase:string;status:string}[]=[];
-const touch=new TouchControls(sample,switchControls);
+const touch=new TouchControls(sample,switchControls,()=>net.playing&&net.status==='connected'&&!document.querySelector('dialog[open]'));
 function switchControls(){clear();inputSwitches.push({at:Date.now(),touch:touch.enabled,phase:net.outbreak?.phase??'none',status:net.status});if(inputSwitches.length>50)inputSwitches.shift();}
 const keys=new Set(['KeyA','KeyD','KeyW','KeyS','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space']);
 function sample(){if(!net.playing||document.activeElement instanceof HTMLInputElement)return;const x=Number(down.has('KeyD')||down.has('ArrowRight'))-Number(down.has('KeyA')||down.has('ArrowLeft')),y=Number(down.has('KeyS')||down.has('ArrowDown'))-Number(down.has('KeyW')||down.has('ArrowUp'));net.setInput({x:x||touch.input.x,y:y||touch.input.y,held:down.has('Space')||touch.input.held});}
@@ -33,8 +33,10 @@ function interpolate(snapshots:Snapshot[],time:number):FrogState[]{
  return a.state.frogs.map((f,i)=>{const g=b.state.frogs[i];return {...f,x:f.x+(g.x-f.x)*q,y:f.y+(g.y-f.y)*q,tongue:f.tongue?{...f.tongue,tip:{...f.tongue.tip}}:undefined};});
 }
 const recent:{at:number;rtt:number;correction:number;pending:number;input?:unknown;sequence?:number;ack?:number;tick?:number;authoritativeInput?:unknown;touchActive?:boolean}[]=[];
+function viewportDiagnostics(){const v=window.visualViewport;return {layout:{width:innerWidth,height:innerHeight,scrollX,scrollY},visual:v?{width:v.width,height:v.height,offsetLeft:v.offsetLeft,offsetTop:v.offsetTop,pageLeft:v.pageLeft,pageTop:v.pageTop,scale:v.scale}:null,dpr:devicePixelRatio,orientation:screen.orientation?.type??(innerWidth>innerHeight?'landscape':'portrait'),stage:document.getElementById('game-stage')!.getBoundingClientRect().toJSON(),canvas:document.querySelector('canvas')?.getBoundingClientRect().toJSON()};}
+const viewportEvents:{at:number;reason:string;viewport:unknown}[]=[];
 function exportDiagnostics(){
- const data={milestone:8,arena:{id:net.lobby?.arenaId??DEFAULT_ARENA,width:WIDTH,height:HEIGHT,solids:getArena(net.lobby?.arenaId??DEFAULT_ARENA).solids},fullscreen:{supported:fullscreenAvailable,active:!!fullscreenActive(),standard:typeof fsRoot.requestFullscreen==='function',standardEnabled:document.fullscreenEnabled,prefixed:typeof fsRoot.webkitRequestFullscreen==='function',prefixedEnabled:fsDocument.webkitFullscreenEnabled},normalizedInput:net.input,inputSwitches,focus:{element:document.activeElement?.tagName,id:document.activeElement?.id,documentFocused:document.hasFocus()},inputPipeline:{status:net.status,playing:net.playing,stale:net.stale,lastReceiveAgeMs:Date.now()-net.lastReceive,sequence:net.seq,ack:net.snapshots.at(-1)?.ack[net.slot],tick:net.snapshots.at(-1)?.state.tick,authoritativeFrog:net.snapshots.at(-1)?.state.frogs[net.slot]},touch:{lifecycle:touch.diagnostics(),enabled:touch.enabled,input:touch.input,viewport:{width:innerWidth,height:innerHeight},pointer:matchMedia('(pointer:coarse)').matches,touchPoints:navigator.maxTouchPoints},outbreak:net.outbreak,room:net.room?.roomId,slot:net.slot,lag:net.link.rtt,jitter:net.link.jitter,prediction:net.prediction,physics:defaults,network:NETWORK,samples:recent,server:net.snapshots.at(-1)?.tickMs,corrections:net.predictor.corrections};
+ const data={build:'iphone-reliability-diagnostic-v1',browser:{userAgent:navigator.userAgent,platform:navigator.platform,touchEvents:'ontouchstart' in window,pointerEvents:typeof PointerEvent==='function'},viewport:viewportDiagnostics(),viewportEvents,inputTrace:net.inputTrace,milestone:8,arena:{id:net.lobby?.arenaId??DEFAULT_ARENA,width:WIDTH,height:HEIGHT,solids:getArena(net.lobby?.arenaId??DEFAULT_ARENA).solids},fullscreen:{supported:fullscreenAvailable,active:!!fullscreenActive(),standard:typeof fsRoot.requestFullscreen==='function',standardEnabled:document.fullscreenEnabled,prefixed:typeof fsRoot.webkitRequestFullscreen==='function',prefixedEnabled:fsDocument.webkitFullscreenEnabled},normalizedInput:net.input,inputSwitches,focus:{element:document.activeElement?.tagName,id:document.activeElement?.id,documentFocused:document.hasFocus()},inputPipeline:{status:net.status,playing:net.playing,stale:net.stale,lastReceiveAgeMs:Date.now()-net.lastReceive,sequence:net.seq,ack:net.snapshots.at(-1)?.ack[net.slot],tick:net.snapshots.at(-1)?.state.tick,authoritativeFrog:net.snapshots.at(-1)?.state.frogs[net.slot]},touch:{lifecycle:touch.diagnostics(),enabled:touch.enabled,input:touch.input,viewport:{width:innerWidth,height:innerHeight},pointer:matchMedia('(pointer:coarse)').matches,touchPoints:navigator.maxTouchPoints},outbreak:net.outbreak,room:net.room?.roomId,slot:net.slot,lag:net.link.rtt,jitter:net.link.jitter,prediction:net.prediction,physics:defaults,network:NETWORK,samples:recent,server:net.snapshots.at(-1)?.tickMs,corrections:net.predictor.corrections};
  const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='network-playtest-diagnostics.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);
 }
 document.querySelector('#export')!.addEventListener('click',exportDiagnostics);
@@ -80,34 +82,45 @@ class Spike extends Phaser.Scene {
   }
  }
 }
-const game=new Phaser.Game({type:Phaser.AUTO,parent:'game',width:WIDTH*30,height:HEIGHT*30,backgroundColor:'#183f48',fps:{smoothStep:false},scale:{expandParent:false,mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},scene:Spike});
-let lastCanvasBounds='';
-function resizeGame(){requestAnimationFrame(()=>{
- const stage=document.getElementById('game-stage')!,session=document.getElementById('session')!;
- document.body.classList.toggle('game-active',!session.hidden);
- if(!session.hidden){const viewport=window.visualViewport?.height??innerHeight;
-  const footer=document.getElementById('session-footer')!,footerHeight=footer.getBoundingClientRect().height;
-  const top=stage.getBoundingClientRect().top;
-  stage.style.height=`${Math.max(100,viewport-top-footerHeight-16)}px`;
- }
- const bounds=document.getElementById('game')!.getBoundingClientRect();const signature=`${bounds.x},${bounds.y},${bounds.width},${bounds.height}`;
- if(signature!==lastCanvasBounds){lastCanvasBounds=signature;game.scale.getParentBounds();game.scale.refresh();}
+const game=new Phaser.Game({type:Phaser.AUTO,parent:'game',width:WIDTH*30,height:HEIGHT*30,backgroundColor:'#183f48',audio:{noAudio:true},fps:{smoothStep:false},scale:{expandParent:false,mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},scene:Spike});
+let lastCanvasBounds='',viewportFrame=0,lastUsableViewport='';
+function resizeGame(){
+ const stage=document.getElementById('game-stage')!,session=document.getElementById('session')!,main=document.querySelector('main')!;
+ const active=!session.hidden;document.body.classList.toggle('game-active',active);
+ const v=window.visualViewport,width=v?.width??innerWidth,height=v?.height??innerHeight,left=v?.offsetLeft??0,top=v?.offsetTop??0;
+ const usable=[width,height,left,top,v?.scale??1].map(x=>Math.round(x*2)/2).join(',');
+ // Neutralize synchronously, before a subsequent finger can arrive. A queued render must not erase it.
+ if(usable!==lastUsableViewport){const previous=lastUsableViewport;lastUsableViewport=usable;if(active&&previous){clear();window.dispatchEvent(new Event('game-viewport-change'));}}
+ for(const [key,value]of Object.entries({'--usable-width':width,'--usable-height':height,'--usable-left':left,'--usable-top':top}))main.style.setProperty(key,`${value}px`);
+ if(viewportFrame)return;viewportFrame=requestAnimationFrame(()=>{
+  viewportFrame=0;const vv=window.visualViewport,visibleHeight=vv?.height??innerHeight,visibleTop=vv?.offsetTop??0;
+  if(!session.hidden){const footerHeight=document.getElementById('session-footer')!.getBoundingClientRect().height;const stageTop=stage.getBoundingClientRect().top-visibleTop;
+   stage.style.height=`${Math.max(40,visibleHeight-stageTop-footerHeight-12)}px`;
+  }
+  const bounds=document.getElementById('game')!.getBoundingClientRect();const signature=`${bounds.x},${bounds.y},${bounds.width},${bounds.height}`;
+  if(signature!==lastCanvasBounds){lastCanvasBounds=signature;game.scale.getParentBounds();game.scale.refresh();}
  });}
+
+function viewportChanged(reason:string){viewportEvents.push({at:Date.now(),reason,viewport:viewportDiagnostics()});if(viewportEvents.length>120)viewportEvents.shift();resizeGame();}
 new ResizeObserver(resizeGame).observe(document.getElementById('game')!);
-window.visualViewport?.addEventListener('resize',resizeGame);
+window.visualViewport?.addEventListener('resize',()=>viewportChanged('visual-resize'));
+window.visualViewport?.addEventListener('scroll',()=>viewportChanged('visual-scroll'));
+window.addEventListener('orientationchange',()=>{clear();viewportChanged('orientation');});
+// Safari gesture events are cancelled only inside active gameplay; normal page/help accessibility is retained.
+for(const event of ['gesturestart','gesturechange'])document.addEventListener(event,e=>{if(document.body.classList.contains('game-active')&&!document.querySelector('dialog[open]')){e.preventDefault();clear();viewportChanged(event);}},{passive:false});
 for(const event of ['fullscreenchange','webkitfullscreenchange'])document.addEventListener(event,()=>{clear();resizeGame();fullscreenLabel();});
 const fullscreenButton=document.getElementById('fullscreen') as HTMLButtonElement;
 type FullscreenDocument=Document & {webkitFullscreenEnabled?:boolean;webkitFullscreenElement?:Element;webkitExitFullscreen?:()=>void};
 type FullscreenElement=HTMLElement & {webkitRequestFullscreen?:()=>void};
 const fsDocument=document as FullscreenDocument,fsRoot=document.documentElement as FullscreenElement;
-const fullscreenAvailable=!!(typeof fsRoot.requestFullscreen==='function'&&document.fullscreenEnabled!==false||fsRoot.webkitRequestFullscreen&&(fsDocument.webkitFullscreenEnabled===true||fsDocument.webkitFullscreenEnabled!==false&&document.fullscreenEnabled!==false));
+const fullscreenAvailable=!!(typeof fsRoot.requestFullscreen==='function'&&document.fullscreenEnabled===true||typeof fsRoot.webkitRequestFullscreen==='function'&&fsDocument.webkitFullscreenEnabled===true);
 function fullscreenActive(){return document.fullscreenElement||fsDocument.webkitFullscreenElement;}
 function fullscreenLabel(){fullscreenButton.textContent=fullscreenActive()?'Exit Fullscreen':'Enter Fullscreen';}
 fullscreenButton.hidden=!fullscreenAvailable;
-if(!fullscreenAvailable){const hint=document.createElement('small');hint.id='fullscreen-unavailable';hint.textContent='Fullscreen unavailable in this browser. Landscape uses the available screen.';hint.style.maxWidth='220px';document.getElementById('session-footer')!.append(hint);}
+if(!fullscreenAvailable){const hint=document.createElement('small');hint.id='fullscreen-unavailable';hint.textContent='Landscape · browser view';hint.title='Fullscreen is not supported here; normal browser play is supported.';document.getElementById('session-footer')!.append(hint);}
 fullscreenButton.onclick=async()=>{try{if(fullscreenActive()){if(document.fullscreenElement&&document.exitFullscreen)await document.exitFullscreen();else fsDocument.webkitExitFullscreen?.();}else if(typeof fsRoot.requestFullscreen==='function'&&document.fullscreenEnabled!==false)await fsRoot.requestFullscreen();else fsRoot.webkitRequestFullscreen?.();fullscreenLabel();resizeGame();}catch{net.notice='Fullscreen is unavailable here. You can continue playing normally.';}};
 
-window.addEventListener('resize',resizeGame);window.addEventListener('touch-layout',resizeGame);touch.initialize();
+window.addEventListener('resize',()=>viewportChanged('window-resize'));window.addEventListener('touch-layout',resizeGame);touch.initialize();
 // Deliberately exposed only for automated spike diagnostics.
 Object.assign(window,{spikeDebug:net});
 
@@ -124,6 +137,14 @@ async function copy(text:string){try{await navigator.clipboard.writeText(text);n
 el('copy-code').onclick=()=>{if(net.lobby)void copy(net.lobby.code);};el('share-link').onclick=()=>{if(net.lobby){const u=new URL(location.href);u.search='';u.searchParams.set('code',net.lobby.code);void copy(u.href);}};
 el('sound').onclick=()=>{const enabled=audio.toggle();el('sound').textContent=enabled?'Sound: On':'Sound: Off';el('sound').setAttribute('aria-pressed',String(enabled));};
 el('next-round').onclick=()=>{audio.play('ui');net.nextRound();};el('return-lobby').onclick=()=>net.returnLobby();
+const diagnosticButton=document.createElement('button');diagnosticButton.id='input-monitor-toggle';diagnosticButton.textContent='Input monitor';diagnosticButton.setAttribute('aria-pressed','false');el('session-footer').append(diagnosticButton);
+const diagnosticPanel=document.createElement('pre');diagnosticPanel.id='input-monitor';diagnosticPanel.hidden=true;diagnosticPanel.setAttribute('aria-label','Input pipeline diagnostics');document.body.append(diagnosticPanel);
+let monitor=new URLSearchParams(location.search).get('diagnostics')==='1';
+diagnosticButton.onclick=()=>{monitor=!monitor;diagnosticButton.setAttribute('aria-pressed',String(monitor));diagnosticPanel.hidden=!monitor;};
+function updateMonitor(){diagnosticPanel.hidden=!monitor||el('session').hidden;diagnosticButton.hidden=el('session').hidden;if(!monitor)return;const v=window.visualViewport,t=touch.diagnostics(),s=net.snapshots.at(-1),f=s?.state.frogs[net.slot],trace=net.inputTrace,age=(at:number)=>at?`${Date.now()-at}ms`:'never';
+ diagnosticPanel.style.top=`${(v?.offsetTop??0)+4}px`;diagnosticPanel.style.left=`${(v?.offsetLeft??0)+6}px`;diagnosticPanel.style.right='auto';diagnosticPanel.style.maxWidth=`${(v?.width??innerWidth)-12}px`;
+ diagnosticPanel.textContent=`INPUT MONITOR · ${net.status} · ${net.playing?'PLAY':'PAUSED'}${net.stale?' · STALE':''}\nlayout ${innerWidth}×${innerHeight} visual ${v?.width.toFixed(0)}×${v?.height.toFixed(0)} offset ${v?.offsetLeft.toFixed(0)},${v?.offsetTop.toFixed(0)} zoom ${v?.scale.toFixed(2)}\nfingers ${t.nativeIds.join(',')||'none'} owners ${t.directionId??'-'}/${t.actionId??'-'} active ${touch.active}\nlocal ${net.input.x},${net.input.y},${+net.input.held} sent #${trace.sentSeq} ${age(trace.sentAt)} open ${trace.transportOpen}\nack #${trace.ack} ${age(trace.ackAt)} snapshot ${age(trace.snapshotAt)} tick ${s?.state.tick} ${age(trace.tickAt)}\nserver ${f?.input.x},${f?.input.y},${+!!f?.input.held} xy ${f?.x.toFixed(2)},${f?.y.toFixed(2)} vel ${f?.vx.toFixed(2)},${f?.vy.toFixed(2)}\n${trace.skip||'sending'} · ${t.events.at(-1)?.event??''}`;
+}
 let uiSignature='';let previousPhase='';let previousGamePhase='';
 
 setInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase!==previousPhase){if(phase==='game'&&document.activeElement instanceof HTMLInputElement)document.activeElement.blur();clear();previousPhase=phase;if(phase==='game')requestAnimationFrame(()=>{game.scale.getParentBounds();game.scale.refresh();});}if(net.status!=='connected')clear();if(phase==='home'&&previousPhase==='home'&&!lobby&&net.status.startsWith('You left'))net.notice='';guide.update(phase,net.playing);el('home').hidden=!!lobby;el('lobby').hidden=phase!=='lobby';el('session').hidden=phase!=='game'||net.outbreak?.phase==='round-results'||net.outbreak?.phase==='match-results';el('leave').hidden=!lobby;el('connection').textContent=net.status;el('notice').textContent=net.notice;
@@ -131,7 +152,7 @@ setInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase
  const signature=JSON.stringify([lobby,net.playerId]);if(signature!==uiSignature){uiSignature=signature;el('players').replaceChildren();if(lobby){el('code').textContent=lobby.code;el('session-code').textContent=`Room ${lobby.code}`;for(const p of lobby.players){const li=document.createElement('li');li.style.setProperty('--frog-color',cssColor(p.slot>=0?p.slot:lobby.players.indexOf(p)));li.className=p.ready?'player-card ready':'player-card';li.textContent=`${p.name}${p.id===lobby.hostId?' · Host':''}${p.id===net.playerId?' · You':''} — ${p.connected?(p.ready?'Ready':'Not ready'):'Disconnected (slot reserved)'}`;el('players').append(li);}const me=lobby.players.find(p=>p.id===net.playerId);el('ready').textContent=me?.ready?'Not Ready':'Ready';el('ready').setAttribute('aria-pressed',String(!!me?.ready));el('start').hidden=net.playerId!==lobby.hostId;}}
  if(lobby){const selected=getArena(lobby.arenaId);el('lobby-arena-name').textContent=selected.name.toUpperCase();arenaSelect.value=selected.id;for(const card of arenaCards){const chosen=card.dataset.arena===selected.id;card.setAttribute('aria-pressed',String(chosen));card.disabled=phase!=='lobby'||net.playerId!==lobby.hostId||net.status!=='connected';}arenaSelect.disabled=phase!=='lobby'||net.playerId!==lobby.hostId||net.status!=='connected';el('arena-description').textContent=selected.description;el('arena-choice-note').textContent=net.playerId===lobby.hostId?'Changing arenas clears Ready for everyone.':'The host chooses. Arena changes clear everyone’s Ready.';el('session-code').textContent=`Room ${lobby.code} · ${selected.name}`;}
  el('mobile-export').hidden=phase!=='game';
- renderOutbreak();
+ renderOutbreak();updateMonitor();
  const f=net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.frogs[net.slot]:net.snapshots.at(-1)?.state.frogs[net.slot];
  resizeGame();
  touch.update(net.playing&&net.status==='connected'&&!guide.blocking,phase==='game'&&!!net.outbreak&&['announcement','countdown','playing'].includes(net.outbreak.phase),f?.grounded??false,f?.charging??false,f?.tongue?.phase==='attached');

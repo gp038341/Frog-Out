@@ -13,7 +13,7 @@ test('M6 preserves approved M5 controllers, tuning, network, normalized input, l
  const b=JSON.parse(readFileSync(new URL('../docs/approved-milestone-5.json',import.meta.url),'utf8'));
  for(const path of ['src/simulation/world.ts','src/simulation/state.ts','src/network/protocol.ts','src/network/predictor.ts','src/network/client.ts','server/room.ts','server/party-room.ts','server/outbreak-room.ts','src/game/outbreak.ts'])assert.equal(hash(preservedSource(path)),b.sha256[path],path);
  // Touch/fullscreen are the only approved M5 guard exceptions for this correction.
- const main=readFileSync(new URL('../src/main.ts',import.meta.url),'utf8');for(const [name,block] of Object.entries(b.mainProtectedBlocks) as [string,{start:string;end:string;sha256:string}][])if(name!=='responsiveFullscreen')assert.equal(hash(main.slice(main.indexOf(block.start),main.indexOf(block.end))),block.sha256,name);
+ const main=preservedSource('src/main.ts');for(const [name,block] of Object.entries(b.mainProtectedBlocks) as [string,{start:string;end:string;sha256:string}][])if(name!=='responsiveFullscreen')assert.equal(hash(main.slice(main.indexOf(block.start),main.indexOf(block.end))),block.sha256,name);
  const config=readFileSync(new URL('../src/simulation/config.ts',import.meta.url),'utf8');assert.equal(hash(config.split('// Milestone 6')[0]),b.tuningPrefixSha256);
 });
 test('courtyard adds 56% area, preserves single-screen ratio and clear ground corridor',()=>{
@@ -32,4 +32,4 @@ for(const count of [2,3,4,8])test(`${count}-frog courtyard spawn, stress and rec
  assert.equal(resets,0);sim.clearInputs();sim.frogs[0].body.setTransform(Vec2(WIDTH+6,HEIGHT),0);sim.step();assert.equal(resets,1);assert.ok(sim.frogs.every(f=>f.body.getPosition().y===FLOOR_TOP-1));
 });
 
-test('mobile reliability correction preserves M6 geometry, tuning and all presentation assets',()=>{const b=JSON.parse(readFileSync(new URL('../docs/mobile-correction-preservation.json',import.meta.url),'utf8'));for(const [path,expected] of Object.entries(b.sha256))assert.equal(hash(preservedSource(path)),expected,path);const main=readFileSync(new URL('../src/main.ts',import.meta.url),'utf8');assert.equal(hash(main.slice(main.indexOf('let lastCanvasBounds='),main.indexOf("for(const event of ['fullscreenchange'"))),b.responsiveLayoutSha256);});
+test('mobile reliability correction preserves M6 geometry, tuning and all presentation assets',()=>{const b=JSON.parse(readFileSync(new URL('../docs/mobile-correction-preservation.json',import.meta.url),'utf8'));for(const [path,expected] of Object.entries(b.sha256))assert.equal(hash(preservedSource(path)),expected,path);const main=preservedSource('src/main.ts');assert.equal(hash(main.slice(main.indexOf('let lastCanvasBounds='),main.indexOf("for(const event of ['fullscreenchange'"))),b.responsiveLayoutSha256);});

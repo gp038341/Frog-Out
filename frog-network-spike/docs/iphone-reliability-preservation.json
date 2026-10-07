@@ -1,0 +1,163 @@
+{
+  "baseline": "857a03bdf3d62f174ca87fcf9fc2821553ebb81b",
+  "reason": "P0 physical-iPhone diagnosis: viewport/input lifecycle and observation-only client trace exceptions; maps, graphics, physics, authority, rules unchanged.",
+  "files": {
+    "src/input/touch.ts": {
+      "sha256": "05875fe82bc00335a3278aa4728ba4a7505afb071cbac7a5bb24d57e3e7c3fc0",
+      "changes": [
+        {
+          "from": " private lastNativeAt=0;private lastPointerAt=0;private lastPoint:{x:number;y:number;at:number}|null=null;private nativeTouch='ontouchstart' in window;private directionSource:'touch'|'pointer'='pointer';private actionSource:'touch'|'pointer'='pointer';private nativeIds:number[]=[];\n",
+          "to": ""
+        },
+        {
+          "from": " diagnostics(){return {lastNativeAt:this.lastNativeAt,lastPointerAt:this.lastPointerAt,lastPoint:this.lastPoint,nativeTouch:this.nativeTouch,nativeIds:this.nativeIds.slice(),directionSource:this.directionSource,actionSource:this.actionSource,active:this.active,directionId:this.directionId,actionId:this.actionId,input:{...this.input},events:this.events.slice()};}\n private record(event:string,id:number|null=null,detail?:string){if(event.startsWith('native-'))this.lastNativeAt=Date.now();else if(event.includes('down')||event.startsWith('pointer'))this.lastPointerAt=Date.now();this.events.push({time:Date.now(),event,id,detail});if(this.events.length>200)this.events.shift();}\n",
+          "to": " diagnostics(){return {active:this.active,directionId:this.directionId,actionId:this.actionId,input:{...this.input},events:this.events.slice()};}\n private record(event:string,id:number|null=null,detail?:string){this.events.push({time:Date.now(),event,id,detail});if(this.events.length>200)this.events.shift();}\n"
+        },
+        {
+          "from": " constructor(private changed:()=>void,private switched:()=>void,private canPlay?:()=>boolean){\n",
+          "to": " constructor(private changed:()=>void,private switched:()=>void){\n"
+        },
+        {
+          "from": "  this.pad.addEventListener('pointerdown',e=>{if(this.nativeTouch&&e.pointerType==='touch')return;this.directionSource='pointer';this.record('direction-down',e.pointerId);if(!this.acceptFreshTouch())return;e.preventDefault();this.releaseDirection(false);this.directionId=e.pointerId;this.capture(this.pad,e.pointerId);this.move(e);});\n  this.action.addEventListener('pointerdown',e=>{if(this.nativeTouch&&e.pointerType==='touch')return;this.actionSource='pointer';this.record('action-down',e.pointerId);if(!this.acceptFreshTouch())return;e.preventDefault();this.releaseAction(false);this.actionId=e.pointerId;this.capture(this.action,e.pointerId);this.input.held=true;this.action.classList.add('pressed');this.changed();});\n",
+          "to": "  this.pad.addEventListener('pointerdown',e=>{this.record('direction-down',e.pointerId);if(!this.active)return;e.preventDefault();this.releaseDirection(false);this.directionId=e.pointerId;this.capture(this.pad,e.pointerId);this.move(e);});\n  this.action.addEventListener('pointerdown',e=>{this.record('action-down',e.pointerId);if(!this.active)return;e.preventDefault();this.releaseAction(false);this.actionId=e.pointerId;this.capture(this.action,e.pointerId);this.input.held=true;this.action.classList.add('pressed');this.changed();});\n"
+        },
+        {
+          "from": "  document.addEventListener('pointermove',e=>{if(this.directionSource==='pointer'&&e.pointerId===this.directionId){e.preventDefault();this.move(e);}}, {capture:true,passive:false});\n",
+          "to": "  document.addEventListener('pointermove',e=>{if(e.pointerId===this.directionId){e.preventDefault();this.move(e);}}, {capture:true,passive:false});\n"
+        },
+        {
+          "from": "   if(this.directionSource==='pointer'&&id===this.directionId){if(type==='lostpointercapture'&&this.pad.hasPointerCapture(id))return;this.record(type,id,'direction');this.releaseDirection();}\n   if(this.actionSource==='pointer'&&id===this.actionId){if(type==='lostpointercapture'&&this.action.hasPointerCapture(id))return;this.record(type,id,'action');this.releaseAction();}\n",
+          "to": "   if(id===this.directionId){this.record(type,id,'direction');this.releaseDirection();}\n   if(id===this.actionId){this.record(type,id,'action');this.releaseAction();}\n"
+        },
+        {
+          "from": "  // One input stream owns fingers. Native Touch identifiers are stable across capture/gesture interruptions.\n  // Pointer events remain the mouse/pen fallback; never double-publish a native finger.\n  document.addEventListener('touchstart',e=>{\n   this.nativeIds=Array.from(e.touches,t=>t.identifier);this.record('native-start',null,this.nativeIds.join(','));\n   if(!this.nativeTouch||!this.acceptFreshTouch())return;\n   if(this.directionSource==='touch'&&this.directionId!==null&&!this.nativeIds.includes(this.directionId))this.releaseDirection();\n   if(this.actionSource==='touch'&&this.actionId!==null&&!this.nativeIds.includes(this.actionId))this.releaseAction();\n   for(const t of Array.from(e.changedTouches)){const target=t.target as Node;\n    if(this.pad.contains(target)){e.preventDefault();this.releaseDirection(false);this.directionSource='touch';this.directionId=t.identifier;this.move(t);}\n    else if(this.action.contains(target)){e.preventDefault();this.releaseAction(false);this.actionSource='touch';this.actionId=t.identifier;this.input.held=true;this.action.classList.add('pressed');this.changed();}\n   }\n  },{capture:true,passive:false});\n  document.addEventListener('touchmove',e=>{\n   this.lastNativeAt=Date.now();this.nativeIds=Array.from(e.touches,t=>t.identifier);if(!this.nativeTouch)return;\n   for(const t of Array.from(e.changedTouches)){if(this.directionSource==='touch'&&t.identifier===this.directionId){e.preventDefault();this.move(t);}if(this.actionSource==='touch'&&t.identifier===this.actionId)e.preventDefault();}\n  },{capture:true,passive:false});\n  document.addEventListener('touchend',e=>{\n   this.nativeIds=Array.from(e.touches,t=>t.identifier);this.record('native-end',null,this.nativeIds.join(','));if(!this.nativeTouch)return;\n   if(this.directionSource==='touch'&&this.directionId!==null&&!this.nativeIds.includes(this.directionId))this.releaseDirection();\n   if(this.actionSource==='touch'&&this.actionId!==null&&!this.nativeIds.includes(this.actionId))this.releaseAction();\n  },true);\n  document.addEventListener('touchcancel',()=>{this.nativeIds=[];this.reset(true,'native-cancel');},true);\n  window.addEventListener('game-viewport-change',()=>this.reset(true,'viewport-layout-change'));\n",
+          "to": ""
+        },
+        {
+          "from": "  window.addEventListener('resize',()=>{if(innerHeight>innerWidth)this.reset(true,'portrait-resize');this.update(...this.lastUpdate);this.layout();});\n",
+          "to": "  window.addEventListener('resize',()=>{if(innerHeight>innerWidth)this.reset(true,'portrait-resize');this.layout();});\n"
+        },
+        {
+          "from": " private acceptFreshTouch(){const active=(this.canPlay?.()??this.lastUpdate[0])&&this.enabled&&innerWidth>=innerHeight;this.active=active;this.action.disabled=!active;this.pad.setAttribute('aria-disabled',String(!active));return active;}\n private move(e:{clientX:number;clientY:number;pointerId?:number;identifier?:number}){this.lastPoint={x:e.clientX,y:e.clientY,at:Date.now()};const r=this.pad.getBoundingClientRect(),radius=r.width/2,dx=e.clientX-r.left-radius,dy=e.clientY-r.top-r.height/2;\n",
+          "to": " private move(e:PointerEvent){const r=this.pad.getBoundingClientRect(),radius=r.width/2,dx=e.clientX-r.left-radius,dy=e.clientY-r.top-r.height/2;\n"
+        },
+        {
+          "from": "  const next=direction(dx,dy,radius);if(next.x!==this.input.x||next.y!==this.input.y)this.record('direction-change',e.pointerId??e.identifier??null,`${next.x},${next.y}`);Object.assign(this.input,next);this.changed();\n",
+          "to": "  const next=direction(dx,dy,radius);if(next.x!==this.input.x||next.y!==this.input.y)this.record('direction-change',e.pointerId,`${next.x},${next.y}`);Object.assign(this.input,next);this.changed();\n"
+        },
+        {
+          "from": " private releaseDirection(notify=true){const id=this.directionId;this.directionId=null;this.input.x=0;this.input.y=0;this.knob.style.transform='';if(this.directionSource==='pointer')this.uncapture(this.pad,id);if(notify)this.changed();}\n private releaseAction(notify=true){const id=this.actionId;this.actionId=null;this.input.held=false;this.action.classList.remove('pressed');if(this.actionSource==='pointer')this.uncapture(this.action,id);if(notify)this.changed();}\n",
+          "to": " private releaseDirection(notify=true){const id=this.directionId;this.directionId=null;this.input.x=0;this.input.y=0;this.knob.style.transform='';this.uncapture(this.pad,id);if(notify)this.changed();}\n private releaseAction(notify=true){const id=this.actionId;this.actionId=null;this.input.held=false;this.action.classList.remove('pressed');this.uncapture(this.action,id);if(notify)this.changed();}\n"
+        }
+      ]
+    },
+    "src/main.ts": {
+      "sha256": "dfb7ac472e59dd7fb8207b1b9b7c29ad1838a9ab249887bd4390f9d63c6a2768",
+      "changes": [
+        {
+          "from": "const touch=new TouchControls(sample,switchControls,()=>net.playing&&net.status==='connected'&&!document.querySelector('dialog[open]'));\n",
+          "to": "const touch=new TouchControls(sample,switchControls);\n"
+        },
+        {
+          "from": "function viewportDiagnostics(){const v=window.visualViewport;return {layout:{width:innerWidth,height:innerHeight,scrollX,scrollY},visual:v?{width:v.width,height:v.height,offsetLeft:v.offsetLeft,offsetTop:v.offsetTop,pageLeft:v.pageLeft,pageTop:v.pageTop,scale:v.scale}:null,dpr:devicePixelRatio,orientation:screen.orientation?.type??(innerWidth>innerHeight?'landscape':'portrait'),stage:document.getElementById('game-stage')!.getBoundingClientRect().toJSON(),canvas:document.querySelector('canvas')?.getBoundingClientRect().toJSON()};}\nconst viewportEvents:{at:number;reason:string;viewport:unknown}[]=[];\n",
+          "to": ""
+        },
+        {
+          "from": " const data={build:'iphone-reliability-diagnostic-v1',browser:{userAgent:navigator.userAgent,platform:navigator.platform,touchEvents:'ontouchstart' in window,pointerEvents:typeof PointerEvent==='function'},viewport:viewportDiagnostics(),viewportEvents,inputTrace:net.inputTrace,milestone:8,arena:{id:net.lobby?.arenaId??DEFAULT_ARENA,width:WIDTH,height:HEIGHT,solids:getArena(net.lobby?.arenaId??DEFAULT_ARENA).solids},fullscreen:{supported:fullscreenAvailable,active:!!fullscreenActive(),standard:typeof fsRoot.requestFullscreen==='function',standardEnabled:document.fullscreenEnabled,prefixed:typeof fsRoot.webkitRequestFullscreen==='function',prefixedEnabled:fsDocument.webkitFullscreenEnabled},normalizedInput:net.input,inputSwitches,focus:{element:document.activeElement?.tagName,id:document.activeElement?.id,documentFocused:document.hasFocus()},inputPipeline:{status:net.status,playing:net.playing,stale:net.stale,lastReceiveAgeMs:Date.now()-net.lastReceive,sequence:net.seq,ack:net.snapshots.at(-1)?.ack[net.slot],tick:net.snapshots.at(-1)?.state.tick,authoritativeFrog:net.snapshots.at(-1)?.state.frogs[net.slot]},touch:{lifecycle:touch.diagnostics(),enabled:touch.enabled,input:touch.input,viewport:{width:innerWidth,height:innerHeight},pointer:matchMedia('(pointer:coarse)').matches,touchPoints:navigator.maxTouchPoints},outbreak:net.outbreak,room:net.room?.roomId,slot:net.slot,lag:net.link.rtt,jitter:net.link.jitter,prediction:net.prediction,physics:defaults,network:NETWORK,samples:recent,server:net.snapshots.at(-1)?.tickMs,corrections:net.predictor.corrections};\n",
+          "to": " const data={milestone:8,arena:{id:net.lobby?.arenaId??DEFAULT_ARENA,width:WIDTH,height:HEIGHT,solids:getArena(net.lobby?.arenaId??DEFAULT_ARENA).solids},fullscreen:{supported:fullscreenAvailable,active:!!fullscreenActive(),standard:typeof fsRoot.requestFullscreen==='function',standardEnabled:document.fullscreenEnabled,prefixed:typeof fsRoot.webkitRequestFullscreen==='function',prefixedEnabled:fsDocument.webkitFullscreenEnabled},normalizedInput:net.input,inputSwitches,focus:{element:document.activeElement?.tagName,id:document.activeElement?.id,documentFocused:document.hasFocus()},inputPipeline:{status:net.status,playing:net.playing,stale:net.stale,lastReceiveAgeMs:Date.now()-net.lastReceive,sequence:net.seq,ack:net.snapshots.at(-1)?.ack[net.slot],tick:net.snapshots.at(-1)?.state.tick,authoritativeFrog:net.snapshots.at(-1)?.state.frogs[net.slot]},touch:{lifecycle:touch.diagnostics(),enabled:touch.enabled,input:touch.input,viewport:{width:innerWidth,height:innerHeight},pointer:matchMedia('(pointer:coarse)').matches,touchPoints:navigator.maxTouchPoints},outbreak:net.outbreak,room:net.room?.roomId,slot:net.slot,lag:net.link.rtt,jitter:net.link.jitter,prediction:net.prediction,physics:defaults,network:NETWORK,samples:recent,server:net.snapshots.at(-1)?.tickMs,corrections:net.predictor.corrections};\n"
+        },
+        {
+          "from": "const game=new Phaser.Game({type:Phaser.AUTO,parent:'game',width:WIDTH*30,height:HEIGHT*30,backgroundColor:'#183f48',audio:{noAudio:true},fps:{smoothStep:false},scale:{expandParent:false,mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},scene:Spike});\nlet lastCanvasBounds='',viewportFrame=0,lastUsableViewport='';\nfunction resizeGame(){\n const stage=document.getElementById('game-stage')!,session=document.getElementById('session')!,main=document.querySelector('main')!;\n const active=!session.hidden;document.body.classList.toggle('game-active',active);\n const v=window.visualViewport,width=v?.width??innerWidth,height=v?.height??innerHeight,left=v?.offsetLeft??0,top=v?.offsetTop??0;\n const usable=[width,height,left,top,v?.scale??1].map(x=>Math.round(x*2)/2).join(',');\n // Neutralize synchronously, before a subsequent finger can arrive. A queued render must not erase it.\n if(usable!==lastUsableViewport){const previous=lastUsableViewport;lastUsableViewport=usable;if(active&&previous){clear();window.dispatchEvent(new Event('game-viewport-change'));}}\n for(const [key,value]of Object.entries({'--usable-width':width,'--usable-height':height,'--usable-left':left,'--usable-top':top}))main.style.setProperty(key,`${value}px`);\n if(viewportFrame)return;viewportFrame=requestAnimationFrame(()=>{\n  viewportFrame=0;const vv=window.visualViewport,visibleHeight=vv?.height??innerHeight,visibleTop=vv?.offsetTop??0;\n  if(!session.hidden){const footerHeight=document.getElementById('session-footer')!.getBoundingClientRect().height;const stageTop=stage.getBoundingClientRect().top-visibleTop;\n   stage.style.height=`${Math.max(40,visibleHeight-stageTop-footerHeight-12)}px`;\n  }\n  const bounds=document.getElementById('game')!.getBoundingClientRect();const signature=`${bounds.x},${bounds.y},${bounds.width},${bounds.height}`;\n  if(signature!==lastCanvasBounds){lastCanvasBounds=signature;game.scale.getParentBounds();game.scale.refresh();}\n",
+          "to": "const game=new Phaser.Game({type:Phaser.AUTO,parent:'game',width:WIDTH*30,height:HEIGHT*30,backgroundColor:'#183f48',fps:{smoothStep:false},scale:{expandParent:false,mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},scene:Spike});\nlet lastCanvasBounds='';\nfunction resizeGame(){requestAnimationFrame(()=>{\n const stage=document.getElementById('game-stage')!,session=document.getElementById('session')!;\n document.body.classList.toggle('game-active',!session.hidden);\n if(!session.hidden){const viewport=window.visualViewport?.height??innerHeight;\n  const footer=document.getElementById('session-footer')!,footerHeight=footer.getBoundingClientRect().height;\n  const top=stage.getBoundingClientRect().top;\n  stage.style.height=`${Math.max(100,viewport-top-footerHeight-16)}px`;\n }\n const bounds=document.getElementById('game')!.getBoundingClientRect();const signature=`${bounds.x},${bounds.y},${bounds.width},${bounds.height}`;\n if(signature!==lastCanvasBounds){lastCanvasBounds=signature;game.scale.getParentBounds();game.scale.refresh();}\n"
+        },
+        {
+          "from": "\nfunction viewportChanged(reason:string){viewportEvents.push({at:Date.now(),reason,viewport:viewportDiagnostics()});if(viewportEvents.length>120)viewportEvents.shift();resizeGame();}\n",
+          "to": ""
+        },
+        {
+          "from": "window.visualViewport?.addEventListener('resize',()=>viewportChanged('visual-resize'));\nwindow.visualViewport?.addEventListener('scroll',()=>viewportChanged('visual-scroll'));\nwindow.addEventListener('orientationchange',()=>{clear();viewportChanged('orientation');});\n// Safari gesture events are cancelled only inside active gameplay; normal page/help accessibility is retained.\nfor(const event of ['gesturestart','gesturechange'])document.addEventListener(event,e=>{if(document.body.classList.contains('game-active')&&!document.querySelector('dialog[open]')){e.preventDefault();clear();viewportChanged(event);}},{passive:false});\n",
+          "to": "window.visualViewport?.addEventListener('resize',resizeGame);\n"
+        },
+        {
+          "from": "const fullscreenAvailable=!!(typeof fsRoot.requestFullscreen==='function'&&document.fullscreenEnabled===true||typeof fsRoot.webkitRequestFullscreen==='function'&&fsDocument.webkitFullscreenEnabled===true);\n",
+          "to": "const fullscreenAvailable=!!(typeof fsRoot.requestFullscreen==='function'&&document.fullscreenEnabled!==false||fsRoot.webkitRequestFullscreen&&(fsDocument.webkitFullscreenEnabled===true||fsDocument.webkitFullscreenEnabled!==false&&document.fullscreenEnabled!==false));\n"
+        },
+        {
+          "from": "if(!fullscreenAvailable){const hint=document.createElement('small');hint.id='fullscreen-unavailable';hint.textContent='Landscape \u00b7 browser view';hint.title='Fullscreen is not supported here; normal browser play is supported.';document.getElementById('session-footer')!.append(hint);}\n",
+          "to": "if(!fullscreenAvailable){const hint=document.createElement('small');hint.id='fullscreen-unavailable';hint.textContent='Fullscreen unavailable in this browser. Landscape uses the available screen.';hint.style.maxWidth='220px';document.getElementById('session-footer')!.append(hint);}\n"
+        },
+        {
+          "from": "window.addEventListener('resize',()=>viewportChanged('window-resize'));window.addEventListener('touch-layout',resizeGame);touch.initialize();\n",
+          "to": "window.addEventListener('resize',resizeGame);window.addEventListener('touch-layout',resizeGame);touch.initialize();\n"
+        },
+        {
+          "from": "const diagnosticButton=document.createElement('button');diagnosticButton.id='input-monitor-toggle';diagnosticButton.textContent='Input monitor';diagnosticButton.setAttribute('aria-pressed','false');el('session-footer').append(diagnosticButton);\nconst diagnosticPanel=document.createElement('pre');diagnosticPanel.id='input-monitor';diagnosticPanel.hidden=true;diagnosticPanel.setAttribute('aria-label','Input pipeline diagnostics');document.body.append(diagnosticPanel);\nlet monitor=new URLSearchParams(location.search).get('diagnostics')==='1';\ndiagnosticButton.onclick=()=>{monitor=!monitor;diagnosticButton.setAttribute('aria-pressed',String(monitor));diagnosticPanel.hidden=!monitor;};\nfunction updateMonitor(){diagnosticPanel.hidden=!monitor||el('session').hidden;diagnosticButton.hidden=el('session').hidden;if(!monitor)return;const v=window.visualViewport,t=touch.diagnostics(),s=net.snapshots.at(-1),f=s?.state.frogs[net.slot],trace=net.inputTrace,age=(at:number)=>at?`${Date.now()-at}ms`:'never';\n diagnosticPanel.style.top=`${(v?.offsetTop??0)+4}px`;diagnosticPanel.style.left=`${(v?.offsetLeft??0)+6}px`;diagnosticPanel.style.right='auto';diagnosticPanel.style.maxWidth=`${(v?.width??innerWidth)-12}px`;\n diagnosticPanel.textContent=`INPUT MONITOR \u00b7 ${net.status} \u00b7 ${net.playing?'PLAY':'PAUSED'}${net.stale?' \u00b7 STALE':''}\\nlayout ${innerWidth}\u00d7${innerHeight} visual ${v?.width.toFixed(0)}\u00d7${v?.height.toFixed(0)} offset ${v?.offsetLeft.toFixed(0)},${v?.offsetTop.toFixed(0)} zoom ${v?.scale.toFixed(2)}\\nfingers ${t.nativeIds.join(',')||'none'} owners ${t.directionId??'-'}/${t.actionId??'-'} active ${touch.active}\\nlocal ${net.input.x},${net.input.y},${+net.input.held} sent #${trace.sentSeq} ${age(trace.sentAt)} open ${trace.transportOpen}\\nack #${trace.ack} ${age(trace.ackAt)} snapshot ${age(trace.snapshotAt)} tick ${s?.state.tick} ${age(trace.tickAt)}\\nserver ${f?.input.x},${f?.input.y},${+!!f?.input.held} xy ${f?.x.toFixed(2)},${f?.y.toFixed(2)} vel ${f?.vx.toFixed(2)},${f?.vy.toFixed(2)}\\n${trace.skip||'sending'} \u00b7 ${t.events.at(-1)?.event??''}`;\n}\n",
+          "to": ""
+        },
+        {
+          "from": " renderOutbreak();updateMonitor();\n",
+          "to": " renderOutbreak();\n"
+        }
+      ]
+    },
+    "src/mobile.css": {
+      "sha256": "7e6ac963ff0a261215c9a43b7ed5b6bf71a1c184777acdb949703f34c1e37bfb",
+      "changes": [
+        {
+          "from": "\n/* P0 iPhone: active gameplay is anchored to the visible rectangle, not the larger layout viewport. */\n.game-active main{position:fixed;left:var(--usable-left,0px);top:var(--usable-top,0px);width:var(--usable-width,100vw);height:var(--usable-height,100dvh);margin:0;overflow:hidden;padding-top:max(4px,env(safe-area-inset-top));box-sizing:border-box}.game-active #game-stage{touch-action:none;overscroll-behavior:none}.game-active #session-footer{padding-bottom:env(safe-area-inset-bottom)}.game-active #fullscreen-unavailable{font-size:10px;line-height:1.1}.game-active #game-stage canvas{touch-action:none}#input-monitor{position:fixed;right:max(6px,env(safe-area-inset-right));top:6px;z-index:9;max-width:calc(100vw - 12px);padding:6px;background:#102d34ed;color:#eaffdb;border:1px solid #b4d4c4;border-radius:6px;font:9px/1.35 monospace;pointer-events:none;white-space:pre-wrap;margin:0}#input-monitor-toggle{font-size:11px}\n",
+          "to": ""
+        }
+      ]
+    },
+    "src/network/client.ts": {
+      "sha256": "896c7729ab7a49afb7005e5bcf02198396b8d2f8535298b617a7f099ca8cc8b2",
+      "changes": [
+        {
+          "from": " readonly inputTrace={attemptAt:0,sentAt:0,sentSeq:0,ackAt:0,ack:0,snapshotAt:0,tickAt:0,tick:0,skip:'',transportOpen:false};\n",
+          "to": ""
+        },
+        {
+          "from": "   setSimulationArena(this.predictor.sim,s.arenaId??DEFAULT_ARENA);this.bytesIn+=JSON.stringify(s).length;this.lastReceive=Date.now();this.inputTrace.snapshotAt=this.lastReceive;const ack=s.ack[this.slot]??0;if(ack!==this.inputTrace.ack){this.inputTrace.ack=ack;this.inputTrace.ackAt=this.lastReceive;}if(s.state.tick!==this.inputTrace.tick){this.inputTrace.tick=s.state.tick;this.inputTrace.tickAt=this.lastReceive;}if(!this.snapshots.length)this.offset=s.serverTime-Date.now()+this.link.rtt/2;\n",
+          "to": "   setSimulationArena(this.predictor.sim,s.arenaId??DEFAULT_ARENA);this.bytesIn+=JSON.stringify(s).length;this.lastReceive=Date.now();if(!this.snapshots.length)this.offset=s.serverTime-Date.now()+this.link.rtt/2;\n"
+        },
+        {
+          "from": " sendInput(){this.inputTrace.attemptAt=Date.now();this.inputTrace.transportOpen=!!this.room?.connection.isOpen;if(this.slot<0||this.status!=='connected'||!this.playing){this.inputTrace.skip=this.slot<0?'no-slot':this.status!=='connected'?'disconnected':'round-not-playing';return;}this.inputTrace.skip='';const command:Command={seq:++this.seq,at:Date.now(),input:{...this.input}};if(this.prediction)this.predictor.add(command);this.bytesOut+=JSON.stringify(command).length;this.link.schedule('send',()=>{if(this.room?.connection.isOpen){this.inputTrace.sentAt=Date.now();this.inputTrace.sentSeq=command.seq;this.room.send('input',command);}else this.inputTrace.skip='transport-closed';});}\n",
+          "to": " sendInput(){if(this.slot<0||this.status!=='connected'||!this.playing)return;const command:Command={seq:++this.seq,at:Date.now(),input:{...this.input}};if(this.prediction)this.predictor.add(command);this.bytesOut+=JSON.stringify(command).length;this.link.schedule('send',()=>this.room?.send('input',command));}\n"
+        }
+      ]
+    },
+    "vite.config.ts": {
+      "sha256": "dfc0254874367d2443e51a09fb1705c775345abf9dc857d66535d426a61b3fc3",
+      "changes": [
+        {
+          "from": "import {readFile} from 'node:fs/promises';\nimport {browserSocketSource} from './scripts/browser-socket-compat';\nexport default defineConfig({\n plugins:[{name:'colyseus-browser-constructor',enforce:'pre',transform(code,id){const patched=browserSocketSource(code,id);return patched===null?null:{code:patched,map:null};}}],\n optimizeDeps:{esbuildOptions:{plugins:[{name:'colyseus-browser-constructor',setup(build){build.onLoad({filter:/colyseus\\.js[\\/\\\\].*WebSocketTransport\\.(?:js|mjs)$/},async({path})=>{const source=await readFile(path,'utf8');return {contents:browserSocketSource(source,path)??source,loader:'js'};});}}]}},\n server:{host:'127.0.0.1',proxy:{'/api':{target:'http://127.0.0.1:2567',changeOrigin:true},'/matchmake':{target:'http://127.0.0.1:2567',changeOrigin:true}}}\n});\n",
+          "to": "export default defineConfig({server:{host:'127.0.0.1',proxy:{'/api':{target:'http://127.0.0.1:2567',changeOrigin:true},'/matchmake':{target:'http://127.0.0.1:2567',changeOrigin:true}}}});\n"
+        }
+      ]
+    }
+  },
+  "protected": {
+    "src/simulation/world.ts": "d20a53e8db7790293e4ea53cbda64fa0e564d9c2663fe5ff75d0117fcf012002",
+    "src/simulation/config.ts": "5354d684519dff62a91bf3d54d8170b37c5ce8466bd531b4b4a550b2ef2d3601",
+    "src/simulation/arena.ts": "8b8f443c2f3ecce0b738ae8e9893de2619a7bfac1bb2b53184b7cd7a1cba428b",
+    "src/simulation/arenas.ts": "68818707ddd879b95a736da59750ae25b51260f6221988883b00a0c8589b9d9c",
+    "src/simulation/arena-adapter.ts": "7d398b53b26235539025153a842a95612266171e55f07ece684ab627158d64af",
+    "src/simulation/state.ts": "676b92ff3e8579af8826ae6c9eed7506551871ff9434fd18d724f12ee4cb5d7b",
+    "src/simulation/roster.ts": "30d329a20d4dc5fb09c885c2fdfc05b55facd3bff7950315397621ef3b0fd48a",
+    "src/network/predictor.ts": "c823758202607bd9e6b3abf6cbe8b684c0ac4ae7e22f232355c4d05a05a83aa7",
+    "src/network/protocol.ts": "3127c9555c6e01090a1bebad9fbd68a3e454c9f36698aee36cfb37f9c5060927",
+    "src/network/link.ts": "c33cff845e16c2ab85038d250c1158340adb778145670656aa77f47f7872d0ec",
+    "src/game/outbreak.ts": "c167258b159b79892615fd103f63082bd08692027eb1ad9f2bdee68bdf10c703",
+    "server/party-room.ts": "fc4a2353add3f2673e60f79657f12bea13835969e05764c0333219bc13172c0e",
+    "server/room.ts": "f569e704af10031683688d193949ec4487d61d4d210de1162cf135eeede9c99f",
+    "server/outbreak-room.ts": "68bcb74b8279d635624ad873a4946a38e83e8a6dd6ba85383daf55f78b15e6df",
+    "src/presentation/courtyard.ts": "2c22c32a10ac2eea2d3764f3c84608fe2d6fbf4e596977a7d3a3173cbfe047ac",
+    "src/presentation/theme.css": "4f66dbda8c1e4d45b4896b48db6ab80071e1cf0339727580f58341ebebd6b220",
+    "src/presentation/identity.ts": "febd1149059c5a19edc3233f335aa5509615399a2fc845622c505f12671c1757",
+    "src/presentation/audio.ts": "c37a1d1ca9532419c6b3c48fe359fbc0edd787ef3005537ecb95f457b24cb690",
+    "src/ui/player-guide.ts": "83f1cbd149a1f38da347dda3155581224e191b6217a64a07474c1793741158e4",
+    "src/ui/player-guide.css": "0c4249cd25af2d657779ff851ed3789f53e9dea76db916bd80959840c84cdd31",
+    "src/ui/arena-preview.ts": "16f071670a94a23ce4d3a46c125672826a9198c677d196e3c03b469bb2b57a37",
+    "index.html": "e744e88cc1700fc91ebc072f8327a00d8b728b6fef52ac7fcbe4af560fca02c8"
+  }
+}

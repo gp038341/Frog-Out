@@ -7,42 +7,67 @@ export function direction(dx:number,dy:number,radius:number):Pick<Input,'x'|'y'>
 }
 export class TouchControls {
  input:Input={x:0,y:0,held:false};enabled:boolean;active=false;
+ private lastNativeAt=0;private lastPointerAt=0;private lastPoint:{x:number;y:number;at:number}|null=null;private nativeTouch='ontouchstart' in window;private directionSource:'touch'|'pointer'='pointer';private actionSource:'touch'|'pointer'='pointer';private nativeIds:number[]=[];
  readonly events:{time:number;event:string;id:number|null;detail?:string}[]=[];
- diagnostics(){return {active:this.active,directionId:this.directionId,actionId:this.actionId,input:{...this.input},events:this.events.slice()};}
- private record(event:string,id:number|null=null,detail?:string){this.events.push({time:Date.now(),event,id,detail});if(this.events.length>200)this.events.shift();}
+ diagnostics(){return {lastNativeAt:this.lastNativeAt,lastPointerAt:this.lastPointerAt,lastPoint:this.lastPoint,nativeTouch:this.nativeTouch,nativeIds:this.nativeIds.slice(),directionSource:this.directionSource,actionSource:this.actionSource,active:this.active,directionId:this.directionId,actionId:this.actionId,input:{...this.input},events:this.events.slice()};}
+ private record(event:string,id:number|null=null,detail?:string){if(event.startsWith('native-'))this.lastNativeAt=Date.now();else if(event.includes('down')||event.startsWith('pointer'))this.lastPointerAt=Date.now();this.events.push({time:Date.now(),event,id,detail});if(this.events.length>200)this.events.shift();}
  private capture(target:HTMLElement,id:number){try{target.setPointerCapture(id);}catch(e){this.record('capture-error',id,String(e));}}
  private uncapture(target:HTMLElement,id:number|null){try{if(id!==null&&target.hasPointerCapture(id))target.releasePointerCapture(id);}catch(e){this.record('release-error',id,String(e));}}
  private lastUpdate:[boolean,boolean,boolean,boolean,boolean]=[false,false,false,false,false];
  private directionId:number|null=null;private actionId:number|null=null;
  private pad=document.getElementById('direction-pad')!;private action=document.getElementById('touch-action') as HTMLButtonElement;
  private knob=document.getElementById('direction-knob')!;
- constructor(private changed:()=>void,private switched:()=>void){
+ constructor(private changed:()=>void,private switched:()=>void,private canPlay?:()=>boolean){
   const preference=new URLSearchParams(location.search).get('touch');
   this.enabled=preference==='1'||preference!=='0'&&(matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0&&innerWidth<=1100);
   document.getElementById('touch-toggle')!.onclick=()=>{this.enabled=!this.enabled;this.active=false;this.reset(false,'layout-switch');this.switched();(document.activeElement as HTMLElement)?.blur();this.update(...this.lastUpdate);this.layout();};
   document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')this.record('touch-hit',e.pointerId,`${(e.target as HTMLElement)?.id|| (e.target as HTMLElement)?.tagName} @ ${Math.round(e.clientX)},${Math.round(e.clientY)} active=${this.active}`);},true);
   // A fresh down reclaims an orphaned owner; old end events cannot clear the new owner.
-  this.pad.addEventListener('pointerdown',e=>{this.record('direction-down',e.pointerId);if(!this.active)return;e.preventDefault();this.releaseDirection(false);this.directionId=e.pointerId;this.capture(this.pad,e.pointerId);this.move(e);});
-  this.action.addEventListener('pointerdown',e=>{this.record('action-down',e.pointerId);if(!this.active)return;e.preventDefault();this.releaseAction(false);this.actionId=e.pointerId;this.capture(this.action,e.pointerId);this.input.held=true;this.action.classList.add('pressed');this.changed();});
+  this.pad.addEventListener('pointerdown',e=>{if(this.nativeTouch&&e.pointerType==='touch')return;this.directionSource='pointer';this.record('direction-down',e.pointerId);if(!this.acceptFreshTouch())return;e.preventDefault();this.releaseDirection(false);this.directionId=e.pointerId;this.capture(this.pad,e.pointerId);this.move(e);});
+  this.action.addEventListener('pointerdown',e=>{if(this.nativeTouch&&e.pointerType==='touch')return;this.actionSource='pointer';this.record('action-down',e.pointerId);if(!this.acceptFreshTouch())return;e.preventDefault();this.releaseAction(false);this.actionId=e.pointerId;this.capture(this.action,e.pointerId);this.input.held=true;this.action.classList.add('pressed');this.changed();});
   // Document capture is also a fallback if native pointer capture is unavailable/throws.
-  document.addEventListener('pointermove',e=>{if(e.pointerId===this.directionId){e.preventDefault();this.move(e);}}, {capture:true,passive:false});
+  document.addEventListener('pointermove',e=>{if(this.directionSource==='pointer'&&e.pointerId===this.directionId){e.preventDefault();this.move(e);}}, {capture:true,passive:false});
   for(const type of ['pointerup','pointercancel','lostpointercapture'])document.addEventListener(type,e=>{
    const id=(e as PointerEvent).pointerId;
-   if(id===this.directionId){this.record(type,id,'direction');this.releaseDirection();}
-   if(id===this.actionId){this.record(type,id,'action');this.releaseAction();}
+   if(this.directionSource==='pointer'&&id===this.directionId){if(type==='lostpointercapture'&&this.pad.hasPointerCapture(id))return;this.record(type,id,'direction');this.releaseDirection();}
+   if(this.actionSource==='pointer'&&id===this.actionId){if(type==='lostpointercapture'&&this.action.hasPointerCapture(id))return;this.record(type,id,'action');this.releaseAction();}
   },true);
+  // One input stream owns fingers. Native Touch identifiers are stable across capture/gesture interruptions.
+  // Pointer events remain the mouse/pen fallback; never double-publish a native finger.
+  document.addEventListener('touchstart',e=>{
+   this.nativeIds=Array.from(e.touches,t=>t.identifier);this.record('native-start',null,this.nativeIds.join(','));
+   if(!this.nativeTouch||!this.acceptFreshTouch())return;
+   if(this.directionSource==='touch'&&this.directionId!==null&&!this.nativeIds.includes(this.directionId))this.releaseDirection();
+   if(this.actionSource==='touch'&&this.actionId!==null&&!this.nativeIds.includes(this.actionId))this.releaseAction();
+   for(const t of Array.from(e.changedTouches)){const target=t.target as Node;
+    if(this.pad.contains(target)){e.preventDefault();this.releaseDirection(false);this.directionSource='touch';this.directionId=t.identifier;this.move(t);}
+    else if(this.action.contains(target)){e.preventDefault();this.releaseAction(false);this.actionSource='touch';this.actionId=t.identifier;this.input.held=true;this.action.classList.add('pressed');this.changed();}
+   }
+  },{capture:true,passive:false});
+  document.addEventListener('touchmove',e=>{
+   this.lastNativeAt=Date.now();this.nativeIds=Array.from(e.touches,t=>t.identifier);if(!this.nativeTouch)return;
+   for(const t of Array.from(e.changedTouches)){if(this.directionSource==='touch'&&t.identifier===this.directionId){e.preventDefault();this.move(t);}if(this.actionSource==='touch'&&t.identifier===this.actionId)e.preventDefault();}
+  },{capture:true,passive:false});
+  document.addEventListener('touchend',e=>{
+   this.nativeIds=Array.from(e.touches,t=>t.identifier);this.record('native-end',null,this.nativeIds.join(','));if(!this.nativeTouch)return;
+   if(this.directionSource==='touch'&&this.directionId!==null&&!this.nativeIds.includes(this.directionId))this.releaseDirection();
+   if(this.actionSource==='touch'&&this.actionId!==null&&!this.nativeIds.includes(this.actionId))this.releaseAction();
+  },true);
+  document.addEventListener('touchcancel',()=>{this.nativeIds=[];this.reset(true,'native-cancel');},true);
+  window.addEventListener('game-viewport-change',()=>this.reset(true,'viewport-layout-change'));
   for(const target of [this.pad,this.action])target.addEventListener('contextmenu',e=>e.preventDefault());
-  window.addEventListener('resize',()=>{if(innerHeight>innerWidth)this.reset(true,'portrait-resize');this.layout();});
+  window.addEventListener('resize',()=>{if(innerHeight>innerWidth)this.reset(true,'portrait-resize');this.update(...this.lastUpdate);this.layout();});
   window.addEventListener('pagehide',()=>this.reset(true,'pagehide'));
   window.addEventListener('orientationchange',()=>this.reset(true,'orientation'));
   window.addEventListener('blur',()=>this.reset(true,'blur'));document.addEventListener('visibilitychange',()=>{if(document.hidden)this.reset(true,'hidden');});
  }
- private move(e:PointerEvent){const r=this.pad.getBoundingClientRect(),radius=r.width/2,dx=e.clientX-r.left-radius,dy=e.clientY-r.top-r.height/2;
+ private acceptFreshTouch(){const active=(this.canPlay?.()??this.lastUpdate[0])&&this.enabled&&innerWidth>=innerHeight;this.active=active;this.action.disabled=!active;this.pad.setAttribute('aria-disabled',String(!active));return active;}
+ private move(e:{clientX:number;clientY:number;pointerId?:number;identifier?:number}){this.lastPoint={x:e.clientX,y:e.clientY,at:Date.now()};const r=this.pad.getBoundingClientRect(),radius=r.width/2,dx=e.clientX-r.left-radius,dy=e.clientY-r.top-r.height/2;
   const q=Math.min(1,radius*.65/(Math.hypot(dx,dy)||1));this.knob.style.transform=`translate(${dx*q}px,${dy*q}px)`;
-  const next=direction(dx,dy,radius);if(next.x!==this.input.x||next.y!==this.input.y)this.record('direction-change',e.pointerId,`${next.x},${next.y}`);Object.assign(this.input,next);this.changed();
+  const next=direction(dx,dy,radius);if(next.x!==this.input.x||next.y!==this.input.y)this.record('direction-change',e.pointerId??e.identifier??null,`${next.x},${next.y}`);Object.assign(this.input,next);this.changed();
  }
- private releaseDirection(notify=true){const id=this.directionId;this.directionId=null;this.input.x=0;this.input.y=0;this.knob.style.transform='';this.uncapture(this.pad,id);if(notify)this.changed();}
- private releaseAction(notify=true){const id=this.actionId;this.actionId=null;this.input.held=false;this.action.classList.remove('pressed');this.uncapture(this.action,id);if(notify)this.changed();}
+ private releaseDirection(notify=true){const id=this.directionId;this.directionId=null;this.input.x=0;this.input.y=0;this.knob.style.transform='';if(this.directionSource==='pointer')this.uncapture(this.pad,id);if(notify)this.changed();}
+ private releaseAction(notify=true){const id=this.actionId;this.actionId=null;this.input.held=false;this.action.classList.remove('pressed');if(this.actionSource==='pointer')this.uncapture(this.action,id);if(notify)this.changed();}
  reset(notify=true,reason='explicit'){this.record('reset',null,reason);this.releaseDirection(false);this.releaseAction(false);if(notify)this.changed();}
  update(active:boolean,session:boolean,grounded:boolean,charging:boolean,attached:boolean){
   this.lastUpdate=[active,session,grounded,charging,attached];

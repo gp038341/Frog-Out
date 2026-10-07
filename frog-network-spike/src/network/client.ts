@@ -8,6 +8,7 @@ import type {OutbreakView} from '../game/outbreak';
 import type {Input} from '../simulation/world';
 const cacheKey='frog-out-session';
 export class Connection {
+ readonly inputTrace={attemptAt:0,sentAt:0,sentSeq:0,ackAt:0,ack:0,snapshotAt:0,tickAt:0,tick:0,skip:'',transportOpen:false};
  outbreak?:OutbreakView;room?:Room;slot=-1;playerId='';lobby?:LobbyState;status='Choose Create Room or Join Room.';notice='';snapshots:Snapshot[]=[];
  predictor=new Predictor();rtt=0;offset=0;lastReceive=0;seq=0;lastReset=-1;
  link:DelayLink;prediction:boolean;input:Input={x:0,y:0,held:false};bytesIn=0;bytesOut=0;started=Date.now();
@@ -28,7 +29,7 @@ export class Connection {
   room.onMessage('pong',data=>this.link.schedule('receive',()=>{const now=Date.now();const sample=now-data.at;this.rtt=this.rtt?this.rtt*.8+sample*.2:sample;const measured=data.serverTime-(data.at+now)/2;this.offset=this.offset?this.offset*.8+measured*.2:measured;}));
   room.onMessage('snapshot',(s:Snapshot)=>this.link.schedule('receive',()=>{
    if(this.lobby?.phase!=='game'||s.state.tick<=(this.snapshots.at(-1)?.state.tick??-1))return;
-   setSimulationArena(this.predictor.sim,s.arenaId??DEFAULT_ARENA);this.bytesIn+=JSON.stringify(s).length;this.lastReceive=Date.now();if(!this.snapshots.length)this.offset=s.serverTime-Date.now()+this.link.rtt/2;
+   setSimulationArena(this.predictor.sim,s.arenaId??DEFAULT_ARENA);this.bytesIn+=JSON.stringify(s).length;this.lastReceive=Date.now();this.inputTrace.snapshotAt=this.lastReceive;const ack=s.ack[this.slot]??0;if(ack!==this.inputTrace.ack){this.inputTrace.ack=ack;this.inputTrace.ackAt=this.lastReceive;}if(s.state.tick!==this.inputTrace.tick){this.inputTrace.tick=s.state.tick;this.inputTrace.tickAt=this.lastReceive;}if(!this.snapshots.length)this.offset=s.serverTime-Date.now()+this.link.rtt/2;
    if(this.lastReset!==s.resetId){this.predictor.initialized=false;this.lastReset=s.resetId;}
    this.snapshots.push(s);if(this.snapshots.length>90)this.snapshots.shift();if(this.prediction&&this.playing)this.predictor.reconcile(s,Date.now()+this.offset,this.offset);
   }));
@@ -46,6 +47,6 @@ export class Connection {
  async leave(){++this.generation;++this.reconnectAttempt;this.reconnecting=false;this.busy=false;this.stop();const room=this.room;this.room=undefined;this.lobby=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);if(room)await room.leave();this.status='You left the room.';}
  sendPing(){const at=Date.now();this.link.schedule('send',()=>this.room?.send('ping',at));}
  setInput(input:Input){if(input.x===this.input.x&&input.y===this.input.y&&input.held===this.input.held)return;this.input={...input};this.sendInput();}
- sendInput(){if(this.slot<0||this.status!=='connected'||!this.playing)return;const command:Command={seq:++this.seq,at:Date.now(),input:{...this.input}};if(this.prediction)this.predictor.add(command);this.bytesOut+=JSON.stringify(command).length;this.link.schedule('send',()=>this.room?.send('input',command));}
+ sendInput(){this.inputTrace.attemptAt=Date.now();this.inputTrace.transportOpen=!!this.room?.connection.isOpen;if(this.slot<0||this.status!=='connected'||!this.playing){this.inputTrace.skip=this.slot<0?'no-slot':this.status!=='connected'?'disconnected':'round-not-playing';return;}this.inputTrace.skip='';const command:Command={seq:++this.seq,at:Date.now(),input:{...this.input}};if(this.prediction)this.predictor.add(command);this.bytesOut+=JSON.stringify(command).length;this.link.schedule('send',()=>{if(this.room?.connection.isOpen){this.inputTrace.sentAt=Date.now();this.inputTrace.sentSeq=command.seq;this.room.send('input',command);}else this.inputTrace.skip='transport-closed';});}
  get stale(){return !this.lastReceive||Date.now()-this.lastReceive>250;}
 }

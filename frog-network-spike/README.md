@@ -91,3 +91,7 @@ Approved earlier milestones remain recoverable in Git. M6 release candidate: `6b
 ## Milestone 8 geometry playtest
 
 Approved submission-ready M7 gameplay checkpoint: `e97bbcb418468149e5b936c7ff9e95a0ccbe5b9b`, branch `checkpoint/milestone-7-approved`. The original Canopy Courtyard remains the default and its geometry is unchanged. The lobby host can now choose **Rainbell Conservatory — Geometry Preview** before ready/start. Arena changes clear everyone’s Ready; choices are frozen across all rounds of a match and retained for rematch. No new mode or physics tuning. Arena 2 layout acceptance and final art are pending. See [M8 details](docs/milestone-8-geometry.md).
+
+## iPhone reliability diagnostic candidate
+
+Physical iPhone Safari testers reported a release-blocking viewport/input failure. Content work is paused. This candidate adds visual-viewport sizing, native finger lifecycle handling and opt-in Input monitor/Diagnostics. It is **not yet certified fixed on physical iPhone**. See [physical test instructions](docs/iphone-reliability-diagnostic.md).

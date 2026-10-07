@@ -1,8 +1,9 @@
+import {iphonePreservedSource} from './preserved-source';
 import {test} from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';import {Vec2} from 'planck';
 import {Simulation} from '../src/simulation/world';import {arena,spawnPoint} from '../src/simulation/arena';import {ARENAS} from '../src/simulation/arenas';import {setSimulationArena,simulationArena} from '../src/simulation/arena-adapter';import {sizeSimulation} from '../src/simulation/roster';import {capture,restore} from '../src/simulation/state';
 test('M8 arena adapters preserve every other byte of approved networking and presentation',()=>{
  const b=JSON.parse(readFileSync(new URL('../docs/milestone-8-adapter-preservation.json',import.meta.url),'utf8'));
- for(const [path,record]of Object.entries(b.files)as [string,{sha256:string;changes:{from:string;to:string}[]}][]){let s=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');for(const c of record.changes){assert.ok(s.includes(c.from),path);s=s.replace(c.from,c.to);}assert.equal(createHash('sha256').update(s).digest('hex'),record.sha256,path);}
+ for(const [path,record]of Object.entries(b.files)as [string,{sha256:string;changes:{from:string;to:string}[]}][]){let s=iphonePreservedSource(path);for(const c of record.changes){assert.ok(s.includes(c.from),path);s=s.replace(c.from,c.to);}assert.equal(createHash('sha256').update(s).digest('hex'),record.sha256,path);}
 });
 test('original arena is exact and both arenas have safe non-overlapping 2–8 floor spawns',()=>{
  assert.strictEqual(ARENAS.canopy.solids,arena);assert.deepEqual(ARENAS.swingworks.solids.slice(0,4),arena.slice(0,4));
