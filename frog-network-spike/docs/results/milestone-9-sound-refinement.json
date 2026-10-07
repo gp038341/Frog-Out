@@ -1,0 +1,20 @@
+{
+  "scope": "Chromium desktop and emulated touch, real local authoritative server; trusted keyboard/UI and actual Web Audio nodes. Not audible hardware or physical iOS verification.",
+  "checks": [
+    "audio remains opt-in; trusted Sound toggle starts real browser Web Audio synthesis",
+    "volume adjusts/persists in collapsible lobby help; primary Ready/Start and gameplay footer unaffected",
+    "last-survivor announcement is visible to a muted touch client; no auto audio context",
+    "charge/jump/tongue cues synthesize during actual gameplay with at most eight concurrent/scheduled oscillator voices",
+    "mute stops active voices and future gameplay sounds without changing input",
+    "new overlays/feedback retain small-screen canvas ratio, controls and footer fit",
+    "round/final celebration preserves survival+bonus columns, standings and return-to-lobby/rematch path"
+  ],
+  "sound": {
+    "started": 16,
+    "ended": 16,
+    "peak": 5,
+    "active": 0,
+    "contexts": 1
+  },
+  "errors": []
+}

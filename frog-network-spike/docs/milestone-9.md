@@ -37,3 +37,9 @@ Browser testing verifies actual Web Audio node start/mute/cleanup and bounded co
 5. Test smaller landscape screens and mixed desktop/touch rooms. Physical iPhone validation must still follow `docs/iphone-reliability-diagnostic.md`; do not call it resolved from automation.
 
 Stop after deployment for human approval; no additional feature or milestone is authorized by this pass.
+
+## Sound personality refinement
+
+Player feedback: the first palette worked functionally but sounded mellow and robotic. Replace pure sweeps with original cached harmonic waveforms: hollow throaty croaks/chirrups, rubbery tongue pops and sharper jump/impact transients. Croak envelopes pulse while pitch wobbles; brighter action cues bend rapidly. No external samples, added voices, event timing changes or gameplay changes. Preserve opt-in sound, volume/mute, cooldowns, eight-voice budget and frozen iPhone systems.
+
+Validation: build and all 69 tests pass; real Chromium Web Audio gameplay check passes seven checks, peak five voices, zero active after mute, no page errors. Physical iPhone validation remains outstanding. Human listening to the revised palette/multiplayer mix is the next acceptance step.
