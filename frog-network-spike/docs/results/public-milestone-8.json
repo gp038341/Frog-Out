@@ -1,0 +1,60 @@
+{
+  "milestone": 8,
+  "scope": "Geometry preview and host-controlled selection; user layout approval pending",
+  "deployedCommit": "995e484e25bd11cf627c661079b0338672104cde",
+  "checkpoint": "checkpoint/milestone-8-geometry-playtest",
+  "approvedM7": "e97bbcb418468149e5b936c7ff9e95a0ccbe5b9b",
+  "approvedM7Checkpoint": "checkpoint/milestone-7-approved",
+  "publicUrl": "https://frog-out-milestone-2.onrender.com/",
+  "renderService": "frog-out-milestone-2",
+  "renderDeploy": "dep-db2scls9v7es73a3m4i0",
+  "deployStatus": "live",
+  "finishedAt": "2026-10-07T04:11:51.335121Z",
+  "plan": "free",
+  "paidChanges": false,
+  "health": "Render live with default port health; public root and actual two-client WebSocket game verified",
+  "environment": "Public cloud Chrome, two independent tabs; not physical device certification",
+  "checks": [
+    "Canopy remains default on room creation",
+    "Guest sees host selection and cannot edit it",
+    "Changing selection clears all Ready; both see Swingworks preview",
+    "Public Swingworks gameplay with native keyboard/body-contact infection",
+    "Both rounds, Patient Zero rotation, survival plus bonus scoring and final standings",
+    "Peer refresh during countdown restores Swingworks and same ongoing room",
+    "Return to lobby retains Swingworks and clears Ready",
+    "Same-room rematch switches back to Canopy; selected name and terrain diagnostics agree",
+    "Confirmed Leave ends disposable QA match; peer returns to lobby; QA clients exit and tabs close"
+  ],
+  "diagnostics": [
+    {
+      "arena": "swingworks",
+      "solids": 15,
+      "milestone": 8,
+      "slot": 0,
+      "connected": true,
+      "stale": false,
+      "sequence": 2683,
+      "ack": 2683
+    },
+    {
+      "arena": "canopy",
+      "solids": 11,
+      "milestone": 8,
+      "slot": 0,
+      "connected": true,
+      "stale": false,
+      "sequence": 67,
+      "ack": 63
+    }
+  ],
+  "renderErrorLogs": "No errors returned in post-deployment verification window",
+  "coldStart": "Render Application loading seen on first public opening; subsequent reload loaded game; not timed",
+  "outstanding": [
+    "Physical iPhone/iOS Safari",
+    "Physical Android retesting",
+    "Small-screen/high-player-count readability",
+    "Render Free cold-start risk",
+    "Human Arena 2 layout acceptance"
+  ],
+  "art": "No final Arena 2 art completed; simple preview collision surfaces, existing frog/HUD effects retained"
+}

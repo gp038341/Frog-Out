@@ -2,6 +2,10 @@
 
 Approved M7 gameplay revision: `e97bbcb418468149e5b936c7ff9e95a0ccbe5b9b`, Git checkpoint `checkpoint/milestone-7-approved`. Existing history is preserved; the submission-ready version remains recoverable. M8 layout and art acceptance are pending.
 
+## Deployed playtest checkpoint
+
+Geometry build: `995e484e25bd11cf627c661079b0338672104cde`, branch `checkpoint/milestone-8-geometry-playtest`. Existing Free Render service: `frog-out-milestone-2`, https://frog-out-milestone-2.onrender.com/. Public verification is recorded in `results/public-milestone-8.json`; any later evidence-only commit does not change the deployed game. Refresh existing tabs before testing.
+
 ## Scope / design
 
 **Canopy Courtyard** stays the default and uses the exact approved `arena.ts` geometry and rendering. **Swingworks — Geometry Preview** is the second selectable arena, using the same 40 × 22.5 m / 16:9 single-screen footprint. No scrolling or hazards.
