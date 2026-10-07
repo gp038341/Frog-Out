@@ -19,7 +19,8 @@
     "test:mobile": "node scripts/mobile-browser.cjs",
     "test:compat": "node scripts/compat-browser.cjs",
     "test:presentation": "node scripts/presentation-browser.cjs",
-    "test:mobile-recovery": "node scripts/mobile-recovery-browser.cjs"
+    "test:mobile-recovery": "node scripts/mobile-recovery-browser.cjs",
+    "test:onboarding": "node scripts/onboarding-browser.cjs"
   },
   "dependencies": {
     "@colyseus/core": "^0.16.26",

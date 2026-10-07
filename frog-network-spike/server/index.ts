@@ -10,7 +10,7 @@ import {partyRooms} from './party-room';
 import {OutbreakRoom} from './outbreak-room';
 const app=express();const http=createServer(app);
 app.get('/api/rooms/:code',(req,res)=>{const code=req.params.code.trim().toUpperCase();if(!/^[A-Z2-9]{6}$/.test(code)){res.status(400).json({error:'Enter a six-character room code.'});return;}const room=partyRooms.get(code);if(!room){res.status(404).json({error:'Room not found. Check the code with your friend.'});return;}if(room.phase!=='lobby'){res.status(409).json({error:'This room is already playing. New players can join in the lobby only.'});return;}if(room.players.size>=8){res.status(409).json({error:'This room is full (8 players).'});return;}res.json({roomId:room.roomId,code});});
-app.get('/health',(_req,res)=>res.json({ok:true,milestone:6}));
+app.get('/health',(_req,res)=>res.json({ok:true,milestone:7}));
 app.use(express.static(path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../dist')));
 const game=new Server({transport:new WebSocketTransport({server:http,pingInterval:5000,pingMaxRetries:3,maxPayload:16384})});
 game.define('frog_party',OutbreakRoom);
