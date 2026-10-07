@@ -1,0 +1,20 @@
+{
+  "scope": "Restoration to exact physically accepted pre-M10 product source; automated tests do not constitute new physical iPhone/Android certification",
+  "unitTests": {
+    "passed": 78,
+    "failed": 0
+  },
+  "productionBuild": "passed",
+  "preservation": "All source hashes including accepted main/input/mobile CSS match pre-M10 manifest",
+  "legacyRunners": [
+    {
+      "runner": "mobile-browser.cjs",
+      "result": "timeout waiting for quick-tap jump at line 10"
+    },
+    {
+      "runner": "compat-browser.cjs",
+      "result": "timeout in frog-grapple fixture at line 15; observed held input persisted through fixture"
+    }
+  ],
+  "legacyAssessment": "These pre-iPhone runner results are not passes. No production changes were made to accommodate their fixtures; current native-touch compatibility flow passes in WebKit and Chromium. Product source is exact accepted release. Chromium runner is a scratch adaptation of iphone-viewport-browser.cjs selecting Chromium executable, separate port 3199, 60-second stress and correct engine labels; controls/viewport code is unmodified."
+}

@@ -1,5 +1,7 @@
 # Milestone 10 — bounded arena camera prototype
 
+**Historical rejected experiment.** User rejected dynamic framing after playtesting. Production restores the approved static camera; see [post-M10 decision](post-m10-static-camera.md). The implementation/limits below describe the experimental revision only.
+
 ## Accepted release checkpoint
 
 The user physically accepted iPhone simultaneous multitouch and ordinary Safari viewport/layout, plus current sound/presentation and the existing gameplay, Android/desktop input and multiplayer systems. The accepted source/deployed revision is **cc0c09b8fa0e021f2195ec6b12848081f6d1cefa**, preserved as **checkpoint/approved-release-pre-m10**. GitHub main and live Render were verified to match before prototype development. Render deployment: dep-db3a1n3ncjis73euqisg, service frog-out-milestone-2, Free, My Workspace. Historical candidate documents remain historical; their outstanding iPhone flags are superseded by this user acceptance.
