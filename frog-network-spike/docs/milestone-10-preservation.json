@@ -1,0 +1,79 @@
+{
+  "baseline": "cc0c09b8fa0e021f2195ec6b12848081f6d1cefa",
+  "checkpoint": "checkpoint/approved-release-pre-m10",
+  "physicalAcceptance": "User approved sound/presentation and physical iPhone multitouch/viewport; Android/desktop gameplay approved. M10 is a new prototype pending acceptance.",
+  "protected": {
+    "src/presentation/audio.ts": "5fed021094f7ec64346ee9d97812fa3e09aa7a8e55fe4e411a845b8ad17d5dd7",
+    "src/presentation/presentation-ui.ts": "6ae4b3a06d153e85192929a778453a6a1aac22a27d96df027fef3cd6b760d7c6",
+    "src/presentation/feel.ts": "93a8e0c1057a9bc86203f9c8a544dc7e97a69744c83cad3ba606eed961e506c3",
+    "src/presentation/theme.css": "4f66dbda8c1e4d45b4896b48db6ab80071e1cf0339727580f58341ebebd6b220",
+    "src/presentation/feel.css": "deff896076de2bcaa3d0f6413792acf462fad7f8fdd9171fbf9ea419896cafe1",
+    "src/presentation/courtyard.ts": "1cc0fddf78ccdce4593f212c9ab751d7f7004ba054b62aa4b609da13291bfa73",
+    "src/presentation/identity.ts": "febd1149059c5a19edc3233f335aa5509615399a2fc845622c505f12671c1757",
+    "src/presentation/moments.ts": "0d384aecf8b9e88db7d187dbf239e1a45da07fdc375c5068416a7713c2d25f03",
+    "src/network/predictor.ts": "c823758202607bd9e6b3abf6cbe8b684c0ac4ae7e22f232355c4d05a05a83aa7",
+    "src/network/client.ts": "cadc5f4da083198c71f61e8575d52f85ec8c1be8210804bdb32e4e7b0a6a7386",
+    "src/network/link.ts": "c33cff845e16c2ab85038d250c1158340adb778145670656aa77f47f7872d0ec",
+    "src/network/protocol.ts": "3127c9555c6e01090a1bebad9fbd68a3e454c9f36698aee36cfb37f9c5060927",
+    "src/ui/arena-preview.ts": "16f071670a94a23ce4d3a46c125672826a9198c677d196e3c03b469bb2b57a37",
+    "src/ui/player-guide.ts": "83f1cbd149a1f38da347dda3155581224e191b6217a64a07474c1793741158e4",
+    "src/ui/player-guide.css": "0c4249cd25af2d657779ff851ed3789f53e9dea76db916bd80959840c84cdd31",
+    "src/simulation/state.ts": "676b92ff3e8579af8826ae6c9eed7506551871ff9434fd18d724f12ee4cb5d7b",
+    "src/simulation/arena.ts": "8b8f443c2f3ecce0b738ae8e9893de2619a7bfac1bb2b53184b7cd7a1cba428b",
+    "src/simulation/arena-adapter.ts": "7d398b53b26235539025153a842a95612266171e55f07ece684ab627158d64af",
+    "src/simulation/arenas.ts": "68818707ddd879b95a736da59750ae25b51260f6221988883b00a0c8589b9d9c",
+    "src/simulation/roster.ts": "30d329a20d4dc5fb09c885c2fdfc05b55facd3bff7950315397621ef3b0fd48a",
+    "src/simulation/world.ts": "d20a53e8db7790293e4ea53cbda64fa0e564d9c2663fe5ff75d0117fcf012002",
+    "src/simulation/config.ts": "5354d684519dff62a91bf3d54d8170b37c5ce8466bd531b4b4a550b2ef2d3601",
+    "src/game/outbreak.ts": "c167258b159b79892615fd103f63082bd08692027eb1ad9f2bdee68bdf10c703",
+    "server/stress-room.ts": "98db26ba4bab9267a52931918c83ce6001d0b49bb8d09781271b90b87b33e327",
+    "server/room.ts": "f569e704af10031683688d193949ec4487d61d4d210de1162cf135eeede9c99f",
+    "server/index.ts": "3d1eb2c794809a5173fe0be1bbc4ca031fd7e287398ec1c58ae51acb2567235d",
+    "server/party-room.ts": "fc4a2353add3f2673e60f79657f12bea13835969e05764c0333219bc13172c0e",
+    "server/outbreak-room.ts": "68bcb74b8279d635624ad873a4946a38e83e8a6dd6ba85383daf55f78b15e6df",
+    "server/metrics.ts": "d5707c99cdb8c6b0cc0d30e89d511d0ba03c01622171bf6456f59b8504002f55",
+    "index.html": "e744e88cc1700fc91ebc072f8327a00d8b728b6fef52ac7fcbe4af560fca02c8",
+    "vite.config.ts": "4848df8a453619be5e35ec30840e3a61e75a6dd186682e3c086693d89bab21f5",
+    "src/input/touch.ts": "bf31babec293f8502a5015b093e72abad152d6f3f0e749e2303e444fff6b87de",
+    "src/mobile.css": "6a5da48e4da15b2df110ecf9a4358a9ba9f62795938b23b423e927aa6a311ba3"
+  },
+  "files": {
+    "src/main.ts": {
+      "sha256": "368c5011787de7847fd44562f0c9afd96bcf9f26ea762918c796a3f96988e85b",
+      "changes": [
+        {
+          "from": "import {ArenaCamera} from './presentation/arena-camera';\nimport {CameraOptions} from './presentation/camera-options';\nimport {PresentationUI} from './presentation/presentation-ui';",
+          "to": "import {PresentationUI} from './presentation/presentation-ui';"
+        },
+        {
+          "from": "let lastStatus=0;\nconst cameraOptions=new CameraOptions();\nlet cameraDiagnostic:unknown=null;",
+          "to": "let lastStatus=0;"
+        },
+        {
+          "from": " art!:Courtyard;\n framing=new ArenaCamera(WIDTH,HEIGHT);private cameraReset=-1;",
+          "to": " art!:Courtyard;"
+        },
+        {
+          "from": " create(){this.art=new Courtyard(this,audio);this.cameras.main.setBounds(0,0,WIDTH*30,HEIGHT*30);}",
+          "to": " create(){this.art=new Courtyard(this,audio);}"
+        },
+        {
+          "from": "if(net.lobby?.phase!=='game'){this.art.clear();this.framing.reset();this.cameras.main.setZoom(1).centerOn(WIDTH*15,HEIGHT*15);return;}",
+          "to": "if(net.lobby?.phase!=='game'){this.art.clear();return;}"
+        },
+        {
+          "from": "  // Authoritative positions drive framing; rendered prediction adds only a safety envelope.\n  if(this.cameraReset!==latest.resetId){this.cameraReset=latest.resetId;this.framing.reset();}\n  const points=latest.state.frogs.flatMap((f,i)=>[f,this.rendered[i]??f,...(f.tongue?[f.tongue.tip]:[])]);\n  const frame=this.framing.update(points,delta,touch.enabled||game.scale.displaySize.width<700,cameraOptions.dynamic&&net.playing);\n  this.cameras.main.setZoom(frame.zoom).centerOn(frame.x*30,frame.y*30);\n  cameraDiagnostic={mode:cameraOptions.dynamic?'dynamic':'static',...frame,world:{width:WIDTH,height:HEIGHT}};\n  this.art.render(states,this.rendered,net.outbreak,latest.connected,states.map((_,i)=>playerName(i)),net.slot,delta);",
+          "to": "  this.art.render(states,this.rendered,net.outbreak,latest.connected,states.map((_,i)=>playerName(i)),net.slot,delta);"
+        },
+        {
+          "from": "const data={camera:cameraDiagnostic,build:'iphone-reliability-diagnostic-v1',",
+          "to": "const data={build:'iphone-reliability-diagnostic-v1',"
+        },
+        {
+          "from": "function updateMonitor(){Object.assign(net,{camera:cameraDiagnostic});diagnosticPanel.hidden=",
+          "to": "function updateMonitor(){diagnosticPanel.hidden="
+        }
+      ]
+    }
+  }
+}

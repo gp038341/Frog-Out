@@ -1,3 +1,5 @@
+import {ArenaCamera} from './presentation/arena-camera';
+import {CameraOptions} from './presentation/camera-options';
 import {PresentationUI} from './presentation/presentation-ui';
 import {arenaPreview} from './ui/arena-preview';
 import {arenaList,DEFAULT_ARENA,getArena,isArenaId} from './simulation/arenas';
@@ -37,19 +39,22 @@ const recent:{at:number;rtt:number;correction:number;pending:number;input?:unkno
 function viewportDiagnostics(){const v=window.visualViewport,c=document.querySelector('canvas'),font=getComputedStyle(el('phase-message'));const box=(id:string)=>el(id).getBoundingClientRect().toJSON();return {layout:{width:innerWidth,height:innerHeight,scrollX,scrollY},visual:v?{width:v.width,height:v.height,offsetLeft:v.offsetLeft,offsetTop:v.offsetTop,pageLeft:v.pageLeft,pageTop:v.pageTop,scale:v.scale}:null,dpr:devicePixelRatio,orientation:screen.orientation?.type??(innerWidth>innerHeight?'landscape':'portrait'),stage:box('game-stage'),canvas:c?.getBoundingClientRect().toJSON(),canvasBacking:c?{width:c.width,height:c.height}:null,parent:box('game'),session:box('session'),footer:box('session-footer'),text:{fontSize:font.fontSize,lineHeight:font.lineHeight,textSizeAdjust:getComputedStyle(document.documentElement).getPropertyValue('-webkit-text-size-adjust')||getComputedStyle(document.documentElement).getPropertyValue('text-size-adjust')}};}
 const viewportEvents:{at:number;reason:string;viewport:unknown}[]=[];
 function exportDiagnostics(){
- const data={build:'iphone-reliability-diagnostic-v1',browser:{userAgent:navigator.userAgent,platform:navigator.platform,touchEvents:'ontouchstart' in window,pointerEvents:typeof PointerEvent==='function'},viewport:viewportDiagnostics(),viewportEvents,inputTrace:net.inputTrace,milestone:8,arena:{id:net.lobby?.arenaId??DEFAULT_ARENA,width:WIDTH,height:HEIGHT,solids:getArena(net.lobby?.arenaId??DEFAULT_ARENA).solids},fullscreen:{supported:fullscreenAvailable,active:!!fullscreenActive(),standard:typeof fsRoot.requestFullscreen==='function',standardEnabled:document.fullscreenEnabled,prefixed:typeof fsRoot.webkitRequestFullscreen==='function',prefixedEnabled:fsDocument.webkitFullscreenEnabled},normalizedInput:net.input,inputSwitches,focus:{element:document.activeElement?.tagName,id:document.activeElement?.id,documentFocused:document.hasFocus()},inputPipeline:{status:net.status,playing:net.playing,stale:net.stale,lastReceiveAgeMs:Date.now()-net.lastReceive,sequence:net.seq,ack:net.snapshots.at(-1)?.ack[net.slot],tick:net.snapshots.at(-1)?.state.tick,authoritativeFrog:net.snapshots.at(-1)?.state.frogs[net.slot]},touch:{lifecycle:touch.diagnostics(),enabled:touch.enabled,input:touch.input,viewport:{width:innerWidth,height:innerHeight},pointer:matchMedia('(pointer:coarse)').matches,touchPoints:navigator.maxTouchPoints},outbreak:net.outbreak,room:net.room?.roomId,slot:net.slot,lag:net.link.rtt,jitter:net.link.jitter,prediction:net.prediction,physics:defaults,network:NETWORK,samples:recent,server:net.snapshots.at(-1)?.tickMs,corrections:net.predictor.corrections};
+ const data={camera:cameraDiagnostic,build:'iphone-reliability-diagnostic-v1',browser:{userAgent:navigator.userAgent,platform:navigator.platform,touchEvents:'ontouchstart' in window,pointerEvents:typeof PointerEvent==='function'},viewport:viewportDiagnostics(),viewportEvents,inputTrace:net.inputTrace,milestone:8,arena:{id:net.lobby?.arenaId??DEFAULT_ARENA,width:WIDTH,height:HEIGHT,solids:getArena(net.lobby?.arenaId??DEFAULT_ARENA).solids},fullscreen:{supported:fullscreenAvailable,active:!!fullscreenActive(),standard:typeof fsRoot.requestFullscreen==='function',standardEnabled:document.fullscreenEnabled,prefixed:typeof fsRoot.webkitRequestFullscreen==='function',prefixedEnabled:fsDocument.webkitFullscreenEnabled},normalizedInput:net.input,inputSwitches,focus:{element:document.activeElement?.tagName,id:document.activeElement?.id,documentFocused:document.hasFocus()},inputPipeline:{status:net.status,playing:net.playing,stale:net.stale,lastReceiveAgeMs:Date.now()-net.lastReceive,sequence:net.seq,ack:net.snapshots.at(-1)?.ack[net.slot],tick:net.snapshots.at(-1)?.state.tick,authoritativeFrog:net.snapshots.at(-1)?.state.frogs[net.slot]},touch:{lifecycle:touch.diagnostics(),enabled:touch.enabled,input:touch.input,viewport:{width:innerWidth,height:innerHeight},pointer:matchMedia('(pointer:coarse)').matches,touchPoints:navigator.maxTouchPoints},outbreak:net.outbreak,room:net.room?.roomId,slot:net.slot,lag:net.link.rtt,jitter:net.link.jitter,prediction:net.prediction,physics:defaults,network:NETWORK,samples:recent,server:net.snapshots.at(-1)?.tickMs,corrections:net.predictor.corrections};
  const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='network-playtest-diagnostics.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);
 }
 document.querySelector('#export')!.addEventListener('click',exportDiagnostics);
 document.querySelector('#mobile-export')!.addEventListener('click',exportDiagnostics);
 let lastStatus=0;
+const cameraOptions=new CameraOptions();
+let cameraDiagnostic:unknown=null;
 class Spike extends Phaser.Scene {
  art!:Courtyard;
+ framing=new ArenaCamera(WIDTH,HEIGHT);private cameraReset=-1;
  rendered:{x:number;y:number}[]=[];
- create(){this.art=new Courtyard(this,audio);}
+ create(){this.art=new Courtyard(this,audio);this.cameras.main.setBounds(0,0,WIDTH*30,HEIGHT*30);}
 
  update(_time:number,delta:number){
-  if(net.lobby?.phase!=='game'){this.art.clear();return;}
+  if(net.lobby?.phase!=='game'){this.art.clear();this.framing.reset();this.cameras.main.setZoom(1).centerOn(WIDTH*15,HEIGHT*15);return;}
   const now=Date.now(),nowServer=now+net.offset;
   if(net.prediction&&net.playing&&!net.stale)net.predictor.advance(nowServer);
   const states=interpolate(net.snapshots,nowServer-NETWORK.interpolationMs);
@@ -75,6 +80,12 @@ class Spike extends Phaser.Scene {
   });
   const latest=net.snapshots.at(-1)!;
   this.art.setArena(net.snapshots.at(-1)?.arenaId??net.lobby?.arenaId??DEFAULT_ARENA);
+  // Authoritative positions drive framing; rendered prediction adds only a safety envelope.
+  if(this.cameraReset!==latest.resetId){this.cameraReset=latest.resetId;this.framing.reset();}
+  const points=latest.state.frogs.flatMap((f,i)=>[f,this.rendered[i]??f,...(f.tongue?[f.tongue.tip]:[])]);
+  const frame=this.framing.update(points,delta,touch.enabled||game.scale.displaySize.width<700,cameraOptions.dynamic&&net.playing);
+  this.cameras.main.setZoom(frame.zoom).centerOn(frame.x*30,frame.y*30);
+  cameraDiagnostic={mode:cameraOptions.dynamic?'dynamic':'static',...frame,world:{width:WIDTH,height:HEIGHT}};
   this.art.render(states,this.rendered,net.outbreak,latest.connected,states.map((_,i)=>playerName(i)),net.slot,delta);
   if(now-lastStatus>100){lastStatus=now;const last=net.snapshots.at(-1)!;
    const corrections=[...net.predictor.corrections].sort((a,b)=>a-b),p95=corrections[Math.floor(corrections.length*.95)]??0;
@@ -147,7 +158,7 @@ const diagnosticButton=document.createElement('button');diagnosticButton.id='inp
 const diagnosticPanel=document.createElement('pre');diagnosticPanel.id='input-monitor';diagnosticPanel.hidden=true;diagnosticPanel.setAttribute('aria-label','Input pipeline diagnostics');document.body.append(diagnosticPanel);
 let monitor=new URLSearchParams(location.search).get('diagnostics')==='1';
 diagnosticButton.onclick=()=>{monitor=!monitor;diagnosticButton.setAttribute('aria-pressed',String(monitor));diagnosticPanel.hidden=!monitor;};
-function updateMonitor(){diagnosticPanel.hidden=!monitor||el('session').hidden;diagnosticButton.hidden=el('session').hidden;if(!monitor)return;const v=window.visualViewport,t=touch.diagnostics(),s=net.snapshots.at(-1),f=s?.state.frogs[net.slot],trace=net.inputTrace,age=(at:number)=>at?`${Date.now()-at}ms`:'never';
+function updateMonitor(){Object.assign(net,{camera:cameraDiagnostic});diagnosticPanel.hidden=!monitor||el('session').hidden;diagnosticButton.hidden=el('session').hidden;if(!monitor)return;const v=window.visualViewport,t=touch.diagnostics(),s=net.snapshots.at(-1),f=s?.state.frogs[net.slot],trace=net.inputTrace,age=(at:number)=>at?`${Date.now()-at}ms`:'never';
  diagnosticPanel.style.top=`${(v?.offsetTop??0)+4}px`;diagnosticPanel.style.left=`${(v?.offsetLeft??0)+6}px`;diagnosticPanel.style.right='auto';diagnosticPanel.style.maxWidth=`${(v?.width??innerWidth)-12}px`;
  diagnosticPanel.textContent=`INPUT MONITOR · ${net.status} · ${net.playing?'PLAY':'PAUSED'}${net.stale?' · STALE':''}\nlayout ${innerWidth}×${innerHeight} visual ${v?.width.toFixed(0)}×${v?.height.toFixed(0)} offset ${v?.offsetLeft.toFixed(0)},${v?.offsetTop.toFixed(0)} zoom ${v?.scale.toFixed(2)}\nDPR ${devicePixelRatio} ${screen.orientation?.type??(innerWidth>innerHeight?'landscape':'portrait')} canvas CSS ${document.querySelector('canvas')?.getBoundingClientRect().width.toFixed(0)}×${document.querySelector('canvas')?.getBoundingClientRect().height.toFixed(0)} backing ${document.querySelector('canvas')?.width}×${document.querySelector('canvas')?.height}\nparent ${el('game').clientWidth}×${el('game').clientHeight} Phaser ${game.scale.gameSize.width}×${game.scale.gameSize.height} HUD ${getComputedStyle(el('phase-message')).fontSize} adjust ${getComputedStyle(document.documentElement).getPropertyValue('-webkit-text-size-adjust')}\nresize ${viewportEvents.at(-1)?.reason??'none'} ${age(viewportEvents.at(-1)?.at??0)}\nbrowser touches ${t.browserTouches.length} [${t.browserTouches.map(p=>p.id).join(',')}] pointers [${t.browserPointerIds.join(',')}]\nowners MOVE=${t.directionId??'-'} ACTION=${t.actionId??'-'} active ${touch.active} raw ${t.input.x},${t.input.y},${+t.input.held}\n${t.lastBrowserEvent}\ncancels ${t.cancelCount}: ${t.lastCancel}\nlocal ${net.input.x},${net.input.y},${+net.input.held} sent #${trace.sentSeq} ${age(trace.sentAt)} open ${trace.transportOpen}\nack #${trace.ack} ${age(trace.ackAt)} snapshot ${age(trace.snapshotAt)} tick ${s?.state.tick} ${age(trace.tickAt)}\nserver ${f?.input.x},${f?.input.y},${+!!f?.input.held} xy ${f?.x.toFixed(2)},${f?.y.toFixed(2)} vel ${f?.vx.toFixed(2)},${f?.vy.toFixed(2)}\n${trace.skip||'sending'} · ${t.events.at(-1)?.event??''}`;
 }

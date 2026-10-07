@@ -1,0 +1,393 @@
+{
+  "engine": "Linux Playwright WebKit 26.0, build 2248; desktop and touch-capable contexts, DPR 3",
+  "scope": "Trusted single touchscreen taps and UI; synthetic native multi-finger events/browser interruptions; mocked VisualViewport toolbar/zoom rectangles; actual server physics/WebSockets; test-only body arrangements and short intros. NOT physical iPhone Safari/browser-chrome validation.",
+  "checks": [
+    "actual WebKit keyboard/touch clients join, select map, ready/start over real WebSockets; false fullscreen capability hides button",
+    "trusted WebKit touchscreen tap yields authoritative normal jump through native Touch Events",
+    "synthetic native two-thumb hold/charge/release reaches approved authoritative charged launch",
+    "native-stream aiming, terrain attachment and release stay authoritative",
+    "twenty synthetic Safari gesture pairs preserve both owners/normalized/server input; passive browser inventory reports two IDs",
+    "native action-first and movement-first owners, direction changes, either release and one-thumb cancellation independently reach authoritative input",
+    "twenty rapid action presses/releases preserve continuously held movement in normalized and server inputs",
+    "physical-device monitor is user-toggleable, non-intercepting, and shows complete input/ack/tick pipeline",
+    "forced 48px HUD text/long wrapping strings do not change canvas or held two-thumb input; fixed backing resolution, 100% adjustment and larger 844x390 arena",
+    "24 mock Safari toolbar transitions settle to deterministic FIT sizes without text-driven resize oscillation",
+    "mock toolbar expansion/collapse, nonzero offsets and zoomed visible widths fit canvas/touch/footer and release old coordinates; fresh touches regain control",
+    "fresh native down in the same task as resize survives the deferred render frame and reaches authoritative input",
+    "WebKit portrait/landscape resizing preserves identity and accepts fresh fingers",
+    "synthetic browser interruptions neutralize both owners and next touch recovers",
+    "trusted WebKit Help open/close releases held controls without losing player",
+    "WebKit refresh reconnect restores existing identity/frog",
+    "actual WebKit 180s event/server stress: 226 synthetic native two-thumb slide/charge/release/cancel/fresh-down cycles; identity and authoritative ticks continue",
+    "trusted WebKit diagnostic download includes viewport/native owners/sends/acknowledgement/authoritative state without reconnect credentials",
+    "two consecutive complete WebKit Outbreak matches: rotation, scoring, round/final results and rematch"
+  ],
+  "layouts": [
+    {
+      "stable": {
+        "canvas": {
+          "width": 508.4375,
+          "height": 286
+        },
+        "parent": {
+          "width": 587.6875,
+          "height": 286
+        },
+        "backing": {
+          "width": 1200,
+          "height": 675
+        },
+        "adjust": "",
+        "adjustSupported": false,
+        "font": "12px"
+      },
+      "enlarged": {
+        "canvas": {
+          "width": 508.4375,
+          "height": 286
+        },
+        "parent": {
+          "width": 587.6875,
+          "height": 286
+        },
+        "backing": {
+          "width": 1200,
+          "height": 675
+        },
+        "adjust": "",
+        "adjustSupported": false,
+        "font": "48px"
+      },
+      "oscillation": [
+        {
+          "height": 280,
+          "canvas": {
+            "width": 312.875,
+            "height": 176
+          }
+        },
+        {
+          "height": 390,
+          "canvas": {
+            "width": 508.4375,
+            "height": 286
+          }
+        },
+        {
+          "height": 280,
+          "canvas": {
+            "width": 312.875,
+            "height": 176
+          }
+        },
+        {
+          "height": 390,
+          "canvas": {
+            "width": 508.4375,
+            "height": 286
+          }
+        },
+        {
+          "height": 280,
+          "canvas": {
+            "width": 312.875,
+            "height": 176
+          }
+        },
+        {
+          "height": 390,
+          "canvas": {
+            "width": 508.4375,
+            "height": 286
+          }
+        },
+        {
+          "height": 280,
+          "canvas": {
+            "width": 312.875,
+            "height": 176
+          }
+        },
+        {
+          "height": 390,
+          "canvas": {
+            "width": 508.4375,
+            "height": 286
+          }
+        },
+        {
+          "height": 280,
+          "canvas": {
+            "width": 312.875,
+            "height": 176
+          }
+        },
+        {
+          "height": 390,
+          "canvas": {
+            "width": 508.4375,
+            "height": 286
+          }
+        },
+        {
+          "height": 280,
+          "canvas": {
+            "width": 312.875,
+            "height": 176
+          }
+        },
+        {
+          "height": 390,
+          "canvas": {
+            "width": 508.4375,
+            "height": 286
+          }
+        },
+        {
+          "height": 280,
+          "canvas": {
+            "width": 312.875,
+            "height": 176
+          }
+        },
+        {
+          "height": 390,
+          "canvas": {
+            "width": 508.4375,
+            "height": 286
+          }
+        },
+        {
+          "height": 280,
+          "canvas": {
+            "width": 312.875,
+            "height": 176
+          }
+        },
+        {
+          "height": 390,
+          "canvas": {
+            "width": 508.4375,
+            "height": 286
+          }
+        },
+        {
+          "height": 280,
+          "canvas": {
+            "width": 312.875,
+            "height": 176
+          }
+        },
+        {
+          "height": 390,
+          "canvas": {
+            "width": 508.4375,
+            "height": 286
+          }
+        },
+        {
+          "height": 280,
+          "canvas": {
+            "width": 312.875,
+            "height": 176
+          }
+        },
+        {
+          "height": 390,
+          "canvas": {
+            "width": 508.4375,
+            "height": 286
+          }
+        },
+        {
+          "height": 280,
+          "canvas": {
+            "width": 312.875,
+            "height": 176
+          }
+        },
+        {
+          "height": 390,
+          "canvas": {
+            "width": 508.4375,
+            "height": 286
+          }
+        },
+        {
+          "height": 280,
+          "canvas": {
+            "width": 312.875,
+            "height": 176
+          }
+        },
+        {
+          "height": 390,
+          "canvas": {
+            "width": 508.4375,
+            "height": 286
+          }
+        }
+      ]
+    },
+    {
+      "v": {
+        "width": 844,
+        "height": 280,
+        "offsetTop": 38,
+        "offsetLeft": 0,
+        "scale": 1
+      },
+      "boxes": {
+        "canvas": {
+          "x": 265.15625,
+          "y": 100,
+          "w": 312.875,
+          "h": 176
+        },
+        "pad": {
+          "x": 10.21875,
+          "y": 133.140625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "action": {
+          "x": 724.0625,
+          "y": 133.140625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "footer": {
+          "x": 6,
+          "y": 278,
+          "w": 832,
+          "h": 36
+        }
+      }
+    },
+    {
+      "v": {
+        "width": 800,
+        "height": 310,
+        "offsetTop": 20,
+        "offsetLeft": 22,
+        "scale": 1
+      },
+      "boxes": {
+        "canvas": {
+          "x": 238.15625,
+          "y": 82,
+          "w": 366.21875,
+          "h": 206
+        },
+        "pad": {
+          "x": 32.21875,
+          "y": 130.140625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "action": {
+          "x": 702.0625,
+          "y": 130.140625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "footer": {
+          "x": 28,
+          "y": 290,
+          "w": 788,
+          "h": 36
+        }
+      }
+    },
+    {
+      "v": {
+        "width": 600,
+        "height": 240,
+        "offsetTop": 12,
+        "offsetLeft": 60,
+        "scale": 1.3
+      },
+      "boxes": {
+        "canvas": {
+          "x": 263.15625,
+          "y": 74,
+          "w": 192,
+          "h": 108
+        },
+        "pad": {
+          "x": 70.21875,
+          "y": 73.140625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "action": {
+          "x": 540.0625,
+          "y": 73.140625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "footer": {
+          "x": 66,
+          "y": 184,
+          "w": 588,
+          "h": 64
+        }
+      }
+    },
+    {
+      "v": {
+        "width": 844,
+        "height": 390,
+        "offsetTop": 0,
+        "offsetLeft": 0,
+        "scale": 1
+      },
+      "boxes": {
+        "canvas": {
+          "x": 167.15625,
+          "y": 62,
+          "w": 508.4375,
+          "h": 286
+        },
+        "pad": {
+          "x": 10.21875,
+          "y": 150.140625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "action": {
+          "x": 724.0625,
+          "y": 150.140625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "footer": {
+          "x": 6,
+          "y": 350,
+          "w": 832,
+          "h": 36
+        }
+      }
+    }
+  ],
+  "stress": {
+    "seconds": 180,
+    "cycles": 226,
+    "trace": {
+      "attemptAt": 1791404547445,
+      "sentAt": 1791404547446,
+      "sentSeq": 6296,
+      "ackAt": 1791404547446,
+      "ack": 6295,
+      "snapshotAt": 1791404547453,
+      "tickAt": 1791404547453,
+      "tick": 12551,
+      "skip": "",
+      "transportOpen": true,
+      "id": "t4mh7C96O",
+      "slot": 1,
+      "stale": false
+    }
+  },
+  "errors": []
+}

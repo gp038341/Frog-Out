@@ -103,3 +103,7 @@ Original pond-percussion sound, restrained action feedback and short Outbreak/ro
 ## Current iPhone validation status
 
 Simultaneous iPhone multitouch is physically validated at `eb7bfd5a58b134af428794bcbc10311c99fefa84` (`checkpoint/iphone-multitouch-physically-validated`). The latest [viewport stabilization candidate](docs/iphone-viewport-candidate.md) preserves that input implementation and adds stable touch-game layout plus diagnostics. Physical Safari viewport/screen-fit acceptance remains mandatory before submission; automated WebKit/Chromium checks are not physical-device verification.
+
+## Accepted release and M10 camera prototype
+
+The user physically accepted iPhone multitouch and Safari screen fit at `cc0c09b8fa0e021f2195ec6b12848081f6d1cefa`, preserved as `checkpoint/approved-release-pre-m10`; this supersedes earlier pending compatibility notes. [M10 prototype](docs/milestone-10-camera-prototype.md) adds bounded local framing, with **How to Play → Camera prototype → Original static view** as an A/B fallback. Geometry, physics, rules, input and viewport systems are unchanged. M10 camera comfort/readability awaits user playtest.

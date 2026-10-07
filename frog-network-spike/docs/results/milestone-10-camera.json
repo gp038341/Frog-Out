@@ -1,0 +1,328 @@
+{
+  "scope": "Actual local authoritative WebSockets, Phaser rendering and Chromium desktop/touch-size contexts. Test-only body arrangements. Not a physical iPhone test.",
+  "checks": [
+    "2 independent clients: desktop/touch framing, close/wide bounds, original static A/B without reset, HUD/canvas/control invariance, 3 mobile viewports",
+    "4 independent clients: desktop/touch framing, close/wide bounds, original static A/B without reset, HUD/canvas/control invariance, 3 mobile viewports",
+    "6 independent clients: desktop/touch framing, close/wide bounds, original static A/B without reset, HUD/canvas/control invariance, 3 mobile viewports",
+    "8 independent clients: desktop/touch framing, close/wide bounds, original static A/B without reset, HUD/canvas/control invariance, 3 mobile viewports"
+  ],
+  "samples": [
+    {
+      "count": 2,
+      "clustered": [
+        {
+          "mode": "dynamic",
+          "x": 20,
+          "y": 12.213838474632981,
+          "zoom": 1.0937024440318217,
+          "targetZoom": 1.28,
+          "fitZoom": 1.28,
+          "world": {
+            "width": 40,
+            "height": 22.5
+          }
+        },
+        {
+          "mode": "dynamic",
+          "x": 20,
+          "y": 11.843796349490907,
+          "zoom": 1.0557230669538245,
+          "targetZoom": 1.18,
+          "fitZoom": 1.18,
+          "world": {
+            "width": 40,
+            "height": 22.5
+          }
+        }
+      ],
+      "wide": {
+        "mode": "dynamic",
+        "x": 20,
+        "y": 11.25,
+        "zoom": 1,
+        "targetZoom": 1,
+        "fitZoom": 1,
+        "world": {
+          "width": 40,
+          "height": 22.5
+        }
+      },
+      "staticFrame": {
+        "mode": "static",
+        "x": 20,
+        "y": 11.25,
+        "zoom": 1,
+        "targetZoom": 1,
+        "fitZoom": 1,
+        "world": {
+          "width": 40,
+          "height": 22.5
+        }
+      },
+      "domInvariant": {
+        "canvas": {
+          "x": 167.15625,
+          "y": 62,
+          "width": 508.4375,
+          "height": 286
+        },
+        "pad": {
+          "x": 10.21875,
+          "y": 150.140625,
+          "width": 109.71875,
+          "height": 109.71875
+        },
+        "action": {
+          "x": 724.0625,
+          "y": 150.140625,
+          "width": 109.71875,
+          "height": 109.71875
+        },
+        "timer": {
+          "x": 741.671875,
+          "y": 28,
+          "width": 96.328125,
+          "height": 20
+        }
+      }
+    },
+    {
+      "count": 4,
+      "clustered": [
+        {
+          "mode": "dynamic",
+          "x": 20,
+          "y": 12.112655876439126,
+          "zoom": 1.0830487433724685,
+          "targetZoom": 1.28,
+          "fitZoom": 1.28,
+          "world": {
+            "width": 40,
+            "height": 22.5
+          }
+        },
+        {
+          "mode": "dynamic",
+          "x": 20,
+          "y": 11.877984027866333,
+          "zoom": 1.0591209832026065,
+          "targetZoom": 1.18,
+          "fitZoom": 1.18,
+          "world": {
+            "width": 40,
+            "height": 22.5
+          }
+        }
+      ],
+      "wide": {
+        "mode": "dynamic",
+        "x": 20,
+        "y": 11.25,
+        "zoom": 1,
+        "targetZoom": 1,
+        "fitZoom": 1,
+        "world": {
+          "width": 40,
+          "height": 22.5
+        }
+      },
+      "staticFrame": {
+        "mode": "static",
+        "x": 20,
+        "y": 11.25,
+        "zoom": 1,
+        "targetZoom": 1,
+        "fitZoom": 1,
+        "world": {
+          "width": 40,
+          "height": 22.5
+        }
+      },
+      "domInvariant": {
+        "canvas": {
+          "x": 167.15625,
+          "y": 62,
+          "width": 508.4375,
+          "height": 286
+        },
+        "pad": {
+          "x": 10.21875,
+          "y": 150.140625,
+          "width": 109.71875,
+          "height": 109.71875
+        },
+        "action": {
+          "x": 724.0625,
+          "y": 150.140625,
+          "width": 109.71875,
+          "height": 109.71875
+        },
+        "timer": {
+          "x": 741.671875,
+          "y": 28,
+          "width": 96.328125,
+          "height": 20
+        }
+      }
+    },
+    {
+      "count": 6,
+      "clustered": [
+        {
+          "mode": "dynamic",
+          "x": 20,
+          "y": 12.587260801851647,
+          "zoom": 1.1349032568214283,
+          "targetZoom": 1.28,
+          "fitZoom": 1.28,
+          "world": {
+            "width": 40,
+            "height": 22.5
+          }
+        },
+        {
+          "mode": "dynamic",
+          "x": 20,
+          "y": 12.172066350238106,
+          "zoom": 1.089278880123263,
+          "targetZoom": 1.18,
+          "fitZoom": 1.18,
+          "world": {
+            "width": 40,
+            "height": 22.5
+          }
+        }
+      ],
+      "wide": {
+        "mode": "dynamic",
+        "x": 20,
+        "y": 11.25,
+        "zoom": 1,
+        "targetZoom": 1,
+        "fitZoom": 1,
+        "world": {
+          "width": 40,
+          "height": 22.5
+        }
+      },
+      "staticFrame": {
+        "mode": "static",
+        "x": 20,
+        "y": 11.25,
+        "zoom": 1,
+        "targetZoom": 1,
+        "fitZoom": 1,
+        "world": {
+          "width": 40,
+          "height": 22.5
+        }
+      },
+      "domInvariant": {
+        "canvas": {
+          "x": 167.15625,
+          "y": 62,
+          "width": 508.4375,
+          "height": 286
+        },
+        "pad": {
+          "x": 10.21875,
+          "y": 150.140625,
+          "width": 109.71875,
+          "height": 109.71875
+        },
+        "action": {
+          "x": 724.0625,
+          "y": 150.140625,
+          "width": 109.71875,
+          "height": 109.71875
+        },
+        "timer": {
+          "x": 741.671875,
+          "y": 28,
+          "width": 96.328125,
+          "height": 20
+        }
+      }
+    },
+    {
+      "count": 8,
+      "clustered": [
+        {
+          "mode": "dynamic",
+          "x": 20,
+          "y": 12.850809392863422,
+          "zoom": 1.1659008986390482,
+          "targetZoom": 1.28,
+          "fitZoom": 1.28,
+          "world": {
+            "width": 40,
+            "height": 22.5
+          }
+        },
+        {
+          "mode": "dynamic",
+          "x": 20,
+          "y": 12.321783832816624,
+          "zoom": 1.1053017361010933,
+          "targetZoom": 1.18,
+          "fitZoom": 1.18,
+          "world": {
+            "width": 40,
+            "height": 22.5
+          }
+        }
+      ],
+      "wide": {
+        "mode": "dynamic",
+        "x": 20,
+        "y": 11.25,
+        "zoom": 1,
+        "targetZoom": 1,
+        "fitZoom": 1,
+        "world": {
+          "width": 40,
+          "height": 22.5
+        }
+      },
+      "staticFrame": {
+        "mode": "static",
+        "x": 20,
+        "y": 11.25,
+        "zoom": 1,
+        "targetZoom": 1,
+        "fitZoom": 1,
+        "world": {
+          "width": 40,
+          "height": 22.5
+        }
+      },
+      "domInvariant": {
+        "canvas": {
+          "x": 167.15625,
+          "y": 62,
+          "width": 508.4375,
+          "height": 286
+        },
+        "pad": {
+          "x": 10.21875,
+          "y": 150.140625,
+          "width": 109.71875,
+          "height": 109.71875
+        },
+        "action": {
+          "x": 724.0625,
+          "y": 150.140625,
+          "width": 109.71875,
+          "height": 109.71875
+        },
+        "timer": {
+          "x": 741.671875,
+          "y": 28,
+          "width": 96.328125,
+          "height": 20
+        }
+      }
+    }
+  ],
+  "errors": []
+}
