@@ -1,0 +1,48 @@
+{
+  "status": "physical diagnostic candidate, not physical acceptance",
+  "unitTests": 75,
+  "unitFailures": 0,
+  "build": "passed",
+  "reports": {
+    "webkit": {
+      "checks": 17,
+      "errors": [],
+      "scope": "Trusted single touchscreen taps and UI; synthetic native multi-finger events/browser interruptions; mocked VisualViewport toolbar/zoom rectangles; actual server physics/WebSockets; test-only body arrangements and short intros. NOT physical iPhone Safari/browser-chrome validation."
+    },
+    "chromium": {
+      "checks": 15,
+      "errors": [],
+      "scope": "Local compiled authoritative server; trusted CDP multi-touch input in isolated Chromium contexts (not physical iOS/Safari/Android devices); test-only body arrangements and 6/12-tick intros; unchanged 60-tick grace"
+    },
+    "hybrid": {
+      "checks": 16,
+      "errors": [],
+      "scope": "Focused hybrid/capability checks; long-loop durations disabled. Separate actual WebKit synthetic event stress covers long sessions."
+    },
+    "lifecycle": {
+      "checks": 16,
+      "errors": [],
+      "scope": "Local authoritative server with independent real WebSocket SDK clients; not a human acceptance playtest"
+    },
+    "arenas": {
+      "checks": 9,
+      "errors": [],
+      "scope": "Local compiled server; independent real WebSocket clients; short test countdown; unchanged production grace/scoring"
+    },
+    "outbreak": {
+      "checks": 9,
+      "errors": [],
+      "scope": "Independent loopback WebSocket clients using actual OutbreakRoom/Planck contacts; test-only arrangements and shortened announcement/countdown (6/12 ticks), production grace remains 60 ticks; not human acceptance"
+    }
+  },
+  "intermittentTestFailures": [
+    {
+      "scenario": "Chromium close-frog grapple attachment wait",
+      "runs": 2,
+      "result": "30-second attachment assertion timeouts; normalized/server trace not captured in those runs",
+      "followup": "Changed test-only transient attachment assertion to inspect snapshot history; subsequent diagnostic rerun and hybrid frog-grapple checks passed. No extra product patch. Physical gameplay validation still required; earlier failures are not proven harness-only."
+    }
+  ],
+  "physicalIPhone": "unverified, reported screen-fit and multitouch P0 remain release gates",
+  "physicalAndroid": "not retested"
+}

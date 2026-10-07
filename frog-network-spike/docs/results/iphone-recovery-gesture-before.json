@@ -1,0 +1,14 @@
+{
+  "environment": "Linux WebKit, synthetic Safari gesturestart on live authoritative clients; not proof of physical Safari event sequence",
+  "before": {
+    "x": 1,
+    "y": 0,
+    "held": true
+  },
+  "after": {
+    "x": 0,
+    "y": 0,
+    "held": false
+  },
+  "defaultPrevented": true
+}

@@ -1,0 +1,337 @@
+{
+  "environment": "Local authoritative server; Chromium trusted touch and keyboard, hybrid + desktop; capability fault injection only in isolated tests; not physical acceptance",
+  "checks": [
+    "grounded: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "airborne: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "charge: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "terrain-grapple: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "frog-grapple: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "held-key auto-repeat after handoff cannot resurrect stale direction",
+    "10-second stationary two-thumb grapple hold remains active; release returns to neutral",
+    "blur interruption and orphan-owner/capture-error fault injection recover with fresh trusted touch without reconnect, respawn or physics change",
+    "5 landscape sizes \u00d7 both input layouts: aspect ratio, FIT maximum dimension, footer and arena in viewport, no horizontal overflow",
+    "user gesture Fullscreen API enter/exit and label/resize work in headless Chromium",
+    "portrait/landscape preserves identity and restores controls",
+    "reload reconnect after repeated switching restores same frog and both input methods",
+    "authoritative survival score + 2 bonus displayed as separate round-results components",
+    "fullscreen absent/restricted: hidden unsupported button or readable failure, ordinary play unaffected",
+    "prefixed-only Fullscreen API capability enter/exit; unsupported explanatory text; injected browser capability tests",
+    "trusted two-thumb input survives native capture/release exceptions and off-control release using document fallback"
+  ],
+  "layouts": [
+    {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "touch": false,
+      "canvas": {
+        "x": 99,
+        "y": 68,
+        "width": 1166.21875,
+        "height": 656
+      },
+      "available": {
+        "x": 10,
+        "y": 68,
+        "width": 1346,
+        "height": 656
+      },
+      "footer": {
+        "x": 6,
+        "y": 732,
+        "width": 1354,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "touch": true,
+      "canvas": {
+        "x": 134,
+        "y": 87,
+        "width": 1098,
+        "height": 617.625
+      },
+      "available": {
+        "x": 134,
+        "y": 68,
+        "width": 1098,
+        "height": 656
+      },
+      "footer": {
+        "x": 6,
+        "y": 732,
+        "width": 1354,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "touch": false,
+      "canvas": {
+        "x": 10,
+        "y": 113,
+        "width": 1004,
+        "height": 564.75
+      },
+      "available": {
+        "x": 10,
+        "y": 68,
+        "width": 1004,
+        "height": 656
+      },
+      "footer": {
+        "x": 6,
+        "y": 732,
+        "width": 1012,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "touch": true,
+      "canvas": {
+        "x": 134,
+        "y": 183,
+        "width": 756,
+        "height": 425.25
+      },
+      "available": {
+        "x": 134,
+        "y": 68,
+        "width": 756,
+        "height": 656
+      },
+      "footer": {
+        "x": 6,
+        "y": 732,
+        "width": 1012,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "touch": false,
+      "canvas": {
+        "x": 191,
+        "y": 87,
+        "width": 460.4375,
+        "height": 259
+      },
+      "available": {
+        "x": 10,
+        "y": 87,
+        "width": 824,
+        "height": 259
+      },
+      "footer": {
+        "x": 6,
+        "y": 354,
+        "width": 832,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "touch": true,
+      "canvas": {
+        "x": 191.15625,
+        "y": 87,
+        "width": 460.4375,
+        "height": 259
+      },
+      "available": {
+        "x": 132.15625,
+        "y": 87,
+        "width": 579.6875,
+        "height": 259
+      },
+      "footer": {
+        "x": 6,
+        "y": 354,
+        "width": 832,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "touch": false,
+      "canvas": {
+        "x": 145,
+        "y": 87,
+        "width": 375.109375,
+        "height": 211
+      },
+      "available": {
+        "x": 10,
+        "y": 87,
+        "width": 647,
+        "height": 211
+      },
+      "footer": {
+        "x": 6,
+        "y": 306,
+        "width": 655,
+        "height": 65
+      }
+    },
+    {
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "touch": true,
+      "canvas": {
+        "x": 145.375,
+        "y": 87,
+        "width": 375.109375,
+        "height": 211
+      },
+      "available": {
+        "x": 107.375,
+        "y": 87,
+        "width": 452.25,
+        "height": 211
+      },
+      "footer": {
+        "x": 6,
+        "y": 306,
+        "width": 655,
+        "height": 65
+      }
+    },
+    {
+      "viewport": {
+        "width": 568,
+        "height": 320
+      },
+      "touch": false,
+      "canvas": {
+        "x": 145,
+        "y": 87,
+        "width": 277.328125,
+        "height": 156
+      },
+      "available": {
+        "x": 10,
+        "y": 87,
+        "width": 548,
+        "height": 156
+      },
+      "footer": {
+        "x": 6,
+        "y": 251,
+        "width": 556,
+        "height": 65
+      }
+    },
+    {
+      "viewport": {
+        "width": 568,
+        "height": 320
+      },
+      "touch": true,
+      "canvas": {
+        "x": 145,
+        "y": 87,
+        "width": 277.328125,
+        "height": 156
+      },
+      "available": {
+        "x": 102,
+        "y": 87,
+        "width": 364,
+        "height": 156
+      },
+      "footer": {
+        "x": 6,
+        "y": 251,
+        "width": 556,
+        "height": 65
+      }
+    }
+  ],
+  "round": {
+    "phase": "round-results",
+    "round": 1,
+    "roundCount": 3,
+    "patientZero": 2,
+    "patientZeroOrder": [
+      2,
+      0,
+      1
+    ],
+    "tick": 3703,
+    "elapsedMs": 60900,
+    "remainingMs": 0,
+    "players": [
+      {
+        "infectedTick": 3612,
+        "infectiousTick": 3672,
+        "infectionPlace": 2,
+        "roundPoints": 59.9,
+        "placementBonus": 0,
+        "survivalMs": 59900,
+        "survivalPoints": 59.9,
+        "slot": 0,
+        "state": "infectious",
+        "patientZero": false,
+        "totalPoints": 59.9,
+        "finalPlace": 2
+      },
+      {
+        "infectedTick": 3672,
+        "infectiousTick": 3732,
+        "infectionPlace": 3,
+        "roundPoints": 62.9,
+        "placementBonus": 2,
+        "survivalMs": 60900,
+        "survivalPoints": 60.9,
+        "slot": 1,
+        "state": "transforming",
+        "patientZero": false,
+        "totalPoints": 62.9,
+        "finalPlace": 1
+      },
+      {
+        "infectedTick": 18,
+        "infectiousTick": 18,
+        "infectionPlace": 1,
+        "roundPoints": 0,
+        "placementBonus": 0,
+        "survivalMs": 0,
+        "survivalPoints": 0,
+        "slot": 2,
+        "state": "infectious",
+        "patientZero": true,
+        "totalPoints": 0,
+        "finalPlace": 3
+      }
+    ],
+    "roundWinners": [
+      1
+    ],
+    "matchWinners": []
+  },
+  "errors": [],
+  "scope": "Focused hybrid/capability checks; long-loop durations disabled. Separate actual WebKit synthetic event stress covers long sessions."
+}

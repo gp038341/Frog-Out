@@ -8,8 +8,9 @@ export function direction(dx:number,dy:number,radius:number):Pick<Input,'x'|'y'>
 export class TouchControls {
  input:Input={x:0,y:0,held:false};enabled:boolean;active=false;
  private lastNativeAt=0;private lastPointerAt=0;private lastPoint:{x:number;y:number;at:number}|null=null;private nativeTouch='ontouchstart' in window;private directionSource:'touch'|'pointer'='pointer';private actionSource:'touch'|'pointer'='pointer';private nativeIds:number[]=[];
+ private observedPointers=new Set<number>();private browserTouches:{id:number;target:string;x:number;y:number}[]=[];private lastBrowserEvent='none';private cancelCount=0;private lastCancel='none';private lastBrowserSample=0;
  readonly events:{time:number;event:string;id:number|null;detail?:string}[]=[];
- diagnostics(){return {lastNativeAt:this.lastNativeAt,lastPointerAt:this.lastPointerAt,lastPoint:this.lastPoint,nativeTouch:this.nativeTouch,nativeIds:this.nativeIds.slice(),directionSource:this.directionSource,actionSource:this.actionSource,active:this.active,directionId:this.directionId,actionId:this.actionId,input:{...this.input},events:this.events.slice()};}
+ diagnostics(){return {browserTouches:this.browserTouches.slice(),browserPointerIds:Array.from(this.observedPointers),lastBrowserEvent:this.lastBrowserEvent,cancelCount:this.cancelCount,lastCancel:this.lastCancel,lastNativeAt:this.lastNativeAt,lastPointerAt:this.lastPointerAt,lastPoint:this.lastPoint,nativeTouch:this.nativeTouch,nativeIds:this.nativeIds.slice(),directionSource:this.directionSource,actionSource:this.actionSource,active:this.active,directionId:this.directionId,actionId:this.actionId,input:{...this.input},events:this.events.slice()};}
  private record(event:string,id:number|null=null,detail?:string){if(event.startsWith('native-'))this.lastNativeAt=Date.now();else if(event.includes('down')||event.startsWith('pointer'))this.lastPointerAt=Date.now();this.events.push({time:Date.now(),event,id,detail});if(this.events.length>200)this.events.shift();}
  private capture(target:HTMLElement,id:number){try{target.setPointerCapture(id);}catch(e){this.record('capture-error',id,String(e));}}
  private uncapture(target:HTMLElement,id:number|null){try{if(id!==null&&target.hasPointerCapture(id))target.releasePointerCapture(id);}catch(e){this.record('release-error',id,String(e));}}
@@ -22,6 +23,19 @@ export class TouchControls {
   this.enabled=preference==='1'||preference!=='0'&&(matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0&&innerWidth<=1100);
   document.getElementById('touch-toggle')!.onclick=()=>{this.enabled=!this.enabled;this.active=false;this.reset(false,'layout-switch');this.switched();(document.activeElement as HTMLElement)?.blur();this.update(...this.lastUpdate);this.layout();};
   document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')this.record('touch-hit',e.pointerId,`${(e.target as HTMLElement)?.id|| (e.target as HTMLElement)?.tagName} @ ${Math.round(e.clientX)},${Math.round(e.clientY)} active=${this.active}`);},true);
+  // Diagnostic-only browser inventory: observes every finger before control handlers, regardless of target.
+  for(const type of ['touchstart','touchmove','touchend','touchcancel'] as const)document.addEventListener(type,e=>{
+   this.browserTouches=Array.from(e.touches,t=>({id:t.identifier,target:(t.target as HTMLElement)?.id||'child',x:Math.round(t.clientX),y:Math.round(t.clientY)}));
+   this.lastBrowserEvent=`${type} touches=${e.touches.length} changed=${Array.from(e.changedTouches,t=>t.identifier).join(',')} target=${(e.target as HTMLElement)?.id||'child'} cancelable=${e.cancelable} prevented=${e.defaultPrevented}`;
+   if(type==='touchcancel'){this.cancelCount++;this.lastCancel=this.lastBrowserEvent;}
+   if(type!=='touchmove'||Date.now()-this.lastBrowserSample>250){this.record('browser-event',null,this.lastBrowserEvent);this.lastBrowserSample=Date.now();}
+  },{capture:true,passive:true});
+  for(const type of ['pointerdown','pointermove','pointerup','pointercancel','lostpointercapture'] as const)document.addEventListener(type,e=>{
+   if(type==='pointerdown')this.observedPointers.add(e.pointerId);if(type==='pointerup'||type==='pointercancel')this.observedPointers.delete(e.pointerId);
+   if(type==='pointercancel'){this.cancelCount++;this.lastCancel=`${type} id=${e.pointerId}`;}
+   if(type!=='pointermove')this.record('browser-pointer',e.pointerId,`${type} ${e.pointerType} primary=${e.isPrimary} target=${(e.target as HTMLElement)?.id||'child'}`);
+  },{capture:true,passive:true});
+  for(const type of ['gesturestart','gesturechange','gestureend'])document.addEventListener(type,e=>{this.lastBrowserEvent=`${type} cancelable=${e.cancelable} prevented=${e.defaultPrevented}`;this.record('browser-gesture',null,this.lastBrowserEvent);},{capture:true,passive:true});
   // A fresh down reclaims an orphaned owner; old end events cannot clear the new owner.
   this.pad.addEventListener('pointerdown',e=>{if(this.nativeTouch&&e.pointerType==='touch')return;this.directionSource='pointer';this.record('direction-down',e.pointerId);if(!this.acceptFreshTouch())return;e.preventDefault();this.releaseDirection(false);this.directionId=e.pointerId;this.capture(this.pad,e.pointerId);this.move(e);});
   this.action.addEventListener('pointerdown',e=>{if(this.nativeTouch&&e.pointerType==='touch')return;this.actionSource='pointer';this.record('action-down',e.pointerId);if(!this.acceptFreshTouch())return;e.preventDefault();this.releaseAction(false);this.actionId=e.pointerId;this.capture(this.action,e.pointerId);this.input.held=true;this.action.classList.add('pressed');this.changed();});
@@ -52,14 +66,11 @@ export class TouchControls {
    this.nativeIds=Array.from(e.touches,t=>t.identifier);this.record(type==='touchend'?'native-end':'native-cancel',null,this.nativeDetail(e));if(!this.nativeTouch)return;
    let changed=false;
    for(const t of Array.from(e.changedTouches)){
-    if(this.directionSource==='touch'&&t.identifier===this.directionId){if(e.cancelable)e.preventDefault();this.releaseDirection(false);changed=true;}
-    if(this.actionSource==='touch'&&t.identifier===this.actionId){if(e.cancelable)e.preventDefault();this.releaseAction(false);changed=true;}
+    if(this.directionSource==='touch'&&t.identifier===this.directionId){this.releaseDirection(false);changed=true;}
+    if(this.actionSource==='touch'&&t.identifier===this.actionId){this.releaseAction(false);changed=true;}
    }
    if(changed)this.changed();
-  },{capture:true,passive:false});
-  // Safari's native two-finger gesture must not take over an active control pair.
-  // Scope prevention to gameplay owners; ordinary page/help gestures remain untouched.
-  document.addEventListener('gesturestart',e=>{if(this.active&&(this.directionId!==null||this.actionId!==null)){if(e.cancelable)e.preventDefault();this.record('native-gesture',null,`cancelable=${e.cancelable}`);}}, {capture:true,passive:false});
+  },true);
   window.addEventListener('game-viewport-change',()=>this.reset(true,'viewport-layout-change'));
   for(const target of [this.pad,this.action])target.addEventListener('contextmenu',e=>e.preventDefault());
   window.addEventListener('resize',()=>{if(innerHeight>innerWidth)this.reset(true,'portrait-resize');this.update(...this.lastUpdate);this.layout();});

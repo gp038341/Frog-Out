@@ -1,3 +1,4 @@
+import {recoveryPreservedSource} from './preserved-source';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -47,6 +48,13 @@ test('native two-thumb ownership survives either order, either release and one-f
 test('continuous movement survives rapid action taps and unrelated end/cancel events',()=>{
  const f=fixture(false,true);f.native('touchstart',[1],[1]);for(let id=2;id<102;id++){f.native('touchstart',[id],[1,id],'touch-action');assert.equal(f.control.input.x,1);assert.equal(f.control.input.held,true);f.native('touchmove',[1],[1,id]);assert.equal(f.control.input.held,true);f.native('touchend',[id],[1],'touch-action');assert.equal(f.control.input.x,1);assert.equal(f.control.input.held,false);}f.native('touchcancel',[999],[1]);assert.equal(f.control.input.x,1);f.native('touchend',[1],[]);assert.equal(f.control.input.x,0);
 });
-test('only the intended native touch adapter differs from sound-approved baseline',()=>{const m=JSON.parse(readFileSync(new URL('../docs/iphone-multitouch-preservation.json',import.meta.url),'utf8'));for(const[path,hash]of Object.entries(m.protected))assert.equal(requireHash(readFileSync(new URL(`../${path}`,import.meta.url))),hash,path);});
+test('only the intended native touch adapter differs from sound-approved baseline',()=>{const m=JSON.parse(readFileSync(new URL('../docs/iphone-multitouch-preservation.json',import.meta.url),'utf8'));for(const[path,hash]of Object.entries(m.protected))assert.equal(requireHash(Buffer.from(recoveryPreservedSource(path))),hash,path);});
 
 test('reproduces pre-fix native one-thumb cancellation clearing the other active control',()=>{const before=fixture('native-before',true);before.native('touchstart',[11],[11]);before.native('touchstart',[22],[11,22],'touch-action');assert.equal(before.control.input.x,1);assert.equal(before.control.input.held,true);before.native('touchcancel',[22],[11]);assert.equal(before.control.input.x,0,'baseline incorrectly cleared the uncanceled movement thumb');assert.equal(before.control.input.held,false);const after=fixture(false,true);after.native('touchstart',[11],[11]);after.native('touchstart',[22],[11,22],'touch-action');after.native('touchcancel',[22],[11]);assert.equal(after.control.input.x,1);assert.equal(after.control.input.held,false);});
+
+test('recovery diagnostics report both browser fingers independently from owner and normalized state',()=>{
+ const f=fixture(false,true);f.native('touchstart',[11],[11]);f.native('touchstart',[22],[11,22],'touch-action');let d=f.control.diagnostics();assert.deepEqual(Array.from(d.browserTouches,(p:any)=>p.id),[11,22]);assert.equal(d.directionId,11);assert.equal(d.actionId,22);assert.equal(d.input.held,true);f.native('touchcancel',[22],[11]);d=f.control.diagnostics();assert.equal(d.cancelCount,1);assert.ok(d.lastCancel.includes('touchcancel'));assert.equal(d.browserTouches.length,1);assert.equal(d.input.x,1);
+});
+test('recovery preserves all frozen sources and uses passive observers without Safari gesture interception',()=>{
+ const m=JSON.parse(readFileSync(new URL('../docs/iphone-recovery-preservation.json',import.meta.url),'utf8'));for(const[path,hash]of Object.entries(m.protected))assert.equal(requireHash(readFileSync(new URL(`../${path}`,import.meta.url))),hash,path);for(const[path,r]of Object.entries(m.files)as[string,{sha256:string}][])assert.equal(requireHash(Buffer.from(recoveryPreservedSource(path))),r.sha256,path);const s=readFileSync(new URL('../src/input/touch.ts',import.meta.url),'utf8');assert.ok(!s.includes("this.record('native-gesture'"));assert.ok(s.includes('capture:true,passive:true'));const end=s.slice(s.indexOf('// End/cancel'),s.indexOf("window.addEventListener('game-viewport-change'"));assert.ok(!end.includes('preventDefault'));
+});
