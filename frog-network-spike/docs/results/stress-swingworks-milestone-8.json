@@ -1,0 +1,27 @@
+{
+  "arenaId": "swingworks",
+  "environment": "One local production OutbreakRoom, eight real loopback WebSocket clients at 30 inputs/client/sec, bots jumping/grappling/colliding; host advances results and rematches; production countdown/grace timing; not a production-host capacity claim",
+  "seconds": 60,
+  "clients": 8,
+  "physicsBodies": 8,
+  "authoritativeClockTicks": 3597,
+  "activeGameplayTicks": 2878,
+  "completedRounds": 2,
+  "completedMatches": 0,
+  "tickMs": {
+    "p50": 0.14456199999949604,
+    "p95": 0.3508770000007644,
+    "p99": 0.7471409999998286,
+    "max": 8.510060000000522
+  },
+  "overruns": 0,
+  "receivedSnapshotMessages": 14416,
+  "snapshotGapMs": {
+    "p50": 33,
+    "p95": 37,
+    "p99": 38,
+    "max": 83
+  },
+  "payloadBytesReceivedAllClients": 47735752,
+  "attachedObservations": 3086
+}

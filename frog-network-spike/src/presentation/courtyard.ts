@@ -1,3 +1,4 @@
+import {DEFAULT_ARENA,getArena,type ArenaId} from '../simulation/arenas';
 import Phaser from 'phaser';
 import {arena,WIDTH,HEIGHT,defaults} from '../simulation/config';
 import type {FrogState} from '../simulation/state';
@@ -10,6 +11,7 @@ type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'cha
 type Before={vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};
 /** Presentation consumes render positions only. It never writes a physics body or gameplay input. */
 export class Courtyard {
+ arenaId:ArenaId=DEFAULT_ARENA;
  background:Phaser.GameObjects.Graphics;ink:Phaser.GameObjects.Graphics;effects:Phaser.GameObjects.Graphics;
  labels:Phaser.GameObjects.Text[]=[];previous:Before[]=[];pops:Pop[]=[];reactions=Array(8).fill(0);round=-1;labelSize=0;
  constructor(private scene:Phaser.Scene,private audio:GameAudio){
@@ -17,6 +19,7 @@ export class Courtyard {
   for(let i=0;i<8;i++)this.labels.push(scene.add.text(0,0,'',{fontFamily:'Trebuchet MS, sans-serif',fontSize:'19px',fontStyle:'bold',color:'#fff8d9',stroke:'#142f35',strokeThickness:5,align:'center',lineSpacing:0}).setOrigin(.5,1).setDepth(4));
   this.paintArena();
  }
+ setArena(id:ArenaId){if(this.arenaId!==id){this.arenaId=id;this.paintArena();this.clear();}}
  paintArena(){const g=this.background;g.clear();g.fillStyle(0x183f48);g.fillRect(0,0,WIDTH*S,HEIGHT*S);
   // Quiet pond colors and foliage sit behind the high-contrast physical surfaces.
   g.fillStyle(0x225862,.6);g.fillEllipse(20*S,21*S,42*S,18*S);g.fillStyle(0x2b6970,.35);g.fillEllipse(20*S,23*S,40*S,10*S);
@@ -24,9 +27,9 @@ export class Courtyard {
   g.lineStyle(2,0x4f8c83,.14);for(let y=11;y<22;y+=2)g.lineBetween(0,y*S,WIDTH*S,y*S);
   // Silhouettes never mimic a solid ledge.
   for(const x of [26,WIDTH*S-27]){g.lineStyle(9,0x2b605c,.75);g.lineBetween(x,30,x,HEIGHT*S);for(let j=0;j<8;j++){g.fillStyle(0x34726a,.65);g.fillEllipse(x+(j%2?18:-18),55+j*79,46,19);}}
-  arena.forEach((r,i)=>{const x=(r.x-r.w/2)*S,y=(r.y-r.h/2)*S,w=r.w*S,h=r.h*S;
-   g.fillStyle(INK);g.fillRect(x-2,y-2,w+4,h+4);g.fillStyle(i<4?0x54796a:0x997958);g.fillRect(x,y,w,h);
-   g.fillStyle(i<4?0x77a777:0xcba570);g.fillRect(x,y,w,Math.min(5,h));g.lineStyle(2,0x66523f);if(i>=4){g.lineBetween(x+3,y+h-3,x+w-3,y+h-3);for(let bx=x+12;bx<x+w-3;bx+=45){g.lineBetween(bx,y+6,bx+12,y+6);}}
+  getArena(this.arenaId).solids.forEach((r,i)=>{const x=(r.x-r.w/2)*S,y=(r.y-r.h/2)*S,w=r.w*S,h=r.h*S;
+   g.fillStyle(INK);g.fillRect(x-2,y-2,w+4,h+4);g.fillStyle(i<4?0x54796a:this.arenaId==='swingworks'?0x647c98:0x997958);g.fillRect(x,y,w,h);
+   g.fillStyle(i<4?0x77a777:this.arenaId==='swingworks'?0xaec2d4:0xcba570);g.fillRect(x,y,w,Math.min(5,h));g.lineStyle(2,0x66523f);if(i>=4){g.lineBetween(x+3,y+h-3,x+w-3,y+h-3);for(let bx=x+12;bx<x+w-3;bx+=45){g.lineBetween(bx,y+6,bx+12,y+6);}}
    // Pale moss/grip edge traces the exact top of every platform; underside is also grappleable.
    g.lineStyle(3,0xc8e49a);g.lineBetween(x,y,x+w,y);
    if(i>=4){g.fillStyle(0x6d9d72);for(let bx=x+4;bx<x+w-4;bx+=20)g.fillTriangle(bx,y+1,bx+7,y+1,bx+3,y-3);g.fillStyle(0xeac582);g.fillCircle(x+6,y+h/2,2);g.fillCircle(x+w-6,y+h/2,2);}

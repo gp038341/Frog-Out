@@ -30,7 +30,7 @@ This is a draft, not a submitted description. If remaining on Free Render, add a
 - [x] Discoverable desktop/touch controls and rules before play; Help remains accessible.
 - [x] Leave-match warning, reconnect explanation and round-results context.
 - [x] Current repository instructions and original asset/source licensing record.
-- [ ] Owner's **Milestone 7 acceptance**: two new players learn from URL only, complete a match/rematch and explain controls, infection and scoring.
+- [x] Owner's **Milestone 7 acceptance** (personally approved): two new players learn from URL only, complete a match/rematch and explain controls, infection and scoring.
 - [ ] **Physical iPhone/iOS Safari pre-release compatibility requirement**: long two-thumb mixed-device sessions, interrupted touches, orientation/backgrounding, reconnect and viewport/fullscreen where supported. Not confirmed working.
 - [ ] Current physical Android/tablet long-session retest; other browsers as available. Automated Chromium tests are not hardware certification.
 - [ ] Small-phone 6–8-player readability/performance check with realistic display names.

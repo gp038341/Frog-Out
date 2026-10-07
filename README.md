@@ -36,10 +36,14 @@ One existing Render Free Node service serves the browser build, room lookup and 
 
 ## Release status / compatibility
 
-Milestone 6 release-candidate baseline: `6b85ff332bb12ffd539f7392a742f966ae9542bb`, checkpoint `checkpoint/milestone-6-release-candidate`. Milestone 7 adds focused onboarding/submission-readiness UI; physics, arena, rules and networking are unchanged. Personal Milestone 7 acceptance is pending.
+Milestone 6 release-candidate baseline: `6b85ff332bb12ffd539f7392a742f966ae9542bb`, checkpoint `checkpoint/milestone-6-release-candidate`. Milestone 7 adds focused onboarding/submission-readiness UI; physics, arena, rules and networking are unchanged. Milestone 7 is personally approved; Milestone 8 arena geometry acceptance is pending.
 
 **Physical iPhone/iOS Safari compatibility is an outstanding pre-release requirement, not confirmed working.** Phone/tablet automated tests use Chromium emulation. Long-session physical Android/tablet retesting and desktop Safari/Firefox/Edge-specific validation also remain outstanding.
 
 Free Render may show a loading page while waking after inactivity. In-memory rooms do not survive restart. Small-screen labels can overlap in crowded play. See [Milestone 7](frog-network-spike/docs/milestone-7.md), [submission checklist](frog-network-spike/docs/submission-readiness.md) and [hosting/demo assessment](frog-network-spike/docs/hosting-demo-readiness.md).
 
 Art/audio are original procedural project assets; [sources and licenses](frog-network-spike/docs/assets-and-licenses.md). Built with OpenAI-assisted development for the Handshake/OpenAI Multiplayer Game Challenge.
+
+## Milestone 8 geometry playtest
+
+Approved submission-ready M7 gameplay checkpoint: `e97bbcb418468149e5b936c7ff9e95a0ccbe5b9b`, branch `checkpoint/milestone-7-approved`. The original Canopy Courtyard remains the default and its geometry is unchanged. The lobby host can now choose **Swingworks — Geometry Preview** before ready/start. Arena changes clear everyone’s Ready; choices are frozen across all rounds of a match and retained for rematch. No new mode or physics tuning. Arena 2 layout acceptance and final art are pending. See [M8 details](frog-network-spike/docs/milestone-8-geometry.md).

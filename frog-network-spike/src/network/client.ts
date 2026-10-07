@@ -1,3 +1,5 @@
+import {DEFAULT_ARENA,type ArenaId} from '../simulation/arenas';
+import {setSimulationArena} from '../simulation/arena-adapter';
 import {Client,type Room} from 'colyseus.js';
 import {DelayLink} from './link';
 import {Predictor} from './predictor';
@@ -26,7 +28,7 @@ export class Connection {
   room.onMessage('pong',data=>this.link.schedule('receive',()=>{const now=Date.now();const sample=now-data.at;this.rtt=this.rtt?this.rtt*.8+sample*.2:sample;const measured=data.serverTime-(data.at+now)/2;this.offset=this.offset?this.offset*.8+measured*.2:measured;}));
   room.onMessage('snapshot',(s:Snapshot)=>this.link.schedule('receive',()=>{
    if(this.lobby?.phase!=='game'||s.state.tick<=(this.snapshots.at(-1)?.state.tick??-1))return;
-   this.bytesIn+=JSON.stringify(s).length;this.lastReceive=Date.now();if(!this.snapshots.length)this.offset=s.serverTime-Date.now()+this.link.rtt/2;
+   setSimulationArena(this.predictor.sim,s.arenaId??DEFAULT_ARENA);this.bytesIn+=JSON.stringify(s).length;this.lastReceive=Date.now();if(!this.snapshots.length)this.offset=s.serverTime-Date.now()+this.link.rtt/2;
    if(this.lastReset!==s.resetId){this.predictor.initialized=false;this.lastReset=s.resetId;}
    this.snapshots.push(s);if(this.snapshots.length>90)this.snapshots.shift();if(this.prediction&&this.playing)this.predictor.reconcile(s,Date.now()+this.offset,this.offset);
   }));
@@ -35,6 +37,7 @@ export class Connection {
   room.send('hello');this.sendPing();this.ping=setInterval(()=>this.sendPing(),1000);this.interval=setInterval(()=>this.sendInput(),1000/NETWORK.inputHz);this.save();
  }
  async resume(token:string){if(this.reconnecting)return;this.reconnecting=true;this.busy=true;const attempt=++this.reconnectAttempt;this.stop();const deadline=Date.now()+30000;try{while(Date.now()<deadline){if(attempt!==this.reconnectAttempt)return;this.status=`Reconnecting… ${Math.max(0,Math.ceil((deadline-Date.now())/1000))}s remaining`;try{const room=await this.client.reconnect(token);if(attempt!==this.reconnectAttempt){await room.leave();return;}this.attach(room);return;}catch{await new Promise(r=>setTimeout(r,1000));}}if(attempt!==this.reconnectAttempt)return;this.lobby=undefined;this.room=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);this.status='Reconnection window expired or the session ended. Join the room lobby again.';}finally{if(attempt===this.reconnectAttempt){this.reconnecting=false;this.busy=false;}}}
+ selectArena(id:ArenaId){if(this.status==='connected')this.room?.send('select-arena',id);}
  ready(value:boolean){if(this.status==='connected')this.room?.send('ready',value);}
  start(){if(this.status==='connected')this.room?.send('start');}
  nextRound(){if(this.status==='connected')this.room?.send('next-round');}

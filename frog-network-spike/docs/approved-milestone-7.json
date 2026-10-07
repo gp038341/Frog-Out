@@ -1,0 +1,20 @@
+{
+  "approvedRevision": "e97bbcb418468149e5b936c7ff9e95a0ccbe5b9b",
+  "checkpoint": "checkpoint/milestone-7-approved",
+  "approvedBy": "User personal playtest; Milestone 7 approved",
+  "outstanding": [
+    "Physical iPhone/iOS Safari testing",
+    "Physical Android retesting",
+    "Small-screen/high-player-count readability",
+    "Render Free cold-start risk"
+  ],
+  "sha256": {
+    "src/simulation/world.ts": "d20a53e8db7790293e4ea53cbda64fa0e564d9c2663fe5ff75d0117fcf012002",
+    "src/simulation/config.ts": "5354d684519dff62a91bf3d54d8170b37c5ce8466bd531b4b4a550b2ef2d3601",
+    "src/simulation/arena.ts": "8b8f443c2f3ecce0b738ae8e9893de2619a7bfac1bb2b53184b7cd7a1cba428b",
+    "src/game/outbreak.ts": "c167258b159b79892615fd103f63082bd08692027eb1ad9f2bdee68bdf10c703",
+    "src/input/touch.ts": "05875fe82bc00335a3278aa4728ba4a7505afb071cbac7a5bb24d57e3e7c3fc0",
+    "src/network/predictor.ts": "c823758202607bd9e6b3abf6cbe8b684c0ac4ae7e22f232355c4d05a05a83aa7",
+    "src/ui/player-guide.ts": "83f1cbd149a1f38da347dda3155581224e191b6217a64a07474c1793741158e4"
+  }
+}

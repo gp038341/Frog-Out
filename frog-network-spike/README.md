@@ -1,6 +1,6 @@
 # Frog-Out — current game
 
-**[Play online](https://frog-out-milestone-2.onrender.com/)** · 2–8 players · Canopy Courtyard · Outbreak.
+**[Play online](https://frog-out-milestone-2.onrender.com/)** · 2–8 players · Two selectable arenas · Outbreak.
 
 No player account, installation or special player-specific URL. Enter a display name, create/join by six-character code, use Copy Code/Copy Join Link. All connected players ready up; the host starts with at least two players. The match roster then freezes. Controls & Rules appears before play; How to Play stays available. The round continues while Help is open, with held inputs cleared; use fresh inputs after closing.
 
@@ -82,8 +82,12 @@ Diagnostics exports input/acknowledgements, authoritative state, touch lifecycle
 
 ## Baselines / known limitations
 
-Approved earlier milestones remain recoverable in Git. M6 release candidate: `6b85ff332bb12ffd539f7392a742f966ae9542bb` / `checkpoint/milestone-6-release-candidate`. [M7 preservation record](docs/milestone-7-preservation.json) locks physics/tuning, graphics, geometry, networking/rules, touch recovery and responsive/fullscreen source. Milestone 7 awaits personal acceptance.
+Approved earlier milestones remain recoverable in Git. M6 release candidate: `6b85ff332bb12ffd539f7392a742f966ae9542bb` / `checkpoint/milestone-6-release-candidate`. [M7 preservation record](docs/milestone-7-preservation.json) locks physics/tuning, graphics, geometry, networking/rules, touch recovery and responsive/fullscreen source. Milestone 7 is personally approved; Arena 2 geometry acceptance is pending.
 
 **Physical iPhone/iOS Safari remains an outstanding pre-release test, not confirmed working.** Current physical Android/tablet long sessions and desktop Safari/Firefox/Edge-specific validation remain outstanding. Crowded labels and lower-end phone performance need real-device assessment. Free cold starts and room loss on restart remain documented compromises. No second arena/mode, progression, accounts or cosmetics added.
 
 [Submission readiness](docs/submission-readiness.md) lists required materials/drafts and remaining checks; [assets and licenses](docs/assets-and-licenses.md) records original procedural artwork/audio and dependencies.
+
+## Milestone 8 geometry playtest
+
+Approved submission-ready M7 gameplay checkpoint: `e97bbcb418468149e5b936c7ff9e95a0ccbe5b9b`, branch `checkpoint/milestone-7-approved`. The original Canopy Courtyard remains the default and its geometry is unchanged. The lobby host can now choose **Swingworks — Geometry Preview** before ready/start. Arena changes clear everyone’s Ready; choices are frozen across all rounds of a match and retained for rematch. No new mode or physics tuning. Arena 2 layout acceptance and final art are pending. See [M8 details](docs/milestone-8-geometry.md).

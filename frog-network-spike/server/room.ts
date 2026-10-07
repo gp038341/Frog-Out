@@ -1,3 +1,4 @@
+import {simulationArena} from '../src/simulation/arena-adapter';
 import {Room, type Client} from '@colyseus/core';
 import {Vec2} from 'planck';
 import {performance} from 'node:perf_hooks';
@@ -49,5 +50,5 @@ export class SpikeRoom extends Room {
   }
   if(this.accumulator>=DT*1000){this.overruns++;this.accumulator=0;}
  }
- publish(){const snapshot:Snapshot={state:capture(this.sim),serverTime:Date.now()-this.accumulator,ack:[...this.ack],connected:[...Array(this.sim.frogs.length)].map((_,i)=>[...this.slots.values()].includes(i)),tickMs:summary(this.times),overruns:this.overruns,resetId:this.resetId};this.broadcast('snapshot',snapshot);}
+ publish(){const snapshot:Snapshot={arenaId:simulationArena(this.sim),state:capture(this.sim),serverTime:Date.now()-this.accumulator,ack:[...this.ack],connected:[...Array(this.sim.frogs.length)].map((_,i)=>[...this.slots.values()].includes(i)),tickMs:summary(this.times),overruns:this.overruns,resetId:this.resetId};this.broadcast('snapshot',snapshot);}
 }

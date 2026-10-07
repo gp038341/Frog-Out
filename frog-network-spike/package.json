@@ -20,6 +20,7 @@
     "test:compat": "node scripts/compat-browser.cjs",
     "test:presentation": "node scripts/presentation-browser.cjs",
     "test:mobile-recovery": "node scripts/mobile-recovery-browser.cjs",
+    "test:arenas": "node --import tsx scripts/arena-network-tests.ts",
     "test:onboarding": "node scripts/onboarding-browser.cjs"
   },
   "dependencies": {

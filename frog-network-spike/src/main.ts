@@ -1,3 +1,4 @@
+import {arenaList,DEFAULT_ARENA,getArena,isArenaId} from './simulation/arenas';
 import Phaser from 'phaser';
 import './mobile.css';
 import './presentation/theme.css';
@@ -32,7 +33,7 @@ function interpolate(snapshots:Snapshot[],time:number):FrogState[]{
 }
 const recent:{at:number;rtt:number;correction:number;pending:number;input?:unknown;sequence?:number;ack?:number;tick?:number;authoritativeInput?:unknown;touchActive?:boolean}[]=[];
 function exportDiagnostics(){
- const data={milestone:7,arena:{width:WIDTH,height:HEIGHT,solids:arena},fullscreen:{supported:fullscreenAvailable,active:!!fullscreenActive(),standard:typeof fsRoot.requestFullscreen==='function',standardEnabled:document.fullscreenEnabled,prefixed:typeof fsRoot.webkitRequestFullscreen==='function',prefixedEnabled:fsDocument.webkitFullscreenEnabled},normalizedInput:net.input,inputSwitches,focus:{element:document.activeElement?.tagName,id:document.activeElement?.id,documentFocused:document.hasFocus()},inputPipeline:{status:net.status,playing:net.playing,stale:net.stale,lastReceiveAgeMs:Date.now()-net.lastReceive,sequence:net.seq,ack:net.snapshots.at(-1)?.ack[net.slot],tick:net.snapshots.at(-1)?.state.tick,authoritativeFrog:net.snapshots.at(-1)?.state.frogs[net.slot]},touch:{lifecycle:touch.diagnostics(),enabled:touch.enabled,input:touch.input,viewport:{width:innerWidth,height:innerHeight},pointer:matchMedia('(pointer:coarse)').matches,touchPoints:navigator.maxTouchPoints},outbreak:net.outbreak,room:net.room?.roomId,slot:net.slot,lag:net.link.rtt,jitter:net.link.jitter,prediction:net.prediction,physics:defaults,network:NETWORK,samples:recent,server:net.snapshots.at(-1)?.tickMs,corrections:net.predictor.corrections};
+ const data={milestone:8,arena:{id:net.lobby?.arenaId??DEFAULT_ARENA,width:WIDTH,height:HEIGHT,solids:getArena(net.lobby?.arenaId??DEFAULT_ARENA).solids},fullscreen:{supported:fullscreenAvailable,active:!!fullscreenActive(),standard:typeof fsRoot.requestFullscreen==='function',standardEnabled:document.fullscreenEnabled,prefixed:typeof fsRoot.webkitRequestFullscreen==='function',prefixedEnabled:fsDocument.webkitFullscreenEnabled},normalizedInput:net.input,inputSwitches,focus:{element:document.activeElement?.tagName,id:document.activeElement?.id,documentFocused:document.hasFocus()},inputPipeline:{status:net.status,playing:net.playing,stale:net.stale,lastReceiveAgeMs:Date.now()-net.lastReceive,sequence:net.seq,ack:net.snapshots.at(-1)?.ack[net.slot],tick:net.snapshots.at(-1)?.state.tick,authoritativeFrog:net.snapshots.at(-1)?.state.frogs[net.slot]},touch:{lifecycle:touch.diagnostics(),enabled:touch.enabled,input:touch.input,viewport:{width:innerWidth,height:innerHeight},pointer:matchMedia('(pointer:coarse)').matches,touchPoints:navigator.maxTouchPoints},outbreak:net.outbreak,room:net.room?.roomId,slot:net.slot,lag:net.link.rtt,jitter:net.link.jitter,prediction:net.prediction,physics:defaults,network:NETWORK,samples:recent,server:net.snapshots.at(-1)?.tickMs,corrections:net.predictor.corrections};
  const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='network-playtest-diagnostics.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);
 }
 document.querySelector('#export')!.addEventListener('click',exportDiagnostics);
@@ -69,6 +70,7 @@ class Spike extends Phaser.Scene {
    this.rendered[i]={x,y};
   });
   const latest=net.snapshots.at(-1)!;
+  this.art.setArena(net.snapshots.at(-1)?.arenaId??net.lobby?.arenaId??DEFAULT_ARENA);
   this.art.render(states,this.rendered,net.outbreak,latest.connected,states.map((_,i)=>playerName(i)),net.slot,delta);
   if(now-lastStatus>100){lastStatus=now;const last=net.snapshots.at(-1)!;
    const corrections=[...net.predictor.corrections].sort((a,b)=>a-b),p95=corrections[Math.floor(corrections.length*.95)]??0;
@@ -110,6 +112,7 @@ Object.assign(window,{spikeDebug:net});
 
 const el=(id:string)=>document.getElementById(id)!;
 const guide=new PlayerGuide(clear);
+const arenaSelect=el('arena-select') as HTMLSelectElement;arenaSelect.replaceChildren(...arenaList.map(a=>{const o=document.createElement('option');o.value=a.id;o.textContent=a.name+(a.geometryPreview?' · Geometry Preview':'');return o;}));arenaSelect.onchange=()=>{if(isArenaId(arenaSelect.value))net.selectArena(arenaSelect.value);};
 const name=el('name') as HTMLInputElement,code=el('join-code') as HTMLInputElement;
 name.value=localStorage.getItem('frog-out-name')??'';code.value=new URLSearchParams(location.search).get('code')??'';
 function remember(){localStorage.setItem('frog-out-name',name.value.trim());}
@@ -124,6 +127,7 @@ let uiSignature='';let previousPhase='';let previousGamePhase='';
 setInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase!==previousPhase){if(phase==='game'&&document.activeElement instanceof HTMLInputElement)document.activeElement.blur();clear();previousPhase=phase;if(phase==='game')requestAnimationFrame(()=>{game.scale.getParentBounds();game.scale.refresh();});}if(net.status!=='connected')clear();if(phase==='home'&&previousPhase==='home'&&!lobby&&net.status.startsWith('You left'))net.notice='';guide.update(phase,net.playing);el('home').hidden=!!lobby;el('lobby').hidden=phase!=='lobby';el('session').hidden=phase!=='game'||net.outbreak?.phase==='round-results'||net.outbreak?.phase==='match-results';el('leave').hidden=!lobby;el('connection').textContent=net.status;el('notice').textContent=net.notice;
  (el('create') as HTMLButtonElement).disabled=net.busy;(el('join') as HTMLButtonElement).disabled=net.busy;
  const signature=JSON.stringify([lobby,net.playerId]);if(signature!==uiSignature){uiSignature=signature;el('players').replaceChildren();if(lobby){el('code').textContent=lobby.code;el('session-code').textContent=`Room ${lobby.code}`;for(const p of lobby.players){const li=document.createElement('li');li.style.setProperty('--frog-color',cssColor(p.slot>=0?p.slot:lobby.players.indexOf(p)));li.className=p.ready?'player-card ready':'player-card';li.textContent=`${p.name}${p.id===lobby.hostId?' · Host':''}${p.id===net.playerId?' · You':''} — ${p.connected?(p.ready?'Ready':'Not ready'):'Disconnected (slot reserved)'}`;el('players').append(li);}const me=lobby.players.find(p=>p.id===net.playerId);el('ready').textContent=me?.ready?'Not Ready':'Ready';el('ready').setAttribute('aria-pressed',String(!!me?.ready));el('start').hidden=net.playerId!==lobby.hostId;}}
+ if(lobby){const selected=getArena(lobby.arenaId);el('lobby-arena-name').textContent=selected.name.toUpperCase();arenaSelect.value=selected.id;arenaSelect.disabled=phase!=='lobby'||net.playerId!==lobby.hostId||net.status!=='connected';el('arena-description').textContent=selected.description;el('arena-choice-note').textContent=net.playerId===lobby.hostId?'Changing arenas clears Ready for everyone.':'The host chooses. Arena changes clear everyone’s Ready.';el('session-code').textContent=`Room ${lobby.code} · ${selected.name}`;}
  el('mobile-export').hidden=phase!=='game';
  renderOutbreak();
  const f=net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.frogs[net.slot]:net.snapshots.at(-1)?.state.frogs[net.slot];

@@ -1,0 +1,82 @@
+{
+  "milestone": 8,
+  "scope": "Second arena geometry and host selection only; layout approval and final art pending",
+  "approvedBaseline": "e97bbcb418468149e5b936c7ff9e95a0ccbe5b9b",
+  "baselineCheckpoint": "checkpoint/milestone-7-approved",
+  "unitTests": {
+    "pass": 61,
+    "fail": 0
+  },
+  "networkMatches": {
+    "arenas": [
+      "canopy",
+      "swingworks"
+    ],
+    "clients": [
+      2,
+      3,
+      4,
+      8
+    ],
+    "completeMatches": 8,
+    "checks": 9,
+    "testOnlyBodyArrangements": true
+  },
+  "onboardingAndSelection": {
+    "canopyChecks": 10,
+    "swingworksChecks": 10,
+    "errors": []
+  },
+  "lifecycle": {
+    "checks": 16,
+    "reservationMs": 30003
+  },
+  "mixedDevice": {
+    "checks": 15,
+    "touchProtocol": "trusted Chromium CDP",
+    "physicalDeviceCertification": false,
+    "normalJumpVy": -9.066666666666666,
+    "chargedJumpVy": -17.566666666666666,
+    "reciprocalVx": [
+      -1.588211336642821,
+      3.2548780033094875
+    ]
+  },
+  "stress": {
+    "arenaId": "swingworks",
+    "environment": "One local production OutbreakRoom, eight real loopback WebSocket clients at 30 inputs/client/sec, bots jumping/grappling/colliding; host advances results and rematches; production countdown/grace timing; not a production-host capacity claim",
+    "seconds": 60,
+    "clients": 8,
+    "physicsBodies": 8,
+    "authoritativeClockTicks": 3597,
+    "activeGameplayTicks": 2878,
+    "completedRounds": 2,
+    "completedMatches": 0,
+    "tickMs": {
+      "p50": 0.14456199999949604,
+      "p95": 0.3508770000007644,
+      "p99": 0.7471409999998286,
+      "max": 8.510060000000522
+    },
+    "overruns": 0,
+    "receivedSnapshotMessages": 14416,
+    "snapshotGapMs": {
+      "p50": 33,
+      "p95": 37,
+      "p99": 38,
+      "max": 83
+    },
+    "payloadBytesReceivedAllClients": 47735752,
+    "attachedObservations": 3086
+  },
+  "unresolved": [
+    "Physical iPhone/iOS Safari testing",
+    "Physical Android retesting",
+    "Small-screen/high-player-count readability",
+    "Render Free cold-start risk"
+  ],
+  "physicsRetuned": false,
+  "newAssets": false,
+  "paidResourcesAdded": false,
+  "layoutFunVerifiedByHuman": false
+}
