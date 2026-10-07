@@ -1,0 +1,36 @@
+{
+  "deployedRevision": "6de0286a4c43d2a0626966e90746bb9a40cd4d80",
+  "checkpoint": "checkpoint/milestone-6-acceptance",
+  "approvedMilestone5Revision": "960a969664c3d24c0f9b0e542b84e572b280ec15",
+  "service": "frog-out-milestone-2",
+  "deploy": "dep-db2p6rvlk1mc73881s8g",
+  "status": "live",
+  "finishedAt": "2026-10-07T00:34:40.105456Z",
+  "publicUrl": "https://frog-out-milestone-2.onrender.com/",
+  "renderPlan": "free",
+  "newPaidResources": false,
+  "health": {
+    "renderDefaultPortHealthPassed": true,
+    "publicRootLoaded": true,
+    "directJsonHealthVerified": false,
+    "reason": "Cloud Browser /health navigation returned ERR_BLOCKED_BY_CLIENT; web reader could not retrieve JSON. No HTTP health success claimed."
+  },
+  "webSockets": {
+    "verified": true,
+    "checks": [
+      "Two public browser clients created/joined same code",
+      "Both players ready; host starts",
+      "Both render same Outbreak round and server clock; healthy survival and Patient Zero HUD",
+      "Explicit host Leave returns remaining peer to lobby"
+    ]
+  },
+  "recentRenderErrorLogs": [],
+  "diagnostics": {
+    "isolatedDesktopAndMobileDownloadPassed": true,
+    "publicCloudDownloadVerified": false,
+    "reason": "Cloud download wait timed out/reset browser automation kernel; no production download success claimed."
+  },
+  "browserConsole": "Inspected errors came from browser extension metadata delivery, not game source; isolated local browser suites reported no runtime errors.",
+  "acceptance": "Pending user's personal Milestone 6 playtest",
+  "nextMilestoneStarted": false
+}
