@@ -35,10 +35,8 @@ export class TouchControls {
   // One input stream owns fingers. Native Touch identifiers are stable across capture/gesture interruptions.
   // Pointer events remain the mouse/pen fallback; never double-publish a native finger.
   document.addEventListener('touchstart',e=>{
-   this.nativeIds=Array.from(e.touches,t=>t.identifier);this.record('native-start',null,this.nativeIds.join(','));
+   this.nativeIds=Array.from(e.touches,t=>t.identifier);this.record('native-start',null,this.nativeDetail(e));
    if(!this.nativeTouch||!this.acceptFreshTouch())return;
-   if(this.directionSource==='touch'&&this.directionId!==null&&!this.nativeIds.includes(this.directionId))this.releaseDirection();
-   if(this.actionSource==='touch'&&this.actionId!==null&&!this.nativeIds.includes(this.actionId))this.releaseAction();
    for(const t of Array.from(e.changedTouches)){const target=t.target as Node;
     if(this.pad.contains(target)){e.preventDefault();this.releaseDirection(false);this.directionSource='touch';this.directionId=t.identifier;this.move(t);}
     else if(this.action.contains(target)){e.preventDefault();this.releaseAction(false);this.actionSource='touch';this.actionId=t.identifier;this.input.held=true;this.action.classList.add('pressed');this.changed();}
@@ -48,12 +46,20 @@ export class TouchControls {
    this.lastNativeAt=Date.now();this.nativeIds=Array.from(e.touches,t=>t.identifier);if(!this.nativeTouch)return;
    for(const t of Array.from(e.changedTouches)){if(this.directionSource==='touch'&&t.identifier===this.directionId){e.preventDefault();this.move(t);}if(this.actionSource==='touch'&&t.identifier===this.actionId)e.preventDefault();}
   },{capture:true,passive:false});
-  document.addEventListener('touchend',e=>{
-   this.nativeIds=Array.from(e.touches,t=>t.identifier);this.record('native-end',null,this.nativeIds.join(','));if(!this.nativeTouch)return;
-   if(this.directionSource==='touch'&&this.directionId!==null&&!this.nativeIds.includes(this.directionId))this.releaseDirection();
-   if(this.actionSource==='touch'&&this.actionId!==null&&!this.nativeIds.includes(this.actionId))this.releaseAction();
-  },true);
-  document.addEventListener('touchcancel',()=>{this.nativeIds=[];this.reset(true,'native-cancel');},true);
+  // End/cancel belongs to changed identifiers, not every owner on the page.
+  // A cancellation of one thumb must never erase the other thumb's held input.
+  for(const type of ['touchend','touchcancel'] as const)document.addEventListener(type,e=>{
+   this.nativeIds=Array.from(e.touches,t=>t.identifier);this.record(type==='touchend'?'native-end':'native-cancel',null,this.nativeDetail(e));if(!this.nativeTouch)return;
+   let changed=false;
+   for(const t of Array.from(e.changedTouches)){
+    if(this.directionSource==='touch'&&t.identifier===this.directionId){if(e.cancelable)e.preventDefault();this.releaseDirection(false);changed=true;}
+    if(this.actionSource==='touch'&&t.identifier===this.actionId){if(e.cancelable)e.preventDefault();this.releaseAction(false);changed=true;}
+   }
+   if(changed)this.changed();
+  },{capture:true,passive:false});
+  // Safari's native two-finger gesture must not take over an active control pair.
+  // Scope prevention to gameplay owners; ordinary page/help gestures remain untouched.
+  document.addEventListener('gesturestart',e=>{if(this.active&&(this.directionId!==null||this.actionId!==null)){if(e.cancelable)e.preventDefault();this.record('native-gesture',null,`cancelable=${e.cancelable}`);}}, {capture:true,passive:false});
   window.addEventListener('game-viewport-change',()=>this.reset(true,'viewport-layout-change'));
   for(const target of [this.pad,this.action])target.addEventListener('contextmenu',e=>e.preventDefault());
   window.addEventListener('resize',()=>{if(innerHeight>innerWidth)this.reset(true,'portrait-resize');this.update(...this.lastUpdate);this.layout();});
@@ -61,6 +67,7 @@ export class TouchControls {
   window.addEventListener('orientationchange',()=>this.reset(true,'orientation'));
   window.addEventListener('blur',()=>this.reset(true,'blur'));document.addEventListener('visibilitychange',()=>{if(document.hidden)this.reset(true,'hidden');});
  }
+ private nativeDetail(e:TouchEvent){return `active=${Array.from(e.touches,t=>t.identifier).join(',')} changed=${Array.from(e.changedTouches,t=>`${t.identifier}@${(t.target as HTMLElement)?.id||'child'}`).join(',')} cancelable=${e.cancelable}`;}
  private acceptFreshTouch(){const active=(this.canPlay?.()??this.lastUpdate[0])&&this.enabled&&innerWidth>=innerHeight;this.active=active;this.action.disabled=!active;this.pad.setAttribute('aria-disabled',String(!active));return active;}
  private move(e:{clientX:number;clientY:number;pointerId?:number;identifier?:number}){this.lastPoint={x:e.clientX,y:e.clientY,at:Date.now()};const r=this.pad.getBoundingClientRect(),radius=r.width/2,dx=e.clientX-r.left-radius,dy=e.clientY-r.top-r.height/2;
   const q=Math.min(1,radius*.65/(Math.hypot(dx,dy)||1));this.knob.style.transform=`translate(${dx*q}px,${dy*q}px)`;
