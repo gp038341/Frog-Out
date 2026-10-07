@@ -1,0 +1,339 @@
+{
+  "environment": "Local authoritative server; Chromium trusted touch and keyboard, hybrid + desktop; capability fault injection only in isolated tests; not physical acceptance",
+  "checks": [
+    "grounded: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "airborne: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "charge: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "terrain-grapple: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "frog-grapple: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+    "held-key auto-repeat after handoff cannot resurrect stale direction",
+    "Trusted touch stress (0ms): 0 two-thumb/slide/rapid-action cycles, 0 authoritative input+ack validations, periodic native cancels and viewport changes; no frozen control",
+    "Uninterrupted touch round 0ms, 0 two-thumb jump/grapple/release cycles; no physics reset or reconnect",
+    "blur interruption and orphan-owner/capture-error fault injection recover with fresh trusted touch without reconnect, respawn or physics change",
+    "5 landscape sizes \u00d7 both input layouts: aspect ratio, FIT maximum dimension, footer and arena in viewport, no horizontal overflow",
+    "user gesture Fullscreen API enter/exit and label/resize work in headless Chromium",
+    "portrait/landscape preserves identity and restores controls",
+    "reload reconnect after repeated switching restores same frog and both input methods",
+    "authoritative survival score + 2 bonus displayed as separate round-results components",
+    "fullscreen absent/restricted: hidden unsupported button or readable failure, ordinary play unaffected",
+    "prefixed-only Fullscreen API capability enter/exit; unsupported explanatory text; injected browser capability tests",
+    "trusted two-thumb input survives native capture/release exceptions and off-control release using document fallback"
+  ],
+  "layouts": [
+    {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "touch": false,
+      "canvas": {
+        "x": 103,
+        "y": 68,
+        "width": 1159.109375,
+        "height": 652
+      },
+      "available": {
+        "x": 10,
+        "y": 68,
+        "width": 1346,
+        "height": 652
+      },
+      "footer": {
+        "x": 6,
+        "y": 728,
+        "width": 1354,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "touch": true,
+      "canvas": {
+        "x": 134,
+        "y": 85,
+        "width": 1098,
+        "height": 617.625
+      },
+      "available": {
+        "x": 134,
+        "y": 68,
+        "width": 1098,
+        "height": 652
+      },
+      "footer": {
+        "x": 6,
+        "y": 728,
+        "width": 1354,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "touch": false,
+      "canvas": {
+        "x": 10,
+        "y": 111,
+        "width": 1004,
+        "height": 564.75
+      },
+      "available": {
+        "x": 10,
+        "y": 68,
+        "width": 1004,
+        "height": 652
+      },
+      "footer": {
+        "x": 6,
+        "y": 728,
+        "width": 1012,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "touch": true,
+      "canvas": {
+        "x": 134,
+        "y": 181,
+        "width": 756,
+        "height": 425.25
+      },
+      "available": {
+        "x": 134,
+        "y": 68,
+        "width": 756,
+        "height": 652
+      },
+      "footer": {
+        "x": 6,
+        "y": 728,
+        "width": 1012,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "touch": false,
+      "canvas": {
+        "x": 178,
+        "y": 68,
+        "width": 487.109375,
+        "height": 274
+      },
+      "available": {
+        "x": 10,
+        "y": 68,
+        "width": 824,
+        "height": 274
+      },
+      "footer": {
+        "x": 6,
+        "y": 350,
+        "width": 832,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "touch": true,
+      "canvas": {
+        "x": 178.15625,
+        "y": 68,
+        "width": 487.109375,
+        "height": 274
+      },
+      "available": {
+        "x": 132.15625,
+        "y": 68,
+        "width": 579.6875,
+        "height": 274
+      },
+      "footer": {
+        "x": 6,
+        "y": 350,
+        "width": 832,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "touch": false,
+      "canvas": {
+        "x": 120,
+        "y": 87,
+        "width": 426.65625,
+        "height": 240
+      },
+      "available": {
+        "x": 10,
+        "y": 87,
+        "width": 647,
+        "height": 240
+      },
+      "footer": {
+        "x": 6,
+        "y": 335,
+        "width": 655,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "touch": true,
+      "canvas": {
+        "x": 119.375,
+        "y": 87,
+        "width": 426.65625,
+        "height": 240
+      },
+      "available": {
+        "x": 107.375,
+        "y": 87,
+        "width": 452.25,
+        "height": 240
+      },
+      "footer": {
+        "x": 6,
+        "y": 335,
+        "width": 655,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 568,
+        "height": 320
+      },
+      "touch": false,
+      "canvas": {
+        "x": 119,
+        "y": 87,
+        "width": 328.875,
+        "height": 185
+      },
+      "available": {
+        "x": 10,
+        "y": 87,
+        "width": 548,
+        "height": 185
+      },
+      "footer": {
+        "x": 6,
+        "y": 280,
+        "width": 556,
+        "height": 32
+      }
+    },
+    {
+      "viewport": {
+        "width": 568,
+        "height": 320
+      },
+      "touch": true,
+      "canvas": {
+        "x": 119,
+        "y": 87,
+        "width": 328.875,
+        "height": 185
+      },
+      "available": {
+        "x": 102,
+        "y": 87,
+        "width": 364,
+        "height": 185
+      },
+      "footer": {
+        "x": 6,
+        "y": 280,
+        "width": 556,
+        "height": 32
+      }
+    }
+  ],
+  "round": {
+    "phase": "round-results",
+    "round": 1,
+    "roundCount": 3,
+    "patientZero": 1,
+    "patientZeroOrder": [
+      1,
+      2,
+      0
+    ],
+    "tick": 1736,
+    "elapsedMs": 28533.333333333332,
+    "remainingMs": 0,
+    "players": [
+      {
+        "infectedTick": 1057,
+        "infectiousTick": 1117,
+        "infectionPlace": 2,
+        "roundPoints": 17.3,
+        "placementBonus": 0,
+        "survivalMs": 17316.666666666668,
+        "survivalPoints": 17.3,
+        "slot": 0,
+        "state": "infectious",
+        "patientZero": false,
+        "totalPoints": 17.3,
+        "finalPlace": 2
+      },
+      {
+        "infectedTick": 18,
+        "infectiousTick": 18,
+        "infectionPlace": 1,
+        "roundPoints": 0,
+        "placementBonus": 0,
+        "survivalMs": 0,
+        "survivalPoints": 0,
+        "slot": 1,
+        "state": "infectious",
+        "patientZero": true,
+        "totalPoints": 0,
+        "finalPlace": 3
+      },
+      {
+        "infectedTick": 1730,
+        "infectiousTick": 1790,
+        "infectionPlace": 3,
+        "roundPoints": 30.5,
+        "placementBonus": 2,
+        "survivalMs": 28533.333333333332,
+        "survivalPoints": 28.5,
+        "slot": 2,
+        "state": "transforming",
+        "patientZero": false,
+        "totalPoints": 30.5,
+        "finalPlace": 1
+      }
+    ],
+    "roundWinners": [
+      2
+    ],
+    "matchWinners": []
+  },
+  "errors": [],
+  "stressSkipped": true,
+  "note": "Short capability/hybrid fault-check run only; zero-duration stress segments are not long-session evidence. See mobile-recovery-browser.json for final extended run."
+}

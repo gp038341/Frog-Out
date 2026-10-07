@@ -67,3 +67,7 @@ An initial concurrent legacy mobile suite missed a transient latest-snapshot jum
 6. If a freeze occurs, **download Diagnostics before refreshing**, try fresh touches and download again. Send both JSON files, device model, OS/browser versions, approximate time, what fingers were doing, and a short recording if possible. If download opens a preview, use the browser's save/share option.
 
 The existing Free Render service is reused. Milestone 6 remains unapproved; stop after correction deployment for the user's acceptance test.
+
+## Final automated result
+
+Source checkpoint `45325ff76fd23ab1be10d7d3b90f8f68d4f55d81`: build and 56 tests passed. Final trusted-touch run passed 711 repeated cycles/ack checks over 300.306 seconds, a 10-second stationary hold, then 396 uninterrupted cycles over 120.214 seconds without reset or reconnect. All 18 browser checks passed with zero page errors. Mixed-device suite passed 15 checks; lifecycle passed 16 checks including the real 30-second expiry; Outbreak regressions passed 2/3/4/8-client full matches. Details: `docs/results/mobile-correction-summary.json`. The evidence commit adds documentation/reports only; physical-device acceptance remains pending.

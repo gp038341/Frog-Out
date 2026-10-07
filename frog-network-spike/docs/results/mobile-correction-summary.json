@@ -1,0 +1,34 @@
+{
+  "sourceRevision": "45325ff76fd23ab1be10d7d3b90f8f68d4f55d81",
+  "previousPublicRevision": "6de0286a4c43d2a0626966e90746bb9a40cd4d80",
+  "checkpointBranch": "checkpoint/milestone-6-mobile-reliability",
+  "userAcceptance": "Pending physical-device retest; Milestone 6 is not approved",
+  "productionAsset": "index-D34-KwLb.js",
+  "build": "TypeScript, Vite and compiled server passed",
+  "unitTests": {
+    "passed": 56,
+    "failed": 0
+  },
+  "extendedTouch": {
+    "repeatedMilliseconds": 300306,
+    "repeatedCycles": 711,
+    "authoritativeInputAckChecks": 711,
+    "stationaryHoldSeconds": 10,
+    "continuousMilliseconds": 120214,
+    "continuousCycles": 396,
+    "continuousPhysicsResets": 0,
+    "continuousReconnects": 0,
+    "browserErrors": 0
+  },
+  "mixedDevices": "Desktop 1280x900 + Chromium emulated 844x390 phone, 667x375 phone and 1024x768 tablet; also 568x320; 15 checks passed, including unsupported fullscreen fallback and exported A/B/C diagnostics",
+  "lifecycle": "16 independent WebSocket checks passed; reservation expiry 30009ms",
+  "outbreak": "Complete 2/3/4/8-client matches, infection/tongue/grace/ties/scoring and reconnect regressions passed",
+  "fullscreen": "Chromium standard enter/exit; prefixed-only, absent and rejected capability fault tests passed. No actual WebKit browser tested.",
+  "physicalDevicesTested": [],
+  "limitations": [
+    "No physical iOS Safari, iOS Chrome, Android Chrome or hardware interruption tests were available.",
+    "Fault-injection proves prior touch recovery defects, not the specific cause of every physical-device report."
+  ],
+  "initialTestFailures": "Documented in mobile-reliability-correction.md; final extended and mixed suites passed.",
+  "render": "Existing My Workspace Free service only; no paid resource or plan changes."
+}
