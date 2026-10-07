@@ -1,0 +1,14 @@
+{
+  "preservedRevision": "6de0286a4c43d2a0626966e90746bb9a40cd4d80",
+  "reason": "User requested mobile reliability correction; M6 visual work and geometry remain unchanged. Approved M5 source guards still protect physics, network, rules and normalized keyboard input. Touch lifecycle and fullscreen are explicit authorized exceptions.",
+  "sha256": {
+    "src/simulation/arena.ts": "8b8f443c2f3ecce0b738ae8e9893de2619a7bfac1bb2b53184b7cd7a1cba428b",
+    "src/simulation/config.ts": "5354d684519dff62a91bf3d54d8170b37c5ce8466bd531b4b4a550b2ef2d3601",
+    "src/simulation/roster.ts": "30d329a20d4dc5fb09c885c2fdfc05b55facd3bff7950315397621ef3b0fd48a",
+    "src/presentation/identity.ts": "febd1149059c5a19edc3233f335aa5509615399a2fc845622c505f12671c1757",
+    "src/presentation/audio.ts": "c37a1d1ca9532419c6b3c48fe359fbc0edd787ef3005537ecb95f457b24cb690",
+    "src/presentation/courtyard.ts": "d83957bf67a53b3888bf3f3866354cb0b888e5efbbaaf757c8d0de395cd566d9",
+    "src/presentation/theme.css": "4f66dbda8c1e4d45b4896b48db6ab80071e1cf0339727580f58341ebebd6b220"
+  },
+  "responsiveLayoutSha256": "319eb15c8011c6a4445ec5a5cc6d1bec9e0617cfe4891a693bfff8737d220f9e"
+}

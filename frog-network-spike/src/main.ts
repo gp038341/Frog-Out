@@ -28,10 +28,10 @@ function interpolate(snapshots:Snapshot[],time:number):FrogState[]{
  const q=b.serverTime>a.serverTime?Math.max(0,Math.min(1,(time-a.serverTime)/(b.serverTime-a.serverTime))):0;
  return a.state.frogs.map((f,i)=>{const g=b.state.frogs[i];return {...f,x:f.x+(g.x-f.x)*q,y:f.y+(g.y-f.y)*q,tongue:f.tongue?{...f.tongue,tip:{...f.tongue.tip}}:undefined};});
 }
-const recent:{at:number;rtt:number;correction:number;pending:number}[]=[];
+const recent:{at:number;rtt:number;correction:number;pending:number;input?:unknown;sequence?:number;ack?:number;tick?:number;authoritativeInput?:unknown;touchActive?:boolean}[]=[];
 function exportDiagnostics(){
- const data={milestone:6,arena:{width:WIDTH,height:HEIGHT,solids:arena},fullscreen:!!document.fullscreenElement,normalizedInput:net.input,inputSwitches,focus:{element:document.activeElement?.tagName,id:document.activeElement?.id,documentFocused:document.hasFocus()},touch:{enabled:touch.enabled,input:touch.input,viewport:{width:innerWidth,height:innerHeight},pointer:matchMedia('(pointer:coarse)').matches,touchPoints:navigator.maxTouchPoints},outbreak:net.outbreak,room:net.room?.roomId,slot:net.slot,lag:net.link.rtt,jitter:net.link.jitter,prediction:net.prediction,physics:defaults,network:NETWORK,samples:recent,server:net.snapshots.at(-1)?.tickMs,corrections:net.predictor.corrections};
- const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='network-playtest-diagnostics.json';a.click();URL.revokeObjectURL(url);
+ const data={milestone:6,arena:{width:WIDTH,height:HEIGHT,solids:arena},fullscreen:{supported:fullscreenAvailable,active:!!fullscreenActive(),standard:typeof fsRoot.requestFullscreen==='function',standardEnabled:document.fullscreenEnabled,prefixed:typeof fsRoot.webkitRequestFullscreen==='function',prefixedEnabled:fsDocument.webkitFullscreenEnabled},normalizedInput:net.input,inputSwitches,focus:{element:document.activeElement?.tagName,id:document.activeElement?.id,documentFocused:document.hasFocus()},inputPipeline:{status:net.status,playing:net.playing,stale:net.stale,lastReceiveAgeMs:Date.now()-net.lastReceive,sequence:net.seq,ack:net.snapshots.at(-1)?.ack[net.slot],tick:net.snapshots.at(-1)?.state.tick,authoritativeFrog:net.snapshots.at(-1)?.state.frogs[net.slot]},touch:{lifecycle:touch.diagnostics(),enabled:touch.enabled,input:touch.input,viewport:{width:innerWidth,height:innerHeight},pointer:matchMedia('(pointer:coarse)').matches,touchPoints:navigator.maxTouchPoints},outbreak:net.outbreak,room:net.room?.roomId,slot:net.slot,lag:net.link.rtt,jitter:net.link.jitter,prediction:net.prediction,physics:defaults,network:NETWORK,samples:recent,server:net.snapshots.at(-1)?.tickMs,corrections:net.predictor.corrections};
+ const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='network-playtest-diagnostics.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);
 }
 document.querySelector('#export')!.addEventListener('click',exportDiagnostics);
 document.querySelector('#mobile-export')!.addEventListener('click',exportDiagnostics);
@@ -71,7 +71,7 @@ class Spike extends Phaser.Scene {
   if(now-lastStatus>100){lastStatus=now;const last=net.snapshots.at(-1)!;
    const corrections=[...net.predictor.corrections].sort((a,b)=>a-b),p95=corrections[Math.floor(corrections.length*.95)]??0;
    document.querySelector('#status')!.textContent=`${net.status}${net.stale?' · STATE STALE':''} · room ${net.room?.roomId??'?'} · P${net.slot+1}\nRTT ${net.rtt.toFixed(0)}ms · added RTT ${net.link.rtt}ms ± ${net.link.jitter}ms/leg · prediction ${net.prediction?'ON':'OFF'} · coupled ${coupled}\ntick ${last.state.tick} · ack ${last.ack[net.slot]??0}/${net.seq} · pending ${net.predictor.pending.length} · state age ${Math.max(0,nowServer-last.serverTime).toFixed(0)}ms\ncorrection last ${net.predictor.lastCorrection.toFixed(3)}m / p95 ${p95.toFixed(3)}m · large snaps ${net.predictor.snaps}\nserver tick p95 ${last.tickMs.p95.toFixed(3)}ms / p99 ${last.tickMs.p99.toFixed(3)}ms / max ${last.tickMs.max.toFixed(3)}ms · overruns ${last.overruns}`;
-   recent.push({at:now,rtt:net.rtt,correction:net.predictor.lastCorrection,pending:net.predictor.pending.length});if(recent.length>600)recent.shift();
+   recent.push({at:now,rtt:net.rtt,correction:net.predictor.lastCorrection,pending:net.predictor.pending.length,input:{...net.input},sequence:net.seq,ack:net.snapshots.at(-1)?.ack[net.slot],tick:net.snapshots.at(-1)?.state.tick,authoritativeInput:net.snapshots.at(-1)?.state.frogs[net.slot]?.input,touchActive:touch.active});if(recent.length>600)recent.shift();
   }
  }
 }
@@ -90,11 +90,18 @@ function resizeGame(){requestAnimationFrame(()=>{
  });}
 new ResizeObserver(resizeGame).observe(document.getElementById('game')!);
 window.visualViewport?.addEventListener('resize',resizeGame);
-document.addEventListener('fullscreenchange',()=>{clear();resizeGame();fullscreenLabel();});
+for(const event of ['fullscreenchange','webkitfullscreenchange'])document.addEventListener(event,()=>{clear();resizeGame();fullscreenLabel();});
 const fullscreenButton=document.getElementById('fullscreen') as HTMLButtonElement;
-function fullscreenLabel(){fullscreenButton.textContent=document.fullscreenElement?'Exit Fullscreen':'Enter Fullscreen';}
-fullscreenButton.hidden=!document.fullscreenEnabled||!document.documentElement.requestFullscreen;
-fullscreenButton.onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();fullscreenLabel();resizeGame();}catch{net.notice='Fullscreen is unavailable here. You can continue playing normally.';}};
+type FullscreenDocument=Document & {webkitFullscreenEnabled?:boolean;webkitFullscreenElement?:Element;webkitExitFullscreen?:()=>void};
+type FullscreenElement=HTMLElement & {webkitRequestFullscreen?:()=>void};
+const fsDocument=document as FullscreenDocument,fsRoot=document.documentElement as FullscreenElement;
+const fullscreenAvailable=!!(typeof fsRoot.requestFullscreen==='function'&&document.fullscreenEnabled!==false||fsRoot.webkitRequestFullscreen&&(fsDocument.webkitFullscreenEnabled===true||fsDocument.webkitFullscreenEnabled!==false&&document.fullscreenEnabled!==false));
+function fullscreenActive(){return document.fullscreenElement||fsDocument.webkitFullscreenElement;}
+function fullscreenLabel(){fullscreenButton.textContent=fullscreenActive()?'Exit Fullscreen':'Enter Fullscreen';}
+fullscreenButton.hidden=!fullscreenAvailable;
+if(!fullscreenAvailable){const hint=document.createElement('small');hint.id='fullscreen-unavailable';hint.textContent='Fullscreen unavailable in this browser. Landscape uses the available screen.';hint.style.maxWidth='220px';document.getElementById('session-footer')!.append(hint);}
+fullscreenButton.onclick=async()=>{try{if(fullscreenActive()){if(document.fullscreenElement&&document.exitFullscreen)await document.exitFullscreen();else fsDocument.webkitExitFullscreen?.();}else if(typeof fsRoot.requestFullscreen==='function'&&document.fullscreenEnabled!==false)await fsRoot.requestFullscreen();else fsRoot.webkitRequestFullscreen?.();fullscreenLabel();resizeGame();}catch{net.notice='Fullscreen is unavailable here. You can continue playing normally.';}};
+
 window.addEventListener('resize',resizeGame);window.addEventListener('touch-layout',resizeGame);touch.initialize();
 // Deliberately exposed only for automated spike diagnostics.
 Object.assign(window,{spikeDebug:net});
