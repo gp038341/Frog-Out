@@ -36,3 +36,17 @@ Home/lobby, ready cards, Patient Zero/countdown overlay, live survival/healthy c
 Audio is optional, off by default and enabled only by the Sound button. Original Web Audio oscillator cues cover local jump/charge/tongue/attachment and infection/countdown/go/results/UI. No music, samples or extra service.
 
 An isolated browser test caught/fixed presentation color lookup on unassigned lobby slots (-1). The new browser visual checks show eight distinguishable frogs on desktop and phone; mobile controls do not overlap the canvas. Native iOS/Android visual readability/audio remain personal acceptance checks.
+
+## Final regression evidence and limits
+
+- 53/53 unit tests, including tuning/controller/input/prediction/fullscreen and lifecycle hash guards.
+- Independent WebSocket Outbreak matches with 2/3/4/8 clients; Patient Zero rotation, infection/grace, simultaneous ties, survival scoring and offline vulnerability/reconnect.
+- 16 lifecycle checks, including actual 30-second expiry (30,013 ms), stale input/tongue clearing, same-frog restoration and lobby return.
+- 12 hybrid/compatibility checks: repeated switching in five gameplay states, 5 viewport sizes × both layouts, fullscreen enter/exit and unsupported/rejected cases, orientation and reconnect.
+- 15 mobile checks: trusted two-thumb input, four mixed device-size contexts, phone-only complete matches, actual jump/charge/grapples, cancellation, orientation, results and reconnect; no browser runtime errors.
+- Desktop browser checks at 50/100/150 ms added RTT with ±10 ms/leg jitter: jump, terrain grapple/release, reconnect and diagnostic export; zero large snaps, correction p95 0.014/0.042/0.127 units in these short runs.
+- Production-timed three-browser Outbreak presentation/round/rematch regression; eight-browser visual checks for lobby/reveal/countdown, grace/poison/offline, opt-in audio and unobstructed phone controls.
+
+Limitations: camping/chase pacing and mobile readability require human testing, especially at 8 players and on small phones. Names can overlap in tight clusters. The existing room-wide OOB reset policy is preserved. Eight concurrently rendered headless pages averaged ~30 FPS on the shared runner; this is not a physical-device FPS result. Native Safari/iOS/Android and actual audio quality await user testing; unsupported fullscreen remains optional. No elaborate animation, music, camera shake, extra modes or finished extra arenas were added. The Phaser bundle remains ~446 kB gzip; no dependencies or external assets were added.
+
+Deploy only on the existing Free Render service; no resource or plan changes. The ready revision is recoverable from `checkpoint/milestone-6-acceptance`. Exact deploy/health/public verification is recorded after deployment. Milestone 6 is ready for personal testing, not approved.

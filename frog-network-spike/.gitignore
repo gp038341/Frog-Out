@@ -2,3 +2,9 @@ node_modules/
 dist/
 server-dist/
 .env
+
+# Duplicate/diagnostic PNG captures are generated locally; curated M6 JPEGs are committed.
+docs/results/m6-*.png
+docs/results/mobile-6-*.png
+docs/results/compat-6.png
+docs/results/outbreak-6-*.png

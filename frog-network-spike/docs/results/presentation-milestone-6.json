@@ -1,0 +1,36 @@
+{
+  "environment": "Local compiled production server and eight Chromium clients, one emulated touch phone. No physical-device acceptance claim.",
+  "checks": [
+    "eight identities; lobby, Patient Zero and countdown visual states; opt-in procedural audio; intro overlay removed for gameplay",
+    "eight-player arena and phone screenshot; controls disjoint, arena inside viewport",
+    "real body contact: grace and poison visuals; names, state words, crown, X cheeks and spores supplement colors",
+    "offline frog stays in world with OFFLINE label"
+  ],
+  "frames": {
+    "median": 33.29999999999927,
+    "p95": 50,
+    "max": 50,
+    "note": "Eight concurrent headless browser contexts on shared runner; diagnostic only, not physical-device FPS"
+  },
+  "phoneLayout": {
+    "canvas": {
+      "x": 178.15625,
+      "y": 68,
+      "width": 487.109375,
+      "height": 274
+    },
+    "pad": {
+      "x": 14.21875,
+      "y": 150.140625,
+      "width": 109.71875,
+      "height": 109.71875
+    },
+    "action": {
+      "x": 720.0625,
+      "y": 150.140625,
+      "width": 109.71875,
+      "height": 109.71875
+    }
+  },
+  "errors": []
+}

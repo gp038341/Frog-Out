@@ -1,0 +1,131 @@
+{
+  "environment": "Local compiled authoritative server; trusted CDP multi-touch input in isolated Chromium contexts (not physical iOS/Safari/Android devices); test-only body arrangements and 6/12-tick intros; unchanged 60-tick grace",
+  "configs": [
+    {
+      "name": "Desktop Chromium",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      }
+    },
+    {
+      "name": "iPhone-size phone (Chromium emulation)",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "isMobile": true,
+      "hasTouch": true,
+      "deviceScaleFactor": 2
+    },
+    {
+      "name": "Android-size phone (Chromium emulation)",
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "isMobile": true,
+      "hasTouch": true,
+      "deviceScaleFactor": 2
+    },
+    {
+      "name": "Tablet (Chromium emulation)",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "isMobile": true,
+      "hasTouch": true,
+      "deviceScaleFactor": 2
+    }
+  ],
+  "checks": [
+    "one desktop, two phones and tablet share four-player room; touch lobby/ready/start works",
+    "actual multi-touch protocol: eight aim directions and centre/release neutral",
+    "touch quick tap sends action press/release and authoritative normal jump",
+    "simultaneous independent thumbs maintain direction while charging; release gives stronger approved launch",
+    "terrain tongue/active pull and release via two thumbs",
+    "mobile grapples desktop frog; both dynamic bodies respond and release",
+    "pointer cancellation clears both inputs",
+    "portrait prompt, landscape return and orientation release preserve session",
+    "phone/tablet arena fully visible, controls >=80px, no canvas overlap or horizontal overflow",
+    "568x320 landscape compatibility and visible footer",
+    "mobile page reload reconnect restores identity/slot during Outbreak",
+    "mobile Diagnostics button exports touch/viewport/network state without reconnect token",
+    "mixed-device complete Outbreak, round/final standings and no inaccessible results",
+    "return/rematch lobby remains touch usable",
+    "phone-only two-client room, touch host Start/Next/Final/Return and full match"
+  ],
+  "normalJumpVelocity": -8.2,
+  "chargedJumpVelocity": -17.566666666666666,
+  "reciprocalPullVelocity": [
+    -1.6,
+    2.9333333333333336
+  ],
+  "layouts": [
+    {
+      "device": "iPhone-size phone (Chromium emulation)",
+      "canvas": {
+        "x": 178.15625,
+        "y": 68,
+        "width": 487.109375,
+        "height": 274
+      },
+      "pad": {
+        "x": 14.21875,
+        "y": 150.140625,
+        "width": 109.71875,
+        "height": 109.71875
+      },
+      "action": {
+        "x": 720.0625,
+        "y": 150.140625,
+        "width": 109.71875,
+        "height": 109.71875
+      }
+    },
+    {
+      "device": "Android-size phone (Chromium emulation)",
+      "canvas": {
+        "x": 119.375,
+        "y": 87,
+        "width": 426.65625,
+        "height": 240
+      },
+      "pad": {
+        "x": 13.328125,
+        "y": 163.640625,
+        "width": 86.703125,
+        "height": 86.703125
+      },
+      "action": {
+        "x": 566.953125,
+        "y": 163.640625,
+        "width": 86.703125,
+        "height": 86.703125
+      }
+    },
+    {
+      "device": "Tablet (Chromium emulation)",
+      "canvas": {
+        "x": 134,
+        "y": 181,
+        "width": 756,
+        "height": 425.25
+      },
+      "pad": {
+        "x": 14,
+        "y": 338,
+        "width": 112,
+        "height": 112
+      },
+      "action": {
+        "x": 898,
+        "y": 338,
+        "width": 112,
+        "height": 112
+      }
+    }
+  ],
+  "errors": []
+}

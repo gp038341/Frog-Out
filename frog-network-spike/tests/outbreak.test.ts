@@ -7,7 +7,7 @@ import {OutbreakRules,OUTBREAK} from '../src/game/outbreak';
 import {Simulation} from '../src/simulation/world';
 import {frogBodyContacts} from '../server/outbreak-room';
 const start=(order=[0,1,2,3])=>{const rules=new OutbreakRules(order,0);rules.advanceClock(60);rules.advanceClock(240);return rules;};
-test('approved Milestone 3 authority, physics, prediction, roster and lobby lifecycle sources are unchanged',()=>{
+test('approved Milestone 3 authority, movement controller, prediction and lobby lifecycle sources are unchanged',()=>{
  const baseline=JSON.parse(readFileSync(new URL('../docs/approved-milestone-3.json',import.meta.url),'utf8'));
  for(const path of ['src/simulation/world.ts','src/network/protocol.ts','src/network/predictor.ts','server/room.ts','server/party-room.ts'])assert.equal(createHash('sha256').update(readFileSync(new URL(`../${path}`,import.meta.url))).digest('hex'),baseline.sha256[path]);
 });
