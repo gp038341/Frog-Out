@@ -6,7 +6,7 @@ Reviewed 2026-10-07. Existing Render service `frog-out-milestone-2`, My Workspac
 
 Render's [Free-service documentation](https://render.com/docs/free) says a Free web service sleeps after **15 minutes without inbound HTTP requests or WebSocket messages**, and waking takes **about one minute**. A browser opening the submission URL can see Render's loading page before Frog-Out is available. It is outside the game's own UI; an in-game spinner cannot hide it before the app has loaded. Active client messages normally prevent inactivity sleep, but this does not make Free hosting an availability guarantee.
 
-This is the principal judging risk: an unscheduled judge opening a cold URL might think it is broken or leave before loading finishes. The known cold-start behavior comes from Render documentation, not a controlled idle experiment during live playtests. No artificial keep-alive or background service was introduced.
+This is the principal judging risk: an unscheduled judge opening a cold URL might think it is broken or leave before loading finishes. The timing estimate comes from Render documentation. During M7 public verification the browser directly displayed Render’s Application loading interstitial; a subsequent reload reached Frog-Out after the service woke. This was not a controlled measurement of wake duration. No artificial keep-alive or background service was introduced.
 
 Practical no-cost demo procedure:
 

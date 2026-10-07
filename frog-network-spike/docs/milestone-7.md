@@ -20,6 +20,8 @@ The new Help test caught a queued native dialog-close cleanup clearing an immedi
 
 The longer touch fixture was also updated to recognize a legitimate Outbreak round ending and continue through the normal Next Round flow, rather than label a completed round as an input freeze.
 
+The mixed-device frog-shot fixture now waits for neutral authoritative input before a reset and fires at a nearer falling target before it drops outside the committed horizontal shot. Diagnostics showed a missed frog shot attaching to distant terrain, not stopped input; the adjusted fixture passes reciprocal pulling. Test changes are isolated from production physics.
+
 Final automated results and deployment revision are recorded in `results/milestone-7-summary.json` and `results/public-milestone-7.json` after verification. Browser suites run only against isolated local Chromium or the public cloud Chrome browser. No physical iOS/Android claim.
 
 ## Acceptance playtest

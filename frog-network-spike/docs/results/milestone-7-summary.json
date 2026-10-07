@@ -1,0 +1,111 @@
+{
+  "milestone": 7,
+  "acceptance": "pending personal playtest",
+  "preservedBaseline": "6b85ff332bb12ffd539f7392a742f966ae9542bb",
+  "sourceCommit": "5da02bebd3cad7b05b350a9eff0b45e07a598289",
+  "unitTests": {
+    "passed": 57,
+    "failed": 0
+  },
+  "onboardingBrowser": {
+    "checks": 9,
+    "errors": []
+  },
+  "lifecycle": {
+    "checks": 16,
+    "realReservationMilliseconds": 30009
+  },
+  "outbreak": {
+    "checks": 9,
+    "rosters": [
+      2,
+      3,
+      4,
+      8
+    ]
+  },
+  "latencySDK": {
+    "addedRttMs": [
+      50,
+      100,
+      150
+    ],
+    "jitterMsPerLeg": 10,
+    "largeSnaps": 0,
+    "overruns": 0
+  },
+  "latencyBrowser": {
+    "addedRttMs": [
+      50,
+      100,
+      150
+    ],
+    "errors": [],
+    "largeSnaps": 0
+  },
+  "eightClientStress": {
+    "environment": "One local production OutbreakRoom, eight real loopback WebSocket clients at 30 inputs/client/sec, bots jumping/grappling/colliding; host advances results and rematches; production countdown/grace timing; not a production-host capacity claim",
+    "seconds": 60,
+    "clients": 8,
+    "physicsBodies": 8,
+    "authoritativeClockTicks": 3597,
+    "activeGameplayTicks": 2638,
+    "completedRounds": 3,
+    "completedMatches": 0,
+    "tickMs": {
+      "p50": 0.12201099999947473,
+      "p95": 0.2768689999993512,
+      "p99": 0.5414810000002035,
+      "max": 4.212234999999964
+    },
+    "overruns": 0,
+    "receivedSnapshotMessages": 14424,
+    "snapshotGapMs": {
+      "p50": 33,
+      "p95": 37,
+      "p99": 37,
+      "max": 55
+    },
+    "payloadBytesReceivedAllClients": 45312624,
+    "attachedObservations": 2258
+  },
+  "longTouch": {
+    "checks": [
+      "grounded: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+      "airborne: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+      "charge: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+      "terrain-grapple: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+      "frog-grapple: 3 keyboard\u2192touch\u2192keyboard\u2192touch cycles; neutral handoff, both methods recover, same player/room/reset",
+      "held-key auto-repeat after handoff cannot resurrect stale direction",
+      "Trusted touch stress (300117ms): 714 two-thumb/slide/rapid-action cycles, 714 authoritative input+ack validations, periodic native cancels and viewport changes; no frozen control",
+      "10-second stationary two-thumb grapple hold remains active; release returns to neutral",
+      "Continuous touch session 120042ms, 384 two-thumb jump/grapple/release cycles, 0 normal round transitions; no unexplained reset or reconnect",
+      "blur interruption and orphan-owner/capture-error fault injection recover with fresh trusted touch without reconnect, respawn or physics change",
+      "5 landscape sizes \u00d7 both input layouts: aspect ratio, FIT maximum dimension, footer and arena in viewport, no horizontal overflow",
+      "user gesture Fullscreen API enter/exit and label/resize work in headless Chromium",
+      "portrait/landscape preserves identity and restores controls",
+      "reload reconnect after repeated switching restores same frog and both input methods",
+      "authoritative survival score + 2 bonus displayed as separate round-results components",
+      "fullscreen absent/restricted: hidden unsupported button or readable failure, ordinary play unaffected",
+      "prefixed-only Fullscreen API capability enter/exit; unsupported explanatory text; injected browser capability tests",
+      "trusted two-thumb input survives native capture/release exceptions and off-control release using document fallback"
+    ],
+    "errors": []
+  },
+  "mixedDevice": {
+    "checks": 15,
+    "errors": [],
+    "physical": false
+  },
+  "physicalIOS": "Outstanding pre-release requirement; not personally verified",
+  "limitations": [
+    "Free Render cold start and in-memory room loss on process restart",
+    "Physical Android/tablet long-session retest outstanding",
+    "Crowded names can overlap on small screens"
+  ],
+  "testHarnessCorrections": [
+    "wait for actual grounded charge and allow snapshot gravity sampling",
+    "recognize normal round transition during long touch session",
+    "wait for neutral input and target a falling frog before it drops outside committed shot"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "environment": "Local compiled server; isolated Chromium desktop and trusted CDP touch phone; test-only arrangements and shortened intro, unchanged grace; not physical iOS/Android",
+  "checks": [
+    "home teaches desktop/touch controls and exact rules; visible Controls & Rules opens help",
+    "three-client mixed lobby teaches controls before Ready and explains same-tab reconnect",
+    "help releases held terrain grapple; modal keyboard stays neutral; fresh keyboard input resumes without reconnect",
+    "help clears two-thumb state; 12 fresh touch attach/action/cancel cycles recover; no frozen input",
+    "host Leave warns that everyone is affected; cancel preserves the existing match and frog",
+    "small landscape canvas/controls/footer fit; help can scroll/close; orientation preserves session",
+    "same-tab refresh restores phone identity while desktop match continues",
+    "round context, survival breakdown, final standings and same-room rematch work",
+    "non-host explicit Leave also warns; confirm returns others to lobby and clears old notice"
+  ],
+  "errors": []
+}
