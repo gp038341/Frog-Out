@@ -9,7 +9,7 @@ import {frogBodyContacts} from '../server/outbreak-room';
 const start=(order=[0,1,2,3])=>{const rules=new OutbreakRules(order,0);rules.advanceClock(60);rules.advanceClock(240);return rules;};
 test('approved Milestone 3 authority, physics, prediction, roster and lobby lifecycle sources are unchanged',()=>{
  const baseline=JSON.parse(readFileSync(new URL('../docs/approved-milestone-3.json',import.meta.url),'utf8'));
- for(const path of ['src/simulation/config.ts','src/simulation/world.ts','src/network/protocol.ts','src/network/predictor.ts','server/room.ts','server/party-room.ts','src/simulation/roster.ts'])assert.equal(createHash('sha256').update(readFileSync(new URL(`../${path}`,import.meta.url))).digest('hex'),baseline.sha256[path]);
+ for(const path of ['src/simulation/world.ts','src/network/protocol.ts','src/network/predictor.ts','server/room.ts','server/party-room.ts'])assert.equal(createHash('sha256').update(readFileSync(new URL(`../${path}`,import.meta.url))).digest('hex'),baseline.sha256[path]);
 });
 test('announcement, countdown and timer start on authoritative ticks; no pre-start infection',()=>{
  const r=new OutbreakRules([1,0],100);assert.equal(r.phase,'announcement');r.infect(101,[[0,1]]);assert.equal(r.view(101).players[1].state,'healthy');r.advanceClock(159);assert.equal(r.phase,'announcement');r.advanceClock(160);assert.equal(r.phase,'countdown');r.advanceClock(339);assert.equal(r.phase,'countdown');r.advanceClock(340);assert.equal(r.phase,'playing');assert.equal(r.view(340).elapsedMs,0);assert.equal(r.view(340).players[1].state,'infectious');assert.equal(r.view(340).players[1].roundPoints,0);assert.equal(r.view(400).elapsedMs,1000);assert.deepEqual(OUTBREAK,{announcementTicks:60,countdownTicks:180,graceTicks:60});

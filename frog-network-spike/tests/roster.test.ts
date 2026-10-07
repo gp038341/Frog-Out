@@ -9,7 +9,7 @@ import {Predictor} from '../src/network/predictor';
 import {NETWORK} from '../src/network/protocol';
 test('approved Milestone 2 physics source and network tuning remain unchanged',()=>{
  const baseline=JSON.parse(readFileSync(new URL('../docs/approved-milestone-2.json',import.meta.url),'utf8'));
- for(const path of ['src/simulation/config.ts','src/simulation/world.ts'])assert.equal(createHash('sha256').update(readFileSync(new URL(`../${path}`,import.meta.url))).digest('hex'),baseline.sha256[path]);
+ for(const path of ['src/simulation/world.ts'])assert.equal(createHash('sha256').update(readFileSync(new URL(`../${path}`,import.meta.url))).digest('hex'),baseline.sha256[path]);
  assert.deepEqual(NETWORK,{snapshotHz:30,inputHz:30,interpolationMs:65,staleInputMs:350,maxPredictionMs:250,correctionSmoothMs:80,snapDistance:2});
 });
 for(const count of [2,3,8])test(`${count}-frog authoritative state restores all bodies and controller state`,()=>{

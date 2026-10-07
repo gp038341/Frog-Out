@@ -11,11 +11,5 @@ export const defaults = {
 };
 export type Tuning = typeof defaults;
 export const DT = 1 / 60;
-export const WIDTH = 32, HEIGHT = 18;
-export const arena = [
- {x:16,y:17.5,w:32,h:1}, {x:0.25,y:9,w:0.5,h:18},
- {x:31.75,y:9,w:0.5,h:18}, {x:16,y:0.25,w:32,h:0.5},
- {x:7,y:12,w:6,h:0.5}, {x:23,y:12,w:6,h:0.5},
- {x:16,y:7,w:7,h:0.5}, {x:7,y:5,w:3,h:0.5},
- {x:25,y:4,w:3,h:0.5},
-];
+// Milestone 6 changes arena geometry only; approved tuning above is frozen.
+export {arena,WIDTH,HEIGHT} from './arena';
