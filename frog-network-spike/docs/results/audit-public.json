@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-07",
+  "revision": "6b85ff332bb12ffd539f7392a742f966ae9542bb",
+  "url": "https://frog-out-milestone-2.onrender.com/",
+  "environment": "Two public cloud Chrome tabs; native desktop keyboard input; not two physical devices or touch hardware",
+  "checks": [
+    "Root loads with original M6 identity",
+    "Create room; second client gets understandable nonexistent-code error then joins by code",
+    "Host Start disabled until two connected players are ready",
+    "Patient Zero rotates through both participants",
+    "Normal keyboard movement produces authoritative body-contact infection and round end",
+    "Round 1: healthy survivor 6.2 survival + 2.0 bonus = 8.2 total",
+    "Round 2: healthy survivor 33.8 survival + 2.0 bonus = 35.8 total",
+    "Final standings order/totals correct; nonhost waits for host",
+    "Return/rematch retains room code and both players, resets ready states",
+    "Audit-only clients explicitly leave after verification"
+  ],
+  "observations": [
+    "No visible keyboard controls on home/lobby or active game",
+    "Clear body-only infection reminder and survival components",
+    "Round-results screen lacks round number/count"
+  ],
+  "screenshot": "audit-public-final.jpg",
+  "physicalIosVerified": false
+}

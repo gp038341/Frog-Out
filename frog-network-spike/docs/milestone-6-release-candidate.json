@@ -1,0 +1,57 @@
+{
+  "status": "Milestone 6 release candidate; not final approval",
+  "releaseCandidateRevision": "6b85ff332bb12ffd539f7392a742f966ae9542bb",
+  "sourceRevision": "45325ff76fd23ab1be10d7d3b90f8f68d4f55d81",
+  "checkpoint": "checkpoint/milestone-6-release-candidate",
+  "recordedAt": "2026-10-07",
+  "render": {
+    "service": "frog-out-milestone-2",
+    "serviceId": "srv-db2joi6gekts73falg8g",
+    "workspace": "My Workspace",
+    "deployId": "dep-db2qn3s9v7es739u52sg",
+    "revision": "6b85ff332bb12ffd539f7392a742f966ae9542bb",
+    "status": "live",
+    "url": "https://frog-out-milestone-2.onrender.com/",
+    "instancePlan": "free",
+    "autoDeploy": false,
+    "health": "Render live/default port check, root page and public WebSockets verified; custom HTTP health not separately verified"
+  },
+  "userTesting": {
+    "currentCorrection": "Desktop normal gameplay passed; device/OS/browser unspecified",
+    "historical": "User personally approved separate-computer M2, four-player M3, M4 Outbreak, M5.1 touch/hybrid/fullscreen/scoring; those tests do not establish current physical iOS compatibility"
+  },
+  "agentTesting": {
+    "actualBrowsers": [
+      "Public cloud Chrome",
+      "Local isolated Chromium with keyboard and trusted CDP touch"
+    ],
+    "emulatedViewports": [
+      "1366x768",
+      "1280x900",
+      "1024x768",
+      "1024x600",
+      "844x390",
+      "667x375",
+      "568x320"
+    ],
+    "notPhysicalDevices": true,
+    "extendedTouchEvidence": "711 repeated cycles/300306ms and 396 continuous cycles/120214ms; no control freeze in those recorded tests",
+    "freshAudit": "56 unit tests; lifecycle/outbreak reports in docs/results/audit-*.json"
+  },
+  "outstandingPreReleaseCompatibility": [
+    "Physical iPhone/iOS Safari: required, not personally verified or confirmed working",
+    "Physical iPhone/iOS Chrome",
+    "Physical Android Chrome after mobile correction",
+    "Physical tablet interruptions, fullscreen and long touch sessions",
+    "Desktop Firefox, desktop Safari and Edge-specific compatibility"
+  ],
+  "knownIssues": [
+    "First-time controls unavailable in landing/lobby and hidden during gameplay",
+    "Native mobile compatibility remains unverified; fault injection is not hardware testing",
+    "Small-screen eight-player name/state overlap needs human readability validation",
+    "Free Render cold starts and usage limits; in-memory rooms are lost on restart",
+    "Existing room-wide out-of-bounds reset retained",
+    "Repository READMEs describe older milestones"
+  ],
+  "preservation": "No gameplay, physics, presentation, input, networking or deployment configuration changed for this audit"
+}
