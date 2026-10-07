@@ -1,0 +1,25 @@
+{
+  "milestone": 9,
+  "deployedCommit": "557389aaf503e0f76927e3cb4843c6e40c5fed38",
+  "service": "frog-out-milestone-2",
+  "deploy": "dep-db37d1rbc2fs73crvgp0",
+  "status": "live",
+  "url": "https://frog-out-milestone-2.onrender.com/",
+  "publicBrowser": "Cloud desktop Chromium, two independent browser tabs",
+  "checks": [
+    "create/join",
+    "sound opt-in and volume adjustment",
+    "ready/start",
+    "charged jump with advancing input acknowledgement",
+    "body-contact infection",
+    "both Patient Zero rounds",
+    "round survival/bonus tables",
+    "final standings and new victory caption",
+    "return to lobby with ready states cleared"
+  ],
+  "renderErrorsSinceDeploy": 0,
+  "physicalIOSVerified": false,
+  "physicalAndroidRetested": false,
+  "humanSoundMixApproval": false,
+  "scope": "Deployment sanity checks; user acceptance pending"
+}
