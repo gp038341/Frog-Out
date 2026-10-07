@@ -1,0 +1,33 @@
+{
+  "deployedCommit": "cfc7601a2a320a7d03c3a1cad90b789467263b46",
+  "checkpoint": "checkpoint/milestone-8-refinement-playtest",
+  "renderDeploy": "dep-db34ldvlk1mc739e2jcg",
+  "status": "live",
+  "finishedAt": "2026-10-07T13:36:51.656143Z",
+  "service": "frog-out-milestone-2",
+  "plan": "free",
+  "url": "https://frog-out-milestone-2.onrender.com/",
+  "environment": "Public cloud Chrome, independent host and peer tabs; not physical iOS/Android",
+  "checks": [
+    "Public site, create/join, connected WebSockets",
+    "Guest sees synchronized visual card selection; host-only selection",
+    "Ready/Start and Rainbell match launch",
+    "Native keyboard movement, body infection, both round results and survival/bonus scoring",
+    "Peer refresh restores same ongoing room/results",
+    "Patient Zero rotation, final standings and return-to-lobby",
+    "Arena choice retained on rematch; switch back to Canopy synchronized",
+    "Disposable room clients leave and QA tabs close"
+  ],
+  "performanceObservation": {
+    "publicStatusSample": "p95 0.537ms, p99 1.082ms, max 29.043ms; 1 overrun; local large snaps 0 in observed HUD sample",
+    "scope": "Short live sanity check; not capacity/load certification. Free-host scheduling remains a limitation."
+  },
+  "paidChanges": false,
+  "outstanding": [
+    "physical iPhone/iOS Safari",
+    "physical Android retesting",
+    "small-screen/high-player-count human readability",
+    "Render Free cold-start risk",
+    "Milestone 8 personal acceptance"
+  ]
+}

@@ -23,3 +23,6 @@ Outstanding: physical iPhone/iOS Safari, physical Android retesting, small-scree
 
 ## Acceptance
 Refresh the public URL. Create/join with desktop and phone; confirm Ready is immediately visible, host Start is obvious, and rules remain discoverable. Select each card and verify guests see it and everyone must Ready again. Compare garden horizontal chases against glasshouse vertical escapes/ceiling swings/launches with 2, 4 and ideally 6–8 players. Check small-screen infection/tongue/platform readability, touch release, refresh/reconnect, results and rematch. Report awkward grips, camping, visual ambiguity or long pursuits. Stop before any next arena/mode/milestone.
+
+## Public deployment
+Deployed revision `cfc7601a2a320a7d03c3a1cad90b789467263b46`, Render deploy `dep-db34ldvlk1mc739e2jcg`, live 2026-10-07T13:36:51.656143Z. Public two-client verification is in `results/public-refinement-milestone-8.json`. Later evidence-only commits do not change this deployed game.
