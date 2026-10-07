@@ -1,0 +1,9 @@
+/* Presentation never resizes the stage or changes touch hit areas. */
+#pond-moment{position:absolute;left:50%;top:8%;transform:translateX(-50%);z-index:5;pointer-events:none;font:bold clamp(12px,2vw,22px)/1.15 'Trebuchet MS',sans-serif;letter-spacing:.08em;text-align:center;color:#fff3bb;background:#183f48e8;border:2px solid #ffe4a1;border-radius:40px;padding:6px 14px;max-width:80%;box-shadow:0 3px 0 #102d34}
+#pond-moment[data-kind=last]{color:#ffe795}.pond-reveal-caption{font-size:clamp(10px,1.8vw,16px);letter-spacing:.12em;color:#fff0b8;margin:4px 0;pointer-events:none}
+.pond-reveal-arrive{animation:pond-reveal .26s ease-out}.pond-count-pop{animation:pond-count .24s ease-out}
+.pond-last #healthy-count{color:#ffe3a0;text-shadow:0 1px 0 #102d34}.pond-results-caption{font-size:12px;letter-spacing:.07em;color:#d7edbe;margin:6px 0}.pond-victory #results-title{color:#ffe795}.pond-victory .winner-row{box-shadow:inset 3px 0 #ffe795}
+.pond-audio-settings{display:flex;align-items:center;gap:8px;font-size:12px;flex-wrap:wrap;margin:10px 0}.pond-audio-settings input{max-width:140px;width:110px;accent-color:#8ee3a0}.pond-audio-settings output{min-width:34px}
+@keyframes pond-reveal{from{opacity:.4;transform:scale(.96)}to{opacity:1;transform:scale(1)}}@keyframes pond-count{from{transform:scale(1.15)}to{transform:scale(1)}}
+@media(max-height:430px){#pond-moment{top:8%;padding:3px 9px;font-size:11px}.pond-reveal-caption{font-size:10px;margin:2px}}
+@media(prefers-reduced-motion:reduce){.pond-reveal-arrive,.pond-count-pop{animation:none}}

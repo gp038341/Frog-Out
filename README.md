@@ -48,4 +48,8 @@ Art/audio are original procedural project assets; [sources and licenses](frog-ne
 
 Approved submission-ready M7 gameplay checkpoint: `e97bbcb418468149e5b936c7ff9e95a0ccbe5b9b`, branch `checkpoint/milestone-7-approved`. The original Canopy Courtyard remains the default and its geometry is unchanged. The lobby host can now choose **Rainbell Conservatory — Geometry Preview** before ready/start. Arena changes clear everyone’s Ready; choices are frozen across all rounds of a match and retained for rematch. No new mode or physics tuning. Arena 2 layout acceptance and final art are pending. See [M8 details](frog-network-spike/docs/milestone-8-geometry.md).
 
-Physical iPhone Safari reliability is currently a release blocker under diagnosis. Content development is paused. See [diagnostic build and physical testing](frog-network-spike/docs/iphone-reliability-diagnostic.md).
+Physical iPhone Safari reliability is currently a release blocker under diagnosis. The candidate is frozen pending physical validation. See [diagnostic build and physical testing](frog-network-spike/docs/iphone-reliability-diagnostic.md).
+
+## Milestone 9 presentation playtest
+
+Original pond-percussion sound, restrained action feedback and short Outbreak/round celebrations. Current maps, physics, networking and scoring remain unchanged. Sound is opt-in; lobby help contains volume settings. Physical iPhone Safari remains a mandatory release gate; its input/viewport candidate stays frozen. See [M9 scope and acceptance checklist](frog-network-spike/docs/milestone-9.md).

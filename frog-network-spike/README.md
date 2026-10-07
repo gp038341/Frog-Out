@@ -94,4 +94,8 @@ Approved submission-ready M7 gameplay checkpoint: `e97bbcb418468149e5b936c7ff9e9
 
 ## iPhone reliability diagnostic candidate
 
-Physical iPhone Safari testers reported a release-blocking viewport/input failure. Content work is paused. This candidate adds visual-viewport sizing, native finger lifecycle handling and opt-in Input monitor/Diagnostics. It is **not yet certified fixed on physical iPhone**. See [physical test instructions](docs/iphone-reliability-diagnostic.md).
+Physical iPhone Safari testers reported a release-blocking viewport/input failure. This candidate is frozen pending physical testing and adds visual-viewport sizing, native finger lifecycle handling and opt-in Input monitor/Diagnostics. It is **not yet certified fixed on physical iPhone**. See [physical test instructions](docs/iphone-reliability-diagnostic.md).
+
+## Milestone 9 presentation playtest
+
+Original pond-percussion sound, restrained action feedback and short Outbreak/round celebrations. Current maps, physics, networking and scoring remain unchanged. Sound is opt-in; lobby help contains volume settings. Physical iPhone Safari remains a mandatory release gate; its input/viewport candidate stays frozen. See [M9 scope and acceptance checklist](docs/milestone-9.md).

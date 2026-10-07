@@ -1,3 +1,4 @@
+import {PresentationUI} from './presentation/presentation-ui';
 import {arenaPreview} from './ui/arena-preview';
 import {arenaList,DEFAULT_ARENA,getArena,isArenaId} from './simulation/arenas';
 import Phaser from 'phaser';
@@ -126,6 +127,7 @@ Object.assign(window,{spikeDebug:net});
 
 const el=(id:string)=>document.getElementById(id)!;
 const guide=new PlayerGuide(clear);
+const presentation=new PresentationUI(audio);
 const arenaCards=arenaList.map(a=>{const b=document.createElement('button');b.type='button';b.className='arena-card';b.dataset.arena=a.id;b.innerHTML=arenaPreview(a);const title=document.createElement('strong');title.textContent=a.name;b.append(title);const desc=document.createElement('small');desc.textContent=a.id==='canopy'?'Balanced garden chases':'Vertical swings & launches';b.append(desc);b.onclick=()=>net.selectArena(a.id);el('arena-previews').append(b);return b;});
 const arenaSelect=el('arena-select') as HTMLSelectElement;arenaSelect.replaceChildren(...arenaList.map(a=>{const o=document.createElement('option');o.value=a.id;o.textContent=a.name+(a.geometryPreview?' · Geometry Preview':'');return o;}));arenaSelect.onchange=()=>{if(isArenaId(arenaSelect.value))net.selectArena(arenaSelect.value);};
 const name=el('name') as HTMLInputElement,code=el('join-code') as HTMLInputElement;
@@ -152,7 +154,7 @@ setInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase
  const signature=JSON.stringify([lobby,net.playerId]);if(signature!==uiSignature){uiSignature=signature;el('players').replaceChildren();if(lobby){el('code').textContent=lobby.code;el('session-code').textContent=`Room ${lobby.code}`;for(const p of lobby.players){const li=document.createElement('li');li.style.setProperty('--frog-color',cssColor(p.slot>=0?p.slot:lobby.players.indexOf(p)));li.className=p.ready?'player-card ready':'player-card';li.textContent=`${p.name}${p.id===lobby.hostId?' · Host':''}${p.id===net.playerId?' · You':''} — ${p.connected?(p.ready?'Ready':'Not ready'):'Disconnected (slot reserved)'}`;el('players').append(li);}const me=lobby.players.find(p=>p.id===net.playerId);el('ready').textContent=me?.ready?'Not Ready':'Ready';el('ready').setAttribute('aria-pressed',String(!!me?.ready));el('start').hidden=net.playerId!==lobby.hostId;}}
  if(lobby){const selected=getArena(lobby.arenaId);el('lobby-arena-name').textContent=selected.name.toUpperCase();arenaSelect.value=selected.id;for(const card of arenaCards){const chosen=card.dataset.arena===selected.id;card.setAttribute('aria-pressed',String(chosen));card.disabled=phase!=='lobby'||net.playerId!==lobby.hostId||net.status!=='connected';}arenaSelect.disabled=phase!=='lobby'||net.playerId!==lobby.hostId||net.status!=='connected';el('arena-description').textContent=selected.description;el('arena-choice-note').textContent=net.playerId===lobby.hostId?'Changing arenas clears Ready for everyone.':'The host chooses. Arena changes clear everyone’s Ready.';el('session-code').textContent=`Room ${lobby.code} · ${selected.name}`;}
  el('mobile-export').hidden=phase!=='game';
- renderOutbreak();updateMonitor();
+ renderOutbreak();presentation.update(net.lobby?.phase==='game'?net.outbreak:undefined,net.slot);updateMonitor();
  const f=net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.frogs[net.slot]:net.snapshots.at(-1)?.state.frogs[net.slot];
  resizeGame();
  touch.update(net.playing&&net.status==='connected'&&!guide.blocking,phase==='game'&&!!net.outbreak&&['announcement','countdown','playing'].includes(net.outbreak.phase),f?.grounded??false,f?.charging??false,f?.tongue?.phase==='attached');
@@ -169,7 +171,8 @@ function renderOutbreak(){
  const signature=state?`${state.round}:${state.phase}`:'';if(signature!==previousGamePhase){clear();previousGamePhase=signature;if(state&&['announcement','countdown','playing'].includes(state.phase))requestAnimationFrame(()=>{game.scale.getParentBounds();game.scale.refresh();});}
  const results=state?.phase==='round-results'||state?.phase==='match-results';el('results').hidden=!results;
  if(!state){el('phase-overlay').hidden=true;return;}
- const count=Math.max(1,Math.ceil(state.remainingMs/1000));const cueKey=`${state.round}:${state.phase}:${state.phase==='countdown'?count:''}`;if(cueKey!==lastCue){lastCue=cueKey;if(state.phase==='countdown')audio.play('count');if(state.phase==='playing')audio.play('go');if(state.phase==='round-results'||state.phase==='match-results')audio.play('win');}
+
+ const count=Math.max(1,Math.ceil(state.remainingMs/1000));
  document.body.dataset.outbreakPhase=state.phase;
  const intro=state.phase==='announcement'||state.phase==='countdown';el('phase-overlay').hidden=!intro;el('phase-overlay').dataset.phase=state.phase;el('reveal-name').textContent=playerName(state.patientZero);el('countdown-number').textContent=state.phase==='countdown'?String(count):'☠';
  const healthy=state.players.filter(p=>p.state==='healthy').length;el('healthy-count').textContent=state.phase==='playing'?`${healthy} HEALTHY / ${state.players.length}`:'';

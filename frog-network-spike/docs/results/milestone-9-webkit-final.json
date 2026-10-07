@@ -1,0 +1,182 @@
+{
+  "engine": "Linux Playwright WebKit 26.0, build 2248; desktop and touch-capable contexts, DPR 3",
+  "scope": "Trusted single touchscreen taps and UI; synthetic native multi-finger events/browser interruptions; mocked VisualViewport toolbar/zoom rectangles; actual server physics/WebSockets; test-only body arrangements and short intros. NOT physical iPhone Safari/browser-chrome validation.",
+  "checks": [
+    "actual WebKit keyboard/touch clients join, select map, ready/start over real WebSockets; false fullscreen capability hides button",
+    "trusted WebKit touchscreen tap yields authoritative normal jump through native Touch Events",
+    "synthetic native two-thumb hold/charge/release reaches approved authoritative charged launch",
+    "native-stream aiming, terrain attachment and release stay authoritative",
+    "physical-device monitor is user-toggleable, non-intercepting, and shows complete input/ack/tick pipeline",
+    "mock toolbar expansion/collapse, nonzero offsets and zoomed visible widths fit canvas/touch/footer and release old coordinates; fresh touches regain control",
+    "fresh native down in the same task as resize survives the deferred render frame and reaches authoritative input",
+    "WebKit portrait/landscape resizing preserves identity and accepts fresh fingers",
+    "synthetic browser interruptions neutralize both owners and next touch recovers",
+    "trusted WebKit Help open/close releases held controls without losing player",
+    "WebKit refresh reconnect restores existing identity/frog",
+    "actual WebKit 4s event/server stress: 4 synthetic native two-thumb slide/charge/release/cancel/fresh-down cycles; identity and authoritative ticks continue",
+    "trusted WebKit diagnostic download includes viewport/native owners/sends/acknowledgement/authoritative state without reconnect credentials",
+    "two consecutive complete WebKit Outbreak matches: rotation, scoring, round/final results and rematch"
+  ],
+  "layouts": [
+    {
+      "v": {
+        "width": 844,
+        "height": 280,
+        "offsetTop": 38,
+        "offsetLeft": 0,
+        "scale": 1
+      },
+      "boxes": {
+        "canvas": {
+          "x": 289.15625,
+          "y": 125,
+          "w": 264.875,
+          "h": 149
+        },
+        "pad": {
+          "x": 14.21875,
+          "y": 144.640625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "action": {
+          "x": 720.0625,
+          "y": 144.640625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "footer": {
+          "x": 6,
+          "y": 282,
+          "w": 832,
+          "h": 32
+        }
+      }
+    },
+    {
+      "v": {
+        "width": 800,
+        "height": 310,
+        "offsetTop": 20,
+        "offsetLeft": 22,
+        "scale": 1
+      },
+      "boxes": {
+        "canvas": {
+          "x": 262.15625,
+          "y": 107,
+          "w": 318.21875,
+          "h": 179
+        },
+        "pad": {
+          "x": 36.21875,
+          "y": 141.640625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "action": {
+          "x": 698.0625,
+          "y": 141.640625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "footer": {
+          "x": 28,
+          "y": 294,
+          "w": 788,
+          "h": 32
+        }
+      }
+    },
+    {
+      "v": {
+        "width": 600,
+        "height": 240,
+        "offsetTop": 12,
+        "offsetLeft": 60,
+        "scale": 1.3
+      },
+      "boxes": {
+        "canvas": {
+          "x": 292.15625,
+          "y": 99,
+          "w": 135.109375,
+          "h": 76
+        },
+        "pad": {
+          "x": 74.21875,
+          "y": 82.140625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "action": {
+          "x": 536.0625,
+          "y": 82.140625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "footer": {
+          "x": 66,
+          "y": 183,
+          "w": 588,
+          "h": 65
+        }
+      }
+    },
+    {
+      "v": {
+        "width": 844,
+        "height": 390,
+        "offsetTop": 0,
+        "offsetLeft": 0,
+        "scale": 1
+      },
+      "boxes": {
+        "canvas": {
+          "x": 191.15625,
+          "y": 87,
+          "w": 460.4375,
+          "h": 259
+        },
+        "pad": {
+          "x": 14.21875,
+          "y": 161.640625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "action": {
+          "x": 720.0625,
+          "y": 161.640625,
+          "w": 109.71875,
+          "h": 109.71875
+        },
+        "footer": {
+          "x": 6,
+          "y": 354,
+          "w": 832,
+          "h": 32
+        }
+      }
+    }
+  ],
+  "stress": {
+    "seconds": 12,
+    "cycles": 4,
+    "trace": {
+      "attemptAt": 1791391015085,
+      "sentAt": 1791391015086,
+      "sentSeq": 296,
+      "ackAt": 1791391015086,
+      "ack": 295,
+      "snapshotAt": 1791391015086,
+      "tickAt": 1791391015086,
+      "tick": 624,
+      "skip": "",
+      "transportOpen": true,
+      "id": "L70gDdHxv",
+      "slot": 1,
+      "stale": false
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,12 @@
+{
+  "baseline": "0c2f80ff0610c4400f5afc3dd4232536930c7f2d",
+  "unit": {
+    "passed": 69,
+    "failed": 0
+  },
+  "build": "TypeScript / Vite / server build passed",
+  "chromium": "7 presentation/audio checks; 10 onboarding checks; 15 mixed desktop/touch checks; no application page errors",
+  "server": "9 arena checks across 2/3/4/8 clients on both maps; 16 lifecycle checks including actual 30-second expiry; authoritative Outbreak regression including contact-only infection, grace/ties/scoring/rotation/reconnect/rematch",
+  "webkit": "Actual Linux WebKit 26.0 build 2248: 180-second / 220-cycle stress with two complete Outbreak matches; fresh final-layout smoke run and diagnostic export also passed",
+  "limits": "WebKit multi-touch/interruptions and toolbar geometry are synthetic; physical iPhone/Android and actual audible speaker/mix acceptance are unverified. No physical-iPhone release gate waived."
+}

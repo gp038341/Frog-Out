@@ -1,3 +1,4 @@
+import {Feel} from './feel';
 import {DEFAULT_ARENA,getArena,type ArenaId} from '../simulation/arenas';
 import Phaser from 'phaser';
 import {arena,WIDTH,HEIGHT,defaults} from '../simulation/config';
@@ -11,12 +12,14 @@ type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'cha
 type Before={vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};
 /** Presentation consumes render positions only. It never writes a physics body or gameplay input. */
 export class Courtyard {
+ feel:Feel;
  arenaId:ArenaId=DEFAULT_ARENA;
  background:Phaser.GameObjects.Graphics;ink:Phaser.GameObjects.Graphics;effects:Phaser.GameObjects.Graphics;
  labels:Phaser.GameObjects.Text[]=[];previous:Before[]=[];pops:Pop[]=[];reactions=Array(8).fill(0);round=-1;labelSize=0;
  constructor(private scene:Phaser.Scene,private audio:GameAudio){
   this.background=scene.add.graphics().setDepth(0);this.ink=scene.add.graphics().setDepth(1);this.effects=scene.add.graphics().setDepth(2);
   for(let i=0;i<8;i++)this.labels.push(scene.add.text(0,0,'',{fontFamily:'Trebuchet MS, sans-serif',fontSize:'19px',fontStyle:'bold',color:'#fff8d9',stroke:'#142f35',strokeThickness:5,align:'center',lineSpacing:0}).setOrigin(.5,1).setDepth(4));
+  this.feel=new Feel(scene,audio);
   this.paintArena();
  }
  setArena(id:ArenaId){if(this.arenaId!==id){this.arenaId=id;this.paintArena();this.clear();}}
@@ -47,7 +50,7 @@ export class Courtyard {
    }
   });
  }
- clear(){this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}
+ clear(){this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}
  pop(x:number,y:number,color:number,kind:Pop['kind']){if(this.pops.length<64)this.pops.push({x:x*S,y:y*S,age:0,life:kind==='infect'?650:360,color,kind});}
  render(states:FrogState[],positions:Point[],view:OutbreakView|undefined,connected:boolean[],names:string[],local:number,delta:number){
   if(view?.round!==this.round){this.round=view?.round??-1;this.previous=[];this.pops=[];}
@@ -67,7 +70,7 @@ export class Courtyard {
     if(before.grounded&&!f.grounded&&f.vy< -5){const charged=before.charging;this.pop(p.x,p.y+.3,charged?0xffe79b:color,charged?'charge':'jump');if(i===local)this.audio.play(charged?'charge':'jump');}
     if(f.tongue?.phase==='flying'&&!before.tongue&&i===local)this.audio.play('fire');
     if(f.tongue?.phase==='attached'&&before.tongue!=='attached'){this.pop(f.tongue.tip.x,f.tongue.tip.y,0xffbbc9,'attach');if(i===local)this.audio.play('attach');}
-    if(state==='transforming'&&before.state==='healthy'){this.pop(p.x,p.y,0xe9baff,'infect');this.audio.play('infect');this.reactions[i]=180;}
+    if(state==='transforming'&&before.state==='healthy'){this.pop(p.x,p.y,0xe9baff,'infect');this.reactions[i]=180;}
     // React only to velocity changes in a physical body-contact neighborhood, not ordinary control acceleration.
     const bump=states.some((other,j)=>i!==j&&Math.hypot(other.x-f.x,other.y-f.y)<defaults.frogRadius*2+.15);
     if(bump&&Math.hypot(f.vx-before.vx,f.vy-before.vy)>3.5&&this.reactions[i]<=0){this.reactions[i]=130;this.pop(p.x,p.y,color,'bump');}
@@ -79,6 +82,7 @@ export class Courtyard {
    this.previous[i]={vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state,x:f.x,y:f.y};
   });
   this.labels.forEach((l,i)=>{if(i>=states.length)l.setVisible(false);});
+  this.feel.render(states,positions,view,local,delta);
   this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;e.lineStyle(2,p.color,1-q);const radius=(p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});
  }
  frog(g:Phaser.GameObjects.Graphics,x:number,y:number,f:FrogState,slot:number,infection:OutbreakPlayer|undefined,online:boolean,local:boolean,time:number){

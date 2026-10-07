@@ -1,0 +1,103 @@
+{
+  "baseline": "0c2f80ff0610c4400f5afc3dd4232536930c7f2d",
+  "reason": "M9 presentation-only adapters; frozen iPhone input/viewport/fullscreen/canvas and all simulation/authority unchanged. Exact inverse edits retain historical baselines.",
+  "files": {
+    "src/main.ts": {
+      "sha256": "7916c2d1ac44ae74a48380ee2e7cc4789857ea7fdcacfdce5df3d16a2cfc2ef6",
+      "changes": [
+        {
+          "from": "import {PresentationUI} from './presentation/presentation-ui';\n",
+          "to": ""
+        },
+        {
+          "from": "const presentation=new PresentationUI(audio);\n",
+          "to": ""
+        },
+        {
+          "from": " renderOutbreak();presentation.update(net.lobby?.phase==='game'?net.outbreak:undefined,net.slot);updateMonitor();\n",
+          "to": " renderOutbreak();updateMonitor();\n"
+        },
+        {
+          "from": "\n const count=Math.max(1,Math.ceil(state.remainingMs/1000));\n",
+          "to": " const count=Math.max(1,Math.ceil(state.remainingMs/1000));const cueKey=`${state.round}:${state.phase}:${state.phase==='countdown'?count:''}`;if(cueKey!==lastCue){lastCue=cueKey;if(state.phase==='countdown')audio.play('count');if(state.phase==='playing')audio.play('go');if(state.phase==='round-results'||state.phase==='match-results')audio.play('win');}\n"
+        }
+      ]
+    },
+    "src/presentation/audio.ts": {
+      "sha256": "c37a1d1ca9532419c6b3c48fe359fbc0edd787ef3005537ecb95f457b24cb690",
+      "changes": [
+        {
+          "from": "/** Original Frog-Out synthesized pond percussion. No external recordings or music. */\nexport type Cue='jump'|'charge'|'build'|'fire'|'attach'|'miss'|'tension'|'impact'|'infect'|'transform'|'reveal'|'count'|'go'|'last'|'round'|'win'|'ui';\ntype Note=[number,number,number,number?];\nexport const SOUNDS:Record<Cue,{cooldown:number;important?:boolean;type:OscillatorType;notes:Note[]}>= {\n jump:{cooldown:100,type:'sine',notes:[[190,380,.11]]},\n charge:{cooldown:220,type:'triangle',notes:[[110,480,.19],[420,640,.13,.06]]},\n build:{cooldown:330,type:'sine',notes:[[150,220,.08]]},\n fire:{cooldown:110,type:'sine',notes:[[740,170,.1]]},\n attach:{cooldown:180,type:'triangle',notes:[[310,440,.07],[560,620,.08,.055]]},\n miss:{cooldown:200,type:'sine',notes:[[230,115,.09]]},\n tension:{cooldown:850,type:'sine',notes:[[125,150,.08]]},\n impact:{cooldown:200,type:'triangle',notes:[[130,65,.07]]},\n infect:{cooldown:240,important:true,type:'triangle',notes:[[260,100,.14],[170,65,.18,.10]]},\n transform:{cooldown:350,type:'sine',notes:[[110,210,.13]]},\n reveal:{cooldown:700,important:true,type:'triangle',notes:[[130,95,.17],[220,120,.22,.15]]},\n count:{cooldown:500,important:true,type:'sine',notes:[[420,350,.09]]},\n go:{cooldown:700,important:true,type:'triangle',notes:[[260,520,.12],[520,780,.17,.10]]},\n last:{cooldown:900,important:true,type:'sine',notes:[[440,440,.11],[660,660,.14,.12]]},\n round:{cooldown:800,important:true,type:'sine',notes:[[330,440,.12],[440,550,.14,.11],[550,660,.17,.23]]},\n win:{cooldown:1000,important:true,type:'triangle',notes:[[330,440,.13],[440,660,.14,.13],[660,880,.22,.27]]},\n ui:{cooldown:100,type:'sine',notes:[[300,430,.045]]}\n};\n",
+          "to": "/** Original procedural cues; no samples, downloads or licensed music. Opt-in only. */\nexport type Cue='jump'|'charge'|'fire'|'attach'|'infect'|'count'|'go'|'win'|'ui';\n"
+        },
+        {
+          "from": " enabled=false;context?:AudioContext;last=new Map<Cue,number>();volume=.55;master?:GainNode;\n voices=new Set<OscillatorNode>();played=0;dropped=0;peakVoices=0;private lastSmall=-999;private compressor?:DynamicsCompressorNode;\n setVolume(value:number){this.volume=Math.max(0,Math.min(1,value));if(this.master&&this.context)this.master.gain.setTargetAtTime(this.volume,this.context.currentTime,.02);try{localStorage.setItem('frog-out-volume',String(this.volume));}catch{/* storage is optional */}}\n toggle(){this.enabled=!this.enabled;if(this.enabled){try{this.context??=new AudioContext();if(!this.master){this.master=this.context.createGain();this.compressor=this.context.createDynamicsCompressor();this.compressor.threshold.value=-20;this.compressor.ratio.value=5;this.master.connect(this.compressor);this.compressor.connect(this.context.destination);this.master.gain.value=this.volume;}void this.context.resume().then(()=>{if(this.enabled)this.play('ui');}).catch(()=>{this.enabled=false;});}catch{this.enabled=false;}}else this.silence();return this.enabled;}\n silence(){for(const o of [...this.voices]){try{o.stop();}catch{/* already stopped */}}this.voices.clear();}\n",
+          "to": " enabled=false;context?:AudioContext;last=new Map<Cue,number>();\n toggle(){this.enabled=!this.enabled;if(this.enabled){try{this.context??=new AudioContext();void this.context.resume();this.play('ui');}catch{this.enabled=false;}}return this.enabled;}\n"
+        },
+        {
+          "from": "  const now=performance.now(),spec=SOUNDS[cue],context=this.context;\n  if(!this.enabled||document.hidden||!context||context.state!=='running'||!this.master||this.volume===0)return;\n  if(now-(this.last.get(cue)??-9999)<spec.cooldown||!spec.important&&now-this.lastSmall<85){this.dropped++;return;}\n  // Bounded local synth: at most eight scheduled/active oscillators, no queue or backlog.\n  if(this.voices.size+spec.notes.length>8){if(!spec.important){this.dropped++;return;}this.silence();}\n  this.last.set(cue,now);if(!spec.important)this.lastSmall=now;this.played++;\n  for(const [a,b,length,delay=0]of spec.notes){const t=context.currentTime+delay,o=context.createOscillator(),g=context.createGain();o.type=spec.type;o.frequency.setValueAtTime(a,t);o.frequency.exponentialRampToValueAtTime(b,t+length);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(spec.important?.09:.06,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+length);o.connect(g);g.connect(this.master);this.voices.add(o);this.peakVoices=Math.max(this.peakVoices,this.voices.size);o.start(t);o.stop(t+length+.01);o.onended=()=>{this.voices.delete(o);o.disconnect();g.disconnect();};}\n",
+          "to": "  const now=performance.now();if(!this.enabled||!this.context||this.context.state!=='running'||now-(this.last.get(cue)??-999)<90)return;this.last.set(cue,now);\n  const notes:Record<Cue,[number,number,number]>={jump:[220,420,.12],charge:[160,680,.23],fire:[630,180,.1],attach:[380,520,.08],infect:[180,70,.26],count:[420,350,.09],go:[420,840,.19],win:[520,1040,.32],ui:[330,440,.06]};\n  const [a,b,length]=notes[cue],t=this.context.currentTime,o=this.context.createOscillator(),g=this.context.createGain();o.type=cue==='infect'?'triangle':'sine';o.frequency.setValueAtTime(a,t);o.frequency.exponentialRampToValueAtTime(b,t+length);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.08,t+.009);g.gain.exponentialRampToValueAtTime(.0001,t+length);o.connect(g);g.connect(this.context.destination);o.start(t);o.stop(t+length+.01);o.onended=()=>{o.disconnect();g.disconnect();};\n"
+        }
+      ]
+    },
+    "src/presentation/courtyard.ts": {
+      "sha256": "2c22c32a10ac2eea2d3764f3c84608fe2d6fbf4e596977a7d3a3173cbfe047ac",
+      "changes": [
+        {
+          "from": "import {Feel} from './feel';\n",
+          "to": ""
+        },
+        {
+          "from": " feel:Feel;\n",
+          "to": ""
+        },
+        {
+          "from": "  this.feel=new Feel(scene,audio);\n",
+          "to": ""
+        },
+        {
+          "from": " clear(){this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}\n",
+          "to": " clear(){this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}\n"
+        },
+        {
+          "from": "    if(state==='transforming'&&before.state==='healthy'){this.pop(p.x,p.y,0xe9baff,'infect');this.reactions[i]=180;}\n",
+          "to": "    if(state==='transforming'&&before.state==='healthy'){this.pop(p.x,p.y,0xe9baff,'infect');this.audio.play('infect');this.reactions[i]=180;}\n"
+        },
+        {
+          "from": "  this.feel.render(states,positions,view,local,delta);\n",
+          "to": ""
+        }
+      ]
+    }
+  },
+  "protected": {
+    "src/simulation/config.ts": "5354d684519dff62a91bf3d54d8170b37c5ce8466bd531b4b4a550b2ef2d3601",
+    "src/simulation/roster.ts": "30d329a20d4dc5fb09c885c2fdfc05b55facd3bff7950315397621ef3b0fd48a",
+    "src/simulation/arena-adapter.ts": "7d398b53b26235539025153a842a95612266171e55f07ece684ab627158d64af",
+    "src/simulation/state.ts": "676b92ff3e8579af8826ae6c9eed7506551871ff9434fd18d724f12ee4cb5d7b",
+    "src/simulation/world.ts": "d20a53e8db7790293e4ea53cbda64fa0e564d9c2663fe5ff75d0117fcf012002",
+    "src/simulation/arenas.ts": "68818707ddd879b95a736da59750ae25b51260f6221988883b00a0c8589b9d9c",
+    "src/simulation/arena.ts": "8b8f443c2f3ecce0b738ae8e9893de2619a7bfac1bb2b53184b7cd7a1cba428b",
+    "src/network/predictor.ts": "c823758202607bd9e6b3abf6cbe8b684c0ac4ae7e22f232355c4d05a05a83aa7",
+    "src/network/protocol.ts": "3127c9555c6e01090a1bebad9fbd68a3e454c9f36698aee36cfb37f9c5060927",
+    "src/network/link.ts": "c33cff845e16c2ab85038d250c1158340adb778145670656aa77f47f7872d0ec",
+    "src/network/client.ts": "cadc5f4da083198c71f61e8575d52f85ec8c1be8210804bdb32e4e7b0a6a7386",
+    "src/input/touch.ts": "a857ab8c012de4bf335a0cdad774b2560d5f943855707fce228605558c0d9c3e",
+    "src/game/outbreak.ts": "c167258b159b79892615fd103f63082bd08692027eb1ad9f2bdee68bdf10c703",
+    "src/ui/player-guide.css": "0c4249cd25af2d657779ff851ed3789f53e9dea76db916bd80959840c84cdd31",
+    "src/ui/arena-preview.ts": "16f071670a94a23ce4d3a46c125672826a9198c677d196e3c03b469bb2b57a37",
+    "src/ui/player-guide.ts": "83f1cbd149a1f38da347dda3155581224e191b6217a64a07474c1793741158e4",
+    "server/party-room.ts": "fc4a2353add3f2673e60f79657f12bea13835969e05764c0333219bc13172c0e",
+    "server/metrics.ts": "d5707c99cdb8c6b0cc0d30e89d511d0ba03c01622171bf6456f59b8504002f55",
+    "server/outbreak-room.ts": "68bcb74b8279d635624ad873a4946a38e83e8a6dd6ba85383daf55f78b15e6df",
+    "server/room.ts": "f569e704af10031683688d193949ec4487d61d4d210de1162cf135eeede9c99f",
+    "server/index.ts": "3d1eb2c794809a5173fe0be1bbc4ca031fd7e287398ec1c58ae51acb2567235d",
+    "server/stress-room.ts": "98db26ba4bab9267a52931918c83ce6001d0b49bb8d09781271b90b87b33e327",
+    "src/mobile.css": "a466fedf824ed41f5446dec94beb1907fd583b7c4bd1374465b95a876e6a229a",
+    "vite.config.ts": "4848df8a453619be5e35ec30840e3a61e75a6dd186682e3c086693d89bab21f5",
+    "scripts/browser-socket-compat.ts": "0aa114d0cfbdc5ede1e8186efef250238c9d519bb299166fbace2b22c47599eb",
+    "index.html": "e744e88cc1700fc91ebc072f8327a00d8b728b6fef52ac7fcbe4af560fca02c8",
+    "src/presentation/theme.css": "4f66dbda8c1e4d45b4896b48db6ab80071e1cf0339727580f58341ebebd6b220",
+    "src/presentation/identity.ts": "febd1149059c5a19edc3233f335aa5509615399a2fc845622c505f12671c1757"
+  }
+}
