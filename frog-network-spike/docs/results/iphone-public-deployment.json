@@ -1,0 +1,16 @@
+{
+  "revision": "cd47dd80557b278803b35255255068bf2899ac17",
+  "checkpoint": "checkpoint/iphone-reliability-diagnostic-v1",
+  "deploy": "dep-db35mj7avr4c739sb18g",
+  "service": "frog-out-milestone-2",
+  "url": "https://frog-out-milestone-2.onrender.com/",
+  "status": "live",
+  "finishedAt": "2026-10-07T14:47:28.985012Z",
+  "plan": "free",
+  "publicChecks": ["Two independent Chrome tabs create/join by code and ready/start", "Keyboard movement/jump reaches authoritative simulation", "Touch layout and Input monitor display", "Input sequence 775 to 1060 to 1503, acknowledgement 771 to 1055 to 1501, authoritative tick 1774 to 2337 to 3220", "Help open/close and fresh keyboard input recover", "Diagnostics download identifies iphone-reliability-diagnostic-v1 and contains viewport/input/network/server evidence"],
+  "renderErrorsThrough": "2026-10-07T14:50:34Z",
+  "renderErrors": [],
+  "automated": {"unit": "65 pass / 0 fail", "webkit": "Linux WebKit 26.0 build 2248; 180 seconds / 222 synthetic native two-thumb cycles, no page errors; two complete Outbreak matches", "webkitExport": "Separate trusted diagnostic download passed", "chromium": "Desktop/touch, onboarding both maps, mixed clients, lobby/lifecycle and 2/3/4/8-client arena suites passed"},
+  "limitations": ["No physical iPhone Safari verification. P0 remains pending testers reproducing previous conditions.", "WebKit toolbar/zoom rectangles and multi-finger interruptions are simulated, not iOS UIKit/browser chrome.", "Physical Android retest, small-screen/high-count readability and Render Free cold-start risk remain outstanding."],
+  "scope": "Content development paused; no physics, maps, art, server rules or scoring changes. Git tree matches prepared local contents exactly."
+}
