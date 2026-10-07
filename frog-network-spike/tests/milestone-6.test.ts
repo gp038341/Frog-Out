@@ -11,6 +11,7 @@ const hash=(s:string|Buffer)=>createHash('sha256').update(s).digest('hex');
 test('M6 preserves approved M5 controllers, tuning, network, input, lifecycle and Outbreak rules',()=>{
  const b=JSON.parse(readFileSync(new URL('../docs/approved-milestone-5.json',import.meta.url),'utf8'));
  for(const path of ['src/simulation/world.ts','src/simulation/state.ts','src/network/protocol.ts','src/network/predictor.ts','src/network/client.ts','server/room.ts','server/party-room.ts','server/outbreak-room.ts','src/game/outbreak.ts','src/input/touch.ts'])assert.equal(hash(readFileSync(new URL(`../${path}`,import.meta.url))),b.sha256[path],path);
+ const main=readFileSync(new URL('../src/main.ts',import.meta.url),'utf8');for(const [name,block] of Object.entries(b.mainProtectedBlocks) as [string,{start:string;end:string;sha256:string}][])assert.equal(hash(main.slice(main.indexOf(block.start),main.indexOf(block.end))),block.sha256,name);
  const config=readFileSync(new URL('../src/simulation/config.ts',import.meta.url),'utf8');assert.equal(hash(config.split('// Milestone 6')[0]),b.tuningPrefixSha256);
 });
 test('courtyard adds 56% area, preserves single-screen ratio and clear ground corridor',()=>{

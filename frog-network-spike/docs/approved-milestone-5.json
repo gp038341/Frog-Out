@@ -20,5 +20,32 @@
     "src/main.ts": "2e3246a805135412879ec9a68509c5b02aa70a662d12d908629a487c4b658832",
     "src/mobile.css": "7e6ac963ff0a261215c9a43b7ed5b6bf71a1c184777acdb949703f34c1e37bfb"
   },
-  "tuningPrefixSha256": "693d418f5a97a9f81374cb70b0307cac002894c767d8d206e5a433e60af43049"
+  "tuningPrefixSha256": "693d418f5a97a9f81374cb70b0307cac002894c767d8d206e5a433e60af43049",
+  "mainProtectedBlocks": {
+    "normalizedInput": {
+      "start": "const down=",
+      "end": "function interpolate(",
+      "sha256": "9e212c2f6365db5b3cf8c1bbc58ce6794423399e97c7b0af3658120bcb6dd9f5"
+    },
+    "interpolation": {
+      "start": "function interpolate(",
+      "end": "const recent:",
+      "sha256": "26f95fe471431762294354e0a87fb89a42331da14d73f79c48c8e1ef4f32e56e"
+    },
+    "predictionCoupling": {
+      "start": "  if(net.prediction&&net.playing&&!net.stale)",
+      "end": "  const coupled=coupledSlots.size>1;",
+      "sha256": "2cb42a78c466400f5b22e632930dde00962a8172eddcc9259be4c30ac167b0ad"
+    },
+    "correctionSmoothing": {
+      "start": "   // Only reconciliation discontinuities",
+      "end": "   this.rendered[i]={x,y};",
+      "sha256": "643864f6bb3d557140ed3f18cfe603490f1ca3063f3bc136dac78df34c2c9b60"
+    },
+    "responsiveFullscreen": {
+      "start": "let lastCanvasBounds=",
+      "end": "// Deliberately exposed",
+      "sha256": "ad43aca44b104bbe957240a63dd58e1020ffdcdeb2d04cbc5c9c750e43da9799"
+    }
+  }
 }
