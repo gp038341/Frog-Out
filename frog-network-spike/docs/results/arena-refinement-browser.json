@@ -1,0 +1,66 @@
+{
+  "environment": "Local Chromium desktop and emulated touch viewports, not physical iOS/Android",
+  "checks": [
+    "Ready visible without scrolling at 1280×900, 844×390, 667×375, 390×844 and 320×568; no horizontal overflow",
+    "Visual card host selection synchronizes selected state; guest cards cannot change map; compact previews and sticky Ready remain accessible",
+    "Both themed arenas render in authoritative two-client Outbreak sessions; explicit leave returns guest to lobby"
+  ],
+  "layouts": [
+    {
+      "size": {
+        "width": 1280,
+        "height": 900
+      },
+      "top": 296,
+      "bottom": 344,
+      "width": 140,
+      "scroll": 1280,
+      "viewport": 1280
+    },
+    {
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "top": 296,
+      "bottom": 344,
+      "width": 140,
+      "scroll": 844,
+      "viewport": 844
+    },
+    {
+      "size": {
+        "width": 667,
+        "height": 375
+      },
+      "top": 191,
+      "bottom": 239,
+      "width": 120,
+      "scroll": 667,
+      "viewport": 667
+    },
+    {
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "top": 198.5,
+      "bottom": 246.5,
+      "width": 120,
+      "scroll": 390,
+      "viewport": 390
+    },
+    {
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "top": 191,
+      "bottom": 239,
+      "width": 120,
+      "scroll": 320,
+      "viewport": 320
+    }
+  ],
+  "errors": []
+}
