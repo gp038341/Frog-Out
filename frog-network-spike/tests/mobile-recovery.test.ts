@@ -1,4 +1,4 @@
-import {recoveryPreservedSource} from './preserved-source';
+import {recoveryPreservedSource,viewportPreservedSource} from './preserved-source';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -56,5 +56,5 @@ test('recovery diagnostics report both browser fingers independently from owner 
  const f=fixture(false,true);f.native('touchstart',[11],[11]);f.native('touchstart',[22],[11,22],'touch-action');let d=f.control.diagnostics();assert.deepEqual(Array.from(d.browserTouches,(p:any)=>p.id),[11,22]);assert.equal(d.directionId,11);assert.equal(d.actionId,22);assert.equal(d.input.held,true);f.native('touchcancel',[22],[11]);d=f.control.diagnostics();assert.equal(d.cancelCount,1);assert.ok(d.lastCancel.includes('touchcancel'));assert.equal(d.browserTouches.length,1);assert.equal(d.input.x,1);
 });
 test('recovery preserves all frozen sources and uses passive observers without Safari gesture interception',()=>{
- const m=JSON.parse(readFileSync(new URL('../docs/iphone-recovery-preservation.json',import.meta.url),'utf8'));for(const[path,hash]of Object.entries(m.protected))assert.equal(requireHash(readFileSync(new URL(`../${path}`,import.meta.url))),hash,path);for(const[path,r]of Object.entries(m.files)as[string,{sha256:string}][])assert.equal(requireHash(Buffer.from(recoveryPreservedSource(path))),r.sha256,path);const s=readFileSync(new URL('../src/input/touch.ts',import.meta.url),'utf8');assert.ok(!s.includes("this.record('native-gesture'"));assert.ok(s.includes('capture:true,passive:true'));const end=s.slice(s.indexOf('// End/cancel'),s.indexOf("window.addEventListener('game-viewport-change'"));assert.ok(!end.includes('preventDefault'));
+ const m=JSON.parse(readFileSync(new URL('../docs/iphone-recovery-preservation.json',import.meta.url),'utf8'));for(const[path,hash]of Object.entries(m.protected))assert.equal(requireHash(Buffer.from(viewportPreservedSource(path))),hash,path);for(const[path,r]of Object.entries(m.files)as[string,{sha256:string}][])assert.equal(requireHash(Buffer.from(recoveryPreservedSource(path))),r.sha256,path);const s=readFileSync(new URL('../src/input/touch.ts',import.meta.url),'utf8');assert.ok(!s.includes("this.record('native-gesture'"));assert.ok(s.includes('capture:true,passive:true'));const end=s.slice(s.indexOf('// End/cancel'),s.indexOf("window.addEventListener('game-viewport-change'"));assert.ok(!end.includes('preventDefault'));
 });

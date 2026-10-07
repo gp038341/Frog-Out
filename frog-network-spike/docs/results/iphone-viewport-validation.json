@@ -1,0 +1,49 @@
+{
+  "baseline": "eb7bfd5a58b134af428794bcbc10311c99fefa84",
+  "physicalMultitouch": "User physically validated; exact adapter preserved",
+  "physicalViewport": "Pending user acceptance; mandatory release gate",
+  "build": "pass",
+  "unitTests": 77,
+  "protectedFiles": 32,
+  "runtimeChanged": [
+    "src/main.ts (touch layout branch and diagnostics only)",
+    "src/mobile.css (text adjustment and touch-game shell only)"
+  ],
+  "layouts": [
+    {
+      "viewport": "844x390",
+      "previousCanvasHeight": 259,
+      "candidateCanvasHeight": 286
+    },
+    {
+      "viewport": "667x375",
+      "previousCanvasHeight": 211,
+      "candidateCanvasHeight": 243
+    },
+    {
+      "viewport": "568x320",
+      "previousCanvasHeight": 156,
+      "candidateCanvasHeight": 188
+    }
+  ],
+  "scope": "Desktop, mobile-size/hybrid Chromium and Linux WebKit automated contexts, not physical Android/iPhone certification",
+  "testCaveats": [
+    "Earlier Chromium close/far frog-attachment fixtures timed out. Captured normalized/server input and acknowledgements continued; terrain was sometimes hit instead. Fixture uses a clearer short open-air arrangement and correct changed-point CDP releases. No product physics/input change. Final four-client run passes; a harness-only cause is not conclusively established for every earlier timeout.",
+    "Early toolbar assertion sampled before FIT update completed (65ms); assertion now checks two settled samples at 300/500ms. Product has no added delay.",
+    "Linux WebKit does not expose mobile text-size-adjust; physical iOS text inflation remains unverified. Source declaration and forced 48px independence are tested.",
+    "Some Linux WebKit lobby setup clicks failed to ready without an input/server trace. Runner awaits synchronized selected arena and uses trusted touchscreen tap for its mobile context. These failures are recorded, not claimed to prove an iPhone issue or a product fix."
+  ],
+  "bundle": {
+    "script": "/assets/index-D-Yt6U-e.js",
+    "stylesheet": "/assets/index-DvWoQUak.css"
+  },
+  "checks": {
+    "unit": 77,
+    "chromiumMixedDevice": 15,
+    "hybrid": 16,
+    "lifecycle": 16,
+    "arenas": 9,
+    "outbreak": 9,
+    "webkit": "See final report; physical Safari acceptance pending"
+  }
+}

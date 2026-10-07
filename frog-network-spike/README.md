@@ -99,3 +99,7 @@ Physical iPhone Safari testers reported a release-blocking viewport/input failur
 ## Milestone 9 presentation playtest
 
 Original pond-percussion sound, restrained action feedback and short Outbreak/round celebrations. Current maps, physics, networking and scoring remain unchanged. Sound is opt-in; lobby help contains volume settings. Physical iPhone Safari remains a mandatory release gate; its input/viewport candidate stays frozen. See [M9 scope and acceptance checklist](docs/milestone-9.md).
+
+## Current iPhone validation status
+
+Simultaneous iPhone multitouch is physically validated at `eb7bfd5a58b134af428794bcbc10311c99fefa84` (`checkpoint/iphone-multitouch-physically-validated`). The latest [viewport stabilization candidate](docs/iphone-viewport-candidate.md) preserves that input implementation and adds stable touch-game layout plus diagnostics. Physical Safari viewport/screen-fit acceptance remains mandatory before submission; automated WebKit/Chromium checks are not physical-device verification.
