@@ -115,3 +115,7 @@ Poison Tag keeps the approved body-contact rules, one-second transformation, sta
 ### Milestone 12 balance candidate
 
 The accepted Poison Tag identity checkpoint is `0b65d9954ad3da5b0a95ad15931ea4b571b35700` (`checkpoint/approved-milestone-11-poison-tag`). The M12 prototype gives fully poisonous frogs 10% more active grapple acceleration, with the existing radial pull ceiling unchanged. Safe/transformation movement remains approved behavior. See [Milestone 12](docs/milestone-12.md) for timing, validation and one-value rollback. This candidate awaits human balance acceptance.
+
+### Milestone 13 prototype
+
+Sunny Pond adds a third selectable arena with two springy lily pads and two optional sticky-mud perches. Lily tops bounce on downward landings; mud tops slow controlled running until you leave. Decorative water has no gameplay effect. Both original maps and approved Poison Tag balance remain available unchanged. See [Milestone 13](docs/milestone-13.md) for exact tuning, validation, fallback checkpoint and acceptance checklist.

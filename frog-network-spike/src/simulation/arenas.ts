@@ -1,6 +1,6 @@
 import {arena,WIDTH,HEIGHT,spawnPoint} from './arena';
-export type ArenaId='canopy'|'swingworks';
-export type Solid={x:number;y:number;w:number;h:number};
+export type ArenaId='canopy'|'swingworks'|'sunny-pond';
+export type Solid={x:number;y:number;w:number;h:number;surface?:'lily'|'mud'};
 export type ArenaDefinition={id:ArenaId;name:string;description:string;solids:Solid[];width:number;height:number;geometryPreview:boolean};
 /** Arena 1 is the exact approved geometry; only the second layout is experimental. */
 export const ARENAS:Record<ArenaId,ArenaDefinition>={
@@ -16,6 +16,14 @@ export const ARENAS:Record<ArenaId,ArenaDefinition>={
   {x:14,y:3.5,w:.5,h:6},{x:26,y:2.5,w:.5,h:4},
   // Low central perch: a pursuit/interception option, with a large open volume above it.
   {x:20,y:18,w:4,h:.5},
+ ]},
+ 'sunny-pond':{id:'sunny-pond',name:'Sunny Pond',description:'Sunny pond · lily tops bounce; mud tops slow running. Water is scenery.',width:WIDTH,height:HEIGHT,geometryPreview:false,solids:[
+  ...arena.slice(0,4),
+  {x:6,y:18,w:6,h:.5,surface:'mud'},{x:34,y:18,w:6,h:.5,surface:'mud'},
+  {x:13,y:16,w:4,h:.5,surface:'lily'},{x:27,y:16,w:4,h:.5,surface:'lily'},
+  {x:20,y:11.5,w:8,h:.5},
+  {x:8,y:8,w:5,h:.5},{x:32,y:8,w:5,h:.5},
+  {x:20,y:5,w:5,h:.5},
  ]},
 };
 export const DEFAULT_ARENA:ArenaId='canopy';

@@ -1,0 +1,18 @@
+{
+  "environment": "Local compiled server; independent real WebSocket clients; short test countdown; unchanged production grace/scoring",
+  "checks": [
+    "canopy: 2 clients; synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 2 rounds/rotation/survival scoring/final/rematch",
+    "canopy: 3 clients; synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 3 rounds/rotation/survival scoring/final/rematch",
+    "canopy: 4 clients; synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 4 rounds/rotation/survival scoring/final/rematch",
+    "canopy: 8 clients; synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 8 rounds/rotation/survival scoring/final/rematch",
+    "swingworks: 2 clients; synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 2 rounds/rotation/survival scoring/final/rematch",
+    "swingworks: 3 clients; synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 3 rounds/rotation/survival scoring/final/rematch",
+    "swingworks: 4 clients; synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 4 rounds/rotation/survival scoring/final/rematch",
+    "swingworks: 8 clients; synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 8 rounds/rotation/survival scoring/final/rematch",
+    "sunny-pond: 2 clients; synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 2 rounds/rotation/survival scoring/final/rematch",
+    "sunny-pond: 3 clients; synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 3 rounds/rotation/survival scoring/final/rematch",
+    "sunny-pond: 4 clients; synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 4 rounds/rotation/survival scoring/final/rematch",
+    "sunny-pond: 8 clients; synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 8 rounds/rotation/survival scoring/final/rematch",
+    "independent room selections are isolated"
+  ]
+}

@@ -1,4 +1,5 @@
 import { World, Vec2, Box, Circle, RopeJoint, Body } from 'planck';
+import {prepareSurfaces,resolveSurfaces,SURFACES} from './surfaces';
 import {POISON_BALANCE} from '../game/poison-balance';
 import { defaults, DT, arena, WIDTH, HEIGHT, type Tuning } from './config';
 export type Input = { x: number; y: number; held: boolean };
@@ -9,6 +10,7 @@ export type Tongue = {
   target?: Body; localAnchor?: { x: number; y: number };
 };
 export type Frog = {
+  stickyMud?: boolean; surfaceBounceTick?: number;
   poisonPullFromTick?: number;
   body: Body; facing: number; input: Input; events: Input[]; held: boolean;
   charging: boolean; charge: number; grounded: boolean; tongue?: Tongue;
@@ -104,6 +106,7 @@ export class Simulation {
   }
   step() {
     const t = this.tuning;
+    const surfaceFrame = prepareSurfaces(this);
     this.world.setGravity(Vec2(0, t.gravity));
     const coupled = new Set<Body>();
     for (const f of this.frogs) if (f.tongue?.phase === 'attached' && f.tongue.target?.isDynamic()) {
@@ -158,9 +161,9 @@ export class Simulation {
       let dv = x * t.airAcceleration * DT;
       if (f.grounded && coupled.has(f.body)) {
         // Do not let a neutral ground controller erase reciprocal grapple momentum.
-        dv = x * Math.max(0, Math.min(t.groundAcceleration * DT, t.groundSpeed - x * v.x));
+        dv = x * Math.max(0, Math.min(t.groundAcceleration * DT, t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1) - x * v.x));
       } else if (f.grounded && !f.tongue) {
-        const target = x * t.groundSpeed;
+        const target = x * t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1);
         const a = x ? t.groundAcceleration : t.groundBrake;
         dv = Math.max(-a * DT, Math.min(a * DT, target - v.x));
       }
@@ -182,6 +185,7 @@ export class Simulation {
         this.reset(); break;
       }
     }
+    resolveSurfaces(this, surfaceFrame);
   }
   pullGrapple(f: Frog) {
     const tongue = f.tongue!;
@@ -250,7 +254,7 @@ export class Simulation {
   }
   reset() {
     for (let i = 0; i < this.frogs.length; i++) {
-      const f = this.frogs[i]; this.cancelAction(f);
+      const f = this.frogs[i]; this.cancelAction(f); f.stickyMud = undefined; f.surfaceBounceTick = undefined;
       f.body.setTransform(Vec2(i ? 20 : 12, 16), 0);
       f.body.setLinearVelocity(Vec2(0, 0)); f.body.setAngularVelocity(0);
       f.input = neutral(); f.grounded = false; f.coyote = 0; f.suppressSupport = 0;

@@ -17,3 +17,7 @@ Existing dependencies remain under their upstream licenses (Phaser MIT, Planck M
 ## Milestone 9 audio and feedback
 
 All additional cues (pond percussion, charge tiers, tongue miss/tension, impacts, transformation, reveal/last survivor and short round/victory calls) are original oscillator synthesis in `src/presentation/audio.ts`; no external samples or music. Feedback in `feel.ts`, `feel.css` and `presentation-ui.ts` is original project drawing/CSS/text. No new third-party assets or dependencies. See `docs/milestone-9.md` for scope, mix limits and acceptance instructions.
+
+## Milestone 13 Sunny Pond prototype
+
+`src/presentation/sunny-pond.ts` and the Sunny Pond vector thumbnail are original project-native drawing code: sunshine, clouds, reeds, decorative water, logs, leaf veins, lily spring chevrons and mud flecks. No external textures, recordings, images, fonts or new dependencies. Lily landing feedback reuses the approved `charge` sound cue; the sound palette/source is unchanged.

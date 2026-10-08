@@ -1,0 +1,17 @@
+{
+  "approvedBaseline": "2a23a41336291e05f1da12c5101bd668994f2df0",
+  "unitTests": {
+    "pass": 96,
+    "fail": 0
+  },
+  "build": "pass",
+  "surfaces": {
+    "lilyLaunchSpeed": 12,
+    "lilyMinLandingSpeed": 0.8,
+    "lilyCooldownTicks": 12,
+    "mudGroundSpeedMultiplier": 0.75
+  },
+  "authority": "Gameplay uses shared simulation on the authoritative server; optional surface state/bounce tick captured/restored by existing predictor",
+  "preserved": "Exact approved poison balance, original arenas, static camera, mobile/iPhone input and viewport, sound palette, rules/scoring/reconnect outside documented adapters",
+  "limits": "Chromium browser emulation and synthetic native multi-touch; no new physical iPhone/Android certification; human layout/fairness acceptance pending"
+}

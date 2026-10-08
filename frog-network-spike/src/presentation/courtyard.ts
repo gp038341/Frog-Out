@@ -1,3 +1,4 @@
+import {paintSunnyPond} from './sunny-pond';
 import {Feel} from './feel';
 import {DEFAULT_ARENA,getArena,type ArenaId} from '../simulation/arenas';
 import Phaser from 'phaser';
@@ -10,7 +11,7 @@ import {GameAudio} from './audio';
 const S=30,INK=0x142f35;
 type Point={x:number;y:number};
 type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'charge'|'attach'|'infect'|'bump'};
-type Before={vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};
+type Before={surfaceBounceTick?:number;vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};
 /** Presentation consumes render positions only. It never writes a physics body or gameplay input. */
 export class Courtyard {
  feel:Feel;
@@ -24,7 +25,7 @@ export class Courtyard {
   this.paintArena();
  }
  setArena(id:ArenaId){if(this.arenaId!==id){this.arenaId=id;this.paintArena();this.clear();}}
- paintArena(){const g=this.background;g.clear();const glass=this.arenaId==='swingworks';
+ paintArena(){if(this.arenaId==='sunny-pond'){paintSunnyPond(this.background,getArena(this.arenaId));return;}const g=this.background;g.clear();const glass=this.arenaId==='swingworks';
   g.fillStyle(glass?0x233c5b:0x214d46);g.fillRect(0,0,WIDTH*S,HEIGHT*S);
   // Background decoration is low contrast and never outlined like collision surfaces.
   if(glass){
@@ -68,7 +69,8 @@ export class Courtyard {
   states.forEach((f,i)=>{
    const p=positions[i];if(!p)return;const infection=view?.players[i],before=this.previous[i],color=FROG_COLORS[i];const state=infection?.state;
    if(before){
-    if(before.grounded&&!f.grounded&&f.vy< -5){const charged=before.charging;this.pop(p.x,p.y+.3,charged?0xffe79b:color,charged?'charge':'jump');if(i===local)this.audio.play(charged?'charge':'jump');}
+    if(f.surfaceBounceTick!==undefined&&f.surfaceBounceTick!==before.surfaceBounceTick){this.pop(p.x,p.y+.3,0xa2ee6e,'charge');if(i===local)this.audio.play('charge');}
+    if(before.grounded&&!f.grounded&&f.vy< -5&&f.surfaceBounceTick===before.surfaceBounceTick){const charged=before.charging;this.pop(p.x,p.y+.3,charged?0xffe79b:color,charged?'charge':'jump');if(i===local)this.audio.play(charged?'charge':'jump');}
     if(f.tongue?.phase==='flying'&&!before.tongue&&i===local)this.audio.play('fire');
     if(f.tongue?.phase==='attached'&&before.tongue!=='attached'){this.pop(f.tongue.tip.x,f.tongue.tip.y,0xffbbc9,'attach');if(i===local)this.audio.play('attach');}
     if(state==='transforming'&&before.state==='healthy'){this.pop(p.x,p.y,POISON_ACCENTS[i],'infect');this.reactions[i]=180;}
@@ -77,10 +79,11 @@ export class Courtyard {
     if(bump&&Math.hypot(f.vx-before.vx,f.vy-before.vy)>3.5&&this.reactions[i]<=0){this.reactions[i]=130;this.pop(p.x,p.y,color,'bump');}
    }
    this.reactions[i]=Math.max(0,this.reactions[i]-delta);this.frog(g,p.x*S,p.y*S,f,i,infection,connected[i]!==false,i===local,time);
+   if(f.stickyMud){g.fillStyle(0x795343,.8);for(const dx of [-8,8])g.fillEllipse(p.x*S+dx,p.y*S+12,12,5);}
    const status=connected[i]===false?'OFFLINE':infection?.state==='transforming'?'CHANGING · 1s':infection?.state==='infectious'?(infection.patientZero?'◆ DART FROG':'◆ POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.state==='healthy').length===1?'LAST SAFE':'SAFE';
    const label=this.labels[i];
    label.setVisible(true).setText(`${i===local?'▾ ':''}${names[i]}\n${status}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-defaults.frogRadius-.3)*S)).setColor(connected[i]===false?'#b2c7c2':state==='transforming'?'#ffe5a3':state==='infectious'?`#${POISON_ACCENTS[i].toString(16).padStart(6,'0')}`:'#fff8d9');
-   this.previous[i]={vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state,x:f.x,y:f.y};
+   this.previous[i]={surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state,x:f.x,y:f.y};
   });
   this.labels.forEach((l,i)=>{if(i>=states.length)l.setVisible(false);});
   this.feel.render(states,positions,view,local,delta);

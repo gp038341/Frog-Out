@@ -1,0 +1,154 @@
+{
+  "baseline": "2a23a41336291e05f1da12c5101bd668994f2df0",
+  "files": {
+    "src/simulation/world.ts": {
+      "sha256": "d2515cf57dfd1c5669e9dbe8098a7015657167ed400f59daee9514bf37858861",
+      "changes": [
+        {
+          "from": "import {prepareSurfaces,resolveSurfaces,SURFACES} from './surfaces';\n",
+          "to": ""
+        },
+        {
+          "from": "  stickyMud?: boolean; surfaceBounceTick?: number;\n",
+          "to": ""
+        },
+        {
+          "from": "    const surfaceFrame = prepareSurfaces(this);\n",
+          "to": ""
+        },
+        {
+          "from": "        dv = x * Math.max(0, Math.min(t.groundAcceleration * DT, t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1) - x * v.x));\n",
+          "to": "        dv = x * Math.max(0, Math.min(t.groundAcceleration * DT, t.groundSpeed - x * v.x));\n"
+        },
+        {
+          "from": "        const target = x * t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1);\n",
+          "to": "        const target = x * t.groundSpeed;\n"
+        },
+        {
+          "from": "    resolveSurfaces(this, surfaceFrame);\n",
+          "to": ""
+        },
+        {
+          "from": "      const f = this.frogs[i]; this.cancelAction(f); f.stickyMud = undefined; f.surfaceBounceTick = undefined;\n",
+          "to": "      const f = this.frogs[i]; this.cancelAction(f);\n"
+        }
+      ]
+    },
+    "src/simulation/state.ts": {
+      "sha256": "30d9e0244e815ce6b9854094a1ac5730cec73dbe2f7a82fdf402afb14b955434",
+      "changes": [
+        {
+          "from": " stickyMud?:boolean;surfaceBounceTick?:number;\n",
+          "to": ""
+        },
+        {
+          "from": "  return {stickyMud:f.stickyMud,surfaceBounceTick:f.surfaceBounceTick,poisonPullFromTick:f.poisonPullFromTick,x:p.x,y:p.y,vx:v.x,vy:v.y,facing:f.facing,input:{...f.input},held:f.held,charging:f.charging,charge:f.charge,\n",
+          "to": "  return {poisonPullFromTick:f.poisonPullFromTick,x:p.x,y:p.y,vx:v.x,vy:v.y,facing:f.facing,input:{...f.input},held:f.held,charging:f.charging,charge:f.charge,\n"
+        },
+        {
+          "from": "  f.stickyMud=s.stickyMud;f.surfaceBounceTick=s.surfaceBounceTick;f.poisonPullFromTick=s.poisonPullFromTick;f.facing=s.facing;f.input={...s.input};f.events=[];f.held=s.held;f.charging=s.charging;f.charge=s.charge;f.grounded=s.grounded;\n",
+          "to": "  f.poisonPullFromTick=s.poisonPullFromTick;f.facing=s.facing;f.input={...s.input};f.events=[];f.held=s.held;f.charging=s.charging;f.charge=s.charge;f.grounded=s.grounded;\n"
+        }
+      ]
+    },
+    "src/simulation/arenas.ts": {
+      "sha256": "68818707ddd879b95a736da59750ae25b51260f6221988883b00a0c8589b9d9c",
+      "changes": [
+        {
+          "from": "export type ArenaId='canopy'|'swingworks'|'sunny-pond';\nexport type Solid={x:number;y:number;w:number;h:number;surface?:'lily'|'mud'};\n",
+          "to": "export type ArenaId='canopy'|'swingworks';\nexport type Solid={x:number;y:number;w:number;h:number};\n"
+        },
+        {
+          "from": " 'sunny-pond':{id:'sunny-pond',name:'Sunny Pond',description:'Sunny pond \u00b7 lily tops bounce; mud tops slow running. Water is scenery.',width:WIDTH,height:HEIGHT,geometryPreview:false,solids:[\n  ...arena.slice(0,4),\n  {x:6,y:18,w:6,h:.5,surface:'mud'},{x:34,y:18,w:6,h:.5,surface:'mud'},\n  {x:13,y:16,w:4,h:.5,surface:'lily'},{x:27,y:16,w:4,h:.5,surface:'lily'},\n  {x:20,y:11.5,w:8,h:.5},\n  {x:8,y:8,w:5,h:.5},{x:32,y:8,w:5,h:.5},\n  {x:20,y:5,w:5,h:.5},\n ]},\n",
+          "to": ""
+        }
+      ]
+    },
+    "src/simulation/arena-adapter.ts": {
+      "sha256": "7d398b53b26235539025153a842a95612266171e55f07ece684ab627158d64af",
+      "changes": [
+        {
+          "from": " for(const r of getArena(id).solids){const b=sim.world.createBody(Vec2(r.x,r.y));if(r.surface)b.setUserData({surface:r.surface});b.createFixture(Box(r.w/2,r.h/2),{friction:sim.tuning.friction});}\n",
+          "to": " for(const r of getArena(id).solids){const b=sim.world.createBody(Vec2(r.x,r.y));b.createFixture(Box(r.w/2,r.h/2),{friction:sim.tuning.friction});}\n"
+        }
+      ]
+    },
+    "src/main.ts": {
+      "sha256": "3da78a7b135a205317b25ceeb7ab2de92156be00f4d554a8e6ca65bef30d59c2",
+      "changes": [
+        {
+          "from": "const arenaCards=arenaList.map(a=>{const b=document.createElement('button');b.type='button';b.className='arena-card';b.dataset.arena=a.id;b.innerHTML=arenaPreview(a);const title=document.createElement('strong');title.textContent=a.name;b.append(title);const desc=document.createElement('small');desc.textContent=a.id==='canopy'?'Balanced garden chases':a.id==='sunny-pond'?'Lily launches & muddy choices':'Vertical swings & launches';b.append(desc);b.onclick=()=>net.selectArena(a.id);el('arena-previews').append(b);return b;});\n",
+          "to": "const arenaCards=arenaList.map(a=>{const b=document.createElement('button');b.type='button';b.className='arena-card';b.dataset.arena=a.id;b.innerHTML=arenaPreview(a);const title=document.createElement('strong');title.textContent=a.name;b.append(title);const desc=document.createElement('small');desc.textContent=a.id==='canopy'?'Balanced garden chases':'Vertical swings & launches';b.append(desc);b.onclick=()=>net.selectArena(a.id);el('arena-previews').append(b);return b;});\n"
+        }
+      ]
+    },
+    "src/ui/arena-preview.ts": {
+      "sha256": "16f071670a94a23ce4d3a46c125672826a9198c677d196e3c03b469bb2b57a37",
+      "changes": [
+        {
+          "from": " if(a.id==='sunny-pond')return `<svg viewBox=\"0 0 40 22.5\" role=\"img\" aria-label=\"Sunny Pond platform layout\"><rect width=\"40\" height=\"22.5\" fill=\"#8acdd9\"/><circle cx=\"33\" cy=\"4\" r=\"2.2\" fill=\"#ffdf70\"/><path d=\"M0 21Q10 16 20 21T40 21\" fill=\"#51b8bc\"/>${a.solids.map(r=>`<rect x=\"${r.x-r.w/2}\" y=\"${r.y-r.h/2}\" width=\"${r.w}\" height=\"${r.h}\" fill=\"${r.surface==='lily'?'#74cc64':r.surface==='mud'?'#765249':'#c69d6b'}\" stroke=\"#204943\" stroke-width=\".14\"/>`).join('')}</svg>`;\n",
+          "to": ""
+        }
+      ]
+    },
+    "src/presentation/courtyard.ts": {
+      "sha256": "d23adc736053624cadfe19af13eb8017a15e93508f6166ed1a8510752dc6b171",
+      "changes": [
+        {
+          "from": "import {paintSunnyPond} from './sunny-pond';\n",
+          "to": ""
+        },
+        {
+          "from": "type Before={surfaceBounceTick?:number;vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};\n",
+          "to": "type Before={vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};\n"
+        },
+        {
+          "from": " paintArena(){if(this.arenaId==='sunny-pond'){paintSunnyPond(this.background,getArena(this.arenaId));return;}const g=this.background;g.clear();const glass=this.arenaId==='swingworks';\n",
+          "to": " paintArena(){const g=this.background;g.clear();const glass=this.arenaId==='swingworks';\n"
+        },
+        {
+          "from": "    if(f.surfaceBounceTick!==undefined&&f.surfaceBounceTick!==before.surfaceBounceTick){this.pop(p.x,p.y+.3,0xa2ee6e,'charge');if(i===local)this.audio.play('charge');}\n    if(before.grounded&&!f.grounded&&f.vy< -5&&f.surfaceBounceTick===before.surfaceBounceTick){const charged=before.charging;this.pop(p.x,p.y+.3,charged?0xffe79b:color,charged?'charge':'jump');if(i===local)this.audio.play(charged?'charge':'jump');}\n",
+          "to": "    if(before.grounded&&!f.grounded&&f.vy< -5){const charged=before.charging;this.pop(p.x,p.y+.3,charged?0xffe79b:color,charged?'charge':'jump');if(i===local)this.audio.play(charged?'charge':'jump');}\n"
+        },
+        {
+          "from": "   if(f.stickyMud){g.fillStyle(0x795343,.8);for(const dx of [-8,8])g.fillEllipse(p.x*S+dx,p.y*S+12,12,5);}\n",
+          "to": ""
+        },
+        {
+          "from": "   this.previous[i]={surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state,x:f.x,y:f.y};\n",
+          "to": "   this.previous[i]={vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state,x:f.x,y:f.y};\n"
+        }
+      ]
+    }
+  },
+  "protected": {
+    "src/mobile.css": "6a5da48e4da15b2df110ecf9a4358a9ba9f62795938b23b423e927aa6a311ba3",
+    "src/presentation/feel.ts": "93a8e0c1057a9bc86203f9c8a544dc7e97a69744c83cad3ba606eed961e506c3",
+    "src/presentation/moments.ts": "94a423f7ee9e5e2460303fa8af0bf43a592b54c6e4b9532a651f4ffef9f4c0cd",
+    "src/presentation/theme.css": "4f66dbda8c1e4d45b4896b48db6ab80071e1cf0339727580f58341ebebd6b220",
+    "src/presentation/feel.css": "deff896076de2bcaa3d0f6413792acf462fad7f8fdd9171fbf9ea419896cafe1",
+    "src/presentation/poison-tag.css": "886bf8fd58029c5e1e7d4ef68b70b3a09a0419311d53737e7fc7198c22e3b859",
+    "src/presentation/presentation-ui.ts": "09d20844163693e6836888d836cf1f71e439675b2390432813c049b2dde8b1e5",
+    "src/presentation/poison-identity.ts": "bd0268577a49e110a922c5caf2ac6f253ad5f76e8872b9b63bb8184582790c50",
+    "src/presentation/identity.ts": "febd1149059c5a19edc3233f335aa5509615399a2fc845622c505f12671c1757",
+    "src/presentation/audio.ts": "5fed021094f7ec64346ee9d97812fa3e09aa7a8e55fe4e411a845b8ad17d5dd7",
+    "src/network/protocol.ts": "3127c9555c6e01090a1bebad9fbd68a3e454c9f36698aee36cfb37f9c5060927",
+    "src/network/link.ts": "c33cff845e16c2ab85038d250c1158340adb778145670656aa77f47f7872d0ec",
+    "src/network/predictor.ts": "c823758202607bd9e6b3abf6cbe8b684c0ac4ae7e22f232355c4d05a05a83aa7",
+    "src/network/client.ts": "cadc5f4da083198c71f61e8575d52f85ec8c1be8210804bdb32e4e7b0a6a7386",
+    "src/game/poison-balance.ts": "0bc5389741bd466b955645dc74f86d230849cb549e56ace390104a2e758b4f9c",
+    "src/game/outbreak.ts": "c167258b159b79892615fd103f63082bd08692027eb1ad9f2bdee68bdf10c703",
+    "src/ui/player-guide.css": "0c4249cd25af2d657779ff851ed3789f53e9dea76db916bd80959840c84cdd31",
+    "src/ui/player-guide.ts": "83f1cbd149a1f38da347dda3155581224e191b6217a64a07474c1793741158e4",
+    "src/simulation/config.ts": "5354d684519dff62a91bf3d54d8170b37c5ce8466bd531b4b4a550b2ef2d3601",
+    "src/simulation/roster.ts": "30d329a20d4dc5fb09c885c2fdfc05b55facd3bff7950315397621ef3b0fd48a",
+    "src/simulation/arena.ts": "8b8f443c2f3ecce0b738ae8e9893de2619a7bfac1bb2b53184b7cd7a1cba428b",
+    "src/input/touch.ts": "bf31babec293f8502a5015b093e72abad152d6f3f0e749e2303e444fff6b87de",
+    "server/outbreak-room.ts": "0599a8d1241ee7b63a908107aac91fe15269df5b75080adad2e11c5cf94830e4",
+    "server/party-room.ts": "fc4a2353add3f2673e60f79657f12bea13835969e05764c0333219bc13172c0e",
+    "server/stress-room.ts": "98db26ba4bab9267a52931918c83ce6001d0b49bb8d09781271b90b87b33e327",
+    "server/metrics.ts": "d5707c99cdb8c6b0cc0d30e89d511d0ba03c01622171bf6456f59b8504002f55",
+    "server/room.ts": "f569e704af10031683688d193949ec4487d61d4d210de1162cf135eeede9c99f",
+    "server/index.ts": "3d1eb2c794809a5173fe0be1bbc4ca031fd7e287398ec1c58ae51acb2567235d"
+  }
+}

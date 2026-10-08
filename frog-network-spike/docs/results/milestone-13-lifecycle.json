@@ -1,0 +1,23 @@
+{
+  "environment": "Local authoritative server with independent real WebSocket SDK clients; not a human acceptance playtest",
+  "approvedPhysicsUnchangedOutsideSunnySurfaces": true,
+  "checks": [
+    "invalid and nonexistent codes have clear errors",
+    "blank display name rejected",
+    "create room and case-insensitive code lookup",
+    "start requires at least two connected players",
+    "two independent clients and duplicate display names",
+    "host-only start and all-ready enforcement",
+    "ready and unready toggle",
+    "eight simultaneous clients and full-room rejection",
+    "frozen eight-player roster and late-join rejection",
+    "explicit in-game Leave cleanly returns remaining players to lobby",
+    "lobby leave removes entry and transfers host",
+    "disconnect immediately clears input/outgoing tongue while frog stays physical",
+    "brief reconnect restores same player/frog/slot and accepts inputs without duplicate spawn",
+    "reload reconnect restores identity and sequence base",
+    "actual 30-second reservation expiry ends session, removes absent player, unlocks lobby",
+    "joining after timeout works and lobby disconnects do not leave stale entries"
+  ],
+  "actualReservationTimeoutMs": 30011
+}
