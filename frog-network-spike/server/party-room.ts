@@ -1,3 +1,4 @@
+import {normalizeAppearance,validAppearance} from '../src/presentation/cosmetics';
 import {DEFAULT_ARENA,isArenaId,resolveArenaId,type ArenaId} from '../src/simulation/arenas';
 import {setSimulationArena} from '../src/simulation/arena-adapter';
 import {type Client,ServerError} from '@colyseus/core';
@@ -18,13 +19,14 @@ export class PartyRoom extends SpikeRoom {
  onCreate(){super.onCreate();this.code=makeCode();partyRooms.set(this.code,this);
   this.onMessage('hello',(client:Client)=>{this.welcome(client);this.lobby();});
   this.onMessage('select-arena',(client:Client,id:unknown)=>{if(client.sessionId!==this.hostId){client.send('notice','Only the host can choose the arena.');return;}if(this.phase!=='lobby'){client.send('notice','Choose an arena in the lobby before the match.');return;}if(!isArenaId(id)){client.send('notice','That arena is unavailable. Sunny Pond is selected instead.');id=resolveArenaId(id);}if(id===this.arenaId)return;this.arenaId=resolveArenaId(id);for(const p of this.players.values())p.ready=false;this.notice='Arena changed. Everyone must ready up again.';this.lobby();});
+  this.onMessage('appearance',(client:Client,value:unknown)=>{const p=this.players.get(client.sessionId);if(this.phase!=='lobby'||!p)return;if(!validAppearance(value)){client.send('notice','That frog style is unavailable. Please choose a listed style.');return;}p.appearance=normalizeAppearance(value);this.lobby();});
   this.onMessage('ready',(client:Client,ready:unknown)=>{const p=this.players.get(client.sessionId);if(this.phase!=='lobby'||!p||typeof ready!=='boolean')return;p.ready=ready;this.notice='';this.lobby();});
   this.onMessage('start',(client:Client)=>{if(client.sessionId!==this.hostId){client.send('notice','Only the host can start.');return;}const roster=[...this.players.values()];if(this.phase!=='lobby')return;if(roster.length<2||roster.some(p=>!p.connected)){client.send('notice','At least two connected players are required.');return;}if(roster.some(p=>!p.ready)){client.send('notice','Every player must be ready.');return;}this.startSession(roster);});
   if(process.env.ENABLE_TESTS==='1')this.reconnectSeconds=Number(process.env.TEST_RECONNECT_SECONDS??30);
  }
  onAuth(_client:Client,options:{name?:unknown}){if(this.phase!=='lobby')throw new ServerError(4201,'This room is already playing. New players can join in the lobby only.');displayName(options?.name);return true;}
- onJoin(client:Client,options:{name?:unknown}={}){if(this.phase!=='lobby')throw new ServerError(4201,'This room has already started. Join in the lobby only.');const base=displayName(options.name);let name=base,n=2;while([...this.players.values()].some(p=>p.name.toLocaleLowerCase()===name.toLocaleLowerCase()))name=`${base.slice(0,19)} (${n++})`;
-  this.players.set(client.sessionId,{id:client.sessionId,name,connected:true,ready:false,slot:-1});if(!this.hostId)this.hostId=client.sessionId;this.notice='';this.welcome(client);this.lobby();
+ onJoin(client:Client,options:{name?:unknown;appearance?:unknown}={}){if(this.phase!=='lobby')throw new ServerError(4201,'This room has already started. Join in the lobby only.');const base=displayName(options.name);let name=base,n=2;while([...this.players.values()].some(p=>p.name.toLocaleLowerCase()===name.toLocaleLowerCase()))name=`${base.slice(0,19)} (${n++})`;
+  this.players.set(client.sessionId,{id:client.sessionId,name,connected:true,ready:false,slot:-1,appearance:normalizeAppearance(options.appearance)});if(!this.hostId)this.hostId=client.sessionId;this.notice='';this.welcome(client);this.lobby();
  }
  welcome(client:Client){const p=this.players.get(client.sessionId);if(p)client.send('welcome',{slot:p.slot,seqBase:p.slot>=0?this.received[p.slot]:0,playerId:p.id});}
  lobby(){const state:LobbyState={arenaId:this.arenaId,code:this.code,phase:this.phase,hostId:this.hostId,players:[...this.players.values()].map(p=>({...p})),notice:this.notice,reconnectSeconds:30};this.broadcast('lobby',state);}

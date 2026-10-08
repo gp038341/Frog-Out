@@ -1,3 +1,4 @@
+import {loadAppearance,type Appearance} from '../presentation/cosmetics';
 import {DEFAULT_ARENA,type ArenaId} from '../simulation/arenas';
 import {setSimulationArena} from '../simulation/arena-adapter';
 import {Client,type Room} from 'colyseus.js';
@@ -16,8 +17,8 @@ export class Connection {
  private interval?:ReturnType<typeof setInterval>;private ping?:ReturnType<typeof setInterval>;
  constructor(){const url=new URL(location.href);this.http=url.origin;this.client=new Client((url.port==='5173'?'http://127.0.0.1:2567':url.origin).replace(/^http/,'ws'));const params=url.searchParams;this.link=new DelayLink(Math.max(0,Math.min(500,Number(params.get('lag')??0))),Math.max(0,Math.min(100,Number(params.get('jitter')??0))));this.prediction=params.get('prediction')!=='0';}
  async boot(){try{const saved=JSON.parse(sessionStorage.getItem(cacheKey)??'null');if(saved?.phase==='game'&&typeof saved.token==='string')await this.resume(saved.token);else sessionStorage.removeItem(cacheKey);}catch{sessionStorage.removeItem(cacheKey);this.status='Your previous session ended. Create or join a room.';}}
- async create(name:string){if(this.busy||this.room)return;this.busy=true;this.status='Creating room…';try{this.attach(await this.client.create('frog_party',{name}));}catch(e){this.status=this.error(e);}finally{this.busy=false;}}
- async join(name:string,code:string){if(this.busy||this.room)return;this.busy=true;this.status='Joining room…';try{const normalized=code.trim().toUpperCase();if(!/^[A-Z2-9]{6}$/.test(normalized))throw Error('Enter a six-character room code.');const response=await fetch(`${this.http}/api/rooms/${encodeURIComponent(normalized)}`);const data=await response.json();if(!response.ok)throw Error(data.error);this.attach(await this.client.joinById(data.roomId,{name}));}catch(e){this.status=this.error(e);}finally{this.busy=false;}}
+ async create(name:string){if(this.busy||this.room)return;this.busy=true;this.status='Creating room…';try{this.attach(await this.client.create('frog_party',{name,appearance:loadAppearance()}));}catch(e){this.status=this.error(e);}finally{this.busy=false;}}
+ async join(name:string,code:string){if(this.busy||this.room)return;this.busy=true;this.status='Joining room…';try{const normalized=code.trim().toUpperCase();if(!/^[A-Z2-9]{6}$/.test(normalized))throw Error('Enter a six-character room code.');const response=await fetch(`${this.http}/api/rooms/${encodeURIComponent(normalized)}`);const data=await response.json();if(!response.ok)throw Error(data.error);this.attach(await this.client.joinById(data.roomId,{name,appearance:loadAppearance()}));}catch(e){this.status=this.error(e);}finally{this.busy=false;}}
  error(e:unknown){const message=e instanceof Error?e.message:String(e);return /locked|full|maxClients/i.test(message)?'This room is full or has already started.':message;}
  private save(){if(this.room&&this.lobby)sessionStorage.setItem(cacheKey,JSON.stringify({token:this.room.reconnectionToken,phase:this.lobby.phase,code:this.lobby.code}));}
  private stop(){clearInterval(this.interval);clearInterval(this.ping);this.link.clear();this.input={x:0,y:0,held:false};this.predictor.pending=[];this.predictor.initialized=false;}
@@ -38,6 +39,7 @@ export class Connection {
   room.send('hello');this.sendPing();this.ping=setInterval(()=>this.sendPing(),1000);this.interval=setInterval(()=>this.sendInput(),1000/NETWORK.inputHz);this.save();
  }
  async resume(token:string){if(this.reconnecting)return;this.reconnecting=true;this.busy=true;const attempt=++this.reconnectAttempt;this.stop();const deadline=Date.now()+30000;try{while(Date.now()<deadline){if(attempt!==this.reconnectAttempt)return;this.status=`Reconnecting… ${Math.max(0,Math.ceil((deadline-Date.now())/1000))}s remaining`;try{const room=await this.client.reconnect(token);if(attempt!==this.reconnectAttempt){await room.leave();return;}this.attach(room);return;}catch{await new Promise(r=>setTimeout(r,1000));}}if(attempt!==this.reconnectAttempt)return;this.lobby=undefined;this.room=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);this.status='Reconnection window expired or the session ended. Join the room lobby again.';}finally{if(attempt===this.reconnectAttempt){this.reconnecting=false;this.busy=false;}}}
+ setAppearance(appearance:Appearance){if(this.status==='connected'&&this.lobby?.phase==='lobby')this.room?.send('appearance',appearance);}
  selectArena(id:ArenaId){if(this.status==='connected')this.room?.send('select-arena',id);}
  ready(value:boolean){if(this.status==='connected')this.room?.send('ready',value);}
  start(){if(this.status==='connected')this.room?.send('start');}

@@ -1,0 +1,9 @@
+/* Lobby-only cosmetics; active-game sizing/input styles are deliberately unchanged. */
+#frog-customization{margin:12px 0;padding:12px 16px;border:2px solid #477e83;border-radius:18px;background:#d7f0e9;color:#142f35}
+#frog-customization summary{font-weight:800;cursor:pointer;min-height:28px}
+.customization-body{display:flex;align-items:center;gap:16px;margin:8px 0}
+.frog-preview{flex:0 0 130px}.frog-preview svg{display:block;width:100%;height:auto}
+.cosmetic-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;flex:1;min-width:0}
+.cosmetic-choices label{font-size:14px;font-weight:800;display:grid;gap:5px}.cosmetic-choices select{width:100%;min-width:0;min-height:42px;font:inherit;color:#142f35;background:#fff7da;border:2px solid #477e83;border-radius:10px;padding:6px}
+#players .player-card{display:flex;align-items:center;gap:8px}#players .player-portrait{flex:0 0 54px}#players .player-portrait svg{display:block;width:54px;height:45px}#players .player-name{min-width:0;overflow-wrap:anywhere}
+@media(max-width:720px){.frog-preview{flex-basis:90px}.cosmetic-choices{grid-template-columns:1fr;gap:6px}.cosmetic-choices label{grid-template-columns:110px minmax(0,1fr);align-items:center;font-size:12px}.customization-body{gap:8px}#frog-customization{padding:10px}#frog-customization summary{font-size:14px}}

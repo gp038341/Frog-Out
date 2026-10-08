@@ -1,3 +1,5 @@
+import {appearanceLayers,type Appearance} from './cosmetics';
+import {paintPattern,paintEye,paintHat} from './cosmetic-art';
 import {paintBathhouse} from './bathhouse';
 import {paintToyshop} from './toyshop';
 import {paintSunnyPond} from './sunny-pond';
@@ -16,6 +18,7 @@ type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'cha
 type Before={surfaceBounceTick?:number;vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};
 /** Presentation consumes render positions only. It never writes a physics body or gameplay input. */
 export class Courtyard {
+ appearances:(Appearance|undefined)[]=[];
  feel:Feel;
  arenaId:ArenaId=DEFAULT_ARENA;
  background:Phaser.GameObjects.Graphics;ink:Phaser.GameObjects.Graphics;effects:Phaser.GameObjects.Graphics;
@@ -95,7 +98,7 @@ export class Courtyard {
   const charging=f.charging,q=Math.min(1,f.charge/defaults.chargeSeconds),role=poisonRole(infection?.state),poison=role.tagging,grace=role.transforming,accent=POISON_ACCENTS[slot%8];
   const squish=charging ? .8-.12*q : this.reactions[slot]>0 ? .84 : 1;
   const sy=f.grounded?squish:Math.min(1.14,1+Math.abs(f.vy)*.006),sx=f.grounded?1+(1-sy)*.6:1/Math.sqrt(sy);
-  const bob=f.grounded&&!charging?Math.sin(time*15)*Math.min(1.2,Math.abs(f.vx)*.18):0;const r=defaults.frogRadius*S,bodyColor=FROG_COLORS[slot];y+=bob;
+  const bob=f.grounded&&!charging?Math.sin(time*15)*Math.min(1.2,Math.abs(f.vx)*.18):0;const r=defaults.frogRadius*S,layers=appearanceLayers(this.appearances[slot],infection?.state,!!infection?.patientZero),bodyColor=layers.skin.color;y+=bob;
   g.fillStyle(INK,.35);g.fillEllipse(x,y+r*.95,r*2.7,6);
   if(local){g.lineStyle(2,0xfff4ba,.7);g.strokeEllipse(x,y,r*2.6,r*2.5);}
   if(grace){g.lineStyle(3,0xffe09b);const rr=r+7+Math.sin(time*14)*2;for(let j=0;j<4;j++)g.lineBetween(x+Math.cos(time+j*Math.PI/2)*rr,y+Math.sin(time+j*Math.PI/2)*rr,x+Math.cos(time+j*Math.PI/2)*(rr+5),y+Math.sin(time+j*Math.PI/2)*(rr+5));}
@@ -104,7 +107,8 @@ export class Courtyard {
   const feet=charging?0:Math.sin(time*16)*Math.min(3,Math.abs(f.vx)*.6);g.fillStyle(INK);g.fillEllipse(x-r*.78,y+r*.68,r*1.12,10);g.fillEllipse(x+r*.78,y+r*.68,r*1.12,10);g.fillStyle(bodyColor);g.fillEllipse(x-r*.78,y+r*.65+feet,r*.88,6);g.fillEllipse(x+r*.78,y+r*.65-feet,r*.88,6);
   g.fillStyle(INK);g.fillEllipse(x,y,r*2.18*sx,r*2.07*sy);g.fillStyle(online?bodyColor:0x8caaa3);g.fillEllipse(x,y,r*1.93*sx,r*1.81*sy);
   g.fillStyle(0xfff4bc,.48);g.fillEllipse(x,y+r*.34*sy,r*1.13,r*.65*sy);
-  for(const side of [-1,1]){const ex=x+side*r*.57*sx,ey=y-r*.67*sy;g.fillStyle(INK);g.fillCircle(ex,ey,r*.47);g.fillStyle(0xfffbea);g.fillCircle(ex,ey,r*.37);g.fillStyle(INK);g.fillCircle(ex+f.facing*2,ey+(charging?1:-1),charging?3:3.4);}
+  if(layers.showPattern)paintPattern(g,x,y,r,layers.appearance);
+  for(const side of [-1,1])paintEye(g,x+side*r*.57*sx,y-r*.67*sy,r,layers.appearance,f.facing,charging,side);
   g.lineStyle(1.8,INK);g.lineBetween(x-r*.34,y+r*.12,x+r*.34,y+r*.12);if(f.tongue){g.fillStyle(INK);g.fillEllipse(x+f.facing*r*.24,y+r*.14,6,5);}
   // Black dart-frog flank spots with bright rims appear immediately during transformation.
   // Kept below eyes/forehead so every permanent player mark remains readable.
@@ -118,6 +122,7 @@ export class Courtyard {
   if(mark===5)g.strokePoints([{x,y:y-7},{x:x+3,y:y-4},{x,y:y-1},{x:x-3,y:y-4}],true);
   if(mark===6)g.lineBetween(x-r*.78,y-3,x+r*.78,y-3);
   if(mark===7){g.lineBetween(x-3,y-5,x+3,y-1);g.lineBetween(x+3,y-5,x-3,y-1);}
+  paintHat(g,x,y-r-5,r,layers.hat,time);
   if(infection?.patientZero){g.fillStyle(0xffe487);g.lineStyle(2,INK);const points=[{x:x-7,y:y-r-7},{x:x-7,y:y-r-14},{x:x-3,y:y-r-10},{x,y:y-r-16},{x:x+3,y:y-r-10},{x:x+7,y:y-r-14},{x:x+7,y:y-r-7}];g.fillPoints(points,true);g.strokePoints(points,true);}
   if(charging){g.lineStyle(3,INK);g.strokeCircle(x,y,r+9);g.lineStyle(3,0xffe29c);g.beginPath();g.arc(x,y,r+9,-Math.PI/2,-Math.PI/2+Math.PI*2*Math.max(.03,q));g.strokePath();}
  }

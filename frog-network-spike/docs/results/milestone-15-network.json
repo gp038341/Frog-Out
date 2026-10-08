@@ -1,0 +1,22 @@
+{
+  "environment": "Local compiled server; independent real WebSocket clients; short test countdown; unchanged production grace/scoring",
+  "checks": [
+    "sunny-pond: 2 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 2 rounds/rotation/survival scoring/final/rematch",
+    "sunny-pond: 3 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 3 rounds/rotation/survival scoring/final/rematch",
+    "sunny-pond: 4 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 4 rounds/rotation/survival scoring/final/rematch",
+    "sunny-pond: 8 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 8 rounds/rotation/survival scoring/final/rematch",
+    "bathhouse: 2 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 2 rounds/rotation/survival scoring/final/rematch",
+    "bathhouse: 3 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 3 rounds/rotation/survival scoring/final/rematch",
+    "bathhouse: 4 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 4 rounds/rotation/survival scoring/final/rematch",
+    "bathhouse: 8 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 8 rounds/rotation/survival scoring/final/rematch",
+    "canopy: 2 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 2 rounds/rotation/survival scoring/final/rematch",
+    "canopy: 3 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 3 rounds/rotation/survival scoring/final/rematch",
+    "canopy: 4 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 4 rounds/rotation/survival scoring/final/rematch",
+    "canopy: 8 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 8 rounds/rotation/survival scoring/final/rematch",
+    "toyshop: 2 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 2 rounds/rotation/survival scoring/final/rematch",
+    "toyshop: 3 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 3 rounds/rotation/survival scoring/final/rematch",
+    "toyshop: 4 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 4 rounds/rotation/survival scoring/final/rematch",
+    "toyshop: 8 clients; cosmetic sync/validation/freeze/round retention, synchronized host choice, invalid/nonhost rejection, Ready reset, frozen map, same-slot reconnect, 8 rounds/rotation/survival scoring/final/rematch",
+    "independent room selections are isolated"
+  ]
+}

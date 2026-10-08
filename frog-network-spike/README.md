@@ -123,3 +123,7 @@ Sunny Pond adds a third selectable arena with two springy lily pads and two opti
 ## Current arena roster — Milestone 14 candidate
 
 New rooms default to **Sunny Pond**. Hosts can choose **Bubblewash Bathhouse**, **Canopy Courtyard** or **Croakwork Toyshop**; selections remain fixed during matches and retained in the same room for rematch. Conservatory alone is retired. Croakwork Toyshop is selectable with its existing implementation unchanged. Bathhouse sponge tops repeatedly bounce using accepted lily behavior; the marked central soap dish reduces grounded traction while water remains scenery. See [roster, preservation and playtest notes](docs/bubblewash.md). Earlier milestone descriptions above are historical.
+
+### Frog customization
+
+Before readying up, open **Dress your frog** in the lobby for 10 color/pattern styles, five eye expressions and six hats (or no hat). The live preview and other players' portraits update together. Choices persist locally and through rounds/rematch/reconnection. These are cosmetic only: poison markings/status always take priority, and the starting Poison Dart Frog wears its reveal badge. See [Milestone 15 notes](docs/milestone-15-customization.md).

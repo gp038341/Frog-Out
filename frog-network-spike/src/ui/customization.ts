@@ -1,0 +1,10 @@
+import {SKINS,EYES,HATS,loadAppearance,rememberAppearance,normalizeAppearance,skinFor,type Appearance} from '../presentation/cosmetics';
+import {appearancePreview} from '../presentation/cosmetic-art';
+export class Customization {
+ private value=loadAppearance();private signature='';
+ private preview:HTMLElement;private summary:HTMLElement;private selects:HTMLSelectElement[]=[];
+ constructor(private panel:HTMLElement,private send:(value:Appearance)=>void){panel.innerHTML='<summary>Dress your frog</summary><div class="customization-body"><div class="frog-preview"></div><div class="cosmetic-choices"></div></div><small>Just for fun. Poison markings and the Dart Frog badge always stay visible.</small>';this.preview=panel.querySelector('.frog-preview')!;this.summary=panel.querySelector('summary')!;const choices=panel.querySelector('.cosmetic-choices')!;
+  for(const [key,label,options]of [['skin','Color & pattern',SKINS],['eyes','Eye expression',EYES],['hat','Hat',HATS]]as const){const wrap=document.createElement('label');wrap.textContent=label;const select=document.createElement('select');select.id=`cosmetic-${key}`;select.setAttribute('aria-label',label);for(const option of options){const o=document.createElement('option');o.value=option.id;o.textContent=option.name;select.append(o);}select.onchange=()=>{this.value=normalizeAppearance({...this.value,[key]:select.value});rememberAppearance(this.value);this.paint();this.send({...this.value});};wrap.append(select);choices.append(wrap);this.selects.push(select);}this.paint();}
+ private paint(){this.preview.innerHTML=appearancePreview(this.value);this.summary.textContent=`Dress your frog · ${skinFor(this.value).name}`;for(const [i,key]of ['skin','eyes','hat'].entries())this.selects[i].value=this.value[key as keyof Appearance];}
+ update(appearance:Appearance|undefined,enabled:boolean){for(const s of this.selects)s.disabled=!enabled;const signature=JSON.stringify(appearance);if(appearance&&signature!==this.signature){this.signature=signature;this.value=normalizeAppearance(appearance);rememberAppearance(this.value);this.paint();}}
+}
