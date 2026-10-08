@@ -1,0 +1,22 @@
+{
+  "scope": "Independent local WebSocket clients across 16 simultaneous rooms. Test-only 4-second round and short countdown/reservation; production 60-second/30-second policies separately tested. No physical-device claim.",
+  "checks": [
+    "bathhouse 2 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 2 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "canopy 2 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 2 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "sunny-pond 2 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 2 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "toyshop 2 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 2 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "sunny-pond 3 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 3 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "bathhouse 3 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 3 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "canopy 3 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 3 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "toyshop 3 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 3 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "bathhouse 4 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 4 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "canopy 4 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 4 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "sunny-pond 4 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 4 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "toyshop 4 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 4 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "toyshop 8 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 8 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "canopy 8 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 8 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "sunny-pond 8 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 8 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "bathhouse 8 clients: host/default/Ready/lock, body transfer/grace, same-role reconnect/cosmetics, 8 starting-IT rounds, scoring/results/rematch/Freeze fallback",
+    "expired reconnect interrupts entire Classic match; production remains 30 seconds"
+  ]
+}

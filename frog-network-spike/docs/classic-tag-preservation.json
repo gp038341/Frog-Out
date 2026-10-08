@@ -1,0 +1,146 @@
+{
+  "baseline": "aadecb3f3258c4535bb29fe8bf9b02cb6d49cbb6",
+  "scope": "Classic-only rules and presentation adapters; exact approved Freeze/Poison source recovered below adapters. No input, viewport, tuning, arena or audio changes.",
+  "files": {
+    "server/outbreak-room.ts": {
+      "beforeSha256": "1e9926866664e24f3b743a19f7e5931737d02b6fbc51b70569487504749ac92f",
+      "changes": [
+        {
+          "from": "import {CLASSIC,ClassicRules} from '../src/game/classic-tag';\nimport {FREEZE,FreezeRules} from '../src/game/freeze-tag';\n",
+          "to": "import {FREEZE,FreezeRules} from '../src/game/freeze-tag';\n"
+        },
+        {
+          "from": " outbreak?:OutbreakRules|FreezeRules|ClassicRules;\n",
+          "to": " outbreak?:OutbreakRules|FreezeRules;\n"
+        },
+        {
+          "from": "  this.sim.step=()=>{const rules=this.outbreak;if(this.phase!=='game'||!rules){physicsStep();return;}if(rules.phase==='playing'){this.sim.frogs.forEach((f,i)=>{f.poisonPullFromTick=rules.records[i]?.infectiousTick??undefined;});if(rules instanceof FreezeRules)stepFrozenBodies(this.sim,rules.frozen,physicsStep);else physicsStep();if(rules instanceof ClassicRules)rules.infect(this.sim.tick,frogBodyContacts(this.sim),this.sim.frogs.map(f=>f.body.getPosition()));else rules.infect(this.sim.tick,frogBodyContacts(this.sim));if(rules instanceof FreezeRules){syncFrozenBodies(this.sim,rules.frozen);this.frozenSnapshot=rules.frozen;}if(rules.phase!=='playing')this.sim.clearInputs();}else{this.sim.clearInputs();if(rules.phase==='announcement'||rules.phase==='countdown')physicsStep();else this.sim.tick++;rules.advanceClock(this.sim.tick);}};\n",
+          "to": "  this.sim.step=()=>{const rules=this.outbreak;if(this.phase!=='game'||!rules){physicsStep();return;}if(rules.phase==='playing'){this.sim.frogs.forEach((f,i)=>{f.poisonPullFromTick=rules.records[i]?.infectiousTick??undefined;});if(rules instanceof FreezeRules)stepFrozenBodies(this.sim,rules.frozen,physicsStep);else physicsStep();rules.infect(this.sim.tick,frogBodyContacts(this.sim));if(rules instanceof FreezeRules){syncFrozenBodies(this.sim,rules.frozen);this.frozenSnapshot=rules.frozen;}if(rules.phase!=='playing')this.sim.clearInputs();}else{this.sim.clearInputs();if(rules.phase==='announcement'||rules.phase==='countdown')physicsStep();else this.sim.tick++;rules.advanceClock(this.sim.tick);}};\n"
+        },
+        {
+          "from": "  syncFrozenBodies(this.sim);this.frozenSnapshot=undefined;this.outbreak=this.mode==='classic'?new ClassicRules(patientZeroOrder(roster.length),this.sim.tick,{...CLASSIC,roundTicks:process.env.ENABLE_TESTS==='1'&&process.env.TEST_CLASSIC_SHORT_ROUND==='1'?240:CLASSIC.roundTicks,announcementTicks:timing.announcementTicks,countdownTicks:timing.countdownTicks}):this.mode==='freeze'?new FreezeRules(patientZeroOrder(roster.length),this.sim.tick,{...FREEZE,announcementTicks:timing.announcementTicks,countdownTicks:timing.countdownTicks}):new OutbreakRules(patientZeroOrder(roster.length),this.sim.tick,timing);super.startSession(roster);this.notice='';this.lobby();\n",
+          "to": "  syncFrozenBodies(this.sim);this.frozenSnapshot=undefined;this.outbreak=this.mode==='freeze'?new FreezeRules(patientZeroOrder(roster.length),this.sim.tick,{...FREEZE,announcementTicks:timing.announcementTicks,countdownTicks:timing.countdownTicks}):new OutbreakRules(patientZeroOrder(roster.length),this.sim.tick,timing);super.startSession(roster);this.notice='';this.lobby();\n"
+        }
+      ]
+    },
+    "src/main.ts": {
+      "beforeSha256": "c11300f86ce1bb3c0921ca47d08772917e1244d24ba51b2d93e6e48ee9957f7f",
+      "changes": [
+        {
+          "from": "import {ModeUI} from './ui/mode-ui';\nimport {renderClassicHUD} from './ui/classic-hud';\n",
+          "to": "import {ModeUI} from './ui/mode-ui';\n"
+        },
+        {
+          "from": "\n if(state.mode==='classic'){renderClassicHUD(state,net.slot,playerName,net.playerId===net.lobby?.hostId,net.status==='connected');return;}\n",
+          "to": "\n"
+        }
+      ]
+    },
+    "src/ui/mode-ui.ts": {
+      "beforeSha256": "52803d66f75131516d3c7e8913ef62501440469926477b64b66d73c92c1a7049",
+      "changes": [
+        {
+          "from": "  for(const target of ['#guide-content','#help-content']){const details=document.createElement('details');details.className='freeze-help';details.innerHTML='<summary>Freeze Tag rules</summary><p>One freezer tags bodies to freeze frogs. Unfrozen runners touch frozen teammates to rescue them. Tongues never freeze or rescue. No automatic thaw.</p><p>60 seconds, or until all runners freeze. With two players, the first freeze ends the round. Rescue grants 1 second of protection.</p><p>Runners: 1 point/second unfrozen. Freezer: 3 points/freeze + 5 for freezing everyone with 3\u20138 players. Everyone starts freezer once. Highest match points wins; ties share victory.</p>';document.querySelector(target)!.append(details);const classic=document.createElement('details');classic.className='freeze-help';classic.innerHTML='<summary>Classic Tag rules</summary><p>One frog is IT. Body contact passes IT; tongues never tag. New IT cannot tag for 1 second.</p><p>60 seconds. Earn 1 point/second not IT. Everyone starts IT once; highest total wins and ties share victory.</p>';document.querySelector(target)!.append(classic);}\n",
+          "to": "  for(const target of ['#guide-content','#help-content']){const details=document.createElement('details');details.className='freeze-help';details.innerHTML='<summary>Freeze Tag rules</summary><p>One freezer tags bodies to freeze frogs. Unfrozen runners touch frozen teammates to rescue them. Tongues never freeze or rescue. No automatic thaw.</p><p>60 seconds, or until all runners freeze. With two players, the first freeze ends the round. Rescue grants 1 second of protection.</p><p>Runners: 1 point/second unfrozen. Freezer: 3 points/freeze + 5 for freezing everyone with 3\u20138 players. Everyone starts freezer once. Highest match points wins; ties share victory.</p>';document.querySelector(target)!.append(details);}\n"
+        },
+        {
+          "from": " update(lobby:LobbyState|undefined,local:string,connected:boolean){const freeze=lobby?.mode==='freeze',classic=lobby?.mode==='classic';this.select.value=classic?'classic':freeze?'freeze':'poison';document.querySelector('#lobby-rules > summary')!.textContent=`Controls & ${classic?'Classic Tag':freeze?'Freeze Tag':'Poison Tag'} rules`;this.select.disabled=!lobby||lobby.hostId!==local||lobby.phase!=='lobby'||!connected;this.note.textContent=classic?'60 seconds \u00b7 pass IT by body contact \u00b7 earn 1 point/second not IT.':freeze?'60 seconds \u00b7 rescue teammates by body contact \u00b7 no automatic thaw. Two players: first freeze ends the round.':'Survive spreading poison \u00b7 tongues never spread poison.';document.querySelector('#start')!.textContent=classic?'Start Classic Tag':freeze?'Start Freeze Tag':'Start Poison Tag';document.querySelector('#phase-overlay .eyebrow')!.textContent=classic?'STARTING IT':freeze?'THE FREEZER':'POISON DART FROG';document.querySelector('#phase-overlay small')!.textContent=classic?'Pass IT. Dodge tags. Tongues never tag.':freeze?'Dodge the freezer. Touch teammates to rescue.':'Body contact spreads poison. Tongues don\u2019t.';document.querySelector('.pond-reveal-caption')!.textContent=classic?'TAG. YOU\u2019RE IT. HOP TO IT.':freeze?'BIG CHILL. LITTLE FROGS.':'TINY FROG. BIG DART ENERGY.';document.querySelector('#game-help')!.textContent=classic?'Body contact passes IT. New IT cannot tag for 1 second. Earn 1 point/second not IT.':freeze?'Body contact freezes/rescues. Frozen? Wait for a teammate. No automatic thaw.':'WASD/Arrow keys + Space \u00b7 Tap/release = jump; hold/release = charge. In air, hold = grapple; release = detach. Body contact only. GRACE cannot spread poison for 1 second.';}\n",
+          "to": " update(lobby:LobbyState|undefined,local:string,connected:boolean){const freeze=lobby?.mode==='freeze';this.select.value=freeze?'freeze':'poison';this.select.disabled=!lobby||lobby.hostId!==local||lobby.phase!=='lobby'||!connected;this.note.textContent=freeze?'60 seconds \u00b7 rescue teammates by body contact \u00b7 no automatic thaw. Two players: first freeze ends the round.':'Survive spreading poison \u00b7 tongues never spread poison.';document.querySelector('#start')!.textContent=freeze?'Start Freeze Tag':'Start Poison Tag';document.querySelector('#phase-overlay .eyebrow')!.textContent=freeze?'THE FREEZER':'POISON DART FROG';document.querySelector('#phase-overlay small')!.textContent=freeze?'Dodge the freezer. Touch teammates to rescue.':'Body contact spreads poison. Tongues don\u2019t.';document.querySelector('.pond-reveal-caption')!.textContent=freeze?'BIG CHILL. LITTLE FROGS.':'TINY FROG. BIG DART ENERGY.';document.querySelector('#game-help')!.textContent=freeze?'Body contact freezes/rescues. Frozen? Wait for a teammate. No automatic thaw.':'WASD/Arrow keys + Space \u00b7 Tap/release = jump; hold/release = charge. In air, hold = grapple; release = detach. Body contact only. GRACE cannot spread poison for 1 second.';}\n"
+        }
+      ]
+    },
+    "src/game/outbreak.ts": {
+      "beforeSha256": "4b23b18824cb22c4f898e914f01bb94a2b9965900126c3999815c7e30eddca3f",
+      "changes": [
+        {
+          "from": "import type {ClassicDetails} from './classic-tag';\nimport type {FreezeDetails} from './freeze-tag';\n",
+          "to": "import type {FreezeDetails} from './freeze-tag';\n"
+        },
+        {
+          "from": "export type OutbreakView={mode?:'poison'|'freeze'|'classic';classic?:ClassicDetails;freeze?:FreezeDetails;phase:OutbreakPhase;round:number;roundCount:number;patientZero:number;patientZeroOrder:number[];tick:number;elapsedMs:number;remainingMs:number;players:OutbreakPlayer[];roundWinners:number[];matchWinners:number[]};\n",
+          "to": "export type OutbreakView={mode?:'poison'|'freeze';freeze?:FreezeDetails;phase:OutbreakPhase;round:number;roundCount:number;patientZero:number;patientZeroOrder:number[];tick:number;elapsedMs:number;remainingMs:number;players:OutbreakPlayer[];roundWinners:number[];matchWinners:number[]};\n"
+        }
+      ]
+    },
+    "src/game/modes.ts": {
+      "beforeSha256": "784e685cc2b33117c3a27628069e99ee95038c00a3e3f16c197bf7d4d4d64c10",
+      "changes": [
+        {
+          "from": "export const MODES=[{id:'poison',name:'Poison Tag',description:'Survive the spreading poison. Body contact only.'},{id:'freeze',name:'Freeze Tag',description:'Dodge the freezer. Touch frozen teammates to rescue them.'},{id:'classic',name:'Classic Tag',description:'Pass IT by body contact. Spend the least time IT.'}]as const;\n",
+          "to": "export const MODES=[{id:'poison',name:'Poison Tag',description:'Survive the spreading poison. Body contact only.'},{id:'freeze',name:'Freeze Tag',description:'Dodge the freezer. Touch frozen teammates to rescue them.'}]as const;\n"
+        }
+      ]
+    },
+    "src/presentation/courtyard.ts": {
+      "beforeSha256": "01afbf69e8072d8224ced0ee91263c82f823137013a0799365ce1942426cfca5",
+      "changes": [
+        {
+          "from": "import {paintClassicState} from './classic-art';\nimport {paintFreezeState} from './freeze-art';\n",
+          "to": "import {paintFreezeState} from './freeze-art';\n"
+        },
+        {
+          "from": "export class Courtyard {\n private tagPuffs:number[]=[];\n",
+          "to": "export class Courtyard {\n"
+        },
+        {
+          "from": " clear(){this.tagPuffs=[];this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}\n",
+          "to": " clear(){this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}\n"
+        },
+        {
+          "from": "   const p=positions[i];if(!p)return;const infection=view?.mode==='freeze'||view?.mode==='classic'?undefined:view?.players[i],before=this.previous[i],color=FROG_COLORS[i];const state=infection?.state;\n",
+          "to": "   const p=positions[i];if(!p)return;const infection=view?.mode==='freeze'?undefined:view?.players[i],before=this.previous[i],color=FROG_COLORS[i];const state=infection?.state;\n"
+        },
+        {
+          "from": "   this.reactions[i]=Math.max(0,this.reactions[i]-delta);this.frog(g,p.x*S,p.y*S,f,i,infection,connected[i]!==false,i===local,time);\n   if(view?.mode==='classic'){const isIt=i===view.classic!.it;if(before?.state&&before.state!==(isIt?'it':'runner')&&isIt)this.tagPuffs[i]=420;this.tagPuffs[i]=Math.max(0,(this.tagPuffs[i]??0)-delta);paintClassicState(g,p.x*S,p.y*S,i,view,this.tagPuffs[i]);}\n",
+          "to": "   this.reactions[i]=Math.max(0,this.reactions[i]-delta);this.frog(g,p.x*S,p.y*S,f,i,infection,connected[i]!==false,i===local,time);\n"
+        },
+        {
+          "from": "   const status=connected[i]===false?'OFFLINE':view?.mode==='classic'?(i===view.classic!.it?'\u25b2 IT':'NOT IT'):view?.mode==='freeze'?(i===view.freeze!.freezer?'\u2744 FREEZER':view.freeze!.frozen[i]?'\u2744 FROZEN':view.freeze!.protectedUntil[i]>view.tick?'\u25c7 PROTECTED':'RUNNER'):infection?.state==='transforming'?'CHANGING \u00b7 1s':infection?.state==='infectious'?(infection.patientZero?'\u25c6 DART FROG':'\u25c6 POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.state==='healthy').length===1?'LAST SAFE':'SAFE';\n",
+          "to": "   const status=connected[i]===false?'OFFLINE':view?.mode==='freeze'?(i===view.freeze!.freezer?'\u2744 FREEZER':view.freeze!.frozen[i]?'\u2744 FROZEN':view.freeze!.protectedUntil[i]>view.tick?'\u25c7 PROTECTED':'RUNNER'):infection?.state==='transforming'?'CHANGING \u00b7 1s':infection?.state==='infectious'?(infection.patientZero?'\u25c6 DART FROG':'\u25c6 POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.state==='healthy').length===1?'LAST SAFE':'SAFE';\n"
+        },
+        {
+          "from": "   this.previous[i]={surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state:view?.mode==='classic'?(i===view.classic!.it?'it':'runner'):view?.mode==='freeze'?(view.freeze!.frozen[i]?'frozen':'runner'):state,x:f.x,y:f.y};\n",
+          "to": "   this.previous[i]={surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state:view?.mode==='freeze'?(view.freeze!.frozen[i]?'frozen':'runner'):state,x:f.x,y:f.y};\n"
+        },
+        {
+          "from": "  this.feel.render(states,positions,view?.mode==='freeze'||view?.mode==='classic'?undefined:view,local,delta);\n",
+          "to": "  this.feel.render(states,positions,view?.mode==='freeze'?undefined:view,local,delta);\n"
+        }
+      ]
+    },
+    "src/presentation/presentation-ui.ts": {
+      "beforeSha256": "54eb644c9a29cfa1d1553eec538b7ee457d390de6d991553939769cd11bff97f",
+      "changes": [
+        {
+          "from": "  document.body.classList.toggle('pond-last',view.phase==='playing'&&view.mode!=='freeze'&&view.mode!=='classic'&&view.players.filter(p=>p.state==='healthy').length===1);\n",
+          "to": "  document.body.classList.toggle('pond-last',view.phase==='playing'&&view.mode!=='freeze'&&view.players.filter(p=>p.state==='healthy').length===1);\n"
+        }
+      ]
+    },
+    "src/presentation/moments.ts": {
+      "beforeSha256": "ca63564d6279ff8b1044f80eb490709993c4f3e0fafa606a5f13811e8c22ce1a",
+      "changes": [
+        {
+          "from": "  const freeze=view.mode==='freeze',classic=view.mode==='classic';const healthy=freeze?view.players.filter(p=>p.slot!==view.freeze!.freezer&&!view.freeze!.frozen[p.slot]).length:view.players.filter(p=>p.state==='healthy').length;\n",
+          "to": "  const freeze=view.mode==='freeze';const healthy=freeze?view.players.filter(p=>p.slot!==view.freeze!.freezer&&!view.freeze!.frozen[p.slot]).length:view.players.filter(p=>p.state==='healthy').length;\n"
+        },
+        {
+          "from": "   if(view.phase==='playing')events.push({cue:'go',text:classic?'CLASSIC TAG!':freeze?'FREEZE TAG!':'POISON TAG!'});\n",
+          "to": "   if(view.phase==='playing')events.push({cue:'go',text:freeze?'FREEZE TAG!':'POISON TAG!'});\n"
+        },
+        {
+          "from": "   if(!freeze&&!classic&&healthy===1&&this.healthy!==1)events.push({cue:'last',text:'LAST SAFE FROG!'});\n   if(classic&&this.states.length&&this.states[view.classic!.it]!=='it')events.push({cue:'infect',...(view.classic!.it===local?{text:'YOU\u2019RE IT!'}:{})});\n",
+          "to": "   if(!freeze&&healthy===1&&this.healthy!==1)events.push({cue:'last',text:'LAST SAFE FROG!'});\n"
+        },
+        {
+          "from": "   if(!freeze&&!classic&&view.players.some((p,i)=>!p.patientZero&&this.states[i]==='healthy'&&p.state!=='healthy'))events.push({cue:'infect',...(this.states[local]==='healthy'&&view.players[local]?.state!=='healthy'?{text:'YOU\u2019RE POISONED!'}:{})});\n   if(!freeze&&!classic&&this.states[local]==='transforming'&&view.players[local]?.state==='infectious')events.push({cue:'transform'});\n",
+          "to": "   if(!freeze&&view.players.some((p,i)=>!p.patientZero&&this.states[i]==='healthy'&&p.state!=='healthy'))events.push({cue:'infect',...(this.states[local]==='healthy'&&view.players[local]?.state!=='healthy'?{text:'YOU\u2019RE POISONED!'}:{})});\n   if(!freeze&&this.states[local]==='transforming'&&view.players[local]?.state==='infectious')events.push({cue:'transform'});\n"
+        },
+        {
+          "from": "  this.phase=view.phase;this.healthy=healthy;this.states=view.players.map(p=>classic?(p.slot===view.classic!.it?'it':'runner'):freeze?(view.freeze!.frozen[p.slot]?'frozen':'runner'):p.state);return events;\n",
+          "to": "  this.phase=view.phase;this.healthy=healthy;this.states=view.players.map(p=>freeze?(view.freeze!.frozen[p.slot]?'frozen':'runner'):p.state);return events;\n"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "scope": "Real production 60-second round; independent local WebSockets; no duration override/clock fast-forward",
+  "checks": [
+    "actual 60-second authoritative Classic round; unchanged IT earns zero, others earn 60 and share round victory"
+  ]
+}

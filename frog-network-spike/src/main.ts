@@ -1,4 +1,5 @@
 import {ModeUI} from './ui/mode-ui';
+import {renderClassicHUD} from './ui/classic-hud';
 import {renderFreezeHUD} from './ui/freeze-hud';
 import './ui/mode-ui.css';
 import {Customization} from './ui/customization';
@@ -186,6 +187,7 @@ function renderOutbreak(){
  const results=state?.phase==='round-results'||state?.phase==='match-results';el('results').hidden=!results;
  if(!state){el('phase-overlay').hidden=true;return;}
 
+ if(state.mode==='classic'){renderClassicHUD(state,net.slot,playerName,net.playerId===net.lobby?.hostId,net.status==='connected');return;}
  if(state.mode==='freeze'){renderFreezeHUD(state,net.slot,playerName,net.playerId===net.lobby?.hostId,net.status==='connected');return;}
  const count=Math.max(1,Math.ceil(state.remainingMs/1000));
  document.body.dataset.outbreakPhase=state.phase;

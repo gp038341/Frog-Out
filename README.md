@@ -1,6 +1,6 @@
 # Frog-Out
 
-A playful **2–8 player** real-time physics party game. Run, charge-jump and swing through four playful arenas with a pulling tongue. Choose Poison Tag or Freeze Tag; Sunny Pond is the default arena. Customize your frog in the lobby.
+A playful **2–8 player** real-time physics party game. Run, charge-jump and swing through four playful arenas with a pulling tongue. Choose Poison Tag, Freeze Tag or Classic Tag; Sunny Pond is the default arena. Customize your frog in the lobby.
 
 **[Play Frog-Out](https://frog-out-milestone-2.onrender.com/)**. No player accounts or installation. Bring at least one friend on another browser/device.
 
@@ -18,6 +18,8 @@ A playful **2–8 player** real-time physics party game. Run, charge-jump and sw
 **Poison Tag:** frog-body contact alone spreads poison; tongues never directly infect. Newly infected frogs have one second of grace. Healthy survival earns **1 point/second**, plus **2 points** for the last healthy frog(s). Infection stops survival scoring. Poison Dart Frog earns zero. Round results separate survival, bonus and cumulative totals.
 
 **Freeze Tag:** a freezer freezes by body contact; unfrozen teammates rescue by body contact. No automatic thaw. Frozen frogs cannot move or grapple. Rounds last 60 seconds or end when every runner freezes; with two players, first freeze ends the round. Runners score 1 point/second unfrozen; freezer scores 3/freeze plus 5 for clearing everyone with 3–8 players. Mode choice is host-controlled and locked during matches.
+
+**Classic Tag:** body contact passes IT; tongues never tag. New IT cannot transfer for one second. Each round lasts 60 seconds; earn 1 point/second not IT. Everyone starts IT once. Highest round/match points wins, with shared ties. Cosmetics, arenas and controls work in every mode.
 
 ## Development
 

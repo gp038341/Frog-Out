@@ -1,3 +1,4 @@
+import type {ClassicDetails} from './classic-tag';
 import type {FreezeDetails} from './freeze-tag';
 import {DT} from '../simulation/config';
 export const SCORING={pointsPerSecond:1,lastSurvivorBonus:2};
@@ -5,7 +6,7 @@ export const OUTBREAK={announcementTicks:60,countdownTicks:180,graceTicks:60};
 export type OutbreakPhase='announcement'|'countdown'|'playing'|'round-results'|'match-results';
 export type InfectionState='healthy'|'transforming'|'infectious';
 export type OutbreakPlayer={slot:number;state:InfectionState;patientZero:boolean;infectedTick:number|null;infectiousTick:number|null;infectionPlace:number|null;roundPoints:number|null;survivalMs:number;survivalPoints:number;placementBonus:number;totalPoints:number;finalPlace:number};
-export type OutbreakView={mode?:'poison'|'freeze';freeze?:FreezeDetails;phase:OutbreakPhase;round:number;roundCount:number;patientZero:number;patientZeroOrder:number[];tick:number;elapsedMs:number;remainingMs:number;players:OutbreakPlayer[];roundWinners:number[];matchWinners:number[]};
+export type OutbreakView={mode?:'poison'|'freeze'|'classic';classic?:ClassicDetails;freeze?:FreezeDetails;phase:OutbreakPhase;round:number;roundCount:number;patientZero:number;patientZeroOrder:number[];tick:number;elapsedMs:number;remainingMs:number;players:OutbreakPlayer[];roundWinners:number[];matchWinners:number[]};
 type Record={infectedTick:number|null;infectiousTick:number|null;infectionPlace:number|null;roundPoints:number|null;placementBonus:number};
 const healthy=():Record=>({infectedTick:null,infectiousTick:null,infectionPlace:null,roundPoints:null,placementBonus:0});
 /** Pure authoritative rules. Contact pairs are collected from the physical bodies, never tongues. */

@@ -1,6 +1,6 @@
 # Frog-Out — current game
 
-**[Play online](https://frog-out-milestone-2.onrender.com/)** · 2–8 players · Four selectable arenas · Poison Tag + Freeze Tag.
+**[Play online](https://frog-out-milestone-2.onrender.com/)** · 2–8 players · Four selectable arenas · Poison Tag + Freeze Tag + Classic Tag.
 
 No player account, installation or special player-specific URL. Enter a display name, create/join by six-character code, use Copy Code/Copy Join Link. All connected players ready up; the host starts with at least two players. The match roster then freezes. Controls & Rules appears before play; How to Play stays available. The round continues while Help is open, with held inputs cleared; use fresh inputs after closing.
 
@@ -42,6 +42,15 @@ Host selects the mode in the lobby; Poison Tag remains the default. Mode changes
 - Runners earn 1 point/second unfrozen, paused while frozen. Freezer earns 3 per successful freeze, plus 5 for clearing all runners with 3–8 players.
 - All-frozen round: freezer wins. Timeout: remaining unfrozen runners share the escape victory. Highest cumulative points wins the match; ties share victory.
 - Freeze resolves before rescue in each authoritative tick; a newly frozen runner cannot rescue that tick. Results show survival, freeze points, clear bonus and totals.
+
+## Classic Tag / scoring
+
+- One frog is IT. Body contact transfers IT; tongues never tag. New IT cannot tag for one second, including continued contact until grace expires.
+- 60-second rounds for all 2–8-player rooms. Everyone starts IT exactly once in a randomized match order.
+- Earn 1 point/second not IT (complete tenths). No placement bonus. Round winners have the highest round score; cumulative highest totals win the match; ties share victory.
+- One transfer per authoritative tick. Multiple contacts choose nearest body centre, then roster slot for an exact distance tie, never physics callback order.
+- Amber pennant/IT label retains cosmetics, distinct from poison patterns or ice. Transfer produces a purple poison poof and compact YOU’RE IT notice using the approved audio palette.
+- Existing host-led results/next/final/rematch and 30-second reconnect apply; disconnected bodies can still transfer IT and accrue score under their current role. Expiry interrupts the whole match.
 
 ## Connection lifecycle
 
@@ -94,9 +103,9 @@ Diagnostics exports input/acknowledgements, authoritative state, touch lifecycle
 
 ## Baselines / known limitations
 
-Approved earlier milestones remain recoverable in Git. M6 release candidate: `6b85ff332bb12ffd539f7392a742f966ae9542bb` / `checkpoint/milestone-6-release-candidate`. [M7 preservation record](docs/milestone-7-preservation.json) locks physics/tuning, graphics, geometry, networking/rules, touch recovery and responsive/fullscreen source. Approved Milestone 15: `f894102e9bb7f69406de278f94542d92f8154d0c`, checkpoint `checkpoint/approved-milestone-15-frog-customization`. Freeze Tag is an acceptance candidate; see [Milestone 16](docs/milestone-16-freeze-tag.md).
+Approved earlier milestones remain recoverable in Git. M6 release candidate: `6b85ff332bb12ffd539f7392a742f966ae9542bb` / `checkpoint/milestone-6-release-candidate`. [M7 preservation record](docs/milestone-7-preservation.json) locks physics/tuning, graphics, geometry, networking/rules, touch recovery and responsive/fullscreen source. Approved Milestone 15: `f894102e9bb7f69406de278f94542d92f8154d0c`, checkpoint `checkpoint/approved-milestone-15-frog-customization`. Freeze Tag is approved at `aadecb3f3258c4535bb29fe8bf9b02cb6d49cbb6`, checkpoint `checkpoint/approved-freeze-tag`. Classic Tag is a new acceptance candidate; see [Classic Tag](docs/classic-tag.md).
 
-**The existing iPhone Safari viewport and simultaneous multitouch were physically approved by the owner; Freeze Tag itself still needs physical-device acceptance.** Current physical Android/tablet long sessions and desktop Safari/Firefox/Edge-specific validation remain outstanding. Crowded labels and lower-end phone performance need real-device assessment. Free cold starts and room loss on restart remain documented compromises. Four arenas and synchronized cosmetic customization are available; no progression, accounts or purchases.
+**The existing iPhone Safari viewport and simultaneous multitouch were physically approved by the owner; The owner has approved Freeze Tag. Classic Tag still needs owner/device acceptance.** Current physical Android/tablet long sessions and desktop Safari/Firefox/Edge-specific validation remain outstanding. Crowded labels and lower-end phone performance need real-device assessment. Free cold starts and room loss on restart remain documented compromises. Four arenas and synchronized cosmetic customization are available; no progression, accounts or purchases.
 
 [Submission readiness](docs/submission-readiness.md) lists required materials/drafts and remaining checks; [assets and licenses](docs/assets-and-licenses.md) records original procedural artwork/audio and dependencies.
 

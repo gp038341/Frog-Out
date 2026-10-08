@@ -1,0 +1,73 @@
+{
+  "scope": "Local authoritative WebSockets, Chromium desktop/emulated phones/tablet; production 60-second rounds; test-only short intros. Not physical-device testing.",
+  "checks": [
+    "four desktop/phone/tablet browsers; host-only third mode, Ready and cosmetic retention, primary Ready visible",
+    "authoritative transfer produces nonmodal YOU’RE IT and amber indicator; cosmetics, screen-space HUD and canvas aspect preserved",
+    "four-round results/rotation/final/rematch; switching back Freeze keeps its approved HUD/behavior"
+  ],
+  "layouts": [
+    {
+      "config": {
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        }
+      },
+      "canvas": {
+        "x": 10,
+        "y": 107,
+        "width": 1260,
+        "height": 708.75
+      }
+    },
+    {
+      "config": {
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "isMobile": true,
+        "hasTouch": true,
+        "deviceScaleFactor": 3
+      },
+      "canvas": {
+        "x": 167.15625,
+        "y": 62,
+        "width": 508.4375,
+        "height": 286
+      }
+    },
+    {
+      "config": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "isMobile": true,
+        "hasTouch": true,
+        "deviceScaleFactor": 2
+      },
+      "canvas": {
+        "x": 117.375,
+        "y": 62,
+        "width": 432,
+        "height": 243
+      }
+    },
+    {
+      "config": {
+        "viewport": {
+          "width": 1024,
+          "height": 768
+        }
+      },
+      "canvas": {
+        "x": 10,
+        "y": 113,
+        "width": 1004,
+        "height": 564.75
+      }
+    }
+  ],
+  "errors": []
+}
