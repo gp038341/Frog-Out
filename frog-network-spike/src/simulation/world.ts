@@ -1,5 +1,5 @@
 import { World, Vec2, Box, Circle, RopeJoint, Body } from 'planck';
-import {prepareSurfaces,resolveSurfaces,SURFACES} from './surfaces';
+import {prepareSurfaces,resolveSurfaces,SURFACES,bindSurfaceImpacts} from './surfaces';
 import {POISON_BALANCE} from '../game/poison-balance';
 import { defaults, DT, arena, WIDTH, HEIGHT, type Tuning } from './config';
 export type Input = { x: number; y: number; held: boolean };
@@ -10,7 +10,7 @@ export type Tongue = {
   target?: Body; localAnchor?: { x: number; y: number };
 };
 export type Frog = {
-  slipperySoap?: boolean; stickyMud?: boolean; surfaceBounceTick?: number;
+  slipperySoap?: boolean; stickyMud?: boolean; surfaceBounceTick?: number; surfaceBounceStrength?: number; surfaceImpactSpeed?: number; surfaceImpactTick?: number;
   poisonPullFromTick?: number;
   body: Body; facing: number; input: Input; events: Input[]; held: boolean;
   charging: boolean; charge: number; grounded: boolean; tongue?: Tongue;
@@ -25,6 +25,7 @@ export class Simulation {
   tick = 0;
   constructor(public tuning: Tuning = { ...defaults }) {
     this.world = new World(Vec2(0, tuning.gravity));
+    bindSurfaceImpacts(this);
     for (const r of arena) {
       const b = this.world.createBody(Vec2(r.x, r.y));
       b.createFixture(Box(r.w / 2, r.h / 2), { friction: tuning.friction });
@@ -254,7 +255,7 @@ export class Simulation {
   }
   reset() {
     for (let i = 0; i < this.frogs.length; i++) {
-      const f = this.frogs[i]; this.cancelAction(f); f.slipperySoap = undefined; f.stickyMud = undefined; f.surfaceBounceTick = undefined;
+      const f = this.frogs[i]; this.cancelAction(f); f.slipperySoap = undefined; f.stickyMud = undefined; f.surfaceBounceTick = undefined; f.surfaceBounceStrength = undefined; f.surfaceImpactSpeed = undefined; f.surfaceImpactTick = undefined;
       f.body.setTransform(Vec2(i ? 20 : 12, 16), 0);
       f.body.setLinearVelocity(Vec2(0, 0)); f.body.setAngularVelocity(0);
       f.input = neutral(); f.grounded = false; f.coyote = 0; f.suppressSupport = 0;

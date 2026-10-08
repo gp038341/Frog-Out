@@ -30,7 +30,7 @@ export class GameAudio {
  setVolume(value:number){this.volume=Math.max(0,Math.min(1,value));if(this.master&&this.context)this.master.gain.setTargetAtTime(this.volume,this.context.currentTime,.02);try{localStorage.setItem('frog-out-volume',String(this.volume));}catch{/* storage is optional */}}
  toggle(){this.enabled=!this.enabled;if(this.enabled){try{this.context??=new AudioContext();if(!this.master){this.master=this.context.createGain();this.compressor=this.context.createDynamicsCompressor();this.compressor.threshold.value=-20;this.compressor.ratio.value=5;this.master.connect(this.compressor);this.compressor.connect(this.context.destination);this.master.gain.value=this.volume;}void this.context.resume().then(()=>{if(this.enabled)this.play('ui');}).catch(()=>{this.enabled=false;});}catch{this.enabled=false;}}else this.silence();return this.enabled;}
  silence(){for(const o of [...this.voices]){try{o.stop();}catch{/* already stopped */}}this.voices.clear();}
- play(cue:Cue){
+ play(cue:Cue,intensity=1){
   const now=performance.now(),spec=SOUNDS[cue],context=this.context;
   if(!this.enabled||document.hidden||!context||context.state!=='running'||!this.master||this.volume===0)return;
   if(now-(this.last.get(cue)??-9999)<spec.cooldown||!spec.important&&now-this.lastSmall<85){this.dropped++;return;}
@@ -41,7 +41,7 @@ export class GameAudio {
    const throaty=CROAKS.has(cue),rubbery=RUBBER.has(cue);
    if(context.createPeriodicWave){if(throaty){this.croak??=context.createPeriodicWave(new Float32Array(10),new Float32Array([0,.65,.10,.55,.28,.08,.20,.06,.035,.015]));o.setPeriodicWave(this.croak);}else if(rubbery){this.rubber??=context.createPeriodicWave(new Float32Array(7),new Float32Array([0,1,.24,.16,.075,.035,.015]));o.setPeriodicWave(this.rubber);}}
    // Small pitch wobble and pulsed envelopes: chirrup/croak, not a straight sine sweep.
-   const peak=spec.important?.115:.085;
+   const peak=(spec.important?.115:.085)*Math.max(.5,Math.min(1.25,intensity));
    o.frequency.setValueAtTime(a,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(peak,t+.004);
    if(throaty){for(let i=1;i<=6;i++){const f=i/6;o.frequency.exponentialRampToValueAtTime(a*Math.pow(b/a,f)*(i===6?1:i%2?1.11:.93),t+length*f);g.gain.exponentialRampToValueAtTime(i===6?.0001:peak*(i%2?.26:.75)*(1-f*.45),t+length*f);}}
    else{o.frequency.exponentialRampToValueAtTime(Math.sqrt(a*b)*1.18,t+length*.32);o.frequency.exponentialRampToValueAtTime(b,t+length);g.gain.exponentialRampToValueAtTime(peak*.45,t+length*.32);g.gain.exponentialRampToValueAtTime(.0001,t+length);}

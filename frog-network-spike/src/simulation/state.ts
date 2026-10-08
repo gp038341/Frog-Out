@@ -2,7 +2,7 @@ import {sizeSimulation} from './roster';
 import {Vec2, RopeJoint, type Body} from 'planck';
 import {Simulation, type Input, type Tongue} from './world';
 export type FrogState = {
- slipperySoap?:boolean;stickyMud?:boolean;surfaceBounceTick?:number;
+ slipperySoap?:boolean;stickyMud?:boolean;surfaceBounceTick?:number;surfaceBounceStrength?:number;surfaceImpactSpeed?:number;surfaceImpactTick?:number;
  poisonPullFromTick?:number;
  x:number; y:number; vx:number; vy:number; facing:number; input:Input; held:boolean;
  charging:boolean; charge:number; grounded:boolean; jumpPending:boolean; holdTime:number;
@@ -20,7 +20,7 @@ export function capture(sim:Simulation):PhysicsState {
    tongue={phase:t.phase,direction:{...t.direction},tip:{...t.tip},distance:t.distance,length:t.length,
     target:t.target?(frog>=0?{frog}:{terrain:terrain.indexOf(t.target)}):undefined,
     localAnchor:t.localAnchor?{...t.localAnchor}:undefined};}
-  return {slipperySoap:f.slipperySoap,stickyMud:f.stickyMud,surfaceBounceTick:f.surfaceBounceTick,poisonPullFromTick:f.poisonPullFromTick,x:p.x,y:p.y,vx:v.x,vy:v.y,facing:f.facing,input:{...f.input},held:f.held,charging:f.charging,charge:f.charge,
+  return {slipperySoap:f.slipperySoap,stickyMud:f.stickyMud,surfaceBounceTick:f.surfaceBounceTick,surfaceBounceStrength:f.surfaceBounceStrength,surfaceImpactSpeed:f.surfaceImpactSpeed,surfaceImpactTick:f.surfaceImpactTick,poisonPullFromTick:f.poisonPullFromTick,x:p.x,y:p.y,vx:v.x,vy:v.y,facing:f.facing,input:{...f.input},held:f.held,charging:f.charging,charge:f.charge,
    grounded:f.grounded,jumpPending:f.jumpPending,holdTime:f.holdTime,coyote:f.coyote,suppressSupport:f.suppressSupport,
    landingWait:f.landingWait,pressDirection:{...f.pressDirection},bufferedRelease:f.bufferedRelease?{...f.bufferedRelease}:undefined,tongue};
  })};
@@ -31,7 +31,7 @@ export function restore(sim:Simulation,state:PhysicsState){
  for(const f of sim.frogs)sim.detach(f);
  sim.tick=state.tick;
  state.frogs.forEach((s,i)=>{const f=sim.frogs[i];f.body.setTransform(Vec2(s.x,s.y),0);f.body.setLinearVelocity(Vec2(s.vx,s.vy));f.body.setAngularVelocity(0);
-  f.slipperySoap=s.slipperySoap;f.stickyMud=s.stickyMud;f.surfaceBounceTick=s.surfaceBounceTick;f.poisonPullFromTick=s.poisonPullFromTick;f.facing=s.facing;f.input={...s.input};f.events=[];f.held=s.held;f.charging=s.charging;f.charge=s.charge;f.grounded=s.grounded;
+  f.slipperySoap=s.slipperySoap;f.stickyMud=s.stickyMud;f.surfaceBounceTick=s.surfaceBounceTick;f.surfaceBounceStrength=s.surfaceBounceStrength;f.surfaceImpactSpeed=s.surfaceImpactSpeed;f.surfaceImpactTick=s.surfaceImpactTick;f.poisonPullFromTick=s.poisonPullFromTick;f.facing=s.facing;f.input={...s.input};f.events=[];f.held=s.held;f.charging=s.charging;f.charge=s.charge;f.grounded=s.grounded;
   f.jumpPending=s.jumpPending;f.holdTime=s.holdTime;f.coyote=s.coyote;f.suppressSupport=s.suppressSupport;f.landingWait=s.landingWait;
   f.pressDirection={...s.pressDirection};f.bufferedRelease=s.bufferedRelease?{...s.bufferedRelease}:undefined;
   const t=s.tongue;if(t){f.tongue={phase:t.phase,distance:t.distance,length:t.length,direction:{...t.direction},tip:{...t.tip},localAnchor:t.localAnchor?{...t.localAnchor}:undefined};

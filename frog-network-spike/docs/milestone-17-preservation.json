@@ -1,0 +1,92 @@
+{
+  "files": {
+    "src/simulation/surfaces.ts": {
+      "changes": [
+        {
+          "from": "export const SURFACES={lilyLaunchSpeed:12,lilyImpactThreshold:6,lilyImpactEnergy:.55,lilyMaxLaunchSpeed:18,lilyCooldownTicks:12,mudGroundSpeedMultiplier:.75,soapAccelerationMultiplier:.3,soapBrakeMultiplier:.12,soapContactFriction:0};\n/** Normal impact energy adds smoothly above the gentle-landing dead zone. */\nexport function bounceLaunchSpeed(impact:number){const v=Number.isFinite(impact)?Math.max(0,impact):0;return Math.min(SURFACES.lilyMaxLaunchSpeed,Math.sqrt(SURFACES.lilyLaunchSpeed**2+SURFACES.lilyImpactEnergy*Math.max(0,v*v-SURFACES.lilyImpactThreshold**2)));}\n",
+          "to": "export const SURFACES={lilyLaunchSpeed:12,lilyCooldownTicks:12,mudGroundSpeedMultiplier:.75,soapAccelerationMultiplier:.3,soapBrakeMultiplier:.12,soapContactFriction:0};\n"
+        },
+        {
+          "from": "/** Observe approach speed before the contact solver removes it (including bullet/TOI contacts). */\nexport function bindSurfaceImpacts(sim:Simulation){sim.world.on('pre-solve',c=>{if(!c.isEnabled()||c.getFixtureA().isSensor()||c.getFixtureB().isSensor())return;const a=c.getFixtureA().getBody(),b=c.getFixtureB().getBody(),n=c.getWorldManifold(null)?.normal;if(!n)return;for(const f of sim.frogs){if(f.body!==a&&f.body!==b)continue;const other=a===f.body?b:a,sign=a===f.body?1:-1;if(other.isDynamic()||(other.getUserData()as{surface?:Material})?.surface!=='lily'||n.y*sign<=.5)continue;const v=f.body.getLinearVelocity(),speed=Math.max(0,(v.x*n.x+v.y*n.y)*sign),old=f.surfaceImpactSpeed;f.surfaceImpactSpeed=Math.max(speed,sim.tick-(f.surfaceImpactTick??-1000)<=SURFACES.lilyCooldownTicks?old??0:0);f.surfaceImpactTick=sim.tick;}});}\n\nfunction lilyImpact(f:Frog,prior:{down:number;horizontal?:number}){let impact=0;for(let e=f.body.getContactList();e;e=e.next){const c=e.contact;if(!c.isTouching()||!c.isEnabled()||c.getFixtureA().isSensor()||c.getFixtureB().isSensor())continue;const a=c.getFixtureA().getBody(),b=c.getFixtureB().getBody(),n=c.getWorldManifold(null)?.normal,other=a===f.body?b:a;if(!n||other.isDynamic()||(other.getUserData()as{surface?:Material})?.surface!=='lily')continue;const sign=a===f.body?1:-1;if(n.y*sign<=.5)continue;impact=Math.max(impact,((prior.horizontal??0)*n.x+prior.down*n.y)*sign);}return impact;}\n\n",
+          "to": ""
+        },
+        {
+          "from": " return sim.frogs.map(f=>{const material=sim.grounded(f)?support(f):undefined;f.stickyMud=material==='mud'||undefined;f.slipperySoap=material==='soap'||undefined;for(let e=f.body.getContactList();e;e=e.next){const c=e.contact;c.resetFriction();const a=c.getFixtureA().getBody(),b=c.getFixtureB().getBody(),other=a===f.body?b:a,n=c.getWorldManifold(null)?.normal;if(f.slipperySoap&&n&&(a===f.body?n.y:-n.y)>.5&&(other.getUserData()as{surface?:Material}|undefined)?.surface==='soap')c.setFriction(SURFACES.soapContactFriction);}return {horizontal:f.body.getLinearVelocity().x,down:f.body.getLinearVelocity().y,position:f.body.getPosition().clone()};});\n",
+          "to": " return sim.frogs.map(f=>{const material=sim.grounded(f)?support(f):undefined;f.stickyMud=material==='mud'||undefined;f.slipperySoap=material==='soap'||undefined;for(let e=f.body.getContactList();e;e=e.next){const c=e.contact;c.resetFriction();const a=c.getFixtureA().getBody(),b=c.getFixtureB().getBody(),other=a===f.body?b:a,n=c.getWorldManifold(null)?.normal;if(f.slipperySoap&&n&&(a===f.body?n.y:-n.y)>.5&&(other.getUserData()as{surface?:Material}|undefined)?.surface==='soap')c.setFriction(SURFACES.soapContactFriction);}return {down:f.body.getLinearVelocity().y,position:f.body.getPosition().clone()};});\n"
+        },
+        {
+          "from": "   const launch=bounceLaunchSpeed(Math.max(lilyImpact(f,prior),sim.tick-(f.surfaceImpactTick??-1000)<=SURFACES.lilyCooldownTicks?f.surfaceImpactSpeed??0:0)),v=f.body.getLinearVelocity();f.body.applyLinearImpulse(Vec2(0,(-launch-v.y)*f.body.getMass()),f.body.getWorldCenter(),true);\n   f.surfaceImpactSpeed=undefined;f.surfaceImpactTick=undefined;f.surfaceBounceStrength=(launch-SURFACES.lilyLaunchSpeed)/(SURFACES.lilyMaxLaunchSpeed-SURFACES.lilyLaunchSpeed);f.surfaceBounceTick=sim.tick;f.grounded=false;f.coyote=0;f.suppressSupport=.06;\n",
+          "to": "   const v=f.body.getLinearVelocity();f.body.applyLinearImpulse(Vec2(0,(-SURFACES.lilyLaunchSpeed-v.y)*f.body.getMass()),f.body.getWorldCenter(),true);\n   f.surfaceBounceTick=sim.tick;f.grounded=false;f.coyote=0;f.suppressSupport=.06;\n"
+        }
+      ]
+    },
+    "src/simulation/world.ts": {
+      "changes": [
+        {
+          "from": "import {prepareSurfaces,resolveSurfaces,SURFACES,bindSurfaceImpacts} from './surfaces';\n",
+          "to": "import {prepareSurfaces,resolveSurfaces,SURFACES} from './surfaces';\n"
+        },
+        {
+          "from": "  slipperySoap?: boolean; stickyMud?: boolean; surfaceBounceTick?: number; surfaceBounceStrength?: number; surfaceImpactSpeed?: number; surfaceImpactTick?: number;\n",
+          "to": "  slipperySoap?: boolean; stickyMud?: boolean; surfaceBounceTick?: number;\n"
+        },
+        {
+          "from": "    bindSurfaceImpacts(this);\n",
+          "to": ""
+        },
+        {
+          "from": "      const f = this.frogs[i]; this.cancelAction(f); f.slipperySoap = undefined; f.stickyMud = undefined; f.surfaceBounceTick = undefined; f.surfaceBounceStrength = undefined; f.surfaceImpactSpeed = undefined; f.surfaceImpactTick = undefined;\n",
+          "to": "      const f = this.frogs[i]; this.cancelAction(f); f.slipperySoap = undefined; f.stickyMud = undefined; f.surfaceBounceTick = undefined;\n"
+        }
+      ]
+    },
+    "src/simulation/state.ts": {
+      "changes": [
+        {
+          "from": " slipperySoap?:boolean;stickyMud?:boolean;surfaceBounceTick?:number;surfaceBounceStrength?:number;surfaceImpactSpeed?:number;surfaceImpactTick?:number;\n",
+          "to": " slipperySoap?:boolean;stickyMud?:boolean;surfaceBounceTick?:number;\n"
+        },
+        {
+          "from": "  return {slipperySoap:f.slipperySoap,stickyMud:f.stickyMud,surfaceBounceTick:f.surfaceBounceTick,surfaceBounceStrength:f.surfaceBounceStrength,surfaceImpactSpeed:f.surfaceImpactSpeed,surfaceImpactTick:f.surfaceImpactTick,poisonPullFromTick:f.poisonPullFromTick,x:p.x,y:p.y,vx:v.x,vy:v.y,facing:f.facing,input:{...f.input},held:f.held,charging:f.charging,charge:f.charge,\n",
+          "to": "  return {slipperySoap:f.slipperySoap,stickyMud:f.stickyMud,surfaceBounceTick:f.surfaceBounceTick,poisonPullFromTick:f.poisonPullFromTick,x:p.x,y:p.y,vx:v.x,vy:v.y,facing:f.facing,input:{...f.input},held:f.held,charging:f.charging,charge:f.charge,\n"
+        },
+        {
+          "from": "  f.slipperySoap=s.slipperySoap;f.stickyMud=s.stickyMud;f.surfaceBounceTick=s.surfaceBounceTick;f.surfaceBounceStrength=s.surfaceBounceStrength;f.surfaceImpactSpeed=s.surfaceImpactSpeed;f.surfaceImpactTick=s.surfaceImpactTick;f.poisonPullFromTick=s.poisonPullFromTick;f.facing=s.facing;f.input={...s.input};f.events=[];f.held=s.held;f.charging=s.charging;f.charge=s.charge;f.grounded=s.grounded;\n",
+          "to": "  f.slipperySoap=s.slipperySoap;f.stickyMud=s.stickyMud;f.surfaceBounceTick=s.surfaceBounceTick;f.poisonPullFromTick=s.poisonPullFromTick;f.facing=s.facing;f.input={...s.input};f.events=[];f.held=s.held;f.charging=s.charging;f.charge=s.charge;f.grounded=s.grounded;\n"
+        }
+      ]
+    },
+    "src/presentation/audio.ts": {
+      "changes": [
+        {
+          "from": " play(cue:Cue,intensity=1){\n",
+          "to": " play(cue:Cue){\n"
+        },
+        {
+          "from": "   const peak=(spec.important?.115:.085)*Math.max(.5,Math.min(1.25,intensity));\n",
+          "to": "   const peak=spec.important?.115:.085;\n"
+        }
+      ]
+    },
+    "src/presentation/courtyard.ts": {
+      "changes": [
+        {
+          "from": "type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'charge'|'attach'|'infect'|'bump';strength?:number};\n",
+          "to": "type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'charge'|'attach'|'infect'|'bump'};\n"
+        },
+        {
+          "from": " pop(x:number,y:number,color:number,kind:Pop['kind'],strength=0){if(this.pops.length<64)this.pops.push({x:x*S,y:y*S,age:0,life:kind==='infect'?650:360,color,kind,strength});}\n",
+          "to": " pop(x:number,y:number,color:number,kind:Pop['kind']){if(this.pops.length<64)this.pops.push({x:x*S,y:y*S,age:0,life:kind==='infect'?650:360,color,kind});}\n"
+        },
+        {
+          "from": "    if(f.surfaceBounceTick!==undefined&&f.surfaceBounceTick!==before.surfaceBounceTick){const strength=f.surfaceBounceStrength??0;this.pop(p.x,p.y+.3,0xa2ee6e,'charge',strength);this.reactions[i]=100+strength*80;if(i===local)this.audio.play('charge',1+strength*.25);}\n",
+          "to": "    if(f.surfaceBounceTick!==undefined&&f.surfaceBounceTick!==before.surfaceBounceTick){this.pop(p.x,p.y+.3,0xa2ee6e,'charge');if(i===local)this.audio.play('charge');}\n"
+        },
+        {
+          "from": "  this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;e.lineStyle(2,p.color,1-q);const radius=((p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22))*(1+(p.strength??0)*.35);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});\n",
+          "to": "  this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;e.lineStyle(2,p.color,1-q);const radius=(p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});\n"
+        }
+      ]
+    }
+  }
+}

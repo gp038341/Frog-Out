@@ -17,7 +17,7 @@ import {TAG_POOF_MS,paintTagPoof} from './tag-poof';
 import {GameAudio} from './audio';
 const S=30,INK=0x142f35;
 type Point={x:number;y:number};
-type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'charge'|'attach'|'infect'|'bump'};
+type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'charge'|'attach'|'infect'|'bump';strength?:number};
 type Before={surfaceBounceTick?:number;vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};
 /** Presentation consumes render positions only. It never writes a physics body or gameplay input. */
 export class Courtyard {
@@ -62,7 +62,7 @@ export class Courtyard {
   });
  }
  clear(){this.tagPuffs=[];this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}
- pop(x:number,y:number,color:number,kind:Pop['kind']){if(this.pops.length<64)this.pops.push({x:x*S,y:y*S,age:0,life:kind==='infect'?650:360,color,kind});}
+ pop(x:number,y:number,color:number,kind:Pop['kind'],strength=0){if(this.pops.length<64)this.pops.push({x:x*S,y:y*S,age:0,life:kind==='infect'?650:360,color,kind,strength});}
  render(states:FrogState[],positions:Point[],view:OutbreakView|undefined,connected:boolean[],names:string[],local:number,delta:number){
   if(view?.round!==this.round){this.round=view?.round??-1;this.previous=[];this.pops=[];}
   const g=this.ink;g.clear();this.effects.clear();const time=performance.now()/1000;
@@ -78,7 +78,7 @@ export class Courtyard {
   states.forEach((f,i)=>{
    const p=positions[i];if(!p)return;const infection=view?.mode==='freeze'||view?.mode==='classic'?undefined:view?.players[i],before=this.previous[i],color=FROG_COLORS[i];const state=infection?.state;
    if(before){
-    if(f.surfaceBounceTick!==undefined&&f.surfaceBounceTick!==before.surfaceBounceTick){this.pop(p.x,p.y+.3,0xa2ee6e,'charge');if(i===local)this.audio.play('charge');}
+    if(f.surfaceBounceTick!==undefined&&f.surfaceBounceTick!==before.surfaceBounceTick){const strength=f.surfaceBounceStrength??0;this.pop(p.x,p.y+.3,0xa2ee6e,'charge',strength);this.reactions[i]=100+strength*80;if(i===local)this.audio.play('charge',1+strength*.25);}
     if(before.grounded&&!f.grounded&&f.vy< -5&&f.surfaceBounceTick===before.surfaceBounceTick){const charged=before.charging;this.pop(p.x,p.y+.3,charged?0xffe79b:color,charged?'charge':'jump');if(i===local)this.audio.play(charged?'charge':'jump');}
     if(f.tongue?.phase==='flying'&&!before.tongue&&i===local)this.audio.play('fire');
     if(f.tongue?.phase==='attached'&&before.tongue!=='attached'){this.pop(f.tongue.tip.x,f.tongue.tip.y,0xffbbc9,'attach');if(i===local)this.audio.play('attach');}
@@ -99,7 +99,7 @@ export class Courtyard {
   });
   this.labels.forEach((l,i)=>{if(i>=states.length)l.setVisible(false);});
   this.feel.render(states,positions,view?.mode==='freeze'||view?.mode==='classic'?undefined:view,local,delta);
-  this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;e.lineStyle(2,p.color,1-q);const radius=(p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});
+  this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;e.lineStyle(2,p.color,1-q);const radius=((p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22))*(1+(p.strength??0)*.35);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});
  }
  frog(g:Phaser.GameObjects.Graphics,x:number,y:number,f:FrogState,slot:number,infection:OutbreakPlayer|undefined,online:boolean,local:boolean,time:number){
   const charging=f.charging,q=Math.min(1,f.charge/defaults.chargeSeconds),role=poisonRole(infection?.state),poison=role.tagging,grace=role.transforming,accent=POISON_ACCENTS[slot%8];
