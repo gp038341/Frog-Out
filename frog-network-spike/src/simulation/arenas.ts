@@ -49,7 +49,7 @@ export const ARENAS:Record<ArenaId,ArenaDefinition>={
 };
 export const DEFAULT_ARENA:ArenaId='sunny-pond';
 /** Retired/candidate maps remain archived for recovery, never exposed as playable choices. */
-export const arenaList=[ARENAS['sunny-pond'],ARENAS.bathhouse,ARENAS.canopy];
+export const arenaList=[ARENAS['sunny-pond'],ARENAS.bathhouse,ARENAS.canopy,ARENAS.toyshop];
 export function isArenaId(value:unknown):value is ArenaId{return typeof value==='string'&&arenaList.some(a=>a.id===value);}
 export function getArena(id:ArenaId){return ARENAS[id]??ARENAS[DEFAULT_ARENA];}
 export {spawnPoint};

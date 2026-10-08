@@ -1,6 +1,6 @@
 # Frog-Out — current game
 
-**[Play online](https://frog-out-milestone-2.onrender.com/)** · 2–8 players · Three selectable arenas · Poison Tag.
+**[Play online](https://frog-out-milestone-2.onrender.com/)** · 2–8 players · Four selectable arenas · Poison Tag.
 
 No player account, installation or special player-specific URL. Enter a display name, create/join by six-character code, use Copy Code/Copy Join Link. All connected players ready up; the host starts with at least two players. The match roster then freezes. Controls & Rules appears before play; How to Play stays available. The round continues while Help is open, with held inputs cleared; use fresh inputs after closing.
 
@@ -122,4 +122,4 @@ Sunny Pond adds a third selectable arena with two springy lily pads and two opti
 
 ## Current arena roster — Milestone 14 candidate
 
-New rooms default to **Sunny Pond**. Hosts can choose **Bubblewash Bathhouse** or **Canopy Courtyard**; selections remain fixed during matches and retained in the same room for rematch. Conservatory is retired and Croakwork Toyshop is preserved as future work, neither is selectable. Bathhouse sponge tops repeatedly bounce using accepted lily behavior; soap and water are ordinary platforms/scenery, not new physics. See [roster, preservation and playtest notes](docs/bubblewash.md). Earlier milestone descriptions above are historical.
+New rooms default to **Sunny Pond**. Hosts can choose **Bubblewash Bathhouse**, **Canopy Courtyard** or **Croakwork Toyshop**; selections remain fixed during matches and retained in the same room for rematch. Conservatory alone is retired. Croakwork Toyshop is selectable with its existing implementation unchanged. Bathhouse sponge tops repeatedly bounce using accepted lily behavior; soap and water are ordinary platforms/scenery, not new physics. See [roster, preservation and playtest notes](docs/bubblewash.md). Earlier milestone descriptions above are historical.
