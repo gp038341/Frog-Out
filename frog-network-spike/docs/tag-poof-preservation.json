@@ -1,0 +1,36 @@
+{
+  "files": {
+    "src/presentation/classic-art.ts": {
+      "changes": [
+        {
+          "from": "import type Phaser from 'phaser';\nimport {paintTagPoof} from './tag-poof';",
+          "to": "import type Phaser from 'phaser';"
+        },
+        {
+          "from": "paintTagPoof(g,x,y,puffMs);",
+          "to": "if(puffMs>0){const q=1-puffMs/420;g.fillStyle(0xe8b8fa,.5*(1-q));for(let j=0;j<6;j++){const a=j*Math.PI/3;g.fillCircle(x+Math.cos(a)*(7+q*19),y+Math.sin(a)*(7+q*19),5+q*4);}}"
+        }
+      ]
+    },
+    "src/presentation/courtyard.ts": {
+      "changes": [
+        {
+          "from": "   if(view?.mode!=='classic'&&view?.mode!=='freeze'){this.tagPuffs[i]=Math.max(0,(this.tagPuffs[i]??0)-delta);paintTagPoof(g,p.x*S,p.y*S,this.tagPuffs[i]);}\n   if(view?.mode==='freeze'){const frozen=",
+          "to": "   if(view?.mode==='freeze'){const frozen="
+        },
+        {
+          "from": "this.reactions[i]=180;this.tagPuffs[i]=TAG_POOF_MS;}",
+          "to": "this.reactions[i]=180;}"
+        },
+        {
+          "from": "this.tagPuffs[i]=TAG_POOF_MS",
+          "to": "this.tagPuffs[i]=420"
+        },
+        {
+          "from": "import {POISON_ACCENTS,poisonRole} from './poison-identity';\nimport {TAG_POOF_MS,paintTagPoof} from './tag-poof';",
+          "to": "import {POISON_ACCENTS,poisonRole} from './poison-identity';"
+        }
+      ]
+    }
+  }
+}

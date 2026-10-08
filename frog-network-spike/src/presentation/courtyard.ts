@@ -13,6 +13,7 @@ import type {FrogState} from '../simulation/state';
 import type {OutbreakView,OutbreakPlayer} from '../game/outbreak';
 import {FROG_COLORS} from './identity';
 import {POISON_ACCENTS,poisonRole} from './poison-identity';
+import {TAG_POOF_MS,paintTagPoof} from './tag-poof';
 import {GameAudio} from './audio';
 const S=30,INK=0x142f35;
 type Point={x:number;y:number};
@@ -81,13 +82,14 @@ export class Courtyard {
     if(before.grounded&&!f.grounded&&f.vy< -5&&f.surfaceBounceTick===before.surfaceBounceTick){const charged=before.charging;this.pop(p.x,p.y+.3,charged?0xffe79b:color,charged?'charge':'jump');if(i===local)this.audio.play(charged?'charge':'jump');}
     if(f.tongue?.phase==='flying'&&!before.tongue&&i===local)this.audio.play('fire');
     if(f.tongue?.phase==='attached'&&before.tongue!=='attached'){this.pop(f.tongue.tip.x,f.tongue.tip.y,0xffbbc9,'attach');if(i===local)this.audio.play('attach');}
-    if(state==='transforming'&&before.state==='healthy'){this.pop(p.x,p.y,POISON_ACCENTS[i],'infect');this.reactions[i]=180;}
+    if(state==='transforming'&&before.state==='healthy'){this.pop(p.x,p.y,POISON_ACCENTS[i],'infect');this.reactions[i]=180;this.tagPuffs[i]=TAG_POOF_MS;}
     // React only to velocity changes in a physical body-contact neighborhood, not ordinary control acceleration.
     const bump=states.some((other,j)=>i!==j&&Math.hypot(other.x-f.x,other.y-f.y)<defaults.frogRadius*2+.15);
     if(bump&&Math.hypot(f.vx-before.vx,f.vy-before.vy)>3.5&&this.reactions[i]<=0){this.reactions[i]=130;this.pop(p.x,p.y,color,'bump');}
    }
    this.reactions[i]=Math.max(0,this.reactions[i]-delta);this.frog(g,p.x*S,p.y*S,f,i,infection,connected[i]!==false,i===local,time);
-   if(view?.mode==='classic'){const isIt=i===view.classic!.it;if(before?.state&&before.state!==(isIt?'it':'runner')&&isIt)this.tagPuffs[i]=420;this.tagPuffs[i]=Math.max(0,(this.tagPuffs[i]??0)-delta);paintClassicState(g,p.x*S,p.y*S,i,view,this.tagPuffs[i]);}
+   if(view?.mode==='classic'){const isIt=i===view.classic!.it;if(before?.state&&before.state!==(isIt?'it':'runner')&&isIt)this.tagPuffs[i]=TAG_POOF_MS;this.tagPuffs[i]=Math.max(0,(this.tagPuffs[i]??0)-delta);paintClassicState(g,p.x*S,p.y*S,i,view,this.tagPuffs[i]);}
+   if(view?.mode!=='classic'&&view?.mode!=='freeze'){this.tagPuffs[i]=Math.max(0,(this.tagPuffs[i]??0)-delta);paintTagPoof(g,p.x*S,p.y*S,this.tagPuffs[i]);}
    if(view?.mode==='freeze'){const frozen=view.freeze!.frozen[i];paintFreezeState(g,p.x*S,p.y*S,i,view);if(before?.state&&before.state!==(frozen?'frozen':'runner')){this.pop(p.x,p.y,0xb3f0ff,'attach');if(i===local)this.audio.play(frozen?'infect':'transform');}}
    if(f.stickyMud){g.fillStyle(0x795343,.8);for(const dx of [-8,8])g.fillEllipse(p.x*S+dx,p.y*S+12,12,5);}
    const status=connected[i]===false?'OFFLINE':view?.mode==='classic'?(i===view.classic!.it?'▲ IT':'NOT IT'):view?.mode==='freeze'?(i===view.freeze!.freezer?'❄ FREEZER':view.freeze!.frozen[i]?'❄ FROZEN':view.freeze!.protectedUntil[i]>view.tick?'◇ PROTECTED':'RUNNER'):infection?.state==='transforming'?'CHANGING · 1s':infection?.state==='infectious'?(infection.patientZero?'◆ DART FROG':'◆ POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.state==='healthy').length===1?'LAST SAFE':'SAFE';
