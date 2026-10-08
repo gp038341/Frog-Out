@@ -1,0 +1,265 @@
+{
+  "baseline": "f894102e9bb7f69406de278f94542d92f8154d0c",
+  "scope": "Freeze-only rules/immobilization, lobby metadata, predictor frozen flags, presentation and approved poison poof/notice. Exact original logic recoverable below adapters.",
+  "files": {
+    "server/party-room.ts": {
+      "beforeSha256": "8a0b1383e4123318d3810cedc7951eb4ad0ffb1ad5c86f0db122d9282c2cd993",
+      "changes": [
+        {
+          "from": "import {isGameMode,type GameMode} from '../src/game/modes';\nimport {normalizeAppearance,validAppearance} from '../src/presentation/cosmetics';\n",
+          "to": "import {normalizeAppearance,validAppearance} from '../src/presentation/cosmetics';\n"
+        },
+        {
+          "from": "export class PartyRoom extends SpikeRoom {\n mode:GameMode='poison';\n arenaId:ArenaId=DEFAULT_ARENA;\n",
+          "to": "export class PartyRoom extends SpikeRoom {\n arenaId:ArenaId=DEFAULT_ARENA;\n"
+        },
+        {
+          "from": "  this.onMessage('appearance',(client:Client,value:unknown)=>{const p=this.players.get(client.sessionId);if(this.phase!=='lobby'||!p)return;if(!validAppearance(value)){client.send('notice','That frog style is unavailable. Please choose a listed style.');return;}p.appearance=normalizeAppearance(value);this.lobby();});\n  this.onMessage('select-mode',(client:Client,value:unknown)=>{if(client.sessionId!==this.hostId){client.send('notice','Only the host can choose the mode.');return;}if(this.phase!=='lobby'){client.send('notice','Choose a mode in the lobby before the match.');return;}if(!isGameMode(value)){client.send('notice','That game mode is unavailable.');return;}this.mode=value;this.notice='';this.lobby();});\n  this.onMessage('ready',(client:Client,ready:unknown)=>{const p=this.players.get(client.sessionId);if(this.phase!=='lobby'||!p||typeof ready!=='boolean')return;p.ready=ready;this.notice='';this.lobby();});\n",
+          "to": "  this.onMessage('appearance',(client:Client,value:unknown)=>{const p=this.players.get(client.sessionId);if(this.phase!=='lobby'||!p)return;if(!validAppearance(value)){client.send('notice','That frog style is unavailable. Please choose a listed style.');return;}p.appearance=normalizeAppearance(value);this.lobby();});\n  this.onMessage('ready',(client:Client,ready:unknown)=>{const p=this.players.get(client.sessionId);if(this.phase!=='lobby'||!p||typeof ready!=='boolean')return;p.ready=ready;this.notice='';this.lobby();});\n"
+        },
+        {
+          "from": " welcome(client:Client){const p=this.players.get(client.sessionId);if(p)client.send('welcome',{slot:p.slot,seqBase:p.slot>=0?this.received[p.slot]:0,playerId:p.id});}\n lobby(){const state:LobbyState={mode:this.mode,arenaId:this.arenaId,code:this.code,phase:this.phase,hostId:this.hostId,players:[...this.players.values()].map(p=>({...p})),notice:this.notice,reconnectSeconds:30};this.broadcast('lobby',state);}\n startSession(roster:PlayerInfo[]){setSimulationArena(this.sim,this.arenaId);this.phase='game';this.matchRoster=roster.map(p=>p.id);this.slots.clear();sizeSimulation(this.sim,roster.length);this.sim.reset();this.ack=Array(roster.length).fill(0);this.received=Array(roster.length).fill(0);this.lastInput=Array(roster.length).fill(Date.now());this.queues=Array.from({length:roster.length},()=>[]);roster.forEach((p,i)=>{p.slot=i;this.slots.set(p.id,i);});this.resetId++;this.accumulator=0;this.lastClock=performance.now();void this.lock();this.notice='Placeholder session \u2014 Outbreak rules are not implemented.';this.lobby();for(const client of this.clients)this.welcome(client);this.publish();}\n",
+          "to": " welcome(client:Client){const p=this.players.get(client.sessionId);if(p)client.send('welcome',{slot:p.slot,seqBase:p.slot>=0?this.received[p.slot]:0,playerId:p.id});}\n lobby(){const state:LobbyState={arenaId:this.arenaId,code:this.code,phase:this.phase,hostId:this.hostId,players:[...this.players.values()].map(p=>({...p})),notice:this.notice,reconnectSeconds:30};this.broadcast('lobby',state);}\n startSession(roster:PlayerInfo[]){setSimulationArena(this.sim,this.arenaId);this.phase='game';this.matchRoster=roster.map(p=>p.id);this.slots.clear();sizeSimulation(this.sim,roster.length);this.sim.reset();this.ack=Array(roster.length).fill(0);this.received=Array(roster.length).fill(0);this.lastInput=Array(roster.length).fill(Date.now());this.queues=Array.from({length:roster.length},()=>[]);roster.forEach((p,i)=>{p.slot=i;this.slots.set(p.id,i);});this.resetId++;this.accumulator=0;this.lastClock=performance.now();void this.lock();this.notice='Placeholder session \u2014 Outbreak rules are not implemented.';this.lobby();for(const client of this.clients)this.welcome(client);this.publish();}\n"
+        }
+      ]
+    },
+    "server/room.ts": {
+      "beforeSha256": "f569e704af10031683688d193949ec4487d61d4d210de1162cf135eeede9c99f",
+      "changes": [
+        {
+          "from": "export class SpikeRoom extends Room {\n frozenSnapshot?:boolean[];\n maxClients=2;\n",
+          "to": "export class SpikeRoom extends Room {\n maxClients=2;\n"
+        },
+        {
+          "from": " }\n publish(){const snapshot:Snapshot={arenaId:simulationArena(this.sim),state:capture(this.sim),serverTime:Date.now()-this.accumulator,ack:[...this.ack],connected:[...Array(this.sim.frogs.length)].map((_,i)=>[...this.slots.values()].includes(i)),tickMs:summary(this.times),overruns:this.overruns,resetId:this.resetId};if(this.frozenSnapshot)snapshot.frozen=[...this.frozenSnapshot];this.broadcast('snapshot',snapshot);}\n}\n",
+          "to": " }\n publish(){const snapshot:Snapshot={arenaId:simulationArena(this.sim),state:capture(this.sim),serverTime:Date.now()-this.accumulator,ack:[...this.ack],connected:[...Array(this.sim.frogs.length)].map((_,i)=>[...this.slots.values()].includes(i)),tickMs:summary(this.times),overruns:this.overruns,resetId:this.resetId};this.broadcast('snapshot',snapshot);}\n}\n"
+        }
+      ]
+    },
+    "server/outbreak-room.ts": {
+      "beforeSha256": "0599a8d1241ee7b63a908107aac91fe15269df5b75080adad2e11c5cf94830e4",
+      "changes": [
+        {
+          "from": "import {FREEZE,FreezeRules} from '../src/game/freeze-tag';\nimport {syncFrozenBodies,stepFrozenBodies} from '../src/game/frozen-bodies';\nimport {type Client} from '@colyseus/core';\n",
+          "to": "import {type Client} from '@colyseus/core';\n"
+        },
+        {
+          "from": "export class OutbreakRoom extends PartyRoom {\n outbreak?:OutbreakRules|FreezeRules;\n onCreate(){\n",
+          "to": "export class OutbreakRoom extends PartyRoom {\n outbreak?:OutbreakRules;\n onCreate(){\n"
+        },
+        {
+          "from": "  // The approved physics function is called unchanged while playing; lock countdown controls and freeze bodies on results.\n  this.sim.step=()=>{const rules=this.outbreak;if(this.phase!=='game'||!rules){physicsStep();return;}if(rules.phase==='playing'){this.sim.frogs.forEach((f,i)=>{f.poisonPullFromTick=rules.records[i]?.infectiousTick??undefined;});if(rules instanceof FreezeRules)stepFrozenBodies(this.sim,rules.frozen,physicsStep);else physicsStep();rules.infect(this.sim.tick,frogBodyContacts(this.sim));if(rules instanceof FreezeRules){syncFrozenBodies(this.sim,rules.frozen);this.frozenSnapshot=rules.frozen;}if(rules.phase!=='playing')this.sim.clearInputs();}else{this.sim.clearInputs();if(rules.phase==='announcement'||rules.phase==='countdown')physicsStep();else this.sim.tick++;rules.advanceClock(this.sim.tick);}};\n  this.onMessage('next-round',(client:Client)=>{if(!this.host(client)||this.phase!=='game'||!this.outbreak?.next(this.sim.tick))return;if(this.outbreak.phase==='announcement')this.resetRound();this.publish();});\n",
+          "to": "  // The approved physics function is called unchanged while playing; lock countdown controls and freeze bodies on results.\n  this.sim.step=()=>{const rules=this.outbreak;if(this.phase!=='game'||!rules){physicsStep();return;}if(rules.phase==='playing'){this.sim.frogs.forEach((f,i)=>{f.poisonPullFromTick=rules.records[i]?.infectiousTick??undefined;});physicsStep();rules.infect(this.sim.tick,frogBodyContacts(this.sim));if(rules.phase!=='playing')this.sim.clearInputs();}else{this.sim.clearInputs();if(rules.phase==='announcement'||rules.phase==='countdown')physicsStep();else this.sim.tick++;rules.advanceClock(this.sim.tick);}};\n  this.onMessage('next-round',(client:Client)=>{if(!this.host(client)||this.phase!=='game'||!this.outbreak?.next(this.sim.tick))return;if(this.outbreak.phase==='announcement')this.resetRound();this.publish();});\n"
+        },
+        {
+          "from": " startSession(roster:PlayerInfo[]){const timing=process.env.ENABLE_TESTS==='1'&&process.env.TEST_OUTBREAK_SHORT_COUNTDOWN==='1'?{...OUTBREAK,announcementTicks:6,countdownTicks:12}:OUTBREAK;\n  syncFrozenBodies(this.sim);this.frozenSnapshot=undefined;this.outbreak=this.mode==='freeze'?new FreezeRules(patientZeroOrder(roster.length),this.sim.tick,{...FREEZE,announcementTicks:timing.announcementTicks,countdownTicks:timing.countdownTicks}):new OutbreakRules(patientZeroOrder(roster.length),this.sim.tick,timing);super.startSession(roster);this.notice='';this.lobby();\n }\n",
+          "to": " startSession(roster:PlayerInfo[]){const timing=process.env.ENABLE_TESTS==='1'&&process.env.TEST_OUTBREAK_SHORT_COUNTDOWN==='1'?{...OUTBREAK,announcementTicks:6,countdownTicks:12}:OUTBREAK;\n  this.outbreak=new OutbreakRules(patientZeroOrder(roster.length),this.sim.tick,timing);super.startSession(roster);this.notice='';this.lobby();\n }\n"
+        },
+        {
+          "from": " }\n resetRound(){syncFrozenBodies(this.sim);this.frozenSnapshot=this.outbreak instanceof FreezeRules?this.outbreak.frozen:undefined;const tick=this.sim.tick;this.sim.reset();this.sim.tick=tick;this.queues=this.queues.map(()=>[]);this.resetId++;}\n welcome(client:Client){super.welcome(client);client.send('outbreak',this.outbreak?.view(this.sim.tick)??null);}\n",
+          "to": " }\n resetRound(){const tick=this.sim.tick;this.sim.reset();this.sim.tick=tick;this.queues=this.queues.map(()=>[]);this.resetId++;}\n welcome(client:Client){super.welcome(client);client.send('outbreak',this.outbreak?.view(this.sim.tick)??null);}\n"
+        },
+        {
+          "from": " publish(){if(this.phase==='game'&&this.outbreak)this.broadcast('outbreak',this.outbreak.view(this.sim.tick));super.publish();}\n interrupt(message:string){syncFrozenBodies(this.sim);this.frozenSnapshot=undefined;this.outbreak=undefined;this.broadcast('outbreak',null);super.interrupt(message);}\n}\n",
+          "to": " publish(){if(this.phase==='game'&&this.outbreak)this.broadcast('outbreak',this.outbreak.view(this.sim.tick));super.publish();}\n interrupt(message:string){this.outbreak=undefined;this.broadcast('outbreak',null);super.interrupt(message);}\n}\n"
+        }
+      ]
+    },
+    "src/main.ts": {
+      "beforeSha256": "de114b37ca41ddd97cc64ac2560cb8ca0ec8804b13ca535141bcd7c1cdac1f4f",
+      "changes": [
+        {
+          "from": "import {ModeUI} from './ui/mode-ui';\nimport {renderFreezeHUD} from './ui/freeze-hud';\nimport './ui/mode-ui.css';\nimport {Customization} from './ui/customization';\n",
+          "to": "import {Customization} from './ui/customization';\n"
+        },
+        {
+          "from": "const presentation=new PresentationUI(audio);\nconst modeUI=new ModeUI(mode=>net.selectMode(mode));\nconst customization=new Customization(el('frog-customization'),appearance=>net.setAppearance(appearance));\n",
+          "to": "const presentation=new PresentationUI(audio);\nconst customization=new Customization(el('frog-customization'),appearance=>net.setAppearance(appearance));\n"
+        },
+        {
+          "from": "\nsetInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase!==previousPhase){if(phase==='game'&&document.activeElement instanceof HTMLInputElement)document.activeElement.blur();clear();previousPhase=phase;if(phase==='game')requestAnimationFrame(()=>{game.scale.getParentBounds();game.scale.refresh();});}if(net.status!=='connected')clear();if(phase==='home'&&previousPhase==='home'&&!lobby&&net.status.startsWith('You left'))net.notice='';guide.update(phase,net.playing);modeUI.update(lobby,net.playerId,net.status==='connected');el('home').hidden=!!lobby;el('lobby').hidden=phase!=='lobby';el('session').hidden=phase!=='game'||net.outbreak?.phase==='round-results'||net.outbreak?.phase==='match-results';el('leave').hidden=!lobby;el('connection').textContent=net.status;el('notice').textContent=net.notice;\n (el('create') as HTMLButtonElement).disabled=net.busy;(el('join') as HTMLButtonElement).disabled=net.busy;\n",
+          "to": "\nsetInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase!==previousPhase){if(phase==='game'&&document.activeElement instanceof HTMLInputElement)document.activeElement.blur();clear();previousPhase=phase;if(phase==='game')requestAnimationFrame(()=>{game.scale.getParentBounds();game.scale.refresh();});}if(net.status!=='connected')clear();if(phase==='home'&&previousPhase==='home'&&!lobby&&net.status.startsWith('You left'))net.notice='';guide.update(phase,net.playing);el('home').hidden=!!lobby;el('lobby').hidden=phase!=='lobby';el('session').hidden=phase!=='game'||net.outbreak?.phase==='round-results'||net.outbreak?.phase==='match-results';el('leave').hidden=!lobby;el('connection').textContent=net.status;el('notice').textContent=net.notice;\n (el('create') as HTMLButtonElement).disabled=net.busy;(el('join') as HTMLButtonElement).disabled=net.busy;\n"
+        },
+        {
+          "from": "\n if(state.mode==='freeze'){renderFreezeHUD(state,net.slot,playerName,net.playerId===net.lobby?.hostId,net.status==='connected');return;}\n const count=Math.max(1,Math.ceil(state.remainingMs/1000));\n",
+          "to": "\n const count=Math.max(1,Math.ceil(state.remainingMs/1000));\n"
+        }
+      ]
+    },
+    "src/game/outbreak.ts": {
+      "beforeSha256": "c167258b159b79892615fd103f63082bd08692027eb1ad9f2bdee68bdf10c703",
+      "changes": [
+        {
+          "from": "import type {FreezeDetails} from './freeze-tag';\nimport {DT} from '../simulation/config';\n",
+          "to": "import {DT} from '../simulation/config';\n"
+        },
+        {
+          "from": "export type OutbreakPlayer={slot:number;state:InfectionState;patientZero:boolean;infectedTick:number|null;infectiousTick:number|null;infectionPlace:number|null;roundPoints:number|null;survivalMs:number;survivalPoints:number;placementBonus:number;totalPoints:number;finalPlace:number};\nexport type OutbreakView={mode?:'poison'|'freeze';freeze?:FreezeDetails;phase:OutbreakPhase;round:number;roundCount:number;patientZero:number;patientZeroOrder:number[];tick:number;elapsedMs:number;remainingMs:number;players:OutbreakPlayer[];roundWinners:number[];matchWinners:number[]};\ntype Record={infectedTick:number|null;infectiousTick:number|null;infectionPlace:number|null;roundPoints:number|null;placementBonus:number};\n",
+          "to": "export type OutbreakPlayer={slot:number;state:InfectionState;patientZero:boolean;infectedTick:number|null;infectiousTick:number|null;infectionPlace:number|null;roundPoints:number|null;survivalMs:number;survivalPoints:number;placementBonus:number;totalPoints:number;finalPlace:number};\nexport type OutbreakView={phase:OutbreakPhase;round:number;roundCount:number;patientZero:number;patientZeroOrder:number[];tick:number;elapsedMs:number;remainingMs:number;players:OutbreakPlayer[];roundWinners:number[];matchWinners:number[]};\ntype Record={infectedTick:number|null;infectiousTick:number|null;infectionPlace:number|null;roundPoints:number|null;placementBonus:number};\n"
+        }
+      ]
+    },
+    "src/network/client.ts": {
+      "beforeSha256": "42cc57c894249462446e99c6dba7ad67846e78c171b0d3c84c3c146c6e943951",
+      "changes": [
+        {
+          "from": "import type {GameMode} from '../game/modes';\nimport {loadAppearance,type Appearance} from '../presentation/cosmetics';\n",
+          "to": "import {loadAppearance,type Appearance} from '../presentation/cosmetics';\n"
+        },
+        {
+          "from": " setAppearance(appearance:Appearance){if(this.status==='connected'&&this.lobby?.phase==='lobby')this.room?.send('appearance',appearance);}\n selectMode(mode:GameMode){if(this.status==='connected')this.room?.send('select-mode',mode);}\n selectArena(id:ArenaId){if(this.status==='connected')this.room?.send('select-arena',id);}\n",
+          "to": " setAppearance(appearance:Appearance){if(this.status==='connected'&&this.lobby?.phase==='lobby')this.room?.send('appearance',appearance);}\n selectArena(id:ArenaId){if(this.status==='connected')this.room?.send('select-arena',id);}\n"
+        }
+      ]
+    },
+    "src/network/protocol.ts": {
+      "beforeSha256": "29e76642ae559a420eda2ee62fa242e65a7bc42e6a957c8c1318570bc36583d7",
+      "changes": [
+        {
+          "from": "import type {GameMode} from '../game/modes';\nimport type {Appearance} from '../presentation/cosmetics';\n",
+          "to": "import type {Appearance} from '../presentation/cosmetics';\n"
+        },
+        {
+          "from": "export type Command={seq:number;at:number;input:Input};\nexport type Snapshot={frozen?:boolean[];arenaId?:ArenaId;state:PhysicsState;serverTime:number;ack:number[];connected:boolean[];tickMs:{p50:number;p95:number;p99:number;max:number};overruns:number;resetId:number};\nexport const NETWORK={snapshotHz:30,inputHz:30,interpolationMs:65,staleInputMs:350,maxPredictionMs:250,correctionSmoothMs:80,snapDistance:2};\n",
+          "to": "export type Command={seq:number;at:number;input:Input};\nexport type Snapshot={arenaId?:ArenaId;state:PhysicsState;serverTime:number;ack:number[];connected:boolean[];tickMs:{p50:number;p95:number;p99:number;max:number};overruns:number;resetId:number};\nexport const NETWORK={snapshotHz:30,inputHz:30,interpolationMs:65,staleInputMs:350,maxPredictionMs:250,correctionSmoothMs:80,snapDistance:2};\n"
+        },
+        {
+          "from": "export type PlayerInfo={id:string;name:string;connected:boolean;ready:boolean;slot:number;reconnectUntil?:number;appearance?:Appearance};\nexport type LobbyState={mode?:GameMode;arenaId:ArenaId;code:string;phase:'lobby'|'game';hostId:string;players:PlayerInfo[];notice:string;reconnectSeconds:number};\n",
+          "to": "export type PlayerInfo={id:string;name:string;connected:boolean;ready:boolean;slot:number;reconnectUntil?:number;appearance?:Appearance};\nexport type LobbyState={arenaId:ArenaId;code:string;phase:'lobby'|'game';hostId:string;players:PlayerInfo[];notice:string;reconnectSeconds:number};\n"
+        }
+      ]
+    },
+    "src/network/predictor.ts": {
+      "beforeSha256": "c823758202607bd9e6b3abf6cbe8b684c0ac4ae7e22f232355c4d05a05a83aa7",
+      "changes": [
+        {
+          "from": "import {syncFrozenBodies,stepFrozenBodies} from '../game/frozen-bodies';\nimport {Simulation} from '../simulation/world';\n",
+          "to": "import {Simulation} from '../simulation/world';\n"
+        },
+        {
+          "from": "export class Predictor {\n frozen:boolean[]=[];\n sim=new Simulation();pending:Command[]=[];time=0;slot=-1;initialized=false;\n",
+          "to": "export class Predictor {\n sim=new Simulation();pending:Command[]=[];time=0;slot=-1;initialized=false;\n"
+        },
+        {
+          "from": "  this.pending=this.pending.filter(c=>c.seq>snapshot.ack[this.slot]);\n  this.frozen=snapshot.frozen??[];syncFrozenBodies(this.sim);restore(this.sim,snapshot.state);syncFrozenBodies(this.sim,this.frozen);this.time=snapshot.serverTime;this.initialized=true;\n  // Reapply only unacknowledged commands at their sampled times. Remote inputs are held at latest known values.\n",
+          "to": "  this.pending=this.pending.filter(c=>c.seq>snapshot.ack[this.slot]);\n  restore(this.sim,snapshot.state);this.time=snapshot.serverTime;this.initialized=true;\n  // Reapply only unacknowledged commands at their sampled times. Remote inputs are held at latest known values.\n"
+        },
+        {
+          "from": "   while(next<this.pending.length&&this.pending[next].at+offset<=this.time+DT*1000){this.sim.setInput(this.slot,this.pending[next++].input);}\n   if(this.frozen.some(Boolean))stepFrozenBodies(this.sim,this.frozen,()=>this.sim.step());else this.sim.step();this.time+=DT*1000;\n  }\n",
+          "to": "   while(next<this.pending.length&&this.pending[next].at+offset<=this.time+DT*1000){this.sim.setInput(this.slot,this.pending[next++].input);}\n   this.sim.step();this.time+=DT*1000;\n  }\n"
+        },
+        {
+          "from": " }\n advance(nowServer:number){if(!this.initialized)return;let n=0;while(this.time+DT*1000<=nowServer&&n<6){if(this.frozen.some(Boolean))stepFrozenBodies(this.sim,this.frozen,()=>this.sim.step());else this.sim.step();this.time+=DT*1000;n++;}}\n}\n",
+          "to": " }\n advance(nowServer:number){if(!this.initialized)return;let n=0;while(this.time+DT*1000<=nowServer&&n<6){this.sim.step();this.time+=DT*1000;n++;}}\n}\n"
+        }
+      ]
+    },
+    "src/presentation/courtyard.ts": {
+      "beforeSha256": "9761d6d60a01f6d9a5153dc22dc68426d91fed2b566bd676f6c5dbe32f16cc21",
+      "changes": [
+        {
+          "from": "import {paintFreezeState} from './freeze-art';\nimport {appearanceLayers,type Appearance} from './cosmetics';\n",
+          "to": "import {appearanceLayers,type Appearance} from './cosmetics';\n"
+        },
+        {
+          "from": "  states.forEach((f,i)=>{\n   const p=positions[i];if(!p)return;const infection=view?.mode==='freeze'?undefined:view?.players[i],before=this.previous[i],color=FROG_COLORS[i];const state=infection?.state;\n   if(before){\n",
+          "to": "  states.forEach((f,i)=>{\n   const p=positions[i];if(!p)return;const infection=view?.players[i],before=this.previous[i],color=FROG_COLORS[i];const state=infection?.state;\n   if(before){\n"
+        },
+        {
+          "from": "   this.reactions[i]=Math.max(0,this.reactions[i]-delta);this.frog(g,p.x*S,p.y*S,f,i,infection,connected[i]!==false,i===local,time);\n   if(view?.mode==='freeze'){const frozen=view.freeze!.frozen[i];paintFreezeState(g,p.x*S,p.y*S,i,view);if(before?.state&&before.state!==(frozen?'frozen':'runner')){this.pop(p.x,p.y,0xb3f0ff,'attach');if(i===local)this.audio.play(frozen?'infect':'transform');}}\n   if(f.stickyMud){g.fillStyle(0x795343,.8);for(const dx of [-8,8])g.fillEllipse(p.x*S+dx,p.y*S+12,12,5);}\n",
+          "to": "   this.reactions[i]=Math.max(0,this.reactions[i]-delta);this.frog(g,p.x*S,p.y*S,f,i,infection,connected[i]!==false,i===local,time);\n   if(f.stickyMud){g.fillStyle(0x795343,.8);for(const dx of [-8,8])g.fillEllipse(p.x*S+dx,p.y*S+12,12,5);}\n"
+        },
+        {
+          "from": "   if(f.stickyMud){g.fillStyle(0x795343,.8);for(const dx of [-8,8])g.fillEllipse(p.x*S+dx,p.y*S+12,12,5);}\n   const status=connected[i]===false?'OFFLINE':view?.mode==='freeze'?(i===view.freeze!.freezer?'\u2744 FREEZER':view.freeze!.frozen[i]?'\u2744 FROZEN':view.freeze!.protectedUntil[i]>view.tick?'\u25c7 PROTECTED':'RUNNER'):infection?.state==='transforming'?'CHANGING \u00b7 1s':infection?.state==='infectious'?(infection.patientZero?'\u25c6 DART FROG':'\u25c6 POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.state==='healthy').length===1?'LAST SAFE':'SAFE';\n   const label=this.labels[i];\n",
+          "to": "   if(f.stickyMud){g.fillStyle(0x795343,.8);for(const dx of [-8,8])g.fillEllipse(p.x*S+dx,p.y*S+12,12,5);}\n   const status=connected[i]===false?'OFFLINE':infection?.state==='transforming'?'CHANGING \u00b7 1s':infection?.state==='infectious'?(infection.patientZero?'\u25c6 DART FROG':'\u25c6 POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.state==='healthy').length===1?'LAST SAFE':'SAFE';\n   const label=this.labels[i];\n"
+        },
+        {
+          "from": "   label.setVisible(true).setText(`${i===local?'\u25be ':''}${names[i]}\\n${status}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-defaults.frogRadius-.3)*S)).setColor(connected[i]===false?'#b2c7c2':state==='transforming'?'#ffe5a3':state==='infectious'?`#${POISON_ACCENTS[i].toString(16).padStart(6,'0')}`:'#fff8d9');\n   this.previous[i]={surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state:view?.mode==='freeze'?(view.freeze!.frozen[i]?'frozen':'runner'):state,x:f.x,y:f.y};\n  });\n",
+          "to": "   label.setVisible(true).setText(`${i===local?'\u25be ':''}${names[i]}\\n${status}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-defaults.frogRadius-.3)*S)).setColor(connected[i]===false?'#b2c7c2':state==='transforming'?'#ffe5a3':state==='infectious'?`#${POISON_ACCENTS[i].toString(16).padStart(6,'0')}`:'#fff8d9');\n   this.previous[i]={surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state,x:f.x,y:f.y};\n  });\n"
+        },
+        {
+          "from": "  this.labels.forEach((l,i)=>{if(i>=states.length)l.setVisible(false);});\n  this.feel.render(states,positions,view?.mode==='freeze'?undefined:view,local,delta);\n  this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;e.lineStyle(2,p.color,1-q);const radius=(p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});\n",
+          "to": "  this.labels.forEach((l,i)=>{if(i>=states.length)l.setVisible(false);});\n  this.feel.render(states,positions,view,local,delta);\n  this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;e.lineStyle(2,p.color,1-q);const radius=(p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});\n"
+        }
+      ]
+    },
+    "src/presentation/feel.ts": {
+      "beforeSha256": "93a8e0c1057a9bc86203f9c8a544dc7e97a69744c83cad3ba606eed961e506c3",
+      "changes": [
+        {
+          "from": "  });\n  this.sparks=this.sparks.filter(s=>{s.age+=Math.min(delta,50);if(s.age>=s.life)return false;const q=s.age/s.life;if(s.kind==='infection'){g.fillStyle(s.color,.4*(1-q));for(let j=0;j<6;j++){const a=j*Math.PI/3;g.fillCircle(s.x+Math.cos(a)*(6+q*18),s.y+Math.sin(a)*(6+q*18),5+q*4);} }g.lineStyle(2,s.color,1-q);for(let j=0;j<4;j++){const a=j*Math.PI/2+.35,near=8+q*14,far=near+(1-q)*6;g.lineBetween(s.x+Math.cos(a)*near,s.y+Math.sin(a)*near,s.x+Math.cos(a)*far,s.y+Math.sin(a)*far);}return true;});\n  this.before=states.map(f=>({...f,tongue:f.tongue?{...f.tongue}:undefined}));\n",
+          "to": "  });\n  this.sparks=this.sparks.filter(s=>{s.age+=Math.min(delta,50);if(s.age>=s.life)return false;const q=s.age/s.life;g.lineStyle(2,s.color,1-q);for(let j=0;j<4;j++){const a=j*Math.PI/2+.35,near=8+q*14,far=near+(1-q)*6;g.lineBetween(s.x+Math.cos(a)*near,s.y+Math.sin(a)*near,s.x+Math.cos(a)*far,s.y+Math.sin(a)*far);}return true;});\n  this.before=states.map(f=>({...f,tongue:f.tongue?{...f.tongue}:undefined}));\n"
+        }
+      ]
+    },
+    "src/presentation/presentation-ui.ts": {
+      "beforeSha256": "09d20844163693e6836888d836cf1f71e439675b2390432813c049b2dde8b1e5",
+      "changes": [
+        {
+          "from": " update(view:OutbreakView|undefined,local:number){\n  for(const m of this.moments.update(view,local)){this.audio.play(m.cue);if(m.text){this.toast.textContent=m.text;this.toast.dataset.kind=m.cue;this.until=performance.now()+(m.cue==='last'||m.cue==='infect'||m.cue==='transform'?1300:650);}}\n  this.toast.hidden=!view||view.phase!=='playing'||performance.now()>this.until||!!document.querySelector('dialog[open]');\n",
+          "to": " update(view:OutbreakView|undefined,local:number){\n  for(const m of this.moments.update(view,local)){this.audio.play(m.cue);if(m.text){this.toast.textContent=m.text;this.toast.dataset.kind=m.cue;this.until=performance.now()+(m.cue==='last'?1300:650);}}\n  this.toast.hidden=!view||view.phase!=='playing'||performance.now()>this.until||!!document.querySelector('dialog[open]');\n"
+        },
+        {
+          "from": "  const count=Math.ceil(view.remainingMs/1000);if(view.phase==='countdown'&&count!==this.count){const number=document.querySelector('#countdown-number')!;number.classList.remove('pond-count-pop');void (number as HTMLElement).offsetWidth;number.classList.add('pond-count-pop');this.count=count;}\n  document.body.classList.toggle('pond-last',view.phase==='playing'&&view.mode!=='freeze'&&view.players.filter(p=>p.state==='healthy').length===1);\n  document.body.classList.toggle('pond-victory',view.phase==='match-results');\n",
+          "to": "  const count=Math.ceil(view.remainingMs/1000);if(view.phase==='countdown'&&count!==this.count){const number=document.querySelector('#countdown-number')!;number.classList.remove('pond-count-pop');void (number as HTMLElement).offsetWidth;number.classList.add('pond-count-pop');this.count=count;}\n  document.body.classList.toggle('pond-last',view.phase==='playing'&&view.players.filter(p=>p.state==='healthy').length===1);\n  document.body.classList.toggle('pond-victory',view.phase==='match-results');\n"
+        }
+      ]
+    },
+    "src/presentation/moments.ts": {
+      "beforeSha256": "94a423f7ee9e5e2460303fa8af0bf43a592b54c6e4b9532a651f4ffef9f4c0cd",
+      "changes": [
+        {
+          "from": "  if(!view){this.reset();return [];}\n  const events:Moment[]=[],key=`${view.mode??'poison'}:${view.patientZeroOrder.join(',')}:${view.round}`;\n  if(key!==this.roundKey){this.roundKey=key;this.phase='';this.count=-1;this.healthy=-1;this.states=[];}\n",
+          "to": "  if(!view){this.reset();return [];}\n  const events:Moment[]=[],key=`${view.patientZeroOrder.join(',')}:${view.round}`;\n  if(key!==this.roundKey){this.roundKey=key;this.phase='';this.count=-1;this.healthy=-1;this.states=[];}\n"
+        },
+        {
+          "from": "  if(key!==this.roundKey){this.roundKey=key;this.phase='';this.count=-1;this.healthy=-1;this.states=[];}\n  const freeze=view.mode==='freeze';const healthy=freeze?view.players.filter(p=>p.slot!==view.freeze!.freezer&&!view.freeze!.frozen[p.slot]).length:view.players.filter(p=>p.state==='healthy').length;\n  if(view.phase!==this.phase){\n",
+          "to": "  if(key!==this.roundKey){this.roundKey=key;this.phase='';this.count=-1;this.healthy=-1;this.states=[];}\n  const healthy=view.players.filter(p=>p.state==='healthy').length;\n  if(view.phase!==this.phase){\n"
+        },
+        {
+          "from": "   if(view.phase==='announcement')events.push({cue:'reveal'});\n   if(view.phase==='playing')events.push({cue:'go',text:freeze?'FREEZE TAG!':'POISON TAG!'});\n   if(view.phase==='round-results')events.push({cue:'round'});\n",
+          "to": "   if(view.phase==='announcement')events.push({cue:'reveal'});\n   if(view.phase==='playing')events.push({cue:'go',text:'POISON TAG!'});\n   if(view.phase==='round-results')events.push({cue:'round'});\n"
+        },
+        {
+          "from": "  if(view.phase==='playing'){\n   if(!freeze&&healthy===1&&this.healthy!==1)events.push({cue:'last',text:'LAST SAFE FROG!'});\n   if(freeze){const current=view.freeze!.frozen[local]?'frozen':'runner';if(this.states[local]==='runner'&&current==='frozen')events.push({cue:'infect',text:'YOU\u2019RE FROZEN!'});if(this.states[local]==='frozen'&&current==='runner')events.push({cue:'transform',text:'RESCUED!'});}\n   if(!freeze&&view.players.some((p,i)=>!p.patientZero&&this.states[i]==='healthy'&&p.state!=='healthy'))events.push({cue:'infect',...(this.states[local]==='healthy'&&view.players[local]?.state!=='healthy'?{text:'YOU\u2019RE POISONED!'}:{})});\n   if(!freeze&&this.states[local]==='transforming'&&view.players[local]?.state==='infectious')events.push({cue:'transform'});\n  }\n",
+          "to": "  if(view.phase==='playing'){\n   if(healthy===1&&this.healthy!==1)events.push({cue:'last',text:'LAST SAFE FROG!'});\n   if(view.players.some((p,i)=>!p.patientZero&&this.states[i]==='healthy'&&p.state!=='healthy'))events.push({cue:'infect'});\n   if(this.states[local]==='transforming'&&view.players[local]?.state==='infectious')events.push({cue:'transform'});\n  }\n"
+        },
+        {
+          "from": "  }\n  this.phase=view.phase;this.healthy=healthy;this.states=view.players.map(p=>freeze?(view.freeze!.frozen[p.slot]?'frozen':'runner'):p.state);return events;\n }\n",
+          "to": "  }\n  this.phase=view.phase;this.healthy=healthy;this.states=view.players.map(p=>p.state);return events;\n }\n"
+        }
+      ]
+    },
+    "src/simulation/world.ts": {
+      "beforeSha256": "feb1f7f8e4de9957e36b04429208a2fbe5213b51fb1e7a8d7d6913055a06edac",
+      "changes": [
+        {
+          "from": "    this.world.rayCast(start, end, (fixture, point, _normal, fraction) => {\n      if (fixture.getBody() === f.body || (fixture.getBody().getUserData() as {frozenTag?:boolean}|undefined)?.frozenTag) return -1;\n      hit = { body: fixture.getBody(), point: { x: point.x, y: point.y } }; return fraction;\n",
+          "to": "    this.world.rayCast(start, end, (fixture, point, _normal, fraction) => {\n      if (fixture.getBody() === f.body) return -1;\n      hit = { body: fixture.getBody(), point: { x: point.x, y: point.y } }; return fraction;\n"
+        }
+      ]
+    },
+    "src/simulation/arena-adapter.ts": {
+      "beforeSha256": "4c4ea02137892eb7c4f1efc05f6418bd4d10058cd3f60ce85b4dc7f6efb64a86",
+      "changes": [
+        {
+          "from": " sim.clearInputs();\n for(let body=sim.world.getBodyList();body;){const next=body.getNext();if(!body.isDynamic()&&!sim.frogs.some(f=>f.body===body))sim.world.destroyBody(body);body=next;}\n for(const r of getArena(id).solids){const b=sim.world.createBody(Vec2(r.x,r.y));if(r.surface)b.setUserData({surface:r.surface});b.createFixture(r.outline?Polygon(r.outline.map(([x,y])=>Vec2(x,y))):Box(r.w/2,r.h/2),{friction:sim.tuning.friction});}\n",
+          "to": " sim.clearInputs();\n for(let body=sim.world.getBodyList();body;){const next=body.getNext();if(!body.isDynamic())sim.world.destroyBody(body);body=next;}\n for(const r of getArena(id).solids){const b=sim.world.createBody(Vec2(r.x,r.y));if(r.surface)b.setUserData({surface:r.surface});b.createFixture(r.outline?Polygon(r.outline.map(([x,y])=>Vec2(x,y))):Box(r.w/2,r.h/2),{friction:sim.tuning.friction});}\n"
+        }
+      ]
+    },
+    "src/simulation/state.ts": {
+      "beforeSha256": "afb007b0152c3967db79e4b79f8e338320eda396adf364f4ea7242ae20f07eba",
+      "changes": [
+        {
+          "from": "export function capture(sim:Simulation):PhysicsState {\n const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if(!b.isDynamic()&&!sim.frogs.some(f=>f.body===b))terrain.push(b);\n return {tick:sim.tick,frogs:sim.frogs.map(f=>{\n",
+          "to": "export function capture(sim:Simulation):PhysicsState {\n const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if(!b.isDynamic())terrain.push(b);\n return {tick:sim.tick,frogs:sim.frogs.map(f=>{\n"
+        },
+        {
+          "from": " sizeSimulation(sim,state.frogs.length);\n const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if(!b.isDynamic()&&!sim.frogs.some(f=>f.body===b))terrain.push(b);\n for(const f of sim.frogs)sim.detach(f);\n",
+          "to": " sizeSimulation(sim,state.frogs.length);\n const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if(!b.isDynamic())terrain.push(b);\n for(const f of sim.frogs)sim.detach(f);\n"
+        }
+      ]
+    }
+  }
+}

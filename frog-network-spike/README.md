@@ -1,6 +1,6 @@
 # Frog-Out — current game
 
-**[Play online](https://frog-out-milestone-2.onrender.com/)** · 2–8 players · Four selectable arenas · Poison Tag.
+**[Play online](https://frog-out-milestone-2.onrender.com/)** · 2–8 players · Four selectable arenas · Poison Tag + Freeze Tag.
 
 No player account, installation or special player-specific URL. Enter a display name, create/join by six-character code, use Copy Code/Copy Join Link. All connected players ready up; the host starts with at least two players. The match roster then freezes. Controls & Rules appears before play; How to Play stays available. The round continues while Help is open, with held inputs cleared; use fresh inputs after closing.
 
@@ -31,9 +31,21 @@ Everyone in the frozen roster is Poison Dart Frog exactly once in randomized ord
 
 Text/markings/effects supplement poison colors. Non-lethal out-of-bounds recovery does not directly infect or change scoring; the existing emergency fallback resets all frogs and has not been redesigned.
 
+## Freeze Tag / scoring
+
+Host selects the mode in the lobby; Poison Tag remains the default. Mode changes retain Ready states and cosmetics. Selection locks at match start.
+
+- One freezer per round, randomized rotation; everybody starts freezer once per match.
+- Body contact freezes runners. Only an unfrozen runner can rescue a frozen teammate by body contact. Tongues do neither. **No automatic thaw.**
+- Frozen frogs remain solid, pinned in ice; no movement, jump, grapple or surface-driven escape. Incoming/outgoing tongues detach. Rescue restores normal physics with one second of freeze protection.
+- Active round: 60 seconds, or until every runner freezes. **Two players: first freeze ends the round; no rescue and no clear bonus.**
+- Runners earn 1 point/second unfrozen, paused while frozen. Freezer earns 3 per successful freeze, plus 5 for clearing all runners with 3–8 players.
+- All-frozen round: freezer wins. Timeout: remaining unfrozen runners share the escape victory. Highest cumulative points wins the match; ties share victory.
+- Freeze resolves before rescue in each authoritative tick; a newly frozen runner cannot rescue that tick. Results show survival, freeze points, clear bonus and totals.
+
 ## Connection lifecycle
 
-During a match, accidental disconnects reserve the same player/frog for up to **30 seconds after server detection**. Inputs/outgoing tongue clear; the body stays physical and can be poisoned. Automatic reconnect or refresh of the **same tab** restores current state within the reservation. A new tab does not reliably retain identity. Expiry interrupts the match, returns connected players to the lobby and resets readiness.
+During a match, accidental disconnects reserve the same player/frog for up to **30 seconds after server detection**. Inputs/outgoing tongue clear; the body remains in the simulation and can be poisoned/frozen or rescued under the selected mode rules. Automatic reconnect or refresh of the **same tab** restores current state within the reservation. A new tab does not reliably retain identity. Expiry interrupts the match, returns connected players to the lobby and resets readiness.
 
 Lobby disconnects remove entries; host responsibility transfers if needed. Explicit Leave during a match ends it for everyone immediately and now asks for confirmation, for both host and non-host. Lobby Leave does not end the room for others. Rooms are in memory: restart/redeploy loses them.
 
@@ -82,9 +94,9 @@ Diagnostics exports input/acknowledgements, authoritative state, touch lifecycle
 
 ## Baselines / known limitations
 
-Approved earlier milestones remain recoverable in Git. M6 release candidate: `6b85ff332bb12ffd539f7392a742f966ae9542bb` / `checkpoint/milestone-6-release-candidate`. [M7 preservation record](docs/milestone-7-preservation.json) locks physics/tuning, graphics, geometry, networking/rules, touch recovery and responsive/fullscreen source. Milestone 7 is personally approved; Arena 2 geometry acceptance is pending.
+Approved earlier milestones remain recoverable in Git. M6 release candidate: `6b85ff332bb12ffd539f7392a742f966ae9542bb` / `checkpoint/milestone-6-release-candidate`. [M7 preservation record](docs/milestone-7-preservation.json) locks physics/tuning, graphics, geometry, networking/rules, touch recovery and responsive/fullscreen source. Approved Milestone 15: `f894102e9bb7f69406de278f94542d92f8154d0c`, checkpoint `checkpoint/approved-milestone-15-frog-customization`. Freeze Tag is an acceptance candidate; see [Milestone 16](docs/milestone-16-freeze-tag.md).
 
-**Physical iPhone/iOS Safari remains an outstanding pre-release test, not confirmed working.** Current physical Android/tablet long sessions and desktop Safari/Firefox/Edge-specific validation remain outstanding. Crowded labels and lower-end phone performance need real-device assessment. Free cold starts and room loss on restart remain documented compromises. No second arena/mode, progression, accounts or cosmetics added.
+**The existing iPhone Safari viewport and simultaneous multitouch were physically approved by the owner; Freeze Tag itself still needs physical-device acceptance.** Current physical Android/tablet long sessions and desktop Safari/Firefox/Edge-specific validation remain outstanding. Crowded labels and lower-end phone performance need real-device assessment. Free cold starts and room loss on restart remain documented compromises. Four arenas and synchronized cosmetic customization are available; no progression, accounts or purchases.
 
 [Submission readiness](docs/submission-readiness.md) lists required materials/drafts and remaining checks; [assets and licenses](docs/assets-and-licenses.md) records original procedural artwork/audio and dependencies.
 

@@ -33,7 +33,7 @@ export class Feel {
    if(state==='transforming'){const player=view!.players[i],remaining=Math.max(0,(player.infectiousTick??view!.tick)-view!.tick)/60;g.lineStyle(2,0xffe09b,.9);g.beginPath();g.arc(p.x*30,p.y*30,r+11,-Math.PI/2,-Math.PI/2+Math.PI*2*Math.min(1,remaining));g.strokePath();}
    this.infection[i]=state??'';
   });
-  this.sparks=this.sparks.filter(s=>{s.age+=Math.min(delta,50);if(s.age>=s.life)return false;const q=s.age/s.life;g.lineStyle(2,s.color,1-q);for(let j=0;j<4;j++){const a=j*Math.PI/2+.35,near=8+q*14,far=near+(1-q)*6;g.lineBetween(s.x+Math.cos(a)*near,s.y+Math.sin(a)*near,s.x+Math.cos(a)*far,s.y+Math.sin(a)*far);}return true;});
+  this.sparks=this.sparks.filter(s=>{s.age+=Math.min(delta,50);if(s.age>=s.life)return false;const q=s.age/s.life;if(s.kind==='infection'){g.fillStyle(s.color,.4*(1-q));for(let j=0;j<6;j++){const a=j*Math.PI/3;g.fillCircle(s.x+Math.cos(a)*(6+q*18),s.y+Math.sin(a)*(6+q*18),5+q*4);} }g.lineStyle(2,s.color,1-q);for(let j=0;j<4;j++){const a=j*Math.PI/2+.35,near=8+q*14,far=near+(1-q)*6;g.lineBetween(s.x+Math.cos(a)*near,s.y+Math.sin(a)*near,s.x+Math.cos(a)*far,s.y+Math.sin(a)*far);}return true;});
   this.before=states.map(f=>({...f,tongue:f.tongue?{...f.tongue}:undefined}));
  }
 }

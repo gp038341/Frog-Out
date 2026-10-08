@@ -230,7 +230,7 @@ export class Simulation {
     const end = Vec2(start.x + tongue.direction.x * travel, start.y + tongue.direction.y * travel);
     let hit: { body: Body; point: { x: number; y: number } } | undefined;
     this.world.rayCast(start, end, (fixture, point, _normal, fraction) => {
-      if (fixture.getBody() === f.body) return -1;
+      if (fixture.getBody() === f.body || (fixture.getBody().getUserData() as {frozenTag?:boolean}|undefined)?.frozenTag) return -1;
       hit = { body: fixture.getBody(), point: { x: point.x, y: point.y } }; return fraction;
     });
     tongue.distance += travel;

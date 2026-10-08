@@ -1,6 +1,6 @@
 # Frog-Out
 
-A playful **2–8 player** real-time physics party game. Run, charge-jump and swing through Canopy Courtyard with a pulling tongue. Grapple the arena—or another frog—while an outbreak spreads through body contact.
+A playful **2–8 player** real-time physics party game. Run, charge-jump and swing through four playful arenas with a pulling tongue. Choose Poison Tag or Freeze Tag; Sunny Pond is the default arena. Customize your frog in the lobby.
 
 **[Play Frog-Out](https://frog-out-milestone-2.onrender.com/)**. No player accounts or installation. Bring at least one friend on another browser/device.
 
@@ -8,14 +8,16 @@ A playful **2–8 player** real-time physics party game. Run, charge-jump and sw
 
 1. Enter a display name and create a room.
 2. Share its six-character code or copied join link. Friends enter a name and join.
-3. Read Controls & Rules. Everyone selects Ready; the host selects Start Outbreak.
-4. Healthy frogs escape; poisoned frogs chase. Everyone becomes Patient Zero once per match. Highest total score wins, including shared victories.
+3. Read Controls & Rules. Everyone selects Ready; the host selects Start.
+4. Safe frogs escape; taggers chase. Everyone starts as tagger once per match. Highest total score wins, including shared victories.
 
 **Desktop:** WASD/arrow keys move and aim. Grounded, tap/release Space to jump, or hold/release for a charged launch. Airborne, press Space to shoot your tongue; hold to pull, release to detach with momentum.
 
 **Touch:** left eight-direction pad moves/aims; right JUMP/TONGUE button performs the same action. Landscape is recommended; fullscreen is optional. How to Play remains accessible during the game.
 
-**Outbreak:** frog-body contact alone spreads poison; tongues never directly infect. Newly infected frogs have one second of grace. Healthy survival earns **1 point/second**, plus **2 points** for the last healthy frog(s). Infection stops survival scoring. Patient Zero earns zero. Round results separate survival, bonus and cumulative totals.
+**Poison Tag:** frog-body contact alone spreads poison; tongues never directly infect. Newly infected frogs have one second of grace. Healthy survival earns **1 point/second**, plus **2 points** for the last healthy frog(s). Infection stops survival scoring. Poison Dart Frog earns zero. Round results separate survival, bonus and cumulative totals.
+
+**Freeze Tag:** a freezer freezes by body contact; unfrozen teammates rescue by body contact. No automatic thaw. Frozen frogs cannot move or grapple. Rounds last 60 seconds or end when every runner freezes; with two players, first freeze ends the round. Runners score 1 point/second unfrozen; freezer scores 3/freeze plus 5 for clearing everyone with 3–8 players. Mode choice is host-controlled and locked during matches.
 
 ## Development
 

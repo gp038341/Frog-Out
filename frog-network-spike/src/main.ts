@@ -1,3 +1,6 @@
+import {ModeUI} from './ui/mode-ui';
+import {renderFreezeHUD} from './ui/freeze-hud';
+import './ui/mode-ui.css';
 import {Customization} from './ui/customization';
 import {appearancePreview} from './presentation/cosmetic-art';
 import {skinFor} from './presentation/cosmetics';
@@ -137,6 +140,7 @@ Object.assign(window,{spikeDebug:net});
 const el=(id:string)=>document.getElementById(id)!;
 const guide=new PlayerGuide(clear);
 const presentation=new PresentationUI(audio);
+const modeUI=new ModeUI(mode=>net.selectMode(mode));
 const customization=new Customization(el('frog-customization'),appearance=>net.setAppearance(appearance));
 const arenaCards=arenaList.map(a=>{const b=document.createElement('button');b.type='button';b.className='arena-card';b.dataset.arena=a.id;b.innerHTML=arenaPreview(a);const title=document.createElement('strong');title.textContent=a.name;b.append(title);const desc=document.createElement('small');desc.textContent=a.id==='canopy'?'Balanced garden chases':a.id==='bathhouse'?'Sponge shortcuts & basin swings':a.id==='toyshop'?'Rubber launches & zigzag chases':a.id==='sunny-pond'?'Lily launches & muddy choices':'Vertical swings & launches';b.append(desc);b.onclick=()=>net.selectArena(a.id);el('arena-previews').append(b);return b;});
 const arenaSelect=el('arena-select') as HTMLSelectElement;arenaSelect.replaceChildren(...arenaList.map(a=>{const o=document.createElement('option');o.value=a.id;o.textContent=a.name+(a.geometryPreview?' · Geometry Preview':'');return o;}));arenaSelect.onchange=()=>{if(isArenaId(arenaSelect.value))net.selectArena(arenaSelect.value);};
@@ -159,7 +163,7 @@ function updateMonitor(){diagnosticPanel.hidden=!monitor||el('session').hidden;d
 }
 let uiSignature='';let previousPhase='';let previousGamePhase='';
 
-setInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase!==previousPhase){if(phase==='game'&&document.activeElement instanceof HTMLInputElement)document.activeElement.blur();clear();previousPhase=phase;if(phase==='game')requestAnimationFrame(()=>{game.scale.getParentBounds();game.scale.refresh();});}if(net.status!=='connected')clear();if(phase==='home'&&previousPhase==='home'&&!lobby&&net.status.startsWith('You left'))net.notice='';guide.update(phase,net.playing);el('home').hidden=!!lobby;el('lobby').hidden=phase!=='lobby';el('session').hidden=phase!=='game'||net.outbreak?.phase==='round-results'||net.outbreak?.phase==='match-results';el('leave').hidden=!lobby;el('connection').textContent=net.status;el('notice').textContent=net.notice;
+setInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase!==previousPhase){if(phase==='game'&&document.activeElement instanceof HTMLInputElement)document.activeElement.blur();clear();previousPhase=phase;if(phase==='game')requestAnimationFrame(()=>{game.scale.getParentBounds();game.scale.refresh();});}if(net.status!=='connected')clear();if(phase==='home'&&previousPhase==='home'&&!lobby&&net.status.startsWith('You left'))net.notice='';guide.update(phase,net.playing);modeUI.update(lobby,net.playerId,net.status==='connected');el('home').hidden=!!lobby;el('lobby').hidden=phase!=='lobby';el('session').hidden=phase!=='game'||net.outbreak?.phase==='round-results'||net.outbreak?.phase==='match-results';el('leave').hidden=!lobby;el('connection').textContent=net.status;el('notice').textContent=net.notice;
  (el('create') as HTMLButtonElement).disabled=net.busy;(el('join') as HTMLButtonElement).disabled=net.busy;
  const signature=JSON.stringify([lobby,net.playerId]);if(signature!==uiSignature){uiSignature=signature;el('players').replaceChildren();if(lobby){el('code').textContent=lobby.code;el('session-code').textContent=`Room ${lobby.code}`;for(const p of lobby.players){const li=document.createElement('li');li.style.setProperty('--frog-color','#'+skinFor(p.appearance).color.toString(16).padStart(6,'0'));li.className=p.ready?'player-card ready':'player-card';const portrait=document.createElement('span');portrait.className='player-portrait';portrait.innerHTML=appearancePreview(p.appearance);const text=document.createElement('span');text.className='player-name';text.textContent=`${p.name}${p.id===lobby.hostId?' · Host':''}${p.id===net.playerId?' · You':''} — ${p.connected?(p.ready?'Ready':'Not ready'):'Disconnected (slot reserved)'}`;li.append(portrait,text);el('players').append(li);}const me=lobby.players.find(p=>p.id===net.playerId);customization.update(me?.appearance,net.status==='connected'&&phase==='lobby');el('ready').textContent=me?.ready?'Not Ready':'Ready';el('ready').setAttribute('aria-pressed',String(!!me?.ready));el('start').hidden=net.playerId!==lobby.hostId;}}
  if(lobby){const selected=getArena(lobby.arenaId);el('lobby-arena-name').textContent=selected.name.toUpperCase();arenaSelect.value=selected.id;for(const card of arenaCards){const chosen=card.dataset.arena===selected.id;card.setAttribute('aria-pressed',String(chosen));card.disabled=phase!=='lobby'||net.playerId!==lobby.hostId||net.status!=='connected';}arenaSelect.disabled=phase!=='lobby'||net.playerId!==lobby.hostId||net.status!=='connected';el('arena-description').textContent=selected.description;el('arena-choice-note').textContent=net.playerId===lobby.hostId?'Changing arenas clears Ready for everyone.':'The host chooses. Arena changes clear everyone’s Ready.';el('session-code').textContent=`Room ${lobby.code} · ${selected.name}`;}
@@ -182,6 +186,7 @@ function renderOutbreak(){
  const results=state?.phase==='round-results'||state?.phase==='match-results';el('results').hidden=!results;
  if(!state){el('phase-overlay').hidden=true;return;}
 
+ if(state.mode==='freeze'){renderFreezeHUD(state,net.slot,playerName,net.playerId===net.lobby?.hostId,net.status==='connected');return;}
  const count=Math.max(1,Math.ceil(state.remainingMs/1000));
  document.body.dataset.outbreakPhase=state.phase;
  const intro=state.phase==='announcement'||state.phase==='countdown';el('phase-overlay').hidden=!intro;el('phase-overlay').dataset.phase=state.phase;el('reveal-name').textContent=playerName(state.patientZero);el('countdown-number').textContent=state.phase==='countdown'?String(count):'◆';

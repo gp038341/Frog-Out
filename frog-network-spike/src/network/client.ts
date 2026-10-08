@@ -1,3 +1,4 @@
+import type {GameMode} from '../game/modes';
 import {loadAppearance,type Appearance} from '../presentation/cosmetics';
 import {DEFAULT_ARENA,type ArenaId} from '../simulation/arenas';
 import {setSimulationArena} from '../simulation/arena-adapter';
@@ -40,6 +41,7 @@ export class Connection {
  }
  async resume(token:string){if(this.reconnecting)return;this.reconnecting=true;this.busy=true;const attempt=++this.reconnectAttempt;this.stop();const deadline=Date.now()+30000;try{while(Date.now()<deadline){if(attempt!==this.reconnectAttempt)return;this.status=`Reconnecting… ${Math.max(0,Math.ceil((deadline-Date.now())/1000))}s remaining`;try{const room=await this.client.reconnect(token);if(attempt!==this.reconnectAttempt){await room.leave();return;}this.attach(room);return;}catch{await new Promise(r=>setTimeout(r,1000));}}if(attempt!==this.reconnectAttempt)return;this.lobby=undefined;this.room=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);this.status='Reconnection window expired or the session ended. Join the room lobby again.';}finally{if(attempt===this.reconnectAttempt){this.reconnecting=false;this.busy=false;}}}
  setAppearance(appearance:Appearance){if(this.status==='connected'&&this.lobby?.phase==='lobby')this.room?.send('appearance',appearance);}
+ selectMode(mode:GameMode){if(this.status==='connected')this.room?.send('select-mode',mode);}
  selectArena(id:ArenaId){if(this.status==='connected')this.room?.send('select-arena',id);}
  ready(value:boolean){if(this.status==='connected')this.room?.send('ready',value);}
  start(){if(this.status==='connected')this.room?.send('start');}

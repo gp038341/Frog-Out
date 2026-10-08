@@ -1,0 +1,73 @@
+{
+  "scope": "Local compiled build; Chromium desktop and emulated phone/tablet; not physical iPhone/Android certification",
+  "checks": [
+    "four desktop/phone/tablet clients; default Poison, host-only Freeze choice, preserved Ready/cosmetics, responsive lobby/start",
+    "body freeze immobilizes keyboard controls; visible frozen state/cosmetics; body rescue and protection; stable mobile canvas ratio",
+    "four-round freeze rotation/scoring/results/final/rematch and returning to unchanged Poison Tag"
+  ],
+  "layouts": [
+    {
+      "config": {
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        }
+      },
+      "canvas": {
+        "x": 10,
+        "y": 107,
+        "width": 1260,
+        "height": 708.75
+      }
+    },
+    {
+      "config": {
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "isMobile": true,
+        "hasTouch": true,
+        "deviceScaleFactor": 3
+      },
+      "canvas": {
+        "x": 167.15625,
+        "y": 62,
+        "width": 508.4375,
+        "height": 286
+      }
+    },
+    {
+      "config": {
+        "viewport": {
+          "width": 667,
+          "height": 375
+        },
+        "isMobile": true,
+        "hasTouch": true,
+        "deviceScaleFactor": 2
+      },
+      "canvas": {
+        "x": 117.375,
+        "y": 62,
+        "width": 432,
+        "height": 243
+      }
+    },
+    {
+      "config": {
+        "viewport": {
+          "width": 1024,
+          "height": 768
+        }
+      },
+      "canvas": {
+        "x": 10,
+        "y": 113,
+        "width": 1004,
+        "height": 564.75
+      }
+    }
+  ],
+  "errors": []
+}

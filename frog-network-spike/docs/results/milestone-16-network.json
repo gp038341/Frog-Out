@@ -1,0 +1,22 @@
+{
+  "scope": "Compiled local server; independent WebSocket clients; test-only positioning/short countdown; production freeze rules; no physical-device claim",
+  "checks": [
+    "sunny-pond: 2 clients, mode default/host/Ready retention/lock, freeze and immobility, 2 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback",
+    "sunny-pond: 3 clients, mode default/host/Ready retention/lock, freeze and immobility, 3 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback, frozen reconnect/rescue/protection",
+    "sunny-pond: 4 clients, mode default/host/Ready retention/lock, freeze and immobility, 4 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback, frozen reconnect/rescue/protection",
+    "sunny-pond: 8 clients, mode default/host/Ready retention/lock, freeze and immobility, 8 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback, frozen reconnect/rescue/protection",
+    "bathhouse: 2 clients, mode default/host/Ready retention/lock, freeze and immobility, 2 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback",
+    "bathhouse: 3 clients, mode default/host/Ready retention/lock, freeze and immobility, 3 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback, frozen reconnect/rescue/protection",
+    "bathhouse: 4 clients, mode default/host/Ready retention/lock, freeze and immobility, 4 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback, frozen reconnect/rescue/protection",
+    "bathhouse: 8 clients, mode default/host/Ready retention/lock, freeze and immobility, 8 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback, frozen reconnect/rescue/protection",
+    "canopy: 2 clients, mode default/host/Ready retention/lock, freeze and immobility, 2 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback",
+    "canopy: 3 clients, mode default/host/Ready retention/lock, freeze and immobility, 3 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback, frozen reconnect/rescue/protection",
+    "canopy: 4 clients, mode default/host/Ready retention/lock, freeze and immobility, 4 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback, frozen reconnect/rescue/protection",
+    "canopy: 8 clients, mode default/host/Ready retention/lock, freeze and immobility, 8 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback, frozen reconnect/rescue/protection",
+    "toyshop: 2 clients, mode default/host/Ready retention/lock, freeze and immobility, 2 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback",
+    "toyshop: 3 clients, mode default/host/Ready retention/lock, freeze and immobility, 3 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback, frozen reconnect/rescue/protection",
+    "toyshop: 4 clients, mode default/host/Ready retention/lock, freeze and immobility, 4 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback, frozen reconnect/rescue/protection",
+    "toyshop: 8 clients, mode default/host/Ready retention/lock, freeze and immobility, 8 freezer rounds, clear bonus, cosmetics/rematch/Poison fallback, frozen reconnect/rescue/protection",
+    "expired reconnect interrupts whole Freeze match and returns remaining players to lobby (1s test reservation; production unchanged 30s)"
+  ]
+}

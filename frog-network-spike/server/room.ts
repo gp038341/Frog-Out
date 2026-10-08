@@ -9,6 +9,7 @@ import {NETWORK, type Command, type Snapshot} from '../src/network/protocol';
 import {summary} from './metrics';
 const neutral=():Input=>({x:0,y:0,held:false});
 export class SpikeRoom extends Room {
+ frozenSnapshot?:boolean[];
  maxClients=2;
  sim=new Simulation();
  slots=new Map<string,number>(); ack=[0,0]; queues:Command[][]=[[],[]];
@@ -50,5 +51,5 @@ export class SpikeRoom extends Room {
   }
   if(this.accumulator>=DT*1000){this.overruns++;this.accumulator=0;}
  }
- publish(){const snapshot:Snapshot={arenaId:simulationArena(this.sim),state:capture(this.sim),serverTime:Date.now()-this.accumulator,ack:[...this.ack],connected:[...Array(this.sim.frogs.length)].map((_,i)=>[...this.slots.values()].includes(i)),tickMs:summary(this.times),overruns:this.overruns,resetId:this.resetId};this.broadcast('snapshot',snapshot);}
+ publish(){const snapshot:Snapshot={arenaId:simulationArena(this.sim),state:capture(this.sim),serverTime:Date.now()-this.accumulator,ack:[...this.ack],connected:[...Array(this.sim.frogs.length)].map((_,i)=>[...this.slots.values()].includes(i)),tickMs:summary(this.times),overruns:this.overruns,resetId:this.resetId};if(this.frozenSnapshot)snapshot.frozen=[...this.frozenSnapshot];this.broadcast('snapshot',snapshot);}
 }

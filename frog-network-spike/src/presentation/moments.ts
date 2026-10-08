@@ -7,21 +7,22 @@ export class Moments {
  reset(){this.roundKey='';this.phase='';this.count=-1;this.healthy=-1;this.states=[];}
  update(view:OutbreakView|undefined,local:number):Moment[]{
   if(!view){this.reset();return [];}
-  const events:Moment[]=[],key=`${view.patientZeroOrder.join(',')}:${view.round}`;
+  const events:Moment[]=[],key=`${view.mode??'poison'}:${view.patientZeroOrder.join(',')}:${view.round}`;
   if(key!==this.roundKey){this.roundKey=key;this.phase='';this.count=-1;this.healthy=-1;this.states=[];}
-  const healthy=view.players.filter(p=>p.state==='healthy').length;
+  const freeze=view.mode==='freeze';const healthy=freeze?view.players.filter(p=>p.slot!==view.freeze!.freezer&&!view.freeze!.frozen[p.slot]).length:view.players.filter(p=>p.state==='healthy').length;
   if(view.phase!==this.phase){
    if(view.phase==='announcement')events.push({cue:'reveal'});
-   if(view.phase==='playing')events.push({cue:'go',text:'POISON TAG!'});
+   if(view.phase==='playing')events.push({cue:'go',text:freeze?'FREEZE TAG!':'POISON TAG!'});
    if(view.phase==='round-results')events.push({cue:'round'});
    if(view.phase==='match-results')events.push({cue:'win'});
   }
   if(view.phase==='countdown'){const count=Math.max(1,Math.ceil(view.remainingMs/1000));if(this.phase!=='countdown'||count!==this.count)events.push({cue:'count'});this.count=count;}
   if(view.phase==='playing'){
-   if(healthy===1&&this.healthy!==1)events.push({cue:'last',text:'LAST SAFE FROG!'});
-   if(view.players.some((p,i)=>!p.patientZero&&this.states[i]==='healthy'&&p.state!=='healthy'))events.push({cue:'infect'});
-   if(this.states[local]==='transforming'&&view.players[local]?.state==='infectious')events.push({cue:'transform'});
+   if(!freeze&&healthy===1&&this.healthy!==1)events.push({cue:'last',text:'LAST SAFE FROG!'});
+   if(freeze){const current=view.freeze!.frozen[local]?'frozen':'runner';if(this.states[local]==='runner'&&current==='frozen')events.push({cue:'infect',text:'YOU’RE FROZEN!'});if(this.states[local]==='frozen'&&current==='runner')events.push({cue:'transform',text:'RESCUED!'});}
+   if(!freeze&&view.players.some((p,i)=>!p.patientZero&&this.states[i]==='healthy'&&p.state!=='healthy'))events.push({cue:'infect',...(this.states[local]==='healthy'&&view.players[local]?.state!=='healthy'?{text:'YOU’RE POISONED!'}:{})});
+   if(!freeze&&this.states[local]==='transforming'&&view.players[local]?.state==='infectious')events.push({cue:'transform'});
   }
-  this.phase=view.phase;this.healthy=healthy;this.states=view.players.map(p=>p.state);return events;
+  this.phase=view.phase;this.healthy=healthy;this.states=view.players.map(p=>freeze?(view.freeze!.frozen[p.slot]?'frozen':'runner'):p.state);return events;
  }
 }

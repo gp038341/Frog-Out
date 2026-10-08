@@ -1,0 +1,6 @@
+{
+  "scope": "Independent local WebSocket clients; real production 60-second active duration; no clock fast-forward",
+  "checks": [
+    "actual 60-second server round, no automatic thaw, survivor escape victory, 60 survival points and no clear bonus"
+  ]
+}

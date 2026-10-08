@@ -1,0 +1,59 @@
+{
+  "environment": "Local compiled server; trusted Chromium CDP simultaneous touches; emulation only, not physical iPhone or Android",
+  "configs": [
+    {
+      "name": "Desktop Chromium",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      }
+    },
+    {
+      "name": "iPhone-size phone (Chromium emulation)",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "isMobile": true,
+      "hasTouch": true,
+      "deviceScaleFactor": 2
+    },
+    {
+      "name": "Android-size phone (Chromium emulation)",
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "isMobile": true,
+      "hasTouch": true,
+      "deviceScaleFactor": 2
+    },
+    {
+      "name": "Tablet (Chromium emulation)",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "isMobile": true,
+      "hasTouch": true,
+      "deviceScaleFactor": 2
+    }
+  ],
+  "checks": [
+    "one desktop, two phones and tablet share four-player room; touch lobby/ready/start works",
+    "actual multi-touch protocol: eight aim directions and centre/release neutral",
+    "touch quick tap sends action press/release and authoritative normal jump",
+    "simultaneous independent thumbs maintain direction while charging; release gives stronger approved launch",
+    "terrain tongue/active pull and release via two thumbs",
+    "mobile grapples desktop frog; both dynamic bodies respond and release",
+    "pointer cancellation clears both inputs",
+    "portrait prompt, landscape return and orientation release preserve session"
+  ],
+  "normalJumpVelocity": -8.2,
+  "chargedJumpVelocity": -17.133333333333333,
+  "reciprocalPullVelocity": [
+    -1.32,
+    2.82
+  ],
+  "errors": []
+}

@@ -13,7 +13,7 @@ export type FrogState = {
 };
 export type PhysicsState={tick:number;frogs:FrogState[]};
 export function capture(sim:Simulation):PhysicsState {
- const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if(!b.isDynamic())terrain.push(b);
+ const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if(!b.isDynamic()&&!sim.frogs.some(f=>f.body===b))terrain.push(b);
  return {tick:sim.tick,frogs:sim.frogs.map(f=>{
   const p=f.body.getPosition(),v=f.body.getLinearVelocity(),t=f.tongue;
   let tongue:FrogState['tongue'];if(t){const frog=t.target?sim.frogs.findIndex(f=>f.body===t.target):-1;
@@ -27,7 +27,7 @@ export function capture(sim:Simulation):PhysicsState {
 }
 export function restore(sim:Simulation,state:PhysicsState){
  sizeSimulation(sim,state.frogs.length);
- const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if(!b.isDynamic())terrain.push(b);
+ const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if(!b.isDynamic()&&!sim.frogs.some(f=>f.body===b))terrain.push(b);
  for(const f of sim.frogs)sim.detach(f);
  sim.tick=state.tick;
  state.frogs.forEach((s,i)=>{const f=sim.frogs[i];f.body.setTransform(Vec2(s.x,s.y),0);f.body.setLinearVelocity(Vec2(s.vx,s.vy));f.body.setAngularVelocity(0);
