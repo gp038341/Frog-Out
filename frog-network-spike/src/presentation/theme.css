@@ -9,21 +9,21 @@
 .mode-guide{max-width:760px;color:#c6dbcd;font-size:14px;line-height:1.6}.mode-guide strong{color:#ffe29c}
 
 /* Sunny Pond home/lobby treatment: colors only; accepted gameplay layout/input stay frozen. */
-body:not(.game-active){background-color:#8acdd9;background-image:radial-gradient(ellipse at 88% 8%,#ffe583 0,transparent 28%),linear-gradient(180deg,#8acdd9,#79cbb6);color:#204943}
-body:not(.game-active) #brand h1,body:not(.game-active) #brand h1 span{color:#204943}
-body:not(.game-active) #brand h1 small,body:not(.game-active) #connection{color:#315f56}
-body:not(.game-active) #home,body:not(.game-active) #lobby{background:#f4f6dc;border-color:#4e8c70;box-shadow:0 6px 0 #4e8c7040}
-body:not(.game-active) #home h2,body:not(.game-active) #lobby h2{color:#204943}
-body:not(.game-active) #home p,body:not(.game-active) #lobby p,body:not(.game-active) label,body:not(.game-active) .eyebrow,body:not(.game-active) #start-rule{color:#3e6d58}
-body:not(.game-active) .home-actions{background:#b8e0b6}
-body:not(.game-active) input{background:#fffbe8;color:#204943;border-color:#6a9c78}
-body:not(.game-active) .player-card{background:#dcebc5;color:#204943;border-top-color:#9abe8b;border-bottom-color:#9abe8b}
-body:not(.game-active) .player-card.ready{background:#b9dda3}
-body:not(.game-active) #create,body:not(.game-active) #ready,body:not(.game-active) #start{background:#ffdf70;border-color:#51764b;color:#204943}
-body:not(.game-active) #ready[aria-pressed=true]{background:#a9de89}
-body:not(.game-active) #lobby details,body:not(.game-active) #quick-guide{background:#dcebc5;color:#204943}
-body:not(.game-active) .guide-content,body:not(.game-active) .guide-content h4,body:not(.game-active) .guide-content strong{color:#204943}
-body:not(.game-active) .lobby-primary{background:#f4f6dc}
-body:not(.game-active) #lobby-rules summary,body:not(.game-active) .guide-grid h4,body:not(.game-active) .guide-grid strong,body:not(.game-active) .guide-note,body:not(.game-active) #lifecycle-hint{color:#315f56}
+body:not(.game-active){background-color:#408d9f;background-image:radial-gradient(ellipse at 88% 8%,#7fbda1 0,transparent 28%),linear-gradient(180deg,#408d9f,#245b63);color:#edf7df}
+body:not(.game-active) #brand h1,body:not(.game-active) #brand h1 span{color:#edf7df}
+body:not(.game-active) #brand h1 small,body:not(.game-active) #connection{color:#c2e1d4}
+body:not(.game-active) #home,body:not(.game-active) #lobby{background:#244e59;border-color:#4e8c70;box-shadow:0 6px 0 #4e8c7040}
+body:not(.game-active) #home h2,body:not(.game-active) #lobby h2{color:#edf7df}
+body:not(.game-active) #home p,body:not(.game-active) #lobby p,body:not(.game-active) label,body:not(.game-active) .eyebrow,body:not(.game-active) #start-rule{color:#c5e4d7}
+body:not(.game-active) .home-actions{background:#1d424e}
+body:not(.game-active) input{background:#173c47;color:#edf7df;border-color:#6a9c78}
+body:not(.game-active) .player-card{background:#285b61;color:#edf7df;border-top-color:#9abe8b;border-bottom-color:#9abe8b}
+body:not(.game-active) .player-card.ready{background:#356c58}
+body:not(.game-active) #create,body:not(.game-active) #ready,body:not(.game-active) #start{background:#a9e7ad;border-color:#7eb48b;color:#153f39}
+body:not(.game-active) #ready[aria-pressed=true]{background:#ffdf70}
+body:not(.game-active) #lobby details,body:not(.game-active) #quick-guide{background:#285b61;color:#edf7df}
+body:not(.game-active) .guide-content,body:not(.game-active) .guide-content h4,body:not(.game-active) .guide-content strong{color:#edf7df}
+body:not(.game-active) .lobby-primary{background:#244e59}
+body:not(.game-active) #lobby-rules summary,body:not(.game-active) .guide-grid h4,body:not(.game-active) .guide-grid strong,body:not(.game-active) .guide-note,body:not(.game-active) #lifecycle-hint{color:#c2e1d4}
 body:not(.game-active) #quick-guide kbd{color:#fff5d6}
 body:not(.game-active) #lobby #arena-description{color:#e4efd4}
