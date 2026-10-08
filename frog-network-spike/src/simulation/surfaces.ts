@@ -1,7 +1,7 @@
 import {Vec2,type Body} from 'planck';
 import type {Simulation,Frog} from './world';
 /** Localized Sunny Pond effects. Base movement/grapple tuning is untouched. */
-export const SURFACES={lilyLaunchSpeed:12,lilyMinLandingSpeed:.8,lilyCooldownTicks:12,mudGroundSpeedMultiplier:.75};
+export const SURFACES={lilyLaunchSpeed:12,lilyCooldownTicks:12,mudGroundSpeedMultiplier:.75};
 type Material='lily'|'mud';
 function support(f:Frog):Material|undefined{
  let mud=false;
@@ -17,9 +17,10 @@ export function prepareSurfaces(sim:Simulation){
 }
 export function resolveSurfaces(sim:Simulation,before:ReturnType<typeof prepareSurfaces>){
  sim.frogs.forEach((f,i)=>{const prior=before[i],p=f.body.getPosition();
-  // Physical top contact + downward arrival, not a tongue hit, underside, side scrape or standing on a pad.
+  // Any supported top contact auto-launches, including a resting frog; return landings repeat.
+  // Side/underside/tongue contacts never trigger. Cooldown prevents duplicate solver impulses.
   // A buffered normal/charged jump already launched by the controller takes priority.
-  if(prior&&prior.down>=SURFACES.lilyMinLandingSpeed&&p.y>=prior.position.y-.1&&f.body.getLinearVelocity().y>=-.5&&support(f)==='lily'&&sim.tick-(f.surfaceBounceTick??-1000)>=SURFACES.lilyCooldownTicks){
+  if(prior&&p.y>=prior.position.y-.1&&f.body.getLinearVelocity().y>=-.5&&support(f)==='lily'&&sim.tick-(f.surfaceBounceTick??-1000)>=SURFACES.lilyCooldownTicks){
    const v=f.body.getLinearVelocity();f.body.applyLinearImpulse(Vec2(0,(-SURFACES.lilyLaunchSpeed-v.y)*f.body.getMass()),f.body.getWorldCenter(),true);
    f.surfaceBounceTick=sim.tick;f.grounded=false;f.coyote=0;f.suppressSupport=.06;
   }
