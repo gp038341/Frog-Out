@@ -10,7 +10,7 @@ export type Tongue = {
   target?: Body; localAnchor?: { x: number; y: number };
 };
 export type Frog = {
-  stickyMud?: boolean; surfaceBounceTick?: number;
+  slipperySoap?: boolean; stickyMud?: boolean; surfaceBounceTick?: number;
   poisonPullFromTick?: number;
   body: Body; facing: number; input: Input; events: Input[]; held: boolean;
   charging: boolean; charge: number; grounded: boolean; tongue?: Tongue;
@@ -164,7 +164,7 @@ export class Simulation {
         dv = x * Math.max(0, Math.min(t.groundAcceleration * DT, t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1) - x * v.x));
       } else if (f.grounded && !f.tongue) {
         const target = x * t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1);
-        const a = x ? t.groundAcceleration : t.groundBrake;
+        const a = (x ? t.groundAcceleration : t.groundBrake) * (f.slipperySoap ? (x ? SURFACES.soapAccelerationMultiplier : SURFACES.soapBrakeMultiplier) : 1);
         dv = Math.max(-a * DT, Math.min(a * DT, target - v.x));
       }
       f.body.applyLinearImpulse(Vec2(dv * f.body.getMass(), 0), f.body.getWorldCenter(), true);
@@ -254,7 +254,7 @@ export class Simulation {
   }
   reset() {
     for (let i = 0; i < this.frogs.length; i++) {
-      const f = this.frogs[i]; this.cancelAction(f); f.stickyMud = undefined; f.surfaceBounceTick = undefined;
+      const f = this.frogs[i]; this.cancelAction(f); f.slipperySoap = undefined; f.stickyMud = undefined; f.surfaceBounceTick = undefined;
       f.body.setTransform(Vec2(i ? 20 : 12, 16), 0);
       f.body.setLinearVelocity(Vec2(0, 0)); f.body.setAngularVelocity(0);
       f.input = neutral(); f.grounded = false; f.coyote = 0; f.suppressSupport = 0;

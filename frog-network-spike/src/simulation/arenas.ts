@@ -1,6 +1,6 @@
 import {arena,WIDTH,HEIGHT,spawnPoint} from './arena';
 export type ArenaId='canopy'|'swingworks'|'sunny-pond'|'toyshop'|'bathhouse';
-export type Solid={x:number;y:number;w:number;h:number;surface?:'lily'|'mud';outline?:[number,number][];object?:'rock'|'branch'|'lily'|'block'|'spool'|'ruler'|'roof'|'cushion'|'sponge'|'dish'|'faucet'|'bucket'};
+export type Solid={x:number;y:number;w:number;h:number;surface?:'lily'|'mud'|'soap';outline?:[number,number][];object?:'rock'|'branch'|'lily'|'block'|'spool'|'ruler'|'roof'|'cushion'|'sponge'|'dish'|'faucet'|'bucket'};
 export type ArenaDefinition={id:ArenaId;name:string;description:string;solids:Solid[];width:number;height:number;geometryPreview:boolean};
 /** Arena 1 is the exact approved geometry; only the second layout is experimental. */
 export const ARENAS:Record<ArenaId,ArenaDefinition>={
@@ -40,7 +40,7 @@ export const ARENAS:Record<ArenaId,ArenaDefinition>={
   ...arena.slice(0,4),
   {x:8,y:18,w:8,h:1.1,object:'dish',outline:[[-3.5,-.55],[3.5,-.55],[4,-.2],[3.4,.55],[-3.4,.55],[-4,-.2]]},
   {x:30,y:17,w:6,h:.9,object:'sponge',surface:'lily',outline:[[-2.7,-.45],[2.7,-.45],[3,-.15],[3,.15],[2.7,.45],[-2.7,.45],[-3,.15],[-3,-.15]]},
-  {x:19,y:13,w:7,h:1,object:'dish',outline:[[-3,-.5],[3,-.5],[3.5,-.1],[3,.5],[-3,.5],[-3.5,-.1]]},
+  {x:19,y:13,w:7,h:1,object:'dish',surface:'soap',outline:[[-3,-.5],[3,-.5],[3.5,-.1],[3,.5],[-3,.5],[-3.5,-.1]]},
   {x:6,y:9,w:7,h:1.2,object:'bucket',outline:[[-3.5,-.6],[3.5,-.6],[3.5,-.1],[2.8,.6],[-2.8,.6],[-3.5,-.1]]},
   {x:34,y:8,w:6,h:.9,object:'faucet',outline:[[-2.7,-.45],[2.7,-.45],[3,-.15],[3,.15],[2.7,.45],[-2.7,.45],[-3,.15],[-3,-.15]]},
   {x:15,y:5,w:5,h:.9,object:'sponge',surface:'lily',outline:[[-2.2,-.45],[2.2,-.45],[2.5,-.15],[2.5,.15],[2.2,.45],[-2.2,.45],[-2.5,.15],[-2.5,-.15]]},

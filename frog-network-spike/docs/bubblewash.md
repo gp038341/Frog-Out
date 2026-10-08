@@ -10,7 +10,7 @@ Bathhouse is lavender tiled frog-scale washroom: shallow soap dishes, melon buck
 
 Two sponges reuse lily behavior unchanged: automatic repeated top-contact bounce, upward velocity 12 units/s, cooldown 12 ticks/0.2 seconds, no extra horizontal impulse. Side/underside/tongue contacts do not trigger it. Existing sound/feedback remains unchanged.
 
-**Soap omitted:** movement controller actively sets grounded velocity. Reduced fixture friction alone would not give a reliable controlled traction effect; convincing soap would need controller/prediction changes. Avoided that risk for this content pass. Soap shapes are ordinary non-slippery platforms, without special-behavior markings.
+**Soap prototype:** one central dish at (19,13) has reduced grounded acceleration (×0.3: 60→18 units/s²), braking (×0.12: 50→6 units/s²) and top-contact friction 0 rather than normal mixed friction 0.15. Running maximum remains 6 units/s. Direction reversal uses the same reduced acceleration; no injected momentum. Air/jump/grapple forces unchanged. Ordinary control and friction restore immediately upon departure; no side/underside/tongue trigger. Shared authoritative/predicted simulation serializes slipperySoap. Reciprocal grapple-coupled ground controller remains unchanged. Gloss and glide-arrow markings distinguish the soap top without sound/color dependence.
 
 Validation: 106 passing unit/regression tests; roster/default/fallback, untouched-source hashes, convex geometry/preview, 2–8 spawn/recovery, deterministic restore and repeat sponge bounce. Authoritative WebSocket match tests all active arenas at 2/3/4/8 clients, choice/Ready/freeze/reconnect/full rotation/scoring/final/rematch; sponge synchronization at 2/4/8 clients and grapple/release. Chromium four independent clients desktop 1280×900, emulated phone 844×390/DPR3 and 667×375/DPR2, tablet 1024×768, full match/rematch/aspect ratio and no page errors. No new physical iPhone/Android certification; their accepted input/viewport source remains byte-preserved.
 
@@ -19,3 +19,7 @@ Playtest: confirm Sunny Pond default and four preview order; choose Bathhouse an
 ## Roster correction
 
 User clarified that Croakwork Toyshop should remain playable. Restored its existing registry entry to the active list; no map, art, surface, physics, input or viewport changes. Sunny Pond stays default; Conservatory stays retired.
+
+## Focused slippery-soap pass
+
+Baseline `d7b3ac29e649cdda9e9213fe8b1051adb5b7834b`, checkpoint/milestone-14-four-arena-candidate. SOAP values isolated in SURFACES; revert this focused commit to restore ordinary central dish behavior. 109 unit/regression tests pass; added traction/braking/reversal/max-speed/jump/departure/side/prediction tests, plus 2/4/8-client authoritative soap/sponge/grapple checks. No input/viewport, sound, map geometry, scoring or poison-balance changes. Human feel acceptance pending.

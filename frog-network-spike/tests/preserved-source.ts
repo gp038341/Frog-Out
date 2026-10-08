@@ -29,4 +29,6 @@ export function m14PreservedSource(path:string){let source=bathhousePreservedSou
 
 export function bathhousePreservedSource(path:string){let source=toyshopRosterPreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/bubblewash-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
 
-function toyshopRosterPreservedSource(path:string){let source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');const m=JSON.parse(readFileSync(new URL('../docs/toyshop-roster-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+function toyshopRosterPreservedSource(path:string){let source=soapPreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/toyshop-roster-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+
+export function soapPreservedSource(path:string){let source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');const m=JSON.parse(readFileSync(new URL('../docs/soap-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}

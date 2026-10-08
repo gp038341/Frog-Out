@@ -12,6 +12,6 @@ export function paintBathhouse(g:Phaser.GameObjects.Graphics,a:ArenaDefinition){
  if(r.object==='sponge'){g.fillStyle(0xcb965b);for(let j=-3;j<=3;j++)g.fillEllipse(x+j*17,y+5,5+(j%2===0?2:0),4);g.lineStyle(2,0xfff2c9);for(let j=-2;j<=2;j++){g.lineBetween(x+j*24-5,y-5,x+j*24,y-11);g.lineBetween(x+j*24,y-11,x+j*24+5,y-5);}}
  else if(r.object==='faucet'){g.lineStyle(2,0xffe8b4);g.lineBetween(x-w*.38,y-4,x+w*.38,y-4);g.fillStyle(0xa68155);g.fillEllipse(x-w*.4,y+3,9,9);g.fillEllipse(x+w*.4,y+3,9,9);g.lineStyle(2,0xa68155);g.lineBetween(x-12,y+2,x+12,y+2);}
  else if(r.object==='bucket'){g.lineStyle(2,0xb86e83);g.lineBetween(x-w*.42,y-8,x+w*.42,y-8);g.lineBetween(x-w*.35,y+5,x+w*.35,y+5);g.fillStyle(0xffd4ad);for(let j=-2;j<=2;j++)g.fillCircle(x+j*23,y,3);}
- else{g.lineStyle(2,0x8cb9b7);g.lineBetween(x-w*.35,y-6,x+w*.35,y-6);g.lineBetween(x-w*.34,y+7,x+w*.34,y+7);g.fillStyle(0xffc6aa);g.fillRoundedRect(x-24,y-7,48,13,5);g.lineStyle(1,0xd7908a);g.strokeRoundedRect(x-24,y-7,48,13,5);g.fillStyle(0xeaf9ec);g.fillCircle(x+30,y-3,3);}
+ else{if(r.surface==='soap'){g.lineStyle(3,0xfff9dd);g.lineBetween(x-w*.35,y-11,x+w*.35,y-11);g.lineStyle(2,0x627aa6);for(let j=-2;j<=2;j++){g.lineBetween(x+j*25-5,y+6,x+j*25+5,y+6);g.lineBetween(x+j*25+2,y+3,x+j*25+5,y+6);}}g.lineStyle(2,0x8cb9b7);g.lineBetween(x-w*.35,y-6,x+w*.35,y-6);g.lineBetween(x-w*.34,y+7,x+w*.34,y+7);g.fillStyle(0xffc6aa);g.fillRoundedRect(x-24,y-7,48,13,5);g.lineStyle(1,0xd7908a);g.strokeRoundedRect(x-24,y-7,48,13,5);g.fillStyle(0xeaf9ec);g.fillCircle(x+30,y-3,3);}
  });
 }
