@@ -21,3 +21,7 @@ All additional cues (pond percussion, charge tiers, tongue miss/tension, impacts
 ## Milestone 13 Sunny Pond prototype
 
 `src/presentation/sunny-pond.ts` and the Sunny Pond vector thumbnail are original project-native drawing code: sunshine, clouds, reeds, decorative water, logs, leaf veins, lily spring chevrons and mud flecks. No external textures, recordings, images, fonts or new dependencies. Lily landing feedback reuses the approved `charge` sound cue; the sound palette/source is unchanged.
+
+## Milestone 14 Croakwork Toyshop
+
+`src/presentation/toyshop.ts` and its SVG map preview are original project-native vector art: wooden blocks, ruler markings, thread spools, toy-house roof, rubber cushions, paint patches and quiet pegboard/workbench scenery. No external assets, audio changes or new dependencies; existing approved surface feedback is reused.

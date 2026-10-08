@@ -23,4 +23,6 @@ export function m12PreservedSource(path:string){let source=m13PreservedSource(pa
 
 export function m13PreservedSource(path:string){let source=refinementPreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/milestone-13-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
 
-export function refinementPreservedSource(path:string){let source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');const m=JSON.parse(readFileSync(new URL('../docs/milestone-13-refinement-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+export function refinementPreservedSource(path:string){let source=m14PreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/milestone-13-refinement-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+
+export function m14PreservedSource(path:string){let source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');const m=JSON.parse(readFileSync(new URL('../docs/milestone-14-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
