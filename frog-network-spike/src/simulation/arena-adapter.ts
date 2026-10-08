@@ -1,8 +1,8 @@
 import {Box,Polygon,Vec2} from 'planck';
 import type {Simulation} from './world';
-import {DEFAULT_ARENA,getArena,type ArenaId} from './arenas';
+import {getArena,type ArenaId} from './arenas';
 const selected=new WeakMap<Simulation,ArenaId>();
-export function simulationArena(sim:Simulation):ArenaId{return selected.get(sim)??DEFAULT_ARENA;}
+export function simulationArena(sim:Simulation):ArenaId{return selected.get(sim)??'canopy';}
 /** Replace static geometry only, between matches or before client state restoration. */
 export function setSimulationArena(sim:Simulation,id:ArenaId){
  if(simulationArena(sim)===id)return;

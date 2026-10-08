@@ -1,0 +1,7 @@
+{
+  "checks": [
+    "New room defaults to Sunny Pond",
+    "Retired Conservatory, preserved Toyshop, unknown/null selection all fall back to Sunny Pond and clear Ready after explicit Bathhouse choice"
+  ],
+  "environment": "Compiled authoritative server + real WebSocket client"
+}

@@ -1,4 +1,4 @@
-import {DEFAULT_ARENA,isArenaId,type ArenaId} from '../src/simulation/arenas';
+import {DEFAULT_ARENA,isArenaId,resolveArenaId,type ArenaId} from '../src/simulation/arenas';
 import {setSimulationArena} from '../src/simulation/arena-adapter';
 import {type Client,ServerError} from '@colyseus/core';
 import {randomInt} from 'node:crypto';
@@ -17,7 +17,7 @@ export class PartyRoom extends SpikeRoom {
  reconnectSeconds=30;
  onCreate(){super.onCreate();this.code=makeCode();partyRooms.set(this.code,this);
   this.onMessage('hello',(client:Client)=>{this.welcome(client);this.lobby();});
-  this.onMessage('select-arena',(client:Client,id:unknown)=>{if(client.sessionId!==this.hostId){client.send('notice','Only the host can choose the arena.');return;}if(this.phase!=='lobby'){client.send('notice','Choose an arena in the lobby before the match.');return;}if(!isArenaId(id)){client.send('notice','Choose a valid arena.');return;}if(id===this.arenaId)return;this.arenaId=id;for(const p of this.players.values())p.ready=false;this.notice='Arena changed. Everyone must ready up again.';this.lobby();});
+  this.onMessage('select-arena',(client:Client,id:unknown)=>{if(client.sessionId!==this.hostId){client.send('notice','Only the host can choose the arena.');return;}if(this.phase!=='lobby'){client.send('notice','Choose an arena in the lobby before the match.');return;}if(!isArenaId(id)){client.send('notice','That arena is unavailable. Sunny Pond is selected instead.');id=resolveArenaId(id);}if(id===this.arenaId)return;this.arenaId=resolveArenaId(id);for(const p of this.players.values())p.ready=false;this.notice='Arena changed. Everyone must ready up again.';this.lobby();});
   this.onMessage('ready',(client:Client,ready:unknown)=>{const p=this.players.get(client.sessionId);if(this.phase!=='lobby'||!p||typeof ready!=='boolean')return;p.ready=ready;this.notice='';this.lobby();});
   this.onMessage('start',(client:Client)=>{if(client.sessionId!==this.hostId){client.send('notice','Only the host can start.');return;}const roster=[...this.players.values()];if(this.phase!=='lobby')return;if(roster.length<2||roster.some(p=>!p.connected)){client.send('notice','At least two connected players are required.');return;}if(roster.some(p=>!p.ready)){client.send('notice','Every player must be ready.');return;}this.startSession(roster);});
   if(process.env.ENABLE_TESTS==='1')this.reconnectSeconds=Number(process.env.TEST_RECONNECT_SECONDS??30);

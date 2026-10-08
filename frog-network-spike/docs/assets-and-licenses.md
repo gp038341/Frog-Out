@@ -25,3 +25,7 @@ All additional cues (pond percussion, charge tiers, tongue miss/tension, impacts
 ## Milestone 14 Croakwork Toyshop
 
 `src/presentation/toyshop.ts` and its SVG map preview are original project-native vector art: wooden blocks, ruler markings, thread spools, toy-house roof, rubber cushions, paint patches and quiet pegboard/workbench scenery. No external assets, audio changes or new dependencies; existing approved surface feedback is reused.
+
+## Bubblewash Bathhouse roster revision
+
+`src/presentation/bathhouse.ts` and the shared-geometry SVG preview are original project-native vector drawing code. No external images/textures/audio, fonts or new dependencies. Sponge effects reuse approved lily sound/feedback unchanged.

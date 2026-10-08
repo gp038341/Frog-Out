@@ -1,6 +1,6 @@
 # Frog-Out — current game
 
-**[Play online](https://frog-out-milestone-2.onrender.com/)** · 2–8 players · Two selectable arenas · Poison Tag.
+**[Play online](https://frog-out-milestone-2.onrender.com/)** · 2–8 players · Three selectable arenas · Poison Tag.
 
 No player account, installation or special player-specific URL. Enter a display name, create/join by six-character code, use Copy Code/Copy Join Link. All connected players ready up; the host starts with at least two players. The match roster then freezes. Controls & Rules appears before play; How to Play stays available. The round continues while Help is open, with held inputs cleared; use fresh inputs after closing.
 
@@ -88,7 +88,7 @@ Approved earlier milestones remain recoverable in Git. M6 release candidate: `6b
 
 [Submission readiness](docs/submission-readiness.md) lists required materials/drafts and remaining checks; [assets and licenses](docs/assets-and-licenses.md) records original procedural artwork/audio and dependencies.
 
-## Milestone 8 geometry playtest
+## Historical Milestone 8 geometry playtest
 
 Approved submission-ready M7 gameplay checkpoint: `e97bbcb418468149e5b936c7ff9e95a0ccbe5b9b`, branch `checkpoint/milestone-7-approved`. The original Canopy Courtyard remains the default and its geometry is unchanged. The lobby host can now choose **Rainbell Conservatory — Geometry Preview** before ready/start. Arena changes clear everyone’s Ready; choices are frozen across all rounds of a match and retained for rematch. No new mode or physics tuning. Arena 2 layout acceptance and final art are pending. See [M8 details](docs/milestone-8-geometry.md).
 
@@ -119,3 +119,7 @@ The accepted Poison Tag identity checkpoint is `0b65d9954ad3da5b0a95ad15931ea4b5
 ### Milestone 13 prototype
 
 Sunny Pond adds a third selectable arena with two springy lily pads and two optional sticky-mud perches. Lily tops bounce on downward landings; mud tops slow controlled running until you leave. Decorative water has no gameplay effect. Both original maps and approved Poison Tag balance remain available unchanged. See [Milestone 13](docs/milestone-13.md) for exact tuning, validation, fallback checkpoint and acceptance checklist.
+
+## Current arena roster — Milestone 14 candidate
+
+New rooms default to **Sunny Pond**. Hosts can choose **Bubblewash Bathhouse** or **Canopy Courtyard**; selections remain fixed during matches and retained in the same room for rematch. Conservatory is retired and Croakwork Toyshop is preserved as future work, neither is selectable. Bathhouse sponge tops repeatedly bounce using accepted lily behavior; soap and water are ordinary platforms/scenery, not new physics. See [roster, preservation and playtest notes](docs/bubblewash.md). Earlier milestone descriptions above are historical.

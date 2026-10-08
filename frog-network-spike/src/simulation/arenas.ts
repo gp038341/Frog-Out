@@ -1,6 +1,6 @@
 import {arena,WIDTH,HEIGHT,spawnPoint} from './arena';
-export type ArenaId='canopy'|'swingworks'|'sunny-pond'|'toyshop';
-export type Solid={x:number;y:number;w:number;h:number;surface?:'lily'|'mud';outline?:[number,number][];object?:'rock'|'branch'|'lily'|'block'|'spool'|'ruler'|'roof'|'cushion'};
+export type ArenaId='canopy'|'swingworks'|'sunny-pond'|'toyshop'|'bathhouse';
+export type Solid={x:number;y:number;w:number;h:number;surface?:'lily'|'mud';outline?:[number,number][];object?:'rock'|'branch'|'lily'|'block'|'spool'|'ruler'|'roof'|'cushion'|'sponge'|'dish'|'faucet'|'bucket'};
 export type ArenaDefinition={id:ArenaId;name:string;description:string;solids:Solid[];width:number;height:number;geometryPreview:boolean};
 /** Arena 1 is the exact approved geometry; only the second layout is experimental. */
 export const ARENAS:Record<ArenaId,ArenaDefinition>={
@@ -36,9 +36,22 @@ export const ARENAS:Record<ArenaId,ArenaDefinition>={
   {x:12,y:5,w:5,h:.7,object:'cushion',surface:'lily',outline:[[-2.1,-.35],[2.1,-.35],[2.5,-.1],[2.5,.1],[2.1,.35],[-2.1,.35],[-2.5,.1],[-2.5,-.1]]},
   {x:33,y:4,w:6,h:.8,object:'block',surface:'mud',outline:[[-2.7,-.4],[2.7,-.4],[3,-.1],[3,.1],[2.7,.4],[-2.7,.4],[-3,.1],[-3,-.1]]},
  ]},
+ bathhouse:{id:'bathhouse',name:'Bubblewash Bathhouse',description:'Frog bathhouse · sponge tops bounce. Water and bubbles are scenery.',width:WIDTH,height:HEIGHT,geometryPreview:false,solids:[
+  ...arena.slice(0,4),
+  {x:8,y:18,w:8,h:1.1,object:'dish',outline:[[-3.5,-.55],[3.5,-.55],[4,-.2],[3.4,.55],[-3.4,.55],[-4,-.2]]},
+  {x:30,y:17,w:6,h:.9,object:'sponge',surface:'lily',outline:[[-2.7,-.45],[2.7,-.45],[3,-.15],[3,.15],[2.7,.45],[-2.7,.45],[-3,.15],[-3,-.15]]},
+  {x:19,y:13,w:7,h:1,object:'dish',outline:[[-3,-.5],[3,-.5],[3.5,-.1],[3,.5],[-3,.5],[-3.5,-.1]]},
+  {x:6,y:9,w:7,h:1.2,object:'bucket',outline:[[-3.5,-.6],[3.5,-.6],[3.5,-.1],[2.8,.6],[-2.8,.6],[-3.5,-.1]]},
+  {x:34,y:8,w:6,h:.9,object:'faucet',outline:[[-2.7,-.45],[2.7,-.45],[3,-.15],[3,.15],[2.7,.45],[-2.7,.45],[-3,.15],[-3,-.15]]},
+  {x:15,y:5,w:5,h:.9,object:'sponge',surface:'lily',outline:[[-2.2,-.45],[2.2,-.45],[2.5,-.15],[2.5,.15],[2.2,.45],[-2.2,.45],[-2.5,.15],[-2.5,-.15]]},
+  {x:26,y:3.7,w:5,h:.8,object:'faucet',outline:[[-2.2,-.4],[2.2,-.4],[2.5,-.1],[2.5,.1],[2.2,.4],[-2.2,.4],[-2.5,.1],[-2.5,-.1]]},
+ ]},
 };
-export const DEFAULT_ARENA:ArenaId='canopy';
-export const arenaList=Object.values(ARENAS);
-export function isArenaId(value:unknown):value is ArenaId{return typeof value==='string'&&Object.hasOwn(ARENAS,value);}
-export function getArena(id:ArenaId){return ARENAS[id];}
+export const DEFAULT_ARENA:ArenaId='sunny-pond';
+/** Retired/candidate maps remain archived for recovery, never exposed as playable choices. */
+export const arenaList=[ARENAS['sunny-pond'],ARENAS.bathhouse,ARENAS.canopy];
+export function isArenaId(value:unknown):value is ArenaId{return typeof value==='string'&&arenaList.some(a=>a.id===value);}
+export function getArena(id:ArenaId){return ARENAS[id]??ARENAS[DEFAULT_ARENA];}
 export {spawnPoint};
+
+export function resolveArenaId(value:unknown):ArenaId{return isArenaId(value)?value:DEFAULT_ARENA;}

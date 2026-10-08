@@ -1,0 +1,8 @@
+{
+  "environment": "Independent loopback authoritative WebSocket clients; test-only positions and short countdown; production surface tuning",
+  "checks": [
+    "2 clients: authoritative bathhouse selection, body-land bounce/event sync, simultaneous pads, terrain grapple/release, finite movement",
+    "4 clients: authoritative bathhouse selection, body-land bounce/event sync, simultaneous pads, terrain grapple/release, finite movement",
+    "8 clients: authoritative bathhouse selection, body-land bounce/event sync, simultaneous pads, terrain grapple/release, finite movement"
+  ]
+}

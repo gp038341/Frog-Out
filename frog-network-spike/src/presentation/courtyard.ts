@@ -1,3 +1,4 @@
+import {paintBathhouse} from './bathhouse';
 import {paintToyshop} from './toyshop';
 import {paintSunnyPond} from './sunny-pond';
 import {Feel} from './feel';
@@ -26,7 +27,7 @@ export class Courtyard {
   this.paintArena();
  }
  setArena(id:ArenaId){if(this.arenaId!==id){this.arenaId=id;this.paintArena();this.clear();}}
- paintArena(){if(this.arenaId==='toyshop'){paintToyshop(this.background,getArena(this.arenaId));return;}if(this.arenaId==='sunny-pond'){paintSunnyPond(this.background,getArena(this.arenaId));return;}const g=this.background;g.clear();const glass=this.arenaId==='swingworks';
+ paintArena(){if(this.arenaId==='bathhouse'){paintBathhouse(this.background,getArena(this.arenaId));return;}if(this.arenaId==='toyshop'){paintToyshop(this.background,getArena(this.arenaId));return;}if(this.arenaId==='sunny-pond'){paintSunnyPond(this.background,getArena(this.arenaId));return;}const g=this.background;g.clear();const glass=this.arenaId==='swingworks';
   g.fillStyle(glass?0x233c5b:0x214d46);g.fillRect(0,0,WIDTH*S,HEIGHT*S);
   // Background decoration is low contrast and never outlined like collision surfaces.
   if(glass){
