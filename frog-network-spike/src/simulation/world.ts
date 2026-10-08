@@ -1,4 +1,5 @@
 import { World, Vec2, Box, Circle, RopeJoint, Body } from 'planck';
+import {POISON_BALANCE} from '../game/poison-balance';
 import { defaults, DT, arena, WIDTH, HEIGHT, type Tuning } from './config';
 export type Input = { x: number; y: number; held: boolean };
 export type Tongue = {
@@ -8,6 +9,7 @@ export type Tongue = {
   target?: Body; localAnchor?: { x: number; y: number };
 };
 export type Frog = {
+  poisonPullFromTick?: number;
   body: Body; facing: number; input: Input; events: Input[]; held: boolean;
   charging: boolean; charge: number; grounded: boolean; tongue?: Tongue;
   jumpPending: boolean; holdTime: number; coyote: number; suppressSupport: number;
@@ -200,7 +202,7 @@ export class Simulation {
     const va = f.body.getLinearVelocity(), vb = target.getLinearVelocity();
     const closingSpeed = (va.x - vb.x) * nx + (va.y - vb.y) * ny;
     // Soft radial speed ceiling: stop adding inward impulse, never clamp carried velocity.
-    const dv = Math.min(this.tuning.grapplePullAcceleration * DT,
+    const dv = Math.min(this.tuning.grapplePullAcceleration * (f.poisonPullFromTick !== undefined && this.tick >= f.poisonPullFromTick ? POISON_BALANCE.grapplePullMultiplier : 1) * DT,
       Math.max(0, this.tuning.grappleMaxPullSpeed - closingSpeed));
     const inverseMass = 1 / f.body.getMass() + (target.isDynamic() ? 1 / target.getMass() : 0);
     const impulse = Vec2(nx * dv / inverseMass, ny * dv / inverseMass);

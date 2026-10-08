@@ -1,0 +1,19 @@
+{
+  "baseline": "0b65d9954ad3da5b0a95ad15931ea4b571b35700",
+  "units": {
+    "tests": 87,
+    "pass": 87,
+    "fail": 0
+  },
+  "build": "passed",
+  "balance": {
+    "multiplierBefore": 1,
+    "multiplierPrototype": 1.1,
+    "accelerationBefore": 48,
+    "accelerationPoison": 52.8,
+    "radialCeiling": 8,
+    "takeup": 4
+  },
+  "physicalDeviceValidation": "No new physical iPhone or Android tests; accepted source byte preservation verified",
+  "scope": "Automated physics/controller/preservation tests and independent authoritative WebSocket/browser tests; human fairness acceptance pending"
+}

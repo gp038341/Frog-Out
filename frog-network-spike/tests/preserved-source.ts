@@ -17,4 +17,6 @@ export function recoveryPreservedSource(path:string){let source=viewportPreserve
 
 export function viewportPreservedSource(path:string){let source=m11PreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/iphone-viewport-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
 
-export function m11PreservedSource(path:string){let source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');const m=JSON.parse(readFileSync(new URL('../docs/milestone-11-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+export function m11PreservedSource(path:string){let source=m12PreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/milestone-11-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+
+export function m12PreservedSource(path:string){let source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');const m=JSON.parse(readFileSync(new URL('../docs/milestone-12-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}

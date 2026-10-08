@@ -17,7 +17,7 @@ export class OutbreakRoom extends PartyRoom {
  onCreate(){
   super.onCreate();const physicsStep=this.sim.step.bind(this.sim);
   // The approved physics function is called unchanged while playing; lock countdown controls and freeze bodies on results.
-  this.sim.step=()=>{const rules=this.outbreak;if(this.phase!=='game'||!rules){physicsStep();return;}if(rules.phase==='playing'){physicsStep();rules.infect(this.sim.tick,frogBodyContacts(this.sim));if(rules.phase!=='playing')this.sim.clearInputs();}else{this.sim.clearInputs();if(rules.phase==='announcement'||rules.phase==='countdown')physicsStep();else this.sim.tick++;rules.advanceClock(this.sim.tick);}};
+  this.sim.step=()=>{const rules=this.outbreak;if(this.phase!=='game'||!rules){physicsStep();return;}if(rules.phase==='playing'){this.sim.frogs.forEach((f,i)=>{f.poisonPullFromTick=rules.records[i]?.infectiousTick??undefined;});physicsStep();rules.infect(this.sim.tick,frogBodyContacts(this.sim));if(rules.phase!=='playing')this.sim.clearInputs();}else{this.sim.clearInputs();if(rules.phase==='announcement'||rules.phase==='countdown')physicsStep();else this.sim.tick++;rules.advanceClock(this.sim.tick);}};
   this.onMessage('next-round',(client:Client)=>{if(!this.host(client)||this.phase!=='game'||!this.outbreak?.next(this.sim.tick))return;if(this.outbreak.phase==='announcement')this.resetRound();this.publish();});
   this.onMessage('return-lobby',(client:Client)=>{if(this.host(client)&&this.outbreak?.phase==='match-results')this.interrupt('Match complete. Ready up in the lobby to start a new match.');});
   if(process.env.ENABLE_TESTS==='1')this.onMessage('outbreak-test',(_client:Client,data:{positions?:number[][];velocities?:number[][]})=>{

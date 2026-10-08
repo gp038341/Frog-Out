@@ -111,3 +111,7 @@ The user physically accepted iPhone multitouch and Safari screen fit at `cc0c09b
 ## Milestone 11 — Poison Dart Frog identity
 
 Poison Tag keeps the approved body-contact rules, one-second transformation, starting tagger rotation and survival + placement-bonus scoring. Safe frogs become spotted Poison Frogs; the starting Poison Dart Frog wears its crown/badge. Sounds, static camera, arenas and physically accepted iPhone input/viewport systems are unchanged. See [M11 scope and playtest](docs/milestone-11.md).
+
+### Milestone 12 balance candidate
+
+The accepted Poison Tag identity checkpoint is `0b65d9954ad3da5b0a95ad15931ea4b571b35700` (`checkpoint/approved-milestone-11-poison-tag`). The M12 prototype gives fully poisonous frogs 10% more active grapple acceleration, with the existing radial pull ceiling unchanged. Safe/transformation movement remains approved behavior. See [Milestone 12](docs/milestone-12.md) for timing, validation and one-value rollback. This candidate awaits human balance acceptance.
