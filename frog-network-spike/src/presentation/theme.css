@@ -26,3 +26,4 @@ body:not(.game-active) .guide-content,body:not(.game-active) .guide-content h4,b
 body:not(.game-active) .lobby-primary{background:#f4f6dc}
 body:not(.game-active) #lobby-rules summary,body:not(.game-active) .guide-grid h4,body:not(.game-active) .guide-grid strong,body:not(.game-active) .guide-note,body:not(.game-active) #lifecycle-hint{color:#315f56}
 body:not(.game-active) #quick-guide kbd{color:#fff5d6}
+body:not(.game-active) #lobby #arena-description{color:#e4efd4}
