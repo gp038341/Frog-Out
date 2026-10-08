@@ -1,7 +1,7 @@
 import {Vec2,type Body} from 'planck';
 import type {Simulation,Frog} from './world';
 /** Localized Sunny Pond effects. Base movement/grapple tuning is untouched. */
-export const SURFACES={lilyLaunchSpeed:12,lilyImpactThreshold:6,lilyImpactEnergy:.55,lilyMaxLaunchSpeed:18,lilyCooldownTicks:12,mudGroundSpeedMultiplier:.75,soapAccelerationMultiplier:.3,soapBrakeMultiplier:.12,soapContactFriction:0};
+export const SURFACES={lilyLaunchSpeed:12,lilyImpactThreshold:14,lilyImpactEnergy:.8,lilyMaxLaunchSpeed:18,lilyCooldownTicks:12,mudGroundSpeedMultiplier:.75,soapAccelerationMultiplier:.3,soapBrakeMultiplier:.12,soapContactFriction:0};
 /** Normal impact energy adds smoothly above the gentle-landing dead zone. */
 export function bounceLaunchSpeed(impact:number){const v=Number.isFinite(impact)?Math.max(0,impact):0;return Math.min(SURFACES.lilyMaxLaunchSpeed,Math.sqrt(SURFACES.lilyLaunchSpeed**2+SURFACES.lilyImpactEnergy*Math.max(0,v*v-SURFACES.lilyImpactThreshold**2)));}
 type Material='lily'|'mud'|'soap';
@@ -27,7 +27,7 @@ export function resolveSurfaces(sim:Simulation,before:ReturnType<typeof prepareS
   // Any supported top contact auto-launches, including a resting frog; return landings repeat.
   // Side/underside/tongue contacts never trigger. Cooldown prevents duplicate solver impulses.
   // A buffered normal/charged jump already launched by the controller takes priority.
-  if(prior&&p.y>=prior.position.y-.1&&f.body.getLinearVelocity().y>=-.5&&support(f)==='lily'&&sim.tick-(f.surfaceBounceTick??-1000)>=SURFACES.lilyCooldownTicks){
+  if(prior&&p.y>=prior.position.y-.1&&f.suppressSupport<=0&&support(f)==='lily'&&sim.tick-(f.surfaceBounceTick??-1000)>=SURFACES.lilyCooldownTicks){
    const launch=bounceLaunchSpeed(Math.max(lilyImpact(f,prior),sim.tick-(f.surfaceImpactTick??-1000)<=SURFACES.lilyCooldownTicks?f.surfaceImpactSpeed??0:0)),v=f.body.getLinearVelocity();f.body.applyLinearImpulse(Vec2(0,(-launch-v.y)*f.body.getMass()),f.body.getWorldCenter(),true);
    f.surfaceImpactSpeed=undefined;f.surfaceImpactTick=undefined;f.surfaceBounceStrength=(launch-SURFACES.lilyLaunchSpeed)/(SURFACES.lilyMaxLaunchSpeed-SURFACES.lilyLaunchSpeed);f.surfaceBounceTick=sim.tick;f.grounded=false;f.coyote=0;f.suppressSupport=.06;
   }
