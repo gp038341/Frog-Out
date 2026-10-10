@@ -9,7 +9,7 @@ Source: supplied **Handshake AI Skills Studio X OpenAI Multiplayer Game Challeng
 | Project title | **Prepared: Frog-Out**, the current game/repository title. Use this title for the entry unless the owner chooses otherwise |
 | Project cover image | **Not finalized.** Existing original art/screenshots are available; select/prepare and review a cover for the Handshake entry. No unsupported cover dimensions or file format are prescribed here |
 | Project description | Draft below is prepared; owner must review/finalize and enter it |
-| Project link/URL | **Prepared:** https://frog-out-milestone-2.onrender.com/ ; verify final deployment immediately before entry |
+| Project link/URL | **Prepared:** https://frog-out.onrender.com/ ; verify final deployment immediately before entry |
 | Submit to Handshake AI Skills Studio “Create a Multiplayer Game” mission | **Not performed.** Owner must complete the entry in Handshake |
 | Submission deadline | Rules state **2026-10-30, 11:59 PM PT**, with valid entry period beginning 2026-09-22 |
 | Entrant eligibility | Owner must confirm age/majority, eligible-country residency/presence, active Handshake account associated with entry email, exclusion rules and Code of Conduct. Not independently verified |

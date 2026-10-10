@@ -2,7 +2,7 @@
 
 A playful **2–8 player** real-time physics party game. Run, charge-jump and swing through four playful arenas with a pulling tongue. Choose Poison Tag, Freeze Tag or Classic Tag; Sunny Pond is the default arena. Customize your frog in the lobby.
 
-**[Play Frog-Out](https://frog-out-milestone-2.onrender.com/)**. No player accounts or installation. Bring at least one friend on another browser/device.
+**[Play Frog-Out](https://frog-out.onrender.com/)**. No player accounts or installation. Bring at least one friend on another browser/device.
 
 ## Play
 

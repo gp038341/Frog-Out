@@ -1,6 +1,6 @@
 # Frog-Out — current game
 
-**[Play online](https://frog-out-milestone-2.onrender.com/)** · 2–8 players · Four selectable arenas · Poison Tag + Freeze Tag + Classic Tag.
+**[Play online](https://frog-out.onrender.com/)** · 2–8 players · Four selectable arenas · Poison Tag + Freeze Tag + Classic Tag.
 
 No player account, installation or special player-specific URL. Enter a display name, create/join by six-character code, use Copy Code/Copy Join Link. All connected players ready up; the host starts with at least two players. The match roster then freezes. Controls & Rules appears before play; How to Play stays available. The round continues while Help is open, with held inputs cleared; use fresh inputs after closing.
 
