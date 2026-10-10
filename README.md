@@ -57,3 +57,5 @@ Physical iPhone Safari reliability is currently a release blocker under diagnosi
 ## Milestone 9 presentation playtest
 
 Original pond-percussion sound, restrained action feedback and short Outbreak/round celebrations. Current maps, physics, networking and scoring remain unchanged. Sound is opt-in; lobby help contains volume settings. Physical iPhone Safari remains a mandatory release gate; its input/viewport candidate stays frozen. See [M9 scope and acceptance checklist](frog-network-spike/docs/milestone-9.md).
+
+Chaos Voting is enabled by default (host can disable): vote between rounds on Moon Frogs, Mega Tongues, Butterfeet or Quick Licks. First round remains normal; up to three effects rotate. Milestone A is awaiting playtest approval.

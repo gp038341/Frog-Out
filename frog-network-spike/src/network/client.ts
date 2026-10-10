@@ -1,3 +1,5 @@
+import {applyChaos} from '../chaos/registry';
+import type {ChaosView} from '../chaos/voting';
 import type {GameMode} from '../game/modes';
 import {loadAppearance,type Appearance} from '../presentation/cosmetics';
 import {DEFAULT_ARENA,type ArenaId} from '../simulation/arenas';
@@ -11,7 +13,7 @@ import type {Input} from '../simulation/world';
 const cacheKey='frog-out-session';
 export class Connection {
  readonly inputTrace={attemptAt:0,sentAt:0,sentSeq:0,ackAt:0,ack:0,snapshotAt:0,tickAt:0,tick:0,skip:'',transportOpen:false};
- outbreak?:OutbreakView;room?:Room;slot=-1;playerId='';lobby?:LobbyState;status='Choose Create Room or Join Room.';notice='';snapshots:Snapshot[]=[];
+ chaos?:ChaosView;outbreak?:OutbreakView;room?:Room;slot=-1;playerId='';lobby?:LobbyState;status='Choose Create Room or Join Room.';notice='';snapshots:Snapshot[]=[];
  predictor=new Predictor();rtt=0;offset=0;lastReceive=0;seq=0;lastReset=-1;
  link:DelayLink;prediction:boolean;input:Input={x:0,y:0,held:false};bytesIn=0;bytesOut=0;started=Date.now();
  client:Client;http:string;busy=false;reconnecting=false;private generation=0;private reconnectAttempt=0;
@@ -23,15 +25,16 @@ export class Connection {
  error(e:unknown){const message=e instanceof Error?e.message:String(e);return /locked|full|maxClients/i.test(message)?'This room is full or has already started.':message;}
  private save(){if(this.room&&this.lobby)sessionStorage.setItem(cacheKey,JSON.stringify({token:this.room.reconnectionToken,phase:this.lobby.phase,code:this.lobby.code}));}
  private stop(){clearInterval(this.interval);clearInterval(this.ping);this.link.clear();this.input={x:0,y:0,held:false};this.predictor.pending=[];this.predictor.initialized=false;}
- private attach(room:Room){const generation=++this.generation;this.room=room;this.outbreak=undefined;this.status='connected';this.snapshots=[];this.slot=-1;this.seq=0;this.lastReset=-1;this.lastReceive=0;this.predictor.initialized=false;this.predictor.pending=[];this.notice='';
+ private attach(room:Room){const generation=++this.generation;this.room=room;this.chaos=undefined;this.outbreak=undefined;this.status='connected';this.snapshots=[];this.slot=-1;this.seq=0;this.lastReset=-1;this.lastReceive=0;this.predictor.initialized=false;this.predictor.pending=[];this.notice='';
   room.onMessage('welcome',data=>{this.slot=data.slot;this.playerId=data.playerId;this.predictor.slot=data.slot;this.seq=Math.max(this.seq,data.seqBase??0);this.status='connected';});
   room.onMessage('lobby',(state:LobbyState)=>{if(state.phase!==this.lobby?.phase){if(this.lobby?.phase==='lobby'&&state.phase==='game')this.seq=0;this.snapshots=[];this.predictor.initialized=false;this.predictor.pending=[];this.input={x:0,y:0,held:false};this.lastReceive=0;}this.lobby=state;this.notice=state.notice;this.save();});
   room.onMessage('outbreak',(state:OutbreakView|null)=>this.link.schedule('receive',()=>{if(state?.phase!==this.outbreak?.phase||state?.round!==this.outbreak?.round){this.snapshots=[];this.predictor.initialized=false;this.predictor.pending=[];this.input={x:0,y:0,held:false};}this.outbreak=state??undefined;}));
+  room.onMessage('chaos',(state:ChaosView|null)=>this.link.schedule('receive',()=>{this.chaos=state??undefined;}));
   room.onMessage('notice',(message:string)=>this.notice=message);
   room.onMessage('pong',data=>this.link.schedule('receive',()=>{const now=Date.now();const sample=now-data.at;this.rtt=this.rtt?this.rtt*.8+sample*.2:sample;const measured=data.serverTime-(data.at+now)/2;this.offset=this.offset?this.offset*.8+measured*.2:measured;}));
   room.onMessage('snapshot',(s:Snapshot)=>this.link.schedule('receive',()=>{
    if(this.lobby?.phase!=='game'||s.state.tick<=(this.snapshots.at(-1)?.state.tick??-1))return;
-   setSimulationArena(this.predictor.sim,s.arenaId??DEFAULT_ARENA);this.bytesIn+=JSON.stringify(s).length;this.lastReceive=Date.now();this.inputTrace.snapshotAt=this.lastReceive;const ack=s.ack[this.slot]??0;if(ack!==this.inputTrace.ack){this.inputTrace.ack=ack;this.inputTrace.ackAt=this.lastReceive;}if(s.state.tick!==this.inputTrace.tick){this.inputTrace.tick=s.state.tick;this.inputTrace.tickAt=this.lastReceive;}if(!this.snapshots.length)this.offset=s.serverTime-Date.now()+this.link.rtt/2;
+   setSimulationArena(this.predictor.sim,s.arenaId??DEFAULT_ARENA);applyChaos(this.predictor.sim,s.chaos?.active??[]);this.bytesIn+=JSON.stringify(s).length;this.lastReceive=Date.now();this.inputTrace.snapshotAt=this.lastReceive;const ack=s.ack[this.slot]??0;if(ack!==this.inputTrace.ack){this.inputTrace.ack=ack;this.inputTrace.ackAt=this.lastReceive;}if(s.state.tick!==this.inputTrace.tick){this.inputTrace.tick=s.state.tick;this.inputTrace.tickAt=this.lastReceive;}if(!this.snapshots.length)this.offset=s.serverTime-Date.now()+this.link.rtt/2;
    if(this.lastReset!==s.resetId){this.predictor.initialized=false;this.lastReset=s.resetId;}
    this.snapshots.push(s);if(this.snapshots.length>90)this.snapshots.shift();if(this.prediction&&this.playing)this.predictor.reconcile(s,Date.now()+this.offset,this.offset);
   }));
@@ -47,7 +50,7 @@ export class Connection {
  start(){if(this.status==='connected')this.room?.send('start');}
  nextRound(){if(this.status==='connected')this.room?.send('next-round');}
  returnLobby(){if(this.status==='connected')this.room?.send('return-lobby');}
- get playing(){return this.lobby?.phase==='game'&&this.outbreak?.phase==='playing';}
+ get playing(){return this.lobby?.phase==='game'&&this.outbreak?.phase==='playing'&&(!this.chaos||this.chaos.phase==='idle');}
  async leave(){++this.generation;++this.reconnectAttempt;this.reconnecting=false;this.busy=false;this.stop();const room=this.room;this.room=undefined;this.lobby=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);if(room)await room.leave();this.status='You left the room.';}
  sendPing(){const at=Date.now();this.link.schedule('send',()=>this.room?.send('ping',at));}
  setInput(input:Input){if(input.x===this.input.x&&input.y===this.input.y&&input.held===this.input.held)return;this.input={...input};this.sendInput();}

@@ -14,6 +14,7 @@ function displayName(raw:unknown){if(typeof raw!=='string')throw new ServerError
 export class PartyRoom extends SpikeRoom {
  mode:GameMode='poison';
  arenaId:ArenaId=DEFAULT_ARENA;
+ chaosEnabled=true;
  maxClients=8;code='';phase:'lobby'|'game'='lobby';hostId='';notice='';
  players=new Map<string,PlayerInfo>();matchRoster:string[]=[];
  reservations=new Map<string,{reject:(reason?:unknown)=>void}>();
@@ -32,7 +33,7 @@ export class PartyRoom extends SpikeRoom {
   this.players.set(client.sessionId,{id:client.sessionId,name,connected:true,ready:false,slot:-1,appearance:normalizeAppearance(options.appearance)});if(!this.hostId)this.hostId=client.sessionId;this.notice='';this.welcome(client);this.lobby();
  }
  welcome(client:Client){const p=this.players.get(client.sessionId);if(p)client.send('welcome',{slot:p.slot,seqBase:p.slot>=0?this.received[p.slot]:0,playerId:p.id});}
- lobby(){const state:LobbyState={mode:this.mode,arenaId:this.arenaId,code:this.code,phase:this.phase,hostId:this.hostId,players:[...this.players.values()].map(p=>({...p})),notice:this.notice,reconnectSeconds:30};this.broadcast('lobby',state);}
+ lobby(){const state:LobbyState={chaosEnabled:this.chaosEnabled,mode:this.mode,arenaId:this.arenaId,code:this.code,phase:this.phase,hostId:this.hostId,players:[...this.players.values()].map(p=>({...p})),notice:this.notice,reconnectSeconds:30};this.broadcast('lobby',state);}
  startSession(roster:PlayerInfo[]){setSimulationArena(this.sim,this.arenaId);this.phase='game';this.matchRoster=roster.map(p=>p.id);this.slots.clear();sizeSimulation(this.sim,roster.length);this.sim.reset();this.ack=Array(roster.length).fill(0);this.received=Array(roster.length).fill(0);this.lastInput=Array(roster.length).fill(Date.now());this.queues=Array.from({length:roster.length},()=>[]);roster.forEach((p,i)=>{p.slot=i;this.slots.set(p.id,i);});this.resetId++;this.accumulator=0;this.lastClock=performance.now();void this.lock();this.notice='Placeholder session — Outbreak rules are not implemented.';this.lobby();for(const client of this.clients)this.welcome(client);this.publish();}
  async onLeave(client:Client,consented=false){const p=this.players.get(client.sessionId);if(!p)return;
   if(this.phase==='lobby'){this.removePlayer(p.id);this.lobby();return;}

@@ -1,3 +1,4 @@
+import {ChaosUI} from './ui/chaos-ui';
 import {ModeUI} from './ui/mode-ui';
 import {renderClassicHUD} from './ui/classic-hud';
 import {renderFreezeHUD} from './ui/freeze-hud';
@@ -24,6 +25,7 @@ import {capture,type FrogState} from './simulation/state';
 import {arena,WIDTH,HEIGHT,defaults} from './simulation/config';
 const audio=new GameAudio();
 const net=new Connection();void net.boot();
+const chaosUI=new ChaosUI(net);
 const down=new Set<string>();
 const inputSwitches:{at:number;touch:boolean;phase:string;status:string}[]=[];
 const touch=new TouchControls(sample,switchControls,()=>net.playing&&net.status==='connected'&&!document.querySelector('dialog[open]'));
@@ -171,6 +173,7 @@ setInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase
  el('mobile-export').hidden=phase!=='game';
  renderOutbreak();presentation.update(net.lobby?.phase==='game'?net.outbreak:undefined,net.slot);updateMonitor();
  const f=net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.frogs[net.slot]:net.snapshots.at(-1)?.state.frogs[net.slot];
+ chaosUI.update();
  resizeGame();
  touch.update(net.playing&&net.status==='connected'&&!guide.blocking,phase==='game'&&!!net.outbreak&&['announcement','countdown','playing'].includes(net.outbreak.phase),f?.grounded??false,f?.charging??false,f?.tongue?.phase==='attached');
  const ready=lobby?.players.every(p=>p.ready&&p.connected)&&lobby.players.length>=2;(el('start') as HTMLButtonElement).disabled=!ready||net.status!=='connected';(el('ready') as HTMLButtonElement).disabled=net.status!=='connected';

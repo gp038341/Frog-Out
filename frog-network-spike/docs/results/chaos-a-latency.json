@@ -1,0 +1,224 @@
+{
+  "environment": "Local loopback WebSockets plus ordered application-layer delay, two independent Colyseus clients; not deployed WAN or human playtest",
+  "results": [
+    {
+      "addedRtt": 50,
+      "jitterPerLeg": 10,
+      "measuredRtt": {
+        "p50": 54,
+        "p95": 60,
+        "p99": 60,
+        "max": 60
+      },
+      "authoritativeAcknowledgementMs": {
+        "p50": 89,
+        "p95": 103,
+        "p99": 103,
+        "max": 103
+      },
+      "localPredictedStepMs": {
+        "p50": 5,
+        "p95": 14,
+        "p99": 14,
+        "max": 14
+      },
+      "correctionsMetres": {
+        "charge": {
+          "p50": 0,
+          "p95": 0.09891666668871042,
+          "p99": 0.2747299457457548,
+          "max": 0.2747299457457548
+        },
+        "terrain": {
+          "p50": 0,
+          "p95": 0,
+          "p99": 0.019339261595351487,
+          "max": 0.019339261595351487
+        },
+        "frogs": {
+          "p50": 0,
+          "p95": 0.021750000000000824,
+          "p99": 0.2128791483147996,
+          "max": 0.2128791483147996
+        },
+        "collision": {
+          "p50": 0,
+          "p95": 0.01944444444444393,
+          "p99": 0.037934297471263534,
+          "max": 0.037934297471263534
+        },
+        "landing": {
+          "p50": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0
+        }
+      },
+      "largeSnaps": 0,
+      "tickMs": {
+        "p50": 0.1632660000004762,
+        "p95": 0.4007339999998294,
+        "p99": 1.2136980000000221,
+        "max": 2.8352109999999584
+      },
+      "overruns": 0,
+      "observedTongues": [
+        "flying",
+        "terrain-attachment",
+        "frog-attachment"
+      ],
+      "snapshots": 288,
+      "mutualPullSnapshots": 47,
+      "collisionSnapshots": 35,
+      "chargedLaunchObserved": true,
+      "maxChargeObserved": 0.8,
+      "minChargeVy": -17.566666666666666
+    },
+    {
+      "addedRtt": 100,
+      "jitterPerLeg": 10,
+      "measuredRtt": {
+        "p50": 102,
+        "p95": 106,
+        "p99": 106,
+        "max": 106
+      },
+      "authoritativeAcknowledgementMs": {
+        "p50": 135,
+        "p95": 157,
+        "p99": 157,
+        "max": 157
+      },
+      "localPredictedStepMs": {
+        "p50": 8,
+        "p95": 15,
+        "p99": 15,
+        "max": 15
+      },
+      "correctionsMetres": {
+        "charge": {
+          "p50": 0,
+          "p95": 0.09891666666676996,
+          "p99": 0.5427962578205954,
+          "max": 0.5427962578205954
+        },
+        "terrain": {
+          "p50": 0,
+          "p95": 0.1121981797744829,
+          "p99": 0.15757193945994252,
+          "max": 0.15757193945994252
+        },
+        "frogs": {
+          "p50": 0,
+          "p95": 0.13496468594657607,
+          "p99": 0.18444444444444485,
+          "max": 0.18444444444444485
+        },
+        "collision": {
+          "p50": 0,
+          "p95": 0.021441855180679426,
+          "p99": 0.07694826053259263,
+          "max": 0.07694826053259263
+        },
+        "landing": {
+          "p50": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0
+        }
+      },
+      "largeSnaps": 0,
+      "tickMs": {
+        "p50": 0.09098699999958626,
+        "p95": 0.19004599999971106,
+        "p99": 0.3411339999984193,
+        "max": 0.7104999999992287
+      },
+      "overruns": 0,
+      "observedTongues": [
+        "flying",
+        "terrain-attachment",
+        "frog-attachment"
+      ],
+      "snapshots": 300,
+      "mutualPullSnapshots": 46,
+      "collisionSnapshots": 35,
+      "chargedLaunchObserved": true,
+      "maxChargeObserved": 0.8,
+      "minChargeVy": -17.566666666666666
+    },
+    {
+      "addedRtt": 150,
+      "jitterPerLeg": 10,
+      "measuredRtt": {
+        "p50": 147,
+        "p95": 148,
+        "p99": 148,
+        "max": 148
+      },
+      "authoritativeAcknowledgementMs": {
+        "p50": 181,
+        "p95": 203,
+        "p99": 203,
+        "max": 203
+      },
+      "localPredictedStepMs": {
+        "p50": 6,
+        "p95": 13,
+        "p99": 13,
+        "max": 13
+      },
+      "correctionsMetres": {
+        "charge": {
+          "p50": 0,
+          "p95": 0.19241666666666646,
+          "p99": 0.5164414084296101,
+          "max": 0.5164414084296101
+        },
+        "terrain": {
+          "p50": 0,
+          "p95": 0.12280128428341008,
+          "p99": 0.15088399716426193,
+          "max": 0.15088399716426193
+        },
+        "frogs": {
+          "p50": 0,
+          "p95": 0.15225000000000044,
+          "p99": 0.23266264320503893,
+          "max": 0.23266264320503893
+        },
+        "collision": {
+          "p50": 0,
+          "p95": 0.08333333333333215,
+          "p99": 0.16155555555555345,
+          "max": 0.16155555555555345
+        },
+        "landing": {
+          "p50": 0,
+          "p95": 0.20388888888889056,
+          "p99": 0.20388888888889056,
+          "max": 0.20388888888889056
+        }
+      },
+      "largeSnaps": 0,
+      "tickMs": {
+        "p50": 0.07305000000269501,
+        "p95": 0.15850899999713874,
+        "p99": 0.23922999999922467,
+        "max": 0.781396999998833
+      },
+      "overruns": 0,
+      "observedTongues": [
+        "flying",
+        "terrain-attachment",
+        "frog-attachment"
+      ],
+      "snapshots": 316,
+      "mutualPullSnapshots": 47,
+      "collisionSnapshots": 39,
+      "chargedLaunchObserved": true,
+      "maxChargeObserved": 0.8,
+      "minChargeVy": -17.566666666666666
+    }
+  ]
+}

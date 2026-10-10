@@ -20,6 +20,8 @@ export type Frog = {
 };
 const neutral = (): Input => ({ x: 0, y: 0, held: false });
 export class Simulation {
+  chaosButterfeet = false;
+  chaosGroundFriction = .03;
   world: World;
   frogs: Frog[] = [];
   tick = 0;
@@ -108,6 +110,9 @@ export class Simulation {
   step() {
     const t = this.tuning;
     const surfaceFrame = prepareSurfaces(this);
+    if(this.chaosButterfeet)for(let c=this.world.getContactList();c;c=c.getNext()){
+      if(this.frogs.some(f=>f.body===c.getFixtureA().getBody()||f.body===c.getFixtureB().getBody()))c.setFriction(Math.min(c.getFriction(),this.chaosGroundFriction));
+    }
     this.world.setGravity(Vec2(0, t.gravity));
     const coupled = new Set<Body>();
     for (const f of this.frogs) if (f.tongue?.phase === 'attached' && f.tongue.target?.isDynamic()) {
@@ -165,7 +170,8 @@ export class Simulation {
         dv = x * Math.max(0, Math.min(t.groundAcceleration * DT, t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1) - x * v.x));
       } else if (f.grounded && !f.tongue) {
         const target = x * t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1);
-        const a = (x ? t.groundAcceleration : t.groundBrake) * (f.slipperySoap ? (x ? SURFACES.soapAccelerationMultiplier : SURFACES.soapBrakeMultiplier) : 1);
+        const soap = f.slipperySoap ? (x ? SURFACES.soapAccelerationMultiplier : SURFACES.soapBrakeMultiplier) : 1;
+        const a = this.chaosButterfeet ? (x ? defaults.groundAcceleration : defaults.groundBrake) * Math.min(x ? t.groundAcceleration / defaults.groundAcceleration : t.groundBrake / defaults.groundBrake, soap) : (x ? t.groundAcceleration : t.groundBrake) * soap;
         dv = Math.max(-a * DT, Math.min(a * DT, target - v.x));
       }
       f.body.applyLinearImpulse(Vec2(dv * f.body.getMass(), 0), f.body.getWorldCenter(), true);
