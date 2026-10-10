@@ -30,3 +30,8 @@ Manual acceptance:
 6. Finish/rematch: round 1 resets to normal; toggle/arena/mode/cosmetics remain expected. Check iPhone landscape voting, Safari chrome, two-thumb control after transitions, Android and desktop.
 
 Candidate only; stop after deployment for owner acceptance. No additional modifiers/Milestone B authorized.
+
+## Owner playtest refinement — 2026-10-10
+Supersedes earlier A tuning and expiring-ballot exclusion. Moon gravity is ×0.25 (6.5), free-flight air acceleration ×0.45 (4.5), horizontal drag 1.5/s, vertical drag .6/s, maximum downward speed 4.2. Air resistance excludes frogs attached to terrain and either end of frog-to-frog grapples; lower gravity remains active. Butterfeet acceleration ×.40 (24), braking ×.025 (1.25), friction cap .001. Mega Tongues reach covers the full 40×22.5 arena diagonal plus 2 units (47.8939); no infinite ray or change to boundaries. Quick Licks unchanged. At capacity, expiring modifier appears with RENEW on the ballot; choosing it moves it to newest without duplication. Ballots become 3→2→1→2 with this limited catalog. Distinct moon-purple, tongue-pink, butter-gold and lightning-teal cards retain names/icons and checked state. Normal baseline, input and viewport systems unchanged. Physical acceptance pending.
+
+Refinement validation: 144/144 tests and build pass; 22 independent-client network scenarios pass for all modes and 2–8 clients, including renewal/replacement, ties, abstention, disconnect/reconnect and rematches. Frozen-source checks remain exact. Local test-only short deadlines; public production verification performed separately. No new physical-device test claimed.

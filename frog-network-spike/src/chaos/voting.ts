@@ -14,7 +14,7 @@ export class ChaosVoting{
   }
   if(!this.choices.length){this.notice='No eligible change. Current modifiers stay active.';return false;}
   this.priority=[...this.choices];for(let i=this.priority.length-1;i>0;i--){const j=Math.floor(this.random()*(i+1));[this.priority[i],this.priority[j]]=[this.priority[j],this.priority[i]];}
-  this.ballotId++;this.votes.clear();this.winner=undefined;this.expiring=this.active.length===3?this.active[0]:undefined;this.phase='voting';this.closesAt=now+this.voteMs;this.notice=this.choices.length<3?'Only inactive modifiers are eligible. Fewer choices this vote.':'';return true;
+  this.ballotId++;this.votes.clear();this.winner=undefined;this.expiring=this.active.length===3?this.active[0]:undefined;this.phase='voting';this.closesAt=now+this.voteMs;this.notice=this.choices.length<3?'Kept modifiers are excluded. The expiring modifier can be renewed. Fewer choices this vote.':'';return true;
  }
  vote(player:string,id:unknown,ballot:unknown,connected:readonly string[],now:number){if(this.phase!=='voting'||now>=this.closesAt||ballot!==this.ballotId||!connected.includes(player)||!isModifier(id)||!this.choices.includes(id))return false;this.votes.set(player,id);return true;}
  counts(connected:readonly string[]){return this.choices.map(id=>[...this.votes].filter(([p,v])=>connected.includes(p)&&v===id).length);}

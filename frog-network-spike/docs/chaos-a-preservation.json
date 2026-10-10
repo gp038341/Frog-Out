@@ -57,10 +57,10 @@
     },
     "src/simulation/world.ts": {
       "beforeSha256": "dc629d8753e186bfdce87477e2133ce5279acf55d542ccef1998edcbe67e8415",
-      "afterSha256": "07cc2cbc4461d1bd26fe67c3401ef6572f4e404b114dc976b43a6069cc5d5ef0",
+      "afterSha256": "5072745680997acf4efea1a449a20ef6c7a5a28101b68c6aac4ddf9131d8878b",
       "changes": [
         {
-          "from": "const neutral = (): Input => ({ x: 0, y: 0, held: false });\nexport class Simulation {\n  chaosButterfeet = false;\n  chaosGroundFriction = .03;\n  world: World;\n  frogs: Frog[] = [];\n",
+          "from": "const neutral = (): Input => ({ x: 0, y: 0, held: false });\nexport class Simulation {\n  chaosMoon = false;\n  chaosMoonDragX = 1.5;\n  chaosMoonDragY = .6;\n  chaosMoonFallSpeed = 4.2;\n  chaosButterfeet = false;\n  chaosGroundFriction = .03;\n  world: World;\n  frogs: Frog[] = [];\n",
           "to": "const neutral = (): Input => ({ x: 0, y: 0, held: false });\nexport class Simulation {\n  world: World;\n  frogs: Frog[] = [];\n"
         },
         {
@@ -70,6 +70,10 @@
         {
           "from": "      } else if (f.grounded && !f.tongue) {\n        const target = x * t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1);\n        const soap = f.slipperySoap ? (x ? SURFACES.soapAccelerationMultiplier : SURFACES.soapBrakeMultiplier) : 1;\n        const a = this.chaosButterfeet ? (x ? defaults.groundAcceleration : defaults.groundBrake) * Math.min(x ? t.groundAcceleration / defaults.groundAcceleration : t.groundBrake / defaults.groundBrake, soap) : (x ? t.groundAcceleration : t.groundBrake) * soap;\n        dv = Math.max(-a * DT, Math.min(a * DT, target - v.x));\n      }\n",
           "to": "      } else if (f.grounded && !f.tongue) {\n        const target = x * t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1);\n        const a = (x ? t.groundAcceleration : t.groundBrake) * (f.slipperySoap ? (x ? SURFACES.soapAccelerationMultiplier : SURFACES.soapBrakeMultiplier) : 1);\n        dv = Math.max(-a * DT, Math.min(a * DT, target - v.x));\n      }\n"
+        },
+        {
+          "from": "      // Moon resistance affects free flight only; neither end of a live grapple is damped.\n      if(this.chaosMoon && !f.grounded && f.tongue?.phase !== 'attached' && !coupled.has(f.body)){\n        const velocity=f.body.getLinearVelocity();\n        const vy=velocity.y*Math.exp(-this.chaosMoonDragY*DT);\n        f.body.setLinearVelocity(Vec2(velocity.x*Math.exp(-this.chaosMoonDragX*DT),Math.min(vy,Math.max(0,this.chaosMoonFallSpeed-t.gravity*DT))));\n      }\n      const v = f.body.getLinearVelocity();\n      let dv = x * t.airAcceleration * DT;",
+          "to": "      const v = f.body.getLinearVelocity();\n      let dv = x * t.airAcceleration * DT;"
         }
       ]
     },

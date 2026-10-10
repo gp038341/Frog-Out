@@ -20,6 +20,10 @@ export type Frog = {
 };
 const neutral = (): Input => ({ x: 0, y: 0, held: false });
 export class Simulation {
+  chaosMoon = false;
+  chaosMoonDragX = 1.5;
+  chaosMoonDragY = .6;
+  chaosMoonFallSpeed = 4.2;
   chaosButterfeet = false;
   chaosGroundFriction = .03;
   world: World;
@@ -163,6 +167,12 @@ export class Simulation {
       }
       const x = f.input.x;
       if (x) f.facing = x;
+      // Moon resistance affects free flight only; neither end of a live grapple is damped.
+      if(this.chaosMoon && !f.grounded && f.tongue?.phase !== 'attached' && !coupled.has(f.body)){
+        const velocity=f.body.getLinearVelocity();
+        const vy=velocity.y*Math.exp(-this.chaosMoonDragY*DT);
+        f.body.setLinearVelocity(Vec2(velocity.x*Math.exp(-this.chaosMoonDragX*DT),Math.min(vy,Math.max(0,this.chaosMoonFallSpeed-t.gravity*DT))));
+      }
       const v = f.body.getLinearVelocity();
       let dv = x * t.airAcceleration * DT;
       if (f.grounded && coupled.has(f.body)) {

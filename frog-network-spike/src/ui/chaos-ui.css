@@ -3,3 +3,11 @@
 #chaos-voting[hidden],#chaos-active[hidden]{display:none}#chaos-voting h2{margin:.15em 0}.chaos-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.chaos-card{display:flex;flex-direction:column;text-align:left;gap:8px;min-height:116px;min-width:0;padding:14px;background:#376969;color:#fff5d3;border:3px solid transparent;white-space:normal}.chaos-card[aria-pressed=true]{border-color:#ffe28a;background:#487956}.chaos-card:disabled{opacity:1}.chaos-card strong{font-size:1.1rem}.chaos-card span{font-size:.9rem}.chaos-expiring{color:#ffccaa}#chaos-timer{font-variant-numeric:tabular-nums}#chaos-active{position:absolute;left:8px;bottom:4px;max-width:calc(100% - 16px);pointer-events:none;font-size:clamp(9px,1.5vw,12px);background:#173c45d9;color:#fff5d3;border-radius:5px;padding:3px 6px}
 @media(max-height:500px) and (orientation:landscape){#chaos-voting{margin:4px auto;padding:8px}#chaos-voting h2{font-size:1.2rem}#chaos-voting p{margin:5px 0;font-size:.8rem}.chaos-card{min-height:100px;padding:8px;gap:5px}.chaos-card strong{font-size:.95rem}.chaos-card span,.chaos-card small{font-size:.75rem}}
 @media(max-width:420px) and (orientation:portrait){.chaos-cards{grid-template-columns:1fr}.chaos-card{min-height:80px}}
+
+/* Individual card identities stay readable without color alone. */
+.chaos-card[data-modifier=moon_frogs]{background:linear-gradient(135deg,#373c72,#59648f);border-color:#a5b5fa}
+.chaos-card[data-modifier=mega_tongues]{background:linear-gradient(135deg,#7b385d,#a9556e);border-color:#ffadbf}
+.chaos-card[data-modifier=butterfeet]{background:linear-gradient(135deg,#685621,#887136);border-color:#ffe18a}
+.chaos-card[data-modifier=quick_licks]{background:linear-gradient(135deg,#176675,#348894);border-color:#a1f2de}
+.chaos-card strong{display:block;font-size:1.3rem;line-height:1.2}.chaos-card[aria-pressed=true]{outline:3px solid #fff5d3;outline-offset:2px;box-shadow:0 0 0 5px #173c45}.chaos-card[aria-pressed=true] strong:before{content:'✓ ';}
+@media(max-height:500px) and (orientation:landscape){.chaos-card strong{font-size:1.05rem}}
