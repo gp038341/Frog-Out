@@ -68,7 +68,7 @@ class Spike extends Phaser.Scene {
   const coupledSlots=new Set<number>();
   if(predicted&&net.slot>=0&&predicted[net.slot]){
    coupledSlots.add(net.slot);let changed=true;
-   while(changed){changed=false;predicted.forEach((f,i)=>{predicted.forEach((g,j)=>{if(i===j||(!coupledSlots.has(i)&&!coupledSlots.has(j)))return;const attached=f.tongue?.target&&'frog'in f.tongue.target&&f.tongue.target.frog===j;const near=Math.hypot(f.x-g.x,f.y-g.y)<defaults.frogRadius*2+.3;if(attached||near){if(!coupledSlots.has(i)||!coupledSlots.has(j))changed=true;coupledSlots.add(i);coupledSlots.add(j);}});});}
+   while(changed){changed=false;predicted.forEach((f,i)=>{predicted.forEach((g,j)=>{if(i===j||(!coupledSlots.has(i)&&!coupledSlots.has(j)))return;const attached=f.tongue?.target&&'frog'in f.tongue.target&&f.tongue.target.frog===j;const near=Math.hypot(f.x-g.x,f.y-g.y)<(f.radius??defaults.frogRadius)+(g.radius??defaults.frogRadius)+.3;if(attached||near){if(!coupledSlots.has(i)||!coupledSlots.has(j))changed=true;coupledSlots.add(i);coupledSlots.add(j);}});});}
    for(const i of coupledSlots)states[i]=predicted[i];
   }
   const coupled=coupledSlots.size>1;

@@ -9,6 +9,7 @@ export class ChaosVoting{
  reset(){this.active=[];this.version++;this.phase='idle';this.choices=[];this.priority=[];this.votes.clear();this.winner=undefined;this.expiring=undefined;this.notice='';}
  open(now:number,mode:GameMode='poison',arena:ArenaId=DEFAULT_ARENA){if(!this.enabled||this.phase!=='idle')return false;
   const remaining=eligibleModifierIds(this.active,mode,arena);this.choices=[];
+  const renew=this.active.length===3?this.active[0]:undefined;if(renew&&remaining.includes(renew)){this.choices.push(renew);remaining.splice(remaining.indexOf(renew),1);}
   while(remaining.length&&this.choices.length<3){const families=new Set(this.choices.map(id=>modifier(id).family));const diverse=remaining.filter(id=>!families.has(modifier(id).family));const pool=diverse.length?diverse:remaining;
    const weights=pool.map(id=>this.history.at(-1)?.includes(id)?.25:this.history.at(-2)?.includes(id)?.5:1);let draw=this.random()*weights.reduce((a,b)=>a+b,0),chosen=pool.at(-1)!;for(let i=0;i<pool.length;i++){draw-=weights[i];if(draw<0){chosen=pool[i];break;}}this.choices.push(chosen);remaining.splice(remaining.indexOf(chosen),1);
   }

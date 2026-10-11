@@ -73,6 +73,7 @@ export class Courtyard {
    const distance=Math.hypot(tip.x-p.x,tip.y-p.y),slack=t.phase==='attached'?Math.min(1.2,Math.max(0,t.length-distance)*.6):0;
    const ax=p.x*S,ay=p.y*S,bx=tip.x*S,by=tip.y*S;const curve=new Phaser.Curves.QuadraticBezier(new Phaser.Math.Vector2(ax,ay),new Phaser.Math.Vector2((ax+bx)/2,(ay+by)/2+slack*S),new Phaser.Math.Vector2(bx,by));const points=curve.getPoints(12);
    g.lineStyle(7,INK);g.strokePoints(points);g.lineStyle(4,0xff9baf);g.strokePoints(points);g.fillStyle(0xffc4ce);g.fillCircle(bx,by,4);g.lineStyle(2,INK);g.strokeCircle(bx,by,4);
+   if(f.chaosSuperSuckers&&t.phase==='attached'&&distance>t.length-.3){g.lineStyle(2,0xffd1ef,.7);for(const q of [.35,.55,.75]){const cx=ax+(bx-ax)*q,cy=ay+(by-ay)*q;g.lineBetween(cx-3,cy-5,cx+3,cy+5);}}
    if(t.phase==='attached'&&distance>t.length-.3){g.lineStyle(1.5,0xffd6df,.8);g.strokeCircle(bx,by,7+Math.sin(time*13)*1.2);}
   });
   states.forEach((f,i)=>{
@@ -84,17 +85,19 @@ export class Courtyard {
     if(f.tongue?.phase==='attached'&&before.tongue!=='attached'){this.pop(f.tongue.tip.x,f.tongue.tip.y,0xffbbc9,'attach');if(i===local)this.audio.play('attach');}
     if(state==='transforming'&&before.state==='healthy'){this.pop(p.x,p.y,POISON_ACCENTS[i],'infect');this.reactions[i]=180;this.tagPuffs[i]=TAG_POOF_MS;}
     // React only to velocity changes in a physical body-contact neighborhood, not ordinary control acceleration.
-    const bump=states.some((other,j)=>i!==j&&Math.hypot(other.x-f.x,other.y-f.y)<defaults.frogRadius*2+.15);
+    const bump=states.some((other,j)=>i!==j&&Math.hypot(other.x-f.x,other.y-f.y)<(f.radius??defaults.frogRadius)+(other.radius??defaults.frogRadius)+.15);
     if(bump&&Math.hypot(f.vx-before.vx,f.vy-before.vy)>3.5&&this.reactions[i]<=0){this.reactions[i]=130;this.pop(p.x,p.y,color,'bump');}
    }
+   if(f.chaosTurbo&&f.grounded&&Math.abs(f.vx)>4){g.lineStyle(2,0xffdb91,.6);g.lineBetween(p.x*S-f.facing*18,p.y*S+10,p.x*S-f.facing*27,p.y*S+10);}
+   if(f.aimAssistTick!==undefined&&f.aimAssistTarget!==undefined&&(view?.tick??0)-f.aimAssistTick<12){const target=positions[f.aimAssistTarget];if(target){g.lineStyle(2,0xa6fff2);const tx=target.x*S,ty=target.y*S;g.lineBetween(tx-8,ty,tx+8,ty);g.lineBetween(tx,ty-8,tx,ty+8);}}
    this.reactions[i]=Math.max(0,this.reactions[i]-delta);this.frog(g,p.x*S,p.y*S,f,i,infection,connected[i]!==false,i===local,time);
    if(view?.mode==='classic'){const isIt=i===view.classic!.it;if(before?.state&&before.state!==(isIt?'it':'runner')&&isIt)this.tagPuffs[i]=TAG_POOF_MS;this.tagPuffs[i]=Math.max(0,(this.tagPuffs[i]??0)-delta);paintClassicState(g,p.x*S,p.y*S,i,view,this.tagPuffs[i]);}
    if(view?.mode!=='classic'&&view?.mode!=='freeze'){this.tagPuffs[i]=Math.max(0,(this.tagPuffs[i]??0)-delta);paintTagPoof(g,p.x*S,p.y*S,this.tagPuffs[i]);}
-   if(view?.mode==='freeze'){const frozen=view.freeze!.frozen[i];paintFreezeState(g,p.x*S,p.y*S,i,view);if(before?.state&&before.state!==(frozen?'frozen':'runner')){this.pop(p.x,p.y,0xb3f0ff,'attach');if(i===local)this.audio.play(frozen?'infect':'transform');}}
+   if(view?.mode==='freeze'){const frozen=view.freeze!.frozen[i];g.save();g.translateCanvas(p.x*S,p.y*S);g.scaleCanvas((f.radius??defaults.frogRadius)/defaults.frogRadius,(f.radius??defaults.frogRadius)/defaults.frogRadius);paintFreezeState(g,0,0,i,view);g.restore();if(before?.state&&before.state!==(frozen?'frozen':'runner')){this.pop(p.x,p.y,0xb3f0ff,'attach');if(i===local)this.audio.play(frozen?'infect':'transform');}}
    if(f.stickyMud){g.fillStyle(0x795343,.8);for(const dx of [-8,8])g.fillEllipse(p.x*S+dx,p.y*S+12,12,5);}
    const status=connected[i]===false?'OFFLINE':view?.mode==='classic'?(i===view.classic!.it?'▲ IT':'NOT IT'):view?.mode==='freeze'?(i===view.freeze!.freezer?'❄ FREEZER':view.freeze!.frozen[i]?'❄ FROZEN':view.freeze!.protectedUntil[i]>view.tick?'◇ PROTECTED':'RUNNER'):infection?.state==='transforming'?'CHANGING · 1s':infection?.state==='infectious'?(infection.patientZero?'◆ DART FROG':'◆ POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.state==='healthy').length===1?'LAST SAFE':'SAFE';
    const label=this.labels[i];
-   label.setVisible(true).setText(`${i===local?'▾ ':''}${names[i]}\n${status}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-defaults.frogRadius-.3)*S)).setColor(connected[i]===false?'#b2c7c2':state==='transforming'?'#ffe5a3':state==='infectious'?`#${POISON_ACCENTS[i].toString(16).padStart(6,'0')}`:'#fff8d9');
+   label.setVisible(true).setText(`${i===local?'▾ ':''}${names[i]}\n${status}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-(f.radius??defaults.frogRadius)-.3)*S)).setColor(connected[i]===false?'#b2c7c2':state==='transforming'?'#ffe5a3':state==='infectious'?`#${POISON_ACCENTS[i].toString(16).padStart(6,'0')}`:'#fff8d9');
    this.previous[i]={surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state:view?.mode==='classic'?(i===view.classic!.it?'it':'runner'):view?.mode==='freeze'?(view.freeze!.frozen[i]?'frozen':'runner'):state,x:f.x,y:f.y};
   });
   this.labels.forEach((l,i)=>{if(i>=states.length)l.setVisible(false);});
@@ -102,6 +105,7 @@ export class Courtyard {
   this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;e.lineStyle(2,p.color,1-q);const radius=((p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22))*(1+(p.strength??0)*.35);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});
  }
  frog(g:Phaser.GameObjects.Graphics,x:number,y:number,f:FrogState,slot:number,infection:OutbreakPlayer|undefined,online:boolean,local:boolean,time:number){
+  const size=(f.radius??defaults.frogRadius)/defaults.frogRadius;g.save();g.translateCanvas(x,y);g.scaleCanvas(size,size);x=0;y=0;
   const charging=f.charging,q=Math.min(1,f.charge/defaults.chargeSeconds),role=poisonRole(infection?.state),poison=role.tagging,grace=role.transforming,accent=POISON_ACCENTS[slot%8];
   const squish=charging ? .8-.12*q : this.reactions[slot]>0 ? .84 : 1;
   const sy=f.grounded?squish:Math.min(1.14,1+Math.abs(f.vy)*.006),sx=f.grounded?1+(1-sy)*.6:1/Math.sqrt(sy);
@@ -132,5 +136,6 @@ export class Courtyard {
   paintHat(g,x,y-r-5,r,layers.hat,time);
   if(infection?.patientZero){g.fillStyle(0xffe487);g.lineStyle(2,INK);const points=[{x:x-7,y:y-r-7},{x:x-7,y:y-r-14},{x:x-3,y:y-r-10},{x,y:y-r-16},{x:x+3,y:y-r-10},{x:x+7,y:y-r-14},{x:x+7,y:y-r-7}];g.fillPoints(points,true);g.strokePoints(points,true);}
   if(charging){g.lineStyle(3,INK);g.strokeCircle(x,y,r+9);g.lineStyle(3,0xffe29c);g.beginPath();g.arc(x,y,r+9,-Math.PI/2,-Math.PI/2+Math.PI*2*Math.max(.03,q));g.strokePath();}
+  g.restore();
  }
 }

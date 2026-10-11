@@ -1,3 +1,4 @@
+import {assistedDirection} from './aim-assist';
 import { World, Vec2, Box, Circle, RopeJoint, Body } from 'planck';
 import {prepareSurfaces,resolveSurfaces,SURFACES,bindSurfaceImpacts} from './surfaces';
 import {POISON_BALANCE} from '../game/poison-balance';
@@ -11,6 +12,7 @@ export type Tongue = {
 };
 export type Frog = {
   slipperySoap?: boolean; stickyMud?: boolean; surfaceBounceTick?: number; surfaceBounceStrength?: number; surfaceImpactSpeed?: number; surfaceImpactTick?: number;
+  aimAssistTick?: number; aimAssistTarget?: number;
   poisonPullFromTick?: number;
   body: Body; facing: number; input: Input; events: Input[]; held: boolean;
   charging: boolean; charge: number; grounded: boolean; tongue?: Tongue;
@@ -20,6 +22,9 @@ export type Frog = {
 };
 const neutral = (): Input => ({ x: 0, y: 0, held: false });
 export class Simulation {
+  chaosAimDegrees = 0;
+  chaosSuperSuckers = false;
+  chaosTurbo = false;
   chaosMoon = false;
   chaosMoonDragX = 1.5;
   chaosMoonDragY = .6;
@@ -81,7 +86,7 @@ export class Simulation {
     const v = f.body.getLinearVelocity();
     if (v.y <= 0 || f.tongue || f.suppressSupport > 0) return false;
     const p = f.body.getPosition();
-    const reach = this.tuning.frogRadius + v.y * this.tuning.jumpBufferSeconds + 0.04;
+    const reach = this.tuning.frogRadius + v.y * this.tuning.jumpBufferSeconds + 0.04 * (this.tuning.frogRadius / defaults.frogRadius);
     let support = false;
     // A short downward probe disambiguates a landing tap from an airborne tongue press.
     this.world.rayCast(p, Vec2(p.x, p.y + reach), (fixture, _point, normal, fraction) => {
@@ -109,6 +114,7 @@ export class Simulation {
     const m = Math.hypot(x, y);
     if (!m) { x = f.facing; y = 0; } else { x /= m; y /= m; }
     const p = f.body.getPosition();
+    if(this.chaosAimDegrees>0){const aim=assistedDirection(this,f,{x,y},this.chaosAimDegrees);x=aim.x;y=aim.y;f.aimAssistTarget=aim.target;f.aimAssistTick=aim.target===undefined?undefined:this.tick;}else{f.aimAssistTarget=undefined;f.aimAssistTick=undefined;}
     f.tongue = { phase: 'flying', direction: { x, y }, tip: { x: p.x, y: p.y }, distance: 0, length: 0 };
   }
   step() {
@@ -212,7 +218,7 @@ export class Simulation {
     const p = f.body.getWorldCenter();
     const dx = anchor.x - p.x, dy = anchor.y - p.y, d = Math.hypot(dx, dy);
     const minLength = target.isDynamic() ? this.tuning.frogRadius * 2 + this.tuning.frogGrappleClearance
-      : Math.max(this.tuning.grappleMinLength, this.tuning.frogRadius + 0.05);
+      : Math.max(this.tuning.grappleMinLength, this.tuning.frogRadius + 0.05 * (this.tuning.frogRadius / defaults.frogRadius));
     // Take up existing slack only. Never forcibly shorten a taut constraint.
     tongue.length = Math.max(target.isDynamic() ? minLength : Math.min(minLength, tongue.length), tongue.length - Math.min(
       this.tuning.grappleTakeupSpeed * DT, Math.max(0, tongue.length - Math.max(minLength, d)),

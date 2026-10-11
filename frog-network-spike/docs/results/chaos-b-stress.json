@@ -1,0 +1,213 @@
+{
+  "scope": "Local authoritative simulation microbenchmark; 8 frogs, active action/movement, all arenas, representative 3-modifier stacks. Does not measure Render CPU or physical devices. Milliseconds; 16.67ms budget.",
+  "results": [
+    {
+      "arena": "sunny-pond",
+      "active": [],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.04244499999998652,
+      "p95": 0.13015400000000454,
+      "p99": 0.2834349999999972,
+      "max": 0.6623470000000111
+    },
+    {
+      "arena": "sunny-pond",
+      "active": [
+        "tiny_trouble",
+        "turbo_toads",
+        "butterfeet"
+      ],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.03543700000000172,
+      "p95": 0.08442400000001271,
+      "p99": 0.19449099999997088,
+      "max": 1.0974340000000211
+    },
+    {
+      "arena": "sunny-pond",
+      "active": [
+        "mega_frogs",
+        "super_suckers",
+        "magnet_mouths"
+      ],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.03707999999994627,
+      "p95": 0.08931400000005851,
+      "p99": 0.23965899999996054,
+      "max": 0.9600669999999809
+    },
+    {
+      "arena": "sunny-pond",
+      "active": [
+        "moon_frogs",
+        "mega_tongues",
+        "quick_licks"
+      ],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.024880999999936648,
+      "p95": 0.059205000000019936,
+      "p99": 0.14309500000001663,
+      "max": 0.6871150000000625
+    },
+    {
+      "arena": "bathhouse",
+      "active": [],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.03290900000001784,
+      "p95": 0.06199600000002192,
+      "p99": 0.1625219999999672,
+      "max": 1.8048430000000053
+    },
+    {
+      "arena": "bathhouse",
+      "active": [
+        "tiny_trouble",
+        "turbo_toads",
+        "butterfeet"
+      ],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.03176100000007409,
+      "p95": 0.05598999999995158,
+      "p99": 0.16982500000005984,
+      "max": 0.7134779999998955
+    },
+    {
+      "arena": "bathhouse",
+      "active": [
+        "mega_frogs",
+        "super_suckers",
+        "magnet_mouths"
+      ],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.0331260000000384,
+      "p95": 0.06376099999999951,
+      "p99": 0.13904300000001513,
+      "max": 0.6141480000000001
+    },
+    {
+      "arena": "bathhouse",
+      "active": [
+        "moon_frogs",
+        "mega_tongues",
+        "quick_licks"
+      ],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.026533999999969637,
+      "p95": 0.05885999999998148,
+      "p99": 0.17552499999999327,
+      "max": 0.803843000000029
+    },
+    {
+      "arena": "canopy",
+      "active": [],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.03346899999996822,
+      "p95": 0.06723600000009355,
+      "p99": 0.153458999999998,
+      "max": 0.636211000000003
+    },
+    {
+      "arena": "canopy",
+      "active": [
+        "tiny_trouble",
+        "turbo_toads",
+        "butterfeet"
+      ],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.031510000000025684,
+      "p95": 0.06138499999997293,
+      "p99": 0.1184409999999616,
+      "max": 0.6411970000000338
+    },
+    {
+      "arena": "canopy",
+      "active": [
+        "mega_frogs",
+        "super_suckers",
+        "magnet_mouths"
+      ],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.03140399999983856,
+      "p95": 0.056127000000060434,
+      "p99": 0.11576800000011644,
+      "max": 0.9855730000001586
+    },
+    {
+      "arena": "canopy",
+      "active": [
+        "moon_frogs",
+        "mega_tongues",
+        "quick_licks"
+      ],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.023075000000062573,
+      "p95": 0.04186099999992621,
+      "p99": 0.07075199999985671,
+      "max": 0.6455690000000232
+    },
+    {
+      "arena": "toyshop",
+      "active": [],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.03150400000004083,
+      "p95": 0.058383000000048924,
+      "p99": 0.13014800000019022,
+      "max": 0.6987950000000183
+    },
+    {
+      "arena": "toyshop",
+      "active": [
+        "tiny_trouble",
+        "turbo_toads",
+        "butterfeet"
+      ],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.03121400000009089,
+      "p95": 0.05530499999986205,
+      "p99": 0.13072600000009515,
+      "max": 0.818862000000081
+    },
+    {
+      "arena": "toyshop",
+      "active": [
+        "mega_frogs",
+        "super_suckers",
+        "magnet_mouths"
+      ],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.031544000000167216,
+      "p95": 0.054550999999946725,
+      "p99": 0.10879799999997886,
+      "max": 0.783676000000014
+    },
+    {
+      "arena": "toyshop",
+      "active": [
+        "moon_frogs",
+        "mega_tongues",
+        "quick_licks"
+      ],
+      "clients": 8,
+      "ticks": 1680,
+      "p50": 0.02210800000011659,
+      "p95": 0.042209999999840875,
+      "p99": 0.11643600000002152,
+      "max": 0.6206700000000183
+    }
+  ]
+}

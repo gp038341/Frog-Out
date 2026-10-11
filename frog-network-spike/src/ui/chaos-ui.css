@@ -11,3 +11,9 @@
 .chaos-card[data-modifier=quick_licks]{background:linear-gradient(135deg,#176675,#348894);border-color:#a1f2de}
 .chaos-card strong{display:block;font-size:1.3rem;line-height:1.2}.chaos-card[aria-pressed=true]{outline:3px solid #fff5d3;outline-offset:2px;box-shadow:0 0 0 5px #173c45}.chaos-card[aria-pressed=true] strong:before{content:'✓ ';}
 @media(max-height:500px) and (orientation:landscape){.chaos-card strong{font-size:1.05rem}}
+
+.chaos-card[data-modifier=turbo_toads]{background:linear-gradient(135deg,#834128,#ae5931);border-color:#ffd18d}
+.chaos-card[data-modifier=tiny_trouble]{background:linear-gradient(135deg,#345d78,#527f9e);border-color:#baeaff}
+.chaos-card[data-modifier=mega_frogs]{background:linear-gradient(135deg,#425c32,#688447);border-color:#d9f6ab}
+.chaos-card[data-modifier=super_suckers]{background:linear-gradient(135deg,#7c3c75,#a75297);border-color:#ffc3f0}
+.chaos-card[data-modifier=magnet_mouths]{background:linear-gradient(135deg,#325f62,#458383);border-color:#b2ffed}

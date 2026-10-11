@@ -151,3 +151,7 @@ Before readying up, open **Dress your frog** in the lobby for 10 color/pattern s
 
 ## Chaos Voting (Milestone A playtest)
 Chaos Voting is ON by default; the host can turn it off in the lobby. Round 1 uses normal physics. After results, Next Round opens a 15-second vote. Up to three effects accumulate, then the oldest is replaced. Four prototype effects: Moon Frogs, Mega Tongues, Butterfeet, Quick Licks. Kept effects never appear on the ballot. The expiring effect can be renewed; later ballots may have fewer than three choices. Scoring and mode rules are unchanged.
+
+## Chaos Voting B candidate
+
+Approved A is preserved at `checkpoint/approved-chaos-voting-a` (`5b9f3403bff1b49946a8dfa23f48da98d9e87429`). Nine modifiers are now available: the four approved A effects plus Turbo Toads, Tiny Trouble, Mega Frogs, Super Suckers and Magnet Mouths. Tiny and Mega change physical bodies and are mutually exclusive. The oldest effect can still be renewed. See [B tuning, tests, limitations and playtest](docs/chaos-b.md). Flappy remains design-only and requires control approval. Public service remains https://frog-out.onrender.com/ on Render Free.
