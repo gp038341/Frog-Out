@@ -1,4 +1,4 @@
-import {assistedDirection} from './aim-assist';
+import {assistedDirection,GRAPPLE_AIM} from './aim-assist';
 import { World, Vec2, Box, Circle, RopeJoint, Body } from 'planck';
 import {prepareSurfaces,resolveSurfaces,SURFACES,bindSurfaceImpacts} from './surfaces';
 import {POISON_BALANCE} from '../game/poison-balance';
@@ -22,7 +22,8 @@ export type Frog = {
 };
 const neutral = (): Input => ({ x: 0, y: 0, held: false });
 export class Simulation {
-  chaosAimDegrees = 0;
+  chaosAimDegrees = GRAPPLE_AIM.defaultDegrees;
+  chaosAimLeadSeconds = GRAPPLE_AIM.defaultLeadSeconds;
   chaosSuperSuckers = false;
   chaosTurbo = false;
   chaosMoon = false;
@@ -114,7 +115,7 @@ export class Simulation {
     const m = Math.hypot(x, y);
     if (!m) { x = f.facing; y = 0; } else { x /= m; y /= m; }
     const p = f.body.getPosition();
-    if(this.chaosAimDegrees>0){const aim=assistedDirection(this,f,{x,y},this.chaosAimDegrees);x=aim.x;y=aim.y;f.aimAssistTarget=aim.target;f.aimAssistTick=aim.target===undefined?undefined:this.tick;}else{f.aimAssistTarget=undefined;f.aimAssistTick=undefined;}
+    if(this.chaosAimDegrees>0){const aim=assistedDirection(this,f,{x,y},this.chaosAimDegrees,this.chaosAimLeadSeconds);x=aim.x;y=aim.y;f.aimAssistTarget=aim.target;f.aimAssistTick=aim.target===undefined?undefined:this.tick;}else{f.aimAssistTarget=undefined;f.aimAssistTick=undefined;}
     f.tongue = { phase: 'flying', direction: { x, y }, tip: { x: p.x, y: p.y }, distance: 0, length: 0 };
   }
   step() {

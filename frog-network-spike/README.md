@@ -155,3 +155,5 @@ Chaos Voting is ON by default; the host can turn it off in the lobby. Round 1 us
 ## Chaos Voting B candidate
 
 Approved A is preserved at `checkpoint/approved-chaos-voting-a` (`5b9f3403bff1b49946a8dfa23f48da98d9e87429`). Nine modifiers are now available: the four approved A effects plus Turbo Toads, Tiny Trouble, Mega Frogs, Super Suckers and Magnet Mouths. Tiny and Mega change physical bodies and are mutually exclusive. The oldest effect can still be renewed. See [B tuning, tests, limitations and playtest](docs/chaos-b.md). Flappy remains design-only and requires control approval. Public service remains https://frog-out.onrender.com/ on Render Free.
+
+Chaos B follow-up candidate tuning and validation: [refinement report](docs/chaos-b-refinement.md).

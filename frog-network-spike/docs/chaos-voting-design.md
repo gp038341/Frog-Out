@@ -196,3 +196,7 @@ Supersedes earlier A tuning and expiring-ballot exclusion. Moon gravity is ×0.2
 
 ## Milestone B implementation clarification — 2026-10-11
 The owner confirmed **keep the approved A renewal behavior**, superseding the B prompt's conflicting expiring-exclusion sentence. At capacity, the expiring modifier remains separately explained and is guaranteed a ballot slot when eligible; winning renews it as newest. The other two cards exclude kept/incompatible modifiers. There are now nine implemented modifiers, not Flappy Frogs. B uses the catalog's .75/1.25 physical scales, constant mass, 1.15/1.20 Turbo factors, 1.20/1.10 Super factors with unchanged closing-speed limit, and one-time 6° aim cone. Approved A refinement values remain unchanged.
+
+## Chaos B player-feedback tuning override
+
+See `chaos-b-refinement.md`: Turbo now uses 1.50 ground-speed and 1.60 ground-acceleration multipliers. Normal grabs use an 8° half-cone with up to 0.18 seconds of bounded target lead; Magnet Mouths uses 24° and 0.30 seconds. These replace earlier B starting values. Trajectory remains committed, range/hitboxes/pulling unchanged. All other B parameters remain unchanged and Mega Frogs/Super Suckers still await personal playtest approval.
