@@ -1,0 +1,30 @@
+{
+  "url": "https://frog-out.onrender.com/",
+  "testedApplicationRevision": "db19d40d7b3523ea88dea8c875a687fa8028f206",
+  "deployment": "dep-db5d7lp42hec738hr6rg",
+  "status": "live",
+  "healthHTTP": 200,
+  "rootHTTP": 200,
+  "assetsMatchLocalBuild": true,
+  "publicWebSocketChecks": [
+    "create room",
+    "independent client join",
+    "Sunny Pond default",
+    "ready/start",
+    "Round 1 baseline radius",
+    "authoritative ticks advance",
+    "input sequence acknowledgement"
+  ],
+  "browserChecks": [
+    "home and lobby render",
+    "independent room-code join",
+    "Classic Tag selected",
+    "two clients ready/start",
+    "static game rendering and timer"
+  ],
+  "notes": [
+    "The health endpoint carries a legacy milestone label; revision is verified from Render metadata and exact public asset bytes.",
+    "No physical Android/iPhone testing or new WebKit testing claimed; accepted input/layout files remain protected.",
+    "Final following commit corrects the test harness arenaId field and records refreshed results; application assets unchanged."
+  ]
+}
