@@ -200,3 +200,7 @@ The owner confirmed **keep the approved A renewal behavior**, superseding the B 
 ## Chaos B player-feedback tuning override
 
 See `chaos-b-refinement.md`: Turbo now uses 1.50 ground-speed and 1.60 ground-acceleration multipliers. Normal grabs use an 8° half-cone with up to 0.18 seconds of bounded target lead; Magnet Mouths uses 24° and 0.30 seconds. These replace earlier B starting values. Trajectory remains committed, range/hitboxes/pulling unchanged. All other B parameters remain unchanged and Mega Frogs/Super Suckers still await personal playtest approval.
+
+### Authorized Super Suckers / Mega follow-up
+
+Super Suckers: 1.50× pull acceleration, 1.30× slack take-up, 1.25× inward closing-speed ceiling (72 / 5.2 / 10). Mega Frogs: 1.35× size (radius 0.6075). See `chaos-b-pull-size-refinement.md`; previous values remain recoverable through its checkpoint. Other tuning unchanged.

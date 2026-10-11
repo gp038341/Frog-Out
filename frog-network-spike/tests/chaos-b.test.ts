@@ -8,13 +8,13 @@ function fresh(arena=arenaList[0].id,count=2){const s=new Simulation();setSimula
 function pair(s:Simulation,distance:number){s.frogs[0].body.setTransform(Vec2(18,19),0);s.frogs[1].body.setTransform(Vec2(18+distance,19),0);s.world.step(0);return frogBodyContacts(s);}
 test('B numerical values, stable composition, invalid/duplicate/conflict sanitization and complete expiry',()=>{
  const turbo=effectiveTuning(['turbo_toads']);close(turbo.groundSpeed,9);close(turbo.groundAcceleration,96);assert.equal(turbo.airAcceleration,10);assert.equal(turbo.grappleTakeupSpeed,4);
- const superPull=effectiveTuning(['super_suckers']);close(superPull.grapplePullAcceleration,57.6);close(superPull.grappleTakeupSpeed,4.4);assert.equal(superPull.grappleMaxPullSpeed,8);
+ const superPull=effectiveTuning(['super_suckers']);close(superPull.grapplePullAcceleration,72);close(superPull.grappleTakeupSpeed,5.2);assert.equal(superPull.grappleMaxPullSpeed,10);
  assert.deepEqual(validModifiers(['unknown','mega_frogs','tiny_trouble','tiny_trouble']),['tiny_trouble']);
  for(const id of B){const s=fresh();for(let k=0;k<10;k++){applyChaos(s,[id]);applyChaos(s,[]);}assert.deepEqual(s.tuning,defaults);assert.equal(s.chaosAimDegrees,8);assert.equal(s.chaosSuperSuckers,false);for(const f of s.frogs){close((f.body.getFixtureList()!.getShape()as Circle).getRadius(),.45);close(f.body.getMass(),1);}}
- for(const a of MODIFIERS)for(const b of MODIFIERS)for(const c of MODIFIERS){const ids=[a.id,b.id,c.id];assert.deepEqual(effectiveTuning(ids),effectiveTuning([...ids].reverse()));const t=effectiveTuning(ids);assert.ok(t.groundSpeed<=9+1e-9);assert.equal(t.grappleMaxPullSpeed,8);assert.equal(t.frogMass,1);assert.equal(t.jumpImpulse,9.5);}
+ for(const a of MODIFIERS)for(const b of MODIFIERS)for(const c of MODIFIERS){const ids=[a.id,b.id,c.id];assert.deepEqual(effectiveTuning(ids),effectiveTuning([...ids].reverse()));const t=effectiveTuning(ids);assert.ok(t.groundSpeed<=9+1e-9);assert.equal(t.grappleMaxPullSpeed,validModifiers(ids).includes('super_suckers')?10:8);assert.equal(t.frogMass,1);assert.equal(t.jumpImpulse,9.5);}
 });
 test('Tiny/Mega real fixtures, constant mass/momentum/body identity, authoritative state and frozen rescue restoration',()=>{
- for(const id of ['tiny_trouble','mega_frogs']as const){const s=fresh(),body=s.frogs[0].body;body.setLinearVelocity(Vec2(3,-4));applyChaos(s,[id]);const radius=id==='tiny_trouble'?.3375:.5625;close((body.getFixtureList()!.getShape()as Circle).getRadius(),radius);close(body.getMass(),1);assert.equal(s.frogs[0].body,body);assert.deepEqual(body.getLinearVelocity(),Vec2(3,-4));const snap=capture(s),p=fresh();applyChaos(p,[id]);restore(p,snap);assert.deepEqual(capture(p),snap);
+ for(const id of ['tiny_trouble','mega_frogs']as const){const s=fresh(),body=s.frogs[0].body;body.setLinearVelocity(Vec2(3,-4));applyChaos(s,[id]);const radius=id==='tiny_trouble'?.3375:.6075;close((body.getFixtureList()!.getShape()as Circle).getRadius(),radius);close(body.getMass(),1);assert.equal(s.frogs[0].body,body);assert.deepEqual(body.getLinearVelocity(),Vec2(3,-4));const snap=capture(s),p=fresh();applyChaos(p,[id]);restore(p,snap);assert.deepEqual(capture(p),snap);
   syncFrozenBodies(s,[true,false]);applyChaos(s,[]);syncFrozenBodies(s);close(body.getMass(),1);close((body.getFixtureList()!.getShape()as Circle).getRadius(),.45);assert.ok(body.isDynamic());
  }
 });
@@ -33,9 +33,9 @@ test('actual adjusted body contacts drive Poison, Freeze and Classic; tongues al
 });
 test('Super Suckers applies reciprocal role-relative pull, bounded closing speed and momentum-preserving release',()=>{
  for(const poisoned of[false,true]){const speeds:number[]=[];for(const active of[false,true]){const s=fresh();if(active)applyChaos(s,['super_suckers']);const f=s.frogs[0],target=s.frogs[1].body;f.body.setTransform(Vec2(4,7),0);target.setTransform(Vec2(10,7),0);if(poisoned)f.poisonPullFromTick=0;
-  f.tongue={phase:'attached',direction:{x:1,y:0},tip:{x:10,y:7},distance:6,length:6,target,localAnchor:{x:0,y:0},joint:{setMaxLength(){}}as any};s.pullGrapple(f);const va=f.body.getLinearVelocity().x,vb=target.getLinearVelocity().x;close(va,-vb);speeds.push(va);close(va*2,48*(active?1.2:1)*(poisoned?POISON_BALANCE.grapplePullMultiplier:1)*DT);
+  f.tongue={phase:'attached',direction:{x:1,y:0},tip:{x:10,y:7},distance:6,length:6,target,localAnchor:{x:0,y:0},joint:{setMaxLength(){}}as any};s.pullGrapple(f);const va=f.body.getLinearVelocity().x,vb=target.getLinearVelocity().x;close(va,-vb);speeds.push(va);close(va*2,48*(active?1.5:1)*(poisoned?POISON_BALANCE.grapplePullMultiplier:1)*DT);
   f.body.setLinearVelocity(Vec2(10,2));target.setLinearVelocity(Vec2(0,2));s.pullGrapple(f);assert.equal(f.body.getLinearVelocity().x,10);f.tongue!.joint=undefined;const v=f.body.getLinearVelocity().clone();s.detach(f);assert.deepEqual(f.body.getLinearVelocity(),v);
- }close(speeds[1]/speeds[0],1.2);}
+ }close(speeds[1]/speeds[0],1.5);}
 });
 test('Magnet: 6 degree cone, range, terrain occlusion, frozen exclusion, deterministic target, committed flight',()=>{
  const s=fresh();const f=s.frogs[0],target=s.frogs[1];f.body.setTransform(Vec2(5,20),0);const position=(deg:number,d=5)=>target.body.setTransform(Vec2(5+Math.cos(deg*Math.PI/180)*d,20+Math.sin(deg*Math.PI/180)*d),0);
