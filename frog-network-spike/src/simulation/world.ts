@@ -1,3 +1,4 @@
+import {platformContact} from './platform-contact';
 import {ArenaChaos} from '../chaos/arena-chaos';
 import {assistedDirection,GRAPPLE_AIM} from './aim-assist';
 import { World, Vec2, Box, Circle, RopeJoint, Body } from 'planck';
@@ -82,6 +83,8 @@ export class Simulation {
       const c = e.contact;
       if (!c.isTouching()) continue;
       const n = c.getWorldManifold(null)?.normal;
+      const support=platformContact(c,f.body);
+      if(support?.rotating){const v=f.body.getLinearVelocity(),pv=support.body.getLinearVelocityFromWorldPoint(support.point);if(support.top&&(v.x-pv.x)*support.out.x+(v.y-pv.y)*support.out.y<=.5)return true;continue;}
       if (n && (c.getFixtureA().getBody() === f.body ? n.y : -n.y) > 0.5) {const other=c.getFixtureA().getBody()===f.body?c.getFixtureB().getBody():c.getFixtureA().getBody();if(!ascending||((other.getUserData()as{chaosPlatform?:boolean}|undefined)?.chaosPlatform&&f.body.getLinearVelocity().y-other.getLinearVelocityFromWorldPoint(f.body.getWorldCenter()).y>=-.5))return true;}
     }
     return false;
@@ -269,9 +272,10 @@ export class Simulation {
     if (hit) {
       const h = hit as { body: Body; point: { x: number; y: number } };
       tongue.tip = h.point;
-      // Dynamic attachments use centers, avoiding offset ropes fighting body contact.
-      const a = h.body.isDynamic() ? h.body.getWorldCenter().clone() : Vec2(h.point.x, h.point.y);
-      tongue.length = Math.max(h.body.isDynamic() ? t.frogRadius * 2 + t.frogGrappleClearance : 0.05, Vec2.distance(p, a));
+      // Only frogs use center anchors. Rotating terrain keeps the exact raycast hit.
+      const frogTarget=this.frogs.some(other=>other.body===h.body);
+      const a = frogTarget ? h.body.getWorldCenter().clone() : Vec2(h.point.x, h.point.y);
+      tongue.length = Math.max(frogTarget ? t.frogRadius * 2 + t.frogGrappleClearance : 0.05, Vec2.distance(p, a));
       const local = h.body.getLocalPoint(a);
       tongue.target = h.body; tongue.localAnchor = { x: local.x, y: local.y };
       tongue.joint = this.world.createJoint(new RopeJoint({

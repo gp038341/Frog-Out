@@ -20,7 +20,7 @@ export const MODIFIERS=[
  {...eligibility,id:'magnet_mouths',name:'Magnet Mouths',family:'tongue',icon:'⊕',description:'Wide frog-catching aim assist with a short lead.'},
  {...eligibility,id:'windy_weather',name:'Windy Weather',family:'arena',icon:'➜',description:'Forecast gusts push airborne frogs and swings.'},
  {...eligibility,id:'bouncy_bombardment',name:'Bouncy Bombardment',family:'arena',icon:'◉',description:'Fast, heavy rubber balls keep bouncing.'},
- {...eligibility,id:'crumble_time',name:'Crumble Time',family:'platform',icon:'▧',conflicts:['tilt_a_frog'] as readonly string[],description:'Every platform cracks, falls and grows back.'},
+ {...eligibility,id:'crumble_time',name:'Crumble Time',family:'platform',icon:'▧',conflicts:['tilt_a_frog'] as readonly string[],description:'Airborne platforms crack, fall and grow back. Ground stays solid.'},
  {...eligibility,id:'tilt_a_frog',name:'Tilt-a-Frog',family:'platform',icon:'∠',conflicts:['crumble_time'] as readonly string[],description:'Airborne platforms spin under weight and grapples.'},
 ] as const;
 export type ModifierId=typeof MODIFIERS[number]['id'];

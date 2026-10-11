@@ -1,0 +1,22 @@
+freeze 2: default/host/lock, 2 rounds, 1 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+poison 2: default/host/lock, 2 rounds, 1 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+poison 3: default/host/lock, 3 rounds, 2 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+freeze 3: default/host/lock, 3 rounds, 2 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+freeze 4: default/host/lock, 4 rounds, 3 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots, ballot reconnect same identity/slot
+poison 4: default/host/lock, 4 rounds, 3 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots, ballot reconnect same identity/slot
+poison 5: default/host/lock, 5 rounds, 4 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+freeze 5: default/host/lock, 5 rounds, 4 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+freeze 6: default/host/lock, 6 rounds, 5 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+poison 6: default/host/lock, 6 rounds, 5 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+freeze 7: default/host/lock, 7 rounds, 6 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+poison 7: default/host/lock, 7 rounds, 6 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+classic 2: default/host/lock, 2 rounds, 1 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+freeze 8: default/host/lock, 8 rounds, 7 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+poison 8: default/host/lock, 8 rounds, 7 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+classic 3: default/host/lock, 3 rounds, 2 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+classic 4: default/host/lock, 4 rounds, 3 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots, ballot reconnect same identity/slot
+classic 5: default/host/lock, 5 rounds, 4 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+classic 6: default/host/lock, 6 rounds, 5 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+classic 7: default/host/lock, 7 rounds, 6 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+classic 8: default/host/lock, 8 rounds, 7 ballots, ties/abstentions, synchronized conveyor, final/rematch reset and disabled snapshots
+PASS 22
