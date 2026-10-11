@@ -1,3 +1,4 @@
+import {ArenaChaos} from '../chaos/arena-chaos';
 import {assistedDirection,GRAPPLE_AIM} from './aim-assist';
 import { World, Vec2, Box, Circle, RopeJoint, Body } from 'planck';
 import {prepareSurfaces,resolveSurfaces,SURFACES,bindSurfaceImpacts} from './surfaces';
@@ -22,6 +23,7 @@ export type Frog = {
 };
 const neutral = (): Input => ({ x: 0, y: 0, held: false });
 export class Simulation {
+  arenaChaos = new ArenaChaos(this);
   chaosAimDegrees = GRAPPLE_AIM.defaultDegrees;
   chaosAimLeadSeconds = GRAPPLE_AIM.defaultLeadSeconds;
   chaosSuperSuckers = false;
@@ -120,6 +122,7 @@ export class Simulation {
   }
   step() {
     const t = this.tuning;
+    this.arenaChaos.before();
     const surfaceFrame = prepareSurfaces(this);
     if(this.chaosButterfeet)for(let c=this.world.getContactList();c;c=c.getNext()){
       if(this.frogs.some(f=>f.body===c.getFixtureA().getBody()||f.body===c.getFixtureB().getBody()))c.setFriction(Math.min(c.getFriction(),this.chaosGroundFriction));
@@ -254,7 +257,7 @@ export class Simulation {
     const end = Vec2(start.x + tongue.direction.x * travel, start.y + tongue.direction.y * travel);
     let hit: { body: Body; point: { x: number; y: number } } | undefined;
     this.world.rayCast(start, end, (fixture, point, _normal, fraction) => {
-      if (fixture.getBody() === f.body || (fixture.getBody().getUserData() as {frozenTag?:boolean}|undefined)?.frozenTag) return -1;
+      if (fixture.getBody() === f.body || (fixture.getBody().getUserData() as {frozenTag?:boolean;chaosBall?:boolean}|undefined)?.frozenTag || (fixture.getBody().getUserData() as {chaosBall?:boolean}|undefined)?.chaosBall) return -1;
       hit = { body: fixture.getBody(), point: { x: point.x, y: point.y } }; return fraction;
     });
     tongue.distance += travel;
@@ -277,6 +280,7 @@ export class Simulation {
     }
   }
   reset() {
+    this.arenaChaos.reset();
     for (let i = 0; i < this.frogs.length; i++) {
       const f = this.frogs[i]; this.cancelAction(f); f.slipperySoap = undefined; f.stickyMud = undefined; f.surfaceBounceTick = undefined; f.surfaceBounceStrength = undefined; f.surfaceImpactSpeed = undefined; f.surfaceImpactTick = undefined;
       f.body.setTransform(Vec2(i ? 20 : 12, 16), 0);

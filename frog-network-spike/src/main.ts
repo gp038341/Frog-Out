@@ -85,6 +85,7 @@ class Spike extends Phaser.Scene {
   });
   const latest=net.snapshots.at(-1)!;
   this.art.setArena(net.snapshots.at(-1)?.arenaId??net.lobby?.arenaId??DEFAULT_ARENA);
+  this.art.renderChaos(net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.arenaChaos.capture():latest.state.arenaChaos);
   this.art.appearances=states.map((_,i)=>net.lobby?.players.find(p=>p.slot===i)?.appearance);
   this.art.render(states,this.rendered,net.outbreak,latest.connected,states.map((_,i)=>playerName(i)),net.slot,delta);
   if(now-lastStatus>100){lastStatus=now;const last=net.snapshots.at(-1)!;

@@ -1,3 +1,5 @@
+import type {ArenaChaosState} from '../chaos/arena-chaos';
+import {ARENA_CHAOS} from '../chaos/arena-chaos';
 import {paintClassicState} from './classic-art';
 import {paintFreezeState} from './freeze-art';
 import {appearanceLayers,type Appearance} from './cosmetics';
@@ -30,12 +32,14 @@ export class Courtyard {
  constructor(private scene:Phaser.Scene,private audio:GameAudio){
   this.background=scene.add.graphics().setDepth(0);this.ink=scene.add.graphics().setDepth(1);this.effects=scene.add.graphics().setDepth(2);
   for(let i=0;i<8;i++)this.labels.push(scene.add.text(0,0,'',{fontFamily:'Trebuchet MS, sans-serif',fontSize:'19px',fontStyle:'bold',color:'#fff8d9',stroke:'#142f35',strokeThickness:5,align:'center',lineSpacing:0}).setOrigin(.5,1).setDepth(4));
+  this.chaosInk=scene.add.graphics().setDepth(1.5);
   this.feel=new Feel(scene,audio);
   this.paintArena();
  }
+ chaosInk:Phaser.GameObjects.Graphics;platformInk=new Map<number,Phaser.GameObjects.Graphics>();private chaosLayout='';
  setArena(id:ArenaId){if(this.arenaId!==id){this.arenaId=id;this.paintArena();this.clear();}}
- paintArena(){if(this.arenaId==='bathhouse'){paintBathhouse(this.background,getArena(this.arenaId));return;}if(this.arenaId==='toyshop'){paintToyshop(this.background,getArena(this.arenaId));return;}if(this.arenaId==='sunny-pond'){paintSunnyPond(this.background,getArena(this.arenaId));return;}const g=this.background;g.clear();const glass=this.arenaId==='swingworks';
-  g.fillStyle(glass?0x233c5b:0x214d46);g.fillRect(0,0,WIDTH*S,HEIGHT*S);
+ paintArena(g:Phaser.GameObjects.Graphics=this.background,options:{background?:boolean;filter?:(index:number)=>boolean}={},definition=getArena(this.arenaId)){if(this.arenaId==='bathhouse'){paintBathhouse(g,definition,options);return;}if(this.arenaId==='toyshop'){paintToyshop(g,definition,options);return;}if(this.arenaId==='sunny-pond'){paintSunnyPond(g,definition,options);return;}g.clear();const glass=this.arenaId==='swingworks';
+  if(options.background!==false){g.fillStyle(glass?0x233c5b:0x214d46);g.fillRect(0,0,WIDTH*S,HEIGHT*S);
   // Background decoration is low contrast and never outlined like collision surfaces.
   if(glass){
    g.fillStyle(0x355474,.45);g.fillTriangle(60,180,600,25,1140,180);g.fillRect(60,180,1080,450);
@@ -50,7 +54,8 @@ export class Courtyard {
    // Tiny flower clusters are kept entirely behind the floor and boundary walls.
    for(let i=0;i<24;i++){const x=20+i*50;g.fillStyle(0x608f67,.6);g.fillEllipse(x,665,24,10);g.fillStyle(0xd4ac8b,.5);g.fillCircle(x+5,659,3);}
   }
-  getArena(this.arenaId).solids.forEach((r,i)=>{const x=(r.x-r.w/2)*S,y=(r.y-r.h/2)*S,w=r.w*S,h=r.h*S;
+  }
+  definition.solids.forEach((r,i)=>{if(options.filter&&!options.filter(i))return;const x=(r.x-r.w/2)*S,y=(r.y-r.h/2)*S,w=r.w*S,h=r.h*S;
    g.fillStyle(INK);g.fillRect(x-2,y-2,w+4,h+4);g.fillStyle(glass?0x647e92:i<4?0x54796a:0x997958);g.fillRect(x,y,w,h);
    g.fillStyle(glass?0xc0dce5:i<4?0x77a777:0xcba570);g.fillRect(x,y,w,Math.min(5,h));
    // Exact surface outlines make every wall, underside and overhead grip unambiguous.
@@ -60,6 +65,17 @@ export class Courtyard {
     if(!glass){g.fillStyle(0x6d9d72);for(let bx=x+4;bx<x+w-4;bx+=20)g.fillTriangle(bx,y+1,bx+7,y+1,bx+3,y-3);}
    }
   });
+ }
+ renderChaos(state:ArenaChaosState|undefined){const g=this.chaosInk;g.clear();const layout=state?.platforms.length?this.arenaId+':'+state.platforms.map(p=>p.id).join(','):'';
+  if(layout!==this.chaosLayout){for(const ink of this.platformInk.values())ink.destroy();this.platformInk.clear();this.chaosLayout=layout;
+   if(layout&&state){this.paintArena(this.background,{filter:i=>i>0&&i<4});for(const p of state.platforms){const ink=this.scene.add.graphics().setDepth(1);const a=getArena(this.arenaId),solids=a.solids.map(r=>({...r,x:r.x-p.solid.x,y:r.y-p.solid.y}));solids[p.source]={...p.solid,x:0,y:0};this.paintArena(ink,{background:false,filter:i=>i===p.source},{...a,solids});this.platformInk.set(p.id,ink);}}else this.paintArena();
+  }
+  for(const p of state?.platforms??[]){const ink=this.platformInk.get(p.id);if(!ink)continue;ink.setPosition(p.solid.x*S,p.solid.y*S).setRotation(p.angle).setVisible(p.stage!=='absent'&&p.stage!=='returning');
+   if(p.stage==='cracking'||p.stage==='returning'){g.save();g.translateCanvas(p.solid.x*S,p.solid.y*S);g.rotateCanvas(p.angle);g.lineStyle(3,p.stage==='cracking'?0xffcf65:0xa6f4e7,p.stage==='cracking'?1:.6);if(p.stage==='returning')g.strokeRect(-p.solid.w*S/2,-p.solid.h*S/2,p.solid.w*S,p.solid.h*S);else{for(let x=-p.solid.w*S*.35;x<p.solid.w*S*.4;x+=30){g.lineBetween(x,-p.solid.h*S/2,x+7,0);g.lineBetween(x+7,0,x+2,p.solid.h*S/2);}}g.restore();}
+  }
+  for(const b of state?.balls??[]){const r=ARENA_CHAOS.ballRadius*S;g.fillStyle(0xef9b87);g.fillCircle(b.x*S,b.y*S,r);g.lineStyle(3,INK);g.strokeCircle(b.x*S,b.y*S,r);g.lineStyle(3,0xffedd0);g.strokeCircle(b.x*S,b.y*S,r*.65);}
+  if(state?.ballWarning){g.lineStyle(3,0xffdc88);g.strokeCircle(state.ballWarning.x*S,42,24);g.lineBetween(state.ballWarning.x*S,14,state.ballWarning.x*S,38);g.lineBetween(state.ballWarning.x*S-6,31,state.ballWarning.x*S,38);g.lineBetween(state.ballWarning.x*S+6,31,state.ballWarning.x*S,38);}
+  if(state?.wind.direction&&state.wind.stage!=='calm'){const d=state.wind.direction;g.lineStyle(state.wind.stage==='gust'?3:2,0xc4f4ff,state.wind.stage==='gust'?.65:.35);for(let i=0;i<8;i++){const x=90+i*140,y=55+(i%3)*16;g.lineBetween(x-d*25,y,x+d*25,y);g.lineBetween(x+d*25,y,x+d*14,y-5);g.lineBetween(x+d*25,y,x+d*14,y+5);}}
  }
  clear(){this.tagPuffs=[];this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}
  pop(x:number,y:number,color:number,kind:Pop['kind'],strength=0){if(this.pops.length<64)this.pops.push({x:x*S,y:y*S,age:0,life:kind==='infect'?650:360,color,kind,strength});}

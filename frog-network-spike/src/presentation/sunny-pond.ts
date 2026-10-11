@@ -1,12 +1,13 @@
 import type Phaser from 'phaser';import type {ArenaDefinition} from '../simulation/arenas';
 /** Original lightweight pond art. Only the outlined object silhouettes are solid; water/reeds/clouds are scenery. */
-export function paintSunnyPond(g:Phaser.GameObjects.Graphics,a:ArenaDefinition){const S=30;g.clear();g.fillStyle(0x8acdd9);g.fillRect(0,0,1200,675);
+export function paintSunnyPond(g:Phaser.GameObjects.Graphics,a:ArenaDefinition,options:{background?:boolean;filter?:(index:number)=>boolean}={}){const S=30;g.clear();if(options.background!==false){g.fillStyle(0x8acdd9);g.fillRect(0,0,1200,675);
  g.fillStyle(0xffdf70);g.fillCircle(995,105,48);g.lineStyle(4,0xffdf70,.65);for(let j=0;j<12;j++){const q=j*Math.PI/6;g.lineBetween(995+Math.cos(q)*57,105+Math.sin(q)*57,995+Math.cos(q)*66,105+Math.sin(q)*66);}
  g.fillStyle(0xeaf6df,.65);for(const[x,y]of[[190,115],[590,60],[900,265]]){g.fillEllipse(x,y,140,25);g.fillCircle(x-25,y-10,20);g.fillCircle(x+12,y-15,25);}
  g.fillStyle(0x70baa0,.5);g.fillEllipse(500,670,1400,330);g.fillStyle(0x50b9be,.7);g.fillEllipse(600,675,1100,170);
  g.lineStyle(2,0xc5efe0,.4);for(let i=0;i<16;i++)g.lineBetween(85+i*67,615+(i%3)*11,115+i*67,615+(i%3)*11);
  for(const x of[40,1160]){g.lineStyle(4,0x408668,.65);for(let j=0;j<5;j++){g.lineBetween(x+j*6,645,x+j*6-12,550+j*7);g.fillStyle(0x946d4b,.7);g.fillEllipse(x+j*6-12,550+j*7,8,25);}}
- a.solids.forEach((r,i)=>{const x=r.x*S,y=r.y*S,w=r.w*S,h=r.h*S;
+ }
+ a.solids.forEach((r,i)=>{if(options.filter&&!options.filter(i))return;const x=r.x*S,y=r.y*S,w=r.w*S,h=r.h*S;
   if(!r.outline){g.fillStyle(i<4?0x7f9d82:0xb48b60);g.fillRect(x-w/2,y-h/2,w,h);g.lineStyle(2,0x204943);g.strokeRect(x-w/2,y-h/2,w,h);return;}
   const pts=r.outline.map(([px,py])=>({x:x+px*S,y:y+py*S}));
   g.fillStyle(r.object==='lily'?0x83ce59:r.object==='rock'?0x94a997:0xc29460);g.lineStyle(3,0x204943);g.fillPoints(pts,true);g.strokePoints(pts,true);

@@ -204,3 +204,11 @@ See `chaos-b-refinement.md`: Turbo now uses 1.50 ground-speed and 1.60 ground-ac
 ### Authorized Super Suckers / Mega follow-up
 
 Super Suckers: 1.50× pull acceleration, 1.30× slack take-up, 1.25× inward closing-speed ceiling (72 / 5.2 / 10). Mega Frogs: 1.35× size (radius 0.6075). See `chaos-b-pull-size-refinement.md`; previous values remain recoverable through its checkpoint. Other tuning unchanged.
+
+## Milestone C authoritative override — arena-wide chaos
+
+Approved B: `bebe643ea43b80c084ee583212ed0e3f1b359449`, checkpoint `checkpoint/approved-chaos-voting-b`.
+
+Crumble Time and Tilt-a-Frog apply to **every playable platform** in all four arenas, including special materials and the entire playable floor (eight independent runtime sections). Earlier handpicked/optional platform limits and floor exclusions are superseded; fixed invisible boundary/recovery systems remain unchanged. Crumble/Tilt are incompatible. Crumble landing initiates a one-second warning so springy surfaces participate. Tilt uses bounded pinned kinematic rotation rather than freely dynamic hinges; angle/speed limits preserved.
+
+Latest C ballot rule supersedes A/B renewal: expiring is displayed separately and **excluded**, as are all other active modifiers. No duplicate activation. Other approved conveyor, baseline and input behavior remains intact. Full tuning, architecture and validation: `chaos-c.md`. Flappy and Milestone D remain unimplemented.

@@ -1,3 +1,4 @@
+import type {ArenaChaosState} from '../chaos/arena-chaos';
 import {resizeFrogs} from './frog-size';
 import {sizeSimulation} from './roster';
 import {Vec2, RopeJoint, type Body} from 'planck';
@@ -13,10 +14,10 @@ export type FrogState = {
  tongue?:{phase:Tongue['phase'];direction:{x:number;y:number};tip:{x:number;y:number};distance:number;length:number;
  target?:{frog:number}|{terrain:number};localAnchor?:{x:number;y:number}};
 };
-export type PhysicsState={tick:number;frogs:FrogState[]};
+export type PhysicsState={tick:number;frogs:FrogState[];arenaChaos?:ArenaChaosState};
 export function capture(sim:Simulation):PhysicsState {
  const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if(!b.isDynamic()&&!sim.frogs.some(f=>f.body===b))terrain.push(b);
- return {tick:sim.tick,frogs:sim.frogs.map(f=>{
+ return {tick:sim.tick,...(sim.arenaChaos.capture()?{arenaChaos:sim.arenaChaos.capture()}:{}),frogs:sim.frogs.map(f=>{
   const p=f.body.getPosition(),v=f.body.getLinearVelocity(),t=f.tongue;
   let tongue:FrogState['tongue'];if(t){const frog=t.target?sim.frogs.findIndex(f=>f.body===t.target):-1;
    tongue={phase:t.phase,direction:{...t.direction},tip:{...t.tip},distance:t.distance,length:t.length,
@@ -32,7 +33,7 @@ export function restore(sim:Simulation,state:PhysicsState){
  sizeSimulation(sim,state.frogs.length);resizeFrogs(sim);
  const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if(!b.isDynamic()&&!sim.frogs.some(f=>f.body===b))terrain.push(b);
  for(const f of sim.frogs)sim.detach(f);
- sim.tick=state.tick;
+ sim.tick=state.tick;sim.arenaChaos.restore(state.arenaChaos);
  state.frogs.forEach((s,i)=>{const f=sim.frogs[i];f.body.setTransform(Vec2(s.x,s.y),0);f.body.setLinearVelocity(Vec2(s.vx,s.vy));f.body.setAngularVelocity(0);
   f.aimAssistTick=s.aimAssistTick;f.aimAssistTarget=s.aimAssistTarget;f.slipperySoap=s.slipperySoap;f.stickyMud=s.stickyMud;f.surfaceBounceTick=s.surfaceBounceTick;f.surfaceBounceStrength=s.surfaceBounceStrength;f.surfaceImpactSpeed=s.surfaceImpactSpeed;f.surfaceImpactTick=s.surfaceImpactTick;f.poisonPullFromTick=s.poisonPullFromTick;f.facing=s.facing;f.input={...s.input};f.events=[];f.held=s.held;f.charging=s.charging;f.charge=s.charge;f.grounded=s.grounded;
   f.jumpPending=s.jumpPending;f.holdTime=s.holdTime;f.coyote=s.coyote;f.suppressSupport=s.suppressSupport;f.landingWait=s.landingWait;
