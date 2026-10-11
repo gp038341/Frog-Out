@@ -19,9 +19,9 @@ export const MODIFIERS=[
  {...eligibility,id:'super_suckers',name:'Super Suckers',family:'tongue',icon:'⇥',description:'Powerful pulls and faster momentum-building swings.'},
  {...eligibility,id:'magnet_mouths',name:'Magnet Mouths',family:'tongue',icon:'⊕',description:'Wide frog-catching aim assist with a short lead.'},
  {...eligibility,id:'windy_weather',name:'Windy Weather',family:'arena',icon:'➜',description:'Forecast gusts push airborne frogs and swings.'},
- {...eligibility,id:'bouncy_bombardment',name:'Bouncy Bombardment',family:'arena',icon:'◉',description:'Giant rubber balls bounce through the arena.'},
+ {...eligibility,id:'bouncy_bombardment',name:'Bouncy Bombardment',family:'arena',icon:'◉',description:'Fast, heavy rubber balls keep bouncing.'},
  {...eligibility,id:'crumble_time',name:'Crumble Time',family:'platform',icon:'▧',conflicts:['tilt_a_frog'] as readonly string[],description:'Every platform cracks, falls and grows back.'},
- {...eligibility,id:'tilt_a_frog',name:'Tilt-a-Frog',family:'platform',icon:'∠',conflicts:['crumble_time'] as readonly string[],description:'Every platform rocks under frog weight.'},
+ {...eligibility,id:'tilt_a_frog',name:'Tilt-a-Frog',family:'platform',icon:'∠',conflicts:['crumble_time'] as readonly string[],description:'Airborne platforms spin under weight and grapples.'},
 ] as const;
 export type ModifierId=typeof MODIFIERS[number]['id'];
 export function isModifier(value:unknown):value is ModifierId{return MODIFIERS.some(m=>m.id===value);}
@@ -37,7 +37,7 @@ export function effectiveTuning(ids:readonly ModifierId[],base:Tuning=defaults):
 }
 export function applyChaos(sim:Simulation,ids:readonly ModifierId[]){ids=validModifiers(ids);sim.tuning=effectiveTuning(ids);resizeFrogs(sim);sim.chaosAimDegrees=ids.includes('magnet_mouths')?CHAOS_TUNING.magnetDegrees:GRAPPLE_AIM.defaultDegrees;sim.chaosAimLeadSeconds=ids.includes('magnet_mouths')?GRAPPLE_AIM.magnetLeadSeconds:GRAPPLE_AIM.defaultLeadSeconds;sim.chaosSuperSuckers=ids.includes('super_suckers');sim.chaosTurbo=ids.includes('turbo_toads');sim.chaosButterfeet=ids.includes('butterfeet');sim.chaosGroundFriction=CHAOS_TUNING.friction;sim.chaosMoon=ids.includes('moon_frogs');sim.chaosMoonDragX=CHAOS_TUNING.moonHorizontalDrag;sim.chaosMoonDragY=CHAOS_TUNING.moonVerticalDrag;sim.chaosMoonFallSpeed=CHAOS_TUNING.moonFallSpeed;sim.arenaChaos.configure(ids);}
 
-export function eligibleModifierIds(active:readonly ModifierId[],mode:GameMode,arena:ArenaId){const kept=active.length===3?active.slice(1):active;return MODIFIERS.filter(m=>!active.includes(m.id)&&m.supportedModes.includes(mode)&&m.supportsArena(arena)&&kept.every(id=>!m.conflicts.includes(id)&&!modifier(id).conflicts.includes(m.id))).map(m=>m.id);}
+export function eligibleModifierIds(active:readonly ModifierId[],mode:GameMode,arena:ArenaId){const kept=active.length===3?active.slice(1):active;return MODIFIERS.filter(m=>!kept.includes(m.id)&&m.supportedModes.includes(mode)&&m.supportsArena(arena)&&kept.every(id=>!m.conflicts.includes(id)&&!modifier(id).conflicts.includes(m.id))).map(m=>m.id);}
 
 /** Stable catalog order makes invalid/duplicate/conflicting payloads deterministic. */
 export function validModifiers(ids:readonly unknown[]):ModifierId[]{const result:ModifierId[]=[];for(const m of MODIFIERS)if(ids.includes(m.id)&&result.every(id=>!m.conflicts.includes(id)&&!modifier(id).conflicts.includes(m.id)))result.push(m.id);return result;}

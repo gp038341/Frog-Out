@@ -36,7 +36,7 @@ export class Courtyard {
   this.feel=new Feel(scene,audio);
   this.paintArena();
  }
- chaosInk:Phaser.GameObjects.Graphics;platformInk=new Map<number,Phaser.GameObjects.Graphics>();private chaosLayout='';
+ chaosInk:Phaser.GameObjects.Graphics;platformInk=new Map<number,Phaser.GameObjects.Graphics>();platformBits=new Map<number,{ink:Phaser.GameObjects.Graphics;mask:Phaser.GameObjects.Graphics}[]>();private chaosLayout='';
  setArena(id:ArenaId){if(this.arenaId!==id){this.arenaId=id;this.paintArena();this.clear();}}
  paintArena(g:Phaser.GameObjects.Graphics=this.background,options:{background?:boolean;filter?:(index:number)=>boolean}={},definition=getArena(this.arenaId)){if(this.arenaId==='bathhouse'){paintBathhouse(g,definition,options);return;}if(this.arenaId==='toyshop'){paintToyshop(g,definition,options);return;}if(this.arenaId==='sunny-pond'){paintSunnyPond(g,definition,options);return;}g.clear();const glass=this.arenaId==='swingworks';
   if(options.background!==false){g.fillStyle(glass?0x233c5b:0x214d46);g.fillRect(0,0,WIDTH*S,HEIGHT*S);
@@ -67,11 +67,13 @@ export class Courtyard {
   });
  }
  renderChaos(state:ArenaChaosState|undefined){const g=this.chaosInk;g.clear();const layout=state?.platforms.length?this.arenaId+':'+state.platforms.map(p=>p.id).join(','):'';
-  if(layout!==this.chaosLayout){for(const ink of this.platformInk.values())ink.destroy();this.platformInk.clear();this.chaosLayout=layout;
-   if(layout&&state){this.paintArena(this.background,{filter:i=>i>0&&i<4});for(const p of state.platforms){const ink=this.scene.add.graphics().setDepth(1);const a=getArena(this.arenaId),solids=a.solids.map(r=>({...r,x:r.x-p.solid.x,y:r.y-p.solid.y}));solids[p.source]={...p.solid,x:0,y:0};this.paintArena(ink,{background:false,filter:i=>i===p.source},{...a,solids});this.platformInk.set(p.id,ink);}}else this.paintArena();
+  if(layout!==this.chaosLayout){for(const ink of this.platformInk.values())ink.destroy();this.platformInk.clear();for(const bits of this.platformBits.values())for(const b of bits){b.ink.clearMask(true);b.ink.destroy();b.mask.destroy();}this.platformBits.clear();this.chaosLayout=layout;
+   if(layout&&state){const covered=new Set(state.platforms.map(p=>p.source));this.paintArena(this.background,{filter:i=>!covered.has(i)});for(const p of state.platforms){const ink=this.scene.add.graphics().setDepth(1);const a=getArena(this.arenaId),solids=a.solids.map(r=>({...r,x:r.x-p.solid.x,y:r.y-p.solid.y}));solids[p.source]={...p.solid,x:0,y:0};this.paintArena(ink,{background:false,filter:i=>i===p.source},{...a,solids});this.platformInk.set(p.id,ink);if(covered.has(0)){const bits=[];for(let j=0;j<4;j++){const part=this.scene.add.graphics().setDepth(1);this.paintArena(part,{background:false,filter:i=>i===p.source},{...a,solids});const mask=this.scene.add.graphics().setVisible(false);mask.fillStyle(0xffffff);mask.fillRect(-p.solid.w*S/2+j*p.solid.w*S/4,-p.solid.h*S/2-32,p.solid.w*S/4,p.solid.h*S+64);part.setMask(mask.createGeometryMask());bits.push({ink:part,mask});}this.platformBits.set(p.id,bits);}}}else this.paintArena();
   }
-  for(const p of state?.platforms??[]){const ink=this.platformInk.get(p.id);if(!ink)continue;ink.setPosition(p.solid.x*S,p.solid.y*S).setRotation(p.angle).setVisible(p.stage!=='absent'&&p.stage!=='returning');
-   if(p.stage==='cracking'||p.stage==='returning'){g.save();g.translateCanvas(p.solid.x*S,p.solid.y*S);g.rotateCanvas(p.angle);g.lineStyle(3,p.stage==='cracking'?0xffcf65:0xa6f4e7,p.stage==='cracking'?1:.6);if(p.stage==='returning')g.strokeRect(-p.solid.w*S/2,-p.solid.h*S/2,p.solid.w*S,p.solid.h*S);else{for(let x=-p.solid.w*S*.35;x<p.solid.w*S*.4;x+=30){g.lineBetween(x,-p.solid.h*S/2,x+7,0);g.lineBetween(x+7,0,x+2,p.solid.h*S/2);}}g.restore();}
+  for(const p of state?.platforms??[]){const ink=this.platformInk.get(p.id);if(!ink)continue;ink.setPosition((p.x??p.solid.x)*S,(p.y??p.solid.y)*S).setRotation(p.angle).setVisible(p.stage==='solid').setAlpha(1);
+   const bits=this.platformBits.get(p.id)??[],breaking=p.stage==='cracking',fallen=p.stage==='absent',elapsed=fallen?(ARENA_CHAOS.crumbleAbsent-p.clock)/60:0,progress=breaking?1-p.clock/ARENA_CHAOS.crumbleLoad:0;
+   bits.forEach((b,j)=>{const visible=breaking||fallen&&elapsed<.6,side=j-1.5,dx=breaking?side*progress*2:side*elapsed*34,dy=breaking?Math.abs(side)*progress*2:elapsed*elapsed*230;const x=(p.x??p.solid.x)*S+dx,y=(p.y??p.solid.y)*S+dy,rotation=p.angle+(fallen?side*elapsed*.5:0);b.ink.setPosition(x,y).setRotation(rotation).setAlpha(fallen?Math.max(0,1-elapsed/.6):1).setVisible(visible);b.mask.setPosition(x,y).setRotation(rotation);});
+   if(p.stage==='returning'){g.save();g.translateCanvas((p.x??p.solid.x)*S,(p.y??p.solid.y)*S);g.lineStyle(2,0xa6f4e7,.6);g.strokeRect(-p.solid.w*S/2,-p.solid.h*S/2,p.solid.w*S,p.solid.h*S);g.restore();}
   }
   for(const b of state?.balls??[]){const r=ARENA_CHAOS.ballRadius*S;g.fillStyle(0xef9b87);g.fillCircle(b.x*S,b.y*S,r);g.lineStyle(3,INK);g.strokeCircle(b.x*S,b.y*S,r);g.lineStyle(3,0xffedd0);g.strokeCircle(b.x*S,b.y*S,r*.65);}
   if(state?.ballWarning){g.lineStyle(3,0xffdc88);g.strokeCircle(state.ballWarning.x*S,42,24);g.lineBetween(state.ballWarning.x*S,14,state.ballWarning.x*S,38);g.lineBetween(state.ballWarning.x*S-6,31,state.ballWarning.x*S,38);g.lineBetween(state.ballWarning.x*S+6,31,state.ballWarning.x*S,38);}

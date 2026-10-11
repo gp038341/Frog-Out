@@ -159,3 +159,5 @@ Approved A is preserved at `checkpoint/approved-chaos-voting-a` (`5b9f3403bff1b4
 Chaos B follow-up candidate tuning and validation: [refinement report](docs/chaos-b-refinement.md).
 
 Arena-wide Chaos Voting C candidate: [behavior, tuning, validation and playtest](docs/chaos-c.md). B approval checkpoint: `checkpoint/approved-chaos-voting-b`.
+
+Latest C playtest refinements: [full platform rotation, persistent bombardment, crumble artwork and KEEP voting](docs/chaos-c-refinement.md). Wind still awaits player acceptance.

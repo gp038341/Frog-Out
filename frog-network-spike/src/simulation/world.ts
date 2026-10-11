@@ -76,12 +76,13 @@ export class Simulation {
   }
   grounded(f: Frog) {
     // Contacts can survive a takeoff step; do not reuse them to jump twice.
-    if (f.suppressSupport > 0 || f.body.getLinearVelocity().y < -0.5) return false;
+    if (f.suppressSupport > 0) return false;
+    const ascending=f.body.getLinearVelocity().y < -0.5;
     for (let e = f.body.getContactList(); e; e = e.next) {
       const c = e.contact;
       if (!c.isTouching()) continue;
       const n = c.getWorldManifold(null)?.normal;
-      if (n && (c.getFixtureA().getBody() === f.body ? n.y : -n.y) > 0.5) return true;
+      if (n && (c.getFixtureA().getBody() === f.body ? n.y : -n.y) > 0.5) {const other=c.getFixtureA().getBody()===f.body?c.getFixtureB().getBody():c.getFixtureA().getBody();if(!ascending||((other.getUserData()as{chaosPlatform?:boolean}|undefined)?.chaosPlatform&&f.body.getLinearVelocity().y-other.getLinearVelocityFromWorldPoint(f.body.getWorldCenter()).y>=-.5))return true;}
     }
     return false;
   }
@@ -93,7 +94,7 @@ export class Simulation {
     let support = false;
     // A short downward probe disambiguates a landing tap from an airborne tongue press.
     this.world.rayCast(p, Vec2(p.x, p.y + reach), (fixture, _point, normal, fraction) => {
-      if (fixture.getBody() === f.body || normal.y > -0.5) return -1;
+      if (fixture.getBody() === f.body || (fixture.getBody().getUserData()as{chaosBallBoundary?:boolean}|undefined)?.chaosBallBoundary || normal.y > -0.5) return -1;
       support = true; return fraction;
     });
     return support;
@@ -213,6 +214,7 @@ export class Simulation {
       }
     }
     resolveSurfaces(this, surfaceFrame);
+    this.arenaChaos.after();
   }
   pullGrapple(f: Frog) {
     const tongue = f.tongue!;
@@ -221,24 +223,27 @@ export class Simulation {
     tongue.tip = { x: anchor.x, y: anchor.y };
     const p = f.body.getWorldCenter();
     const dx = anchor.x - p.x, dy = anchor.y - p.y, d = Math.hypot(dx, dy);
-    const minLength = target.isDynamic() ? this.tuning.frogRadius * 2 + this.tuning.frogGrappleClearance
+    const rotatingPlatform=!!(target.getUserData() as {chaosPlatform?:boolean}|undefined)?.chaosPlatform;
+    const frogTarget=target.isDynamic()&&!rotatingPlatform;
+    const minLength = frogTarget ? this.tuning.frogRadius * 2 + this.tuning.frogGrappleClearance
       : Math.max(this.tuning.grappleMinLength, this.tuning.frogRadius + 0.05 * (this.tuning.frogRadius / defaults.frogRadius));
     // Take up existing slack only. Never forcibly shorten a taut constraint.
-    tongue.length = Math.max(target.isDynamic() ? minLength : Math.min(minLength, tongue.length), tongue.length - Math.min(
+    tongue.length = Math.max(frogTarget ? minLength : Math.min(minLength, tongue.length), tongue.length - Math.min(
       this.tuning.grappleTakeupSpeed * DT, Math.max(0, tongue.length - Math.max(minLength, d)),
     ));
     tongue.joint!.setMaxLength(tongue.length);
     if (d <= minLength || d < 0.001) return;
     const nx = dx / d, ny = dy / d;
-    const va = f.body.getLinearVelocity(), vb = target.getLinearVelocity();
+    const va = f.body.getLinearVelocity(), vb = rotatingPlatform?target.getLinearVelocityFromWorldPoint(anchor):target.getLinearVelocity();
     const closingSpeed = (va.x - vb.x) * nx + (va.y - vb.y) * ny;
     // Soft radial speed ceiling: stop adding inward impulse, never clamp carried velocity.
     const dv = Math.min(this.tuning.grapplePullAcceleration * (f.poisonPullFromTick !== undefined && this.tick >= f.poisonPullFromTick ? POISON_BALANCE.grapplePullMultiplier : 1) * DT,
       Math.max(0, this.tuning.grappleMaxPullSpeed - closingSpeed));
-    const inverseMass = 1 / f.body.getMass() + (target.isDynamic() ? 1 / target.getMass() : 0);
+    const center=target.getWorldCenter(),lever=(anchor.x-center.x)*ny-(anchor.y-center.y)*nx;
+    const inverseMass = 1 / f.body.getMass() + (target.isDynamic() ? rotatingPlatform?lever*lever/target.getInertia():1/target.getMass() : 0);
     const impulse = Vec2(nx * dv / inverseMass, ny * dv / inverseMass);
     f.body.applyLinearImpulse(impulse, f.body.getWorldCenter(), true);
-    if (target.isDynamic()) target.applyLinearImpulse(Vec2(-impulse.x, -impulse.y), target.getWorldCenter(), true);
+    if (target.isDynamic()) target.applyLinearImpulse(Vec2(-impulse.x, -impulse.y), rotatingPlatform?anchor:target.getWorldCenter(), true);
   }
   updateTongue(f: Frog) {
     const tongue = f.tongue;
@@ -257,7 +262,7 @@ export class Simulation {
     const end = Vec2(start.x + tongue.direction.x * travel, start.y + tongue.direction.y * travel);
     let hit: { body: Body; point: { x: number; y: number } } | undefined;
     this.world.rayCast(start, end, (fixture, point, _normal, fraction) => {
-      if (fixture.getBody() === f.body || (fixture.getBody().getUserData() as {frozenTag?:boolean;chaosBall?:boolean}|undefined)?.frozenTag || (fixture.getBody().getUserData() as {chaosBall?:boolean}|undefined)?.chaosBall) return -1;
+      if (fixture.getBody() === f.body || (fixture.getBody().getUserData() as {frozenTag?:boolean;chaosBall?:boolean;chaosBallBoundary?:boolean}|undefined)?.frozenTag || (fixture.getBody().getUserData() as {chaosBall?:boolean}|undefined)?.chaosBall || (fixture.getBody().getUserData() as {chaosBallBoundary?:boolean}|undefined)?.chaosBallBoundary) return -1;
       hit = { body: fixture.getBody(), point: { x: point.x, y: point.y } }; return fraction;
     });
     tongue.distance += travel;
