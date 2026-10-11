@@ -202,6 +202,7 @@ export class Simulation {
     }
     // Apply pulls after every movement controller: frog order must not cancel target impulses.
     for (const f of this.frogs) this.updateTongue(f);
+    this.arenaChaos.applyWind();
     this.world.step(DT, t.velocityIterations, t.positionIterations);
     this.tick++;
     for (const f of this.frogs) {

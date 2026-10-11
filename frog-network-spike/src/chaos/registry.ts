@@ -18,7 +18,7 @@ export const MODIFIERS=[
  {...eligibility,id:'mega_frogs',name:'Mega Frogs',family:'size',icon:'●',conflicts:['tiny_trouble'] as readonly string[],description:'Big frog energy. Larger physical bodies.'},
  {...eligibility,id:'super_suckers',name:'Super Suckers',family:'tongue',icon:'⇥',description:'Powerful pulls and faster momentum-building swings.'},
  {...eligibility,id:'magnet_mouths',name:'Magnet Mouths',family:'tongue',icon:'⊕',description:'Wide frog-catching aim assist with a short lead.'},
- {...eligibility,id:'windy_weather',name:'Windy Weather',family:'arena',icon:'➜',description:'Forecast gusts push airborne frogs and swings.'},
+ {...eligibility,id:'windy_weather',name:'Windy Weather',family:'arena',icon:'➜',description:'Strong forecast gusts sweep running frogs and swings.'},
  {...eligibility,id:'bouncy_bombardment',name:'Bouncy Bombardment',family:'arena',icon:'◉',description:'Fast, heavy rubber balls keep bouncing.'},
  {...eligibility,id:'crumble_time',name:'Crumble Time',family:'platform',icon:'▧',conflicts:['tilt_a_frog'] as readonly string[],description:'Airborne platforms crack, fall and grow back. Ground stays solid.'},
  {...eligibility,id:'tilt_a_frog',name:'Tilt-a-Frog',family:'platform',icon:'∠',conflicts:['crumble_time'] as readonly string[],description:'Airborne platforms spin under weight and grapples.'},
