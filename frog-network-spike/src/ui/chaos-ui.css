@@ -26,3 +26,6 @@
 .chaos-card[data-modifier=balloon_bellies]{background:linear-gradient(135deg,#653b7b,#905699);border-color:#edd0ff}
 .chaos-card[data-modifier=swap_hop]{background:linear-gradient(135deg,#235970,#467b91);border-color:#bbecff}
 .chaos-card[data-modifier=bubble_trouble]{background:linear-gradient(135deg,#246b70,#368e90);border-color:#c2ffff}
+
+#chaos-swap-clock{position:absolute;right:12px;top:48px;z-index:6;pointer-events:none;padding:5px 9px;border:2px solid #beeafa;border-radius:9px;background:#183f50ec;color:#fff6cf;font-weight:900;font-size:clamp(12px,1.6vw,16px);font-variant-numeric:tabular-nums;max-width:45%;box-shadow:0 2px 0 #122f38}
+#chaos-swap-clock[hidden]{display:none}#chaos-swap-clock[data-urgent=true]{border-color:#ffe292;background:#6d4629ec;color:#fff3b9}

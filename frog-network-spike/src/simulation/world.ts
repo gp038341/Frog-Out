@@ -14,7 +14,7 @@ export type Tongue = {
   target?: Body; localAnchor?: { x: number; y: number };
 };
 export type Frog = {
-  balloonScale?:number;balloonInflated?:boolean;balloonWarning?:boolean;bumperTick?:number;swapTick?:number;swapProtectedUntil?:number;swapPartner?:number;bubbleId?:number;bubbleEscapeTick?:number;
+  balloonPopTick?:number;balloonBounceTick?:number;bubbleEscapePresses?:number;bubblePressTick?:number;balloonScale?:number;balloonInflated?:boolean;balloonWarning?:boolean;bumperTick?:number;swapTick?:number;swapProtectedUntil?:number;swapPartner?:number;bubbleId?:number;bubbleEscapeTick?:number;
   slipperySoap?: boolean; stickyMud?: boolean; surfaceBounceTick?: number; surfaceBounceStrength?: number; surfaceImpactSpeed?: number; surfaceImpactTick?: number;
   aimAssistTick?: number; aimAssistTarget?: number;
   poisonPullFromTick?: number;

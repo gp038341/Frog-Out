@@ -21,7 +21,7 @@ import {GameAudio} from './audio';
 const S=30,INK=0x142f35;
 type Point={x:number;y:number};
 type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'charge'|'attach'|'infect'|'bump';strength?:number};
-type Before={bubbleId?:number;bumperTick?:number;balloonInflated?:boolean;swapTick?:number;bubbleEscapeTick?:number;surfaceBounceTick?:number;vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};
+type Before={balloonPopTick?:number;balloonBounceTick?:number;bubblePressTick?:number;bubbleId?:number;bumperTick?:number;balloonInflated?:boolean;swapTick?:number;bubbleEscapeTick?:number;surfaceBounceTick?:number;vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};
 /** Presentation consumes render positions only. It never writes a physics body or gameplay input. */
 export class Courtyard {
  private tagPuffs:number[]=[];
@@ -100,9 +100,12 @@ export class Courtyard {
   states.forEach((f,i)=>{
    const p=positions[i];if(!p)return;const infection=view?.mode==='freeze'||view?.mode==='classic'?undefined:view?.players[i],before=this.previous[i],color=FROG_COLORS[i];const state=infection?.state;
    if(before){
+    if(f.balloonPopTick!==undefined&&f.balloonPopTick!==before.balloonPopTick){this.pop(p.x,p.y,0xffd4ed,'charge',1);this.reactions[i]=200;if(i===local)this.audio.play('charge',1.2);}
+    if(f.balloonBounceTick!==undefined&&f.balloonBounceTick!==before.balloonBounceTick){this.pop(p.x,p.y+.3,0xffe49c,'charge',.6);this.reactions[i]=130;if(i===local)this.audio.play('charge');}
+    if(f.bubbleId!==undefined&&f.bubblePressTick!==undefined&&f.bubblePressTick!==before.bubblePressTick&&i===local)this.audio.play('ui');
     if(f.bubbleId!==undefined&&before.bubbleId===undefined&&i===local)this.audio.play('attach');
     if(f.bumperTick!==undefined&&f.bumperTick!==before.bumperTick){this.reactions[i]=150;this.pop(p.x,p.y,0xffd38f,'bump');if(i===local)this.audio.play('impact',1.2);}
-    if(f.balloonInflated!==before.balloonInflated&&i===local)this.audio.play(f.balloonInflated?'build':'miss');
+    if(f.balloonInflated!==before.balloonInflated&&f.balloonPopTick===before.balloonPopTick&&i===local)this.audio.play(f.balloonInflated?'build':'miss');
     if(f.swapTick!==undefined&&f.swapTick!==before.swapTick){this.pop(p.x,p.y,0xc5efff,'attach');if(i===local)this.audio.play('attach');}
     if(f.bubbleEscapeTick!==undefined&&f.bubbleEscapeTick!==before.bubbleEscapeTick&&i===local)this.audio.play('miss');
     if(f.surfaceBounceTick!==undefined&&f.surfaceBounceTick!==before.surfaceBounceTick){const strength=f.surfaceBounceStrength??0;this.pop(p.x,p.y+.3,0xa2ee6e,'charge',strength);this.reactions[i]=100+strength*80;if(i===local)this.audio.play('charge',1+strength*.25);}
@@ -122,11 +125,11 @@ export class Courtyard {
    if(view?.mode==='freeze'){const frozen=view.freeze!.frozen[i];g.save();g.translateCanvas(p.x*S,p.y*S);g.scaleCanvas((f.radius??defaults.frogRadius)/defaults.frogRadius,(f.radius??defaults.frogRadius)/defaults.frogRadius);paintFreezeState(g,0,0,i,view);g.restore();if(before?.state&&before.state!==(frozen?'frozen':'runner')){this.pop(p.x,p.y,0xb3f0ff,'attach');if(i===local)this.audio.play(frozen?'infect':'transform');}}
    if(f.stickyMud){g.fillStyle(0x795343,.8);for(const dx of [-8,8])g.fillEllipse(p.x*S+dx,p.y*S+12,12,5);}
    const status=connected[i]===false?'OFFLINE':view?.mode==='classic'?(i===view.classic!.it?'▲ IT':'NOT IT'):view?.mode==='freeze'?(i===view.freeze!.freezer?'❄ FREEZER':view.freeze!.frozen[i]?'❄ FROZEN':view.freeze!.protectedUntil[i]>view.tick?'◇ PROTECTED':'RUNNER'):infection?.state==='transforming'?'CHANGING · 1s':infection?.state==='infectious'?(infection.patientZero?'◆ DART FROG':'◆ POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.state==='healthy').length===1?'LAST SAFE':'SAFE';
-   paintFrogChaos(g,p.x*S,p.y*S,f,view?.tick??0,i);
-   const chaosStatus=f.bubbleId!==undefined?(i===local?'○ PRESS ACTION TO POP':'○ BUBBLED'):f.swapPartner!==undefined?`⇄ ${names[f.swapPartner]??'SWAP PARTNER'}`:f.balloonWarning?'◍ PUFFING UP…':undefined;
+   paintFrogChaos(g,p.x*S,p.y*S,f,view?.tick??0,i,i===local);
+   const chaosStatus=f.bubbleId!==undefined?(i===local?`○ POP ${f.bubbleEscapePresses??0}/5 · PRESS ACTION`:'○ BUBBLED'):f.swapPartner!==undefined?`⇄ ${names[f.swapPartner]??'SWAP PARTNER'}`:f.balloonWarning?'◍ PUFFING UP…':undefined;
    const label=this.labels[i];
-   label.setVisible(true).setText(`${i===local?'▾ ':''}${names[i]}\n${status}${chaosStatus?` · ${chaosStatus}`:''}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-(f.radius??defaults.frogRadius)-.3)*S)).setColor(connected[i]===false?'#b2c7c2':state==='transforming'?'#ffe5a3':state==='infectious'?`#${POISON_ACCENTS[i].toString(16).padStart(6,'0')}`:'#fff8d9');
-   this.previous[i]={bubbleId:f.bubbleId,bumperTick:f.bumperTick,balloonInflated:f.balloonInflated,swapTick:f.swapTick,bubbleEscapeTick:f.bubbleEscapeTick,surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state:view?.mode==='classic'?(i===view.classic!.it?'it':'runner'):view?.mode==='freeze'?(view.freeze!.frozen[i]?'frozen':'runner'):state,x:f.x,y:f.y};
+   label.setBackgroundColor(i===local?'#183f50':'transparent').setPadding(i===local?4:0,i===local?2:0).setVisible(true).setText(`${i===local?'▼ YOU · ':''}${names[i]}\n${status}${chaosStatus?` · ${chaosStatus}`:''}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-(f.radius??defaults.frogRadius)-.3)*S)).setColor(connected[i]===false?'#b2c7c2':state==='transforming'?'#ffe5a3':state==='infectious'?`#${POISON_ACCENTS[i].toString(16).padStart(6,'0')}`:'#fff8d9');
+   this.previous[i]={balloonPopTick:f.balloonPopTick,balloonBounceTick:f.balloonBounceTick,bubblePressTick:f.bubblePressTick,bubbleId:f.bubbleId,bumperTick:f.bumperTick,balloonInflated:f.balloonInflated,swapTick:f.swapTick,bubbleEscapeTick:f.bubbleEscapeTick,surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state:view?.mode==='classic'?(i===view.classic!.it?'it':'runner'):view?.mode==='freeze'?(view.freeze!.frozen[i]?'frozen':'runner'):state,x:f.x,y:f.y};
   });
   this.labels.forEach((l,i)=>{if(i>=states.length)l.setVisible(false);});
   this.feel.render(states,positions,view?.mode==='freeze'||view?.mode==='classic'?undefined:view,local,delta);

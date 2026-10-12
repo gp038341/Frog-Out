@@ -22,10 +22,10 @@ export const MODIFIERS=[
  {...eligibility,id:'bouncy_bombardment',name:'Bouncy Bombardment',family:'arena',icon:'◉',description:'Fast, heavy rubber balls keep bouncing.'},
  {...eligibility,id:'crumble_time',name:'Crumble Time',family:'platform',icon:'▧',conflicts:['tilt_a_frog'] as readonly string[],description:'Airborne platforms crack, fall and grow back. Ground stays solid.'},
  {...eligibility,id:'tilt_a_frog',name:'Tilt-a-Frog',family:'platform',icon:'∠',conflicts:['crumble_time'] as readonly string[],description:'Airborne platforms spin under weight and grapples.'},
- {...eligibility,id:'bumper_frogs',name:'Bumper Frogs',family:'social',icon:'✹',description:'Rubber-frog collisions. Tags still count before ricochets.'},
- {...eligibility,id:'balloon_bellies',name:'Balloon Bellies',family:'social',icon:'◍',description:'Puff up, float lighter and bounce. Solid core stays the same.'},
+ {...eligibility,id:'bumper_frogs',name:'Bumper Frogs',family:'social',icon:'✹',description:'Huge rubber-frog ricochets, even at low speed. Tags still count.'},
+ {...eligibility,id:'balloon_bellies',name:'Balloon Bellies',family:'social',icon:'◍',description:'Puff up for longer, spring high, then POP into the air!'},
  {...eligibility,id:'swap_hop',name:'Swap Hop',family:'social',icon:'⇄',description:'Paired frogs swap places. Watch your partner warning!'},
- {...eligibility,id:'bubble_trouble',name:'Bubble Trouble',family:'social',icon:'○',description:'Floating bubbles carry frogs. Press action again to pop!'},
+ {...eligibility,id:'bubble_trouble',name:'Bubble Trouble',family:'social',icon:'○',description:'Frequent floating bubbles. Press action five times to pop!'},
 ] as const;
 export type ModifierId=typeof MODIFIERS[number]['id'];
 export function isModifier(value:unknown):value is ModifierId{return MODIFIERS.some(m=>m.id===value);}

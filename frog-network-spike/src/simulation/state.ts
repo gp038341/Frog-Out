@@ -6,7 +6,7 @@ import {Vec2, RopeJoint, type Body} from 'planck';
 import {Simulation, type Input, type Tongue} from './world';
 export type FrogState = {
  chaosBubbles?:{id:number;x:number;y:number;slot?:number}[];
- balloonScale?:number;balloonInflated?:boolean;balloonWarning?:boolean;bumperTick?:number;swapTick?:number;swapProtectedUntil?:number;swapPartner?:number;bubbleId?:number;bubbleEscapeTick?:number;
+ balloonPopTick?:number;balloonBounceTick?:number;bubbleEscapePresses?:number;bubblePressTick?:number;balloonScale?:number;balloonInflated?:boolean;balloonWarning?:boolean;bumperTick?:number;swapTick?:number;swapProtectedUntil?:number;swapPartner?:number;bubbleId?:number;bubbleEscapeTick?:number;
  radius?:number;chaosTurbo?:boolean;chaosSuperSuckers?:boolean;aimAssistTick?:number;aimAssistTarget?:number;
  slipperySoap?:boolean;stickyMud?:boolean;surfaceBounceTick?:number;surfaceBounceStrength?:number;surfaceImpactSpeed?:number;surfaceImpactTick?:number;
  poisonPullFromTick?:number;
@@ -26,7 +26,7 @@ export function capture(sim:Simulation):PhysicsState {
    tongue={phase:t.phase,direction:{...t.direction},tip:{...t.tip},distance:t.distance,length:t.length,
     target:t.target?(frog>=0?{frog}:{terrain:terrain.indexOf(t.target)}):undefined,
     localAnchor:t.localAnchor?{...t.localAnchor}:undefined};}
-  return {...(f===sim.frogs[0]&&sim.frogChaos.capture()?{chaosBubbles:sim.frogChaos.capture()!.bubbles.map(({id,x,y,slot})=>({id,x,y,slot}))}:{}),balloonScale:f.balloonScale,balloonInflated:f.balloonInflated,balloonWarning:f.balloonWarning,bumperTick:f.bumperTick,swapTick:f.swapTick,swapProtectedUntil:f.swapProtectedUntil,swapPartner:f.swapPartner,bubbleId:f.bubbleId,bubbleEscapeTick:f.bubbleEscapeTick,radius:sim.tuning.frogRadius,chaosTurbo:sim.chaosTurbo,chaosSuperSuckers:sim.chaosSuperSuckers,aimAssistTick:f.aimAssistTick,aimAssistTarget:f.aimAssistTarget,slipperySoap:f.slipperySoap,stickyMud:f.stickyMud,surfaceBounceTick:f.surfaceBounceTick,surfaceBounceStrength:f.surfaceBounceStrength,surfaceImpactSpeed:f.surfaceImpactSpeed,surfaceImpactTick:f.surfaceImpactTick,poisonPullFromTick:f.poisonPullFromTick,x:p.x,y:p.y,vx:v.x,vy:v.y,facing:f.facing,input:{...f.input},held:f.held,charging:f.charging,charge:f.charge,
+  return {...(f===sim.frogs[0]&&sim.frogChaos.capture()?{chaosBubbles:sim.frogChaos.capture()!.bubbles.map(({id,x,y,slot})=>({id,x,y,slot}))}:{}),balloonPopTick:f.balloonPopTick,balloonBounceTick:f.balloonBounceTick,bubbleEscapePresses:f.bubbleEscapePresses,bubblePressTick:f.bubblePressTick,balloonScale:f.balloonScale,balloonInflated:f.balloonInflated,balloonWarning:f.balloonWarning,bumperTick:f.bumperTick,swapTick:f.swapTick,swapProtectedUntil:f.swapProtectedUntil,swapPartner:f.swapPartner,bubbleId:f.bubbleId,bubbleEscapeTick:f.bubbleEscapeTick,radius:sim.tuning.frogRadius,chaosTurbo:sim.chaosTurbo,chaosSuperSuckers:sim.chaosSuperSuckers,aimAssistTick:f.aimAssistTick,aimAssistTarget:f.aimAssistTarget,slipperySoap:f.slipperySoap,stickyMud:f.stickyMud,surfaceBounceTick:f.surfaceBounceTick,surfaceBounceStrength:f.surfaceBounceStrength,surfaceImpactSpeed:f.surfaceImpactSpeed,surfaceImpactTick:f.surfaceImpactTick,poisonPullFromTick:f.poisonPullFromTick,x:p.x,y:p.y,vx:v.x,vy:v.y,facing:f.facing,input:{...f.input},held:f.held,charging:f.charging,charge:f.charge,
    grounded:f.grounded,jumpPending:f.jumpPending,holdTime:f.holdTime,coyote:f.coyote,suppressSupport:f.suppressSupport,
    landingWait:f.landingWait,pressDirection:{...f.pressDirection},bufferedRelease:f.bufferedRelease?{...f.bufferedRelease}:undefined,tongue};
  })};
@@ -38,7 +38,7 @@ export function restore(sim:Simulation,state:PhysicsState){
  for(const f of sim.frogs)sim.detach(f);
  sim.tick=state.tick;sim.arenaChaos.restore(state.arenaChaos);
  state.frogs.forEach((s,i)=>{const f=sim.frogs[i];f.body.setTransform(Vec2(s.x,s.y),0);f.body.setLinearVelocity(Vec2(s.vx,s.vy));f.body.setAngularVelocity(0);
-  for(const key of ['balloonScale','balloonInflated','balloonWarning','bumperTick','swapTick','swapProtectedUntil','swapPartner','bubbleId','bubbleEscapeTick'] as const)(f as any)[key]=s[key];
+  for(const key of ['balloonPopTick','balloonBounceTick','bubbleEscapePresses','bubblePressTick','balloonScale','balloonInflated','balloonWarning','bumperTick','swapTick','swapProtectedUntil','swapPartner','bubbleId','bubbleEscapeTick'] as const)(f as any)[key]=s[key];
   f.aimAssistTick=s.aimAssistTick;f.aimAssistTarget=s.aimAssistTarget;f.slipperySoap=s.slipperySoap;f.stickyMud=s.stickyMud;f.surfaceBounceTick=s.surfaceBounceTick;f.surfaceBounceStrength=s.surfaceBounceStrength;f.surfaceImpactSpeed=s.surfaceImpactSpeed;f.surfaceImpactTick=s.surfaceImpactTick;f.poisonPullFromTick=s.poisonPullFromTick;f.facing=s.facing;f.input={...s.input};f.events=[];f.held=s.held;f.charging=s.charging;f.charge=s.charge;f.grounded=s.grounded;
   f.jumpPending=s.jumpPending;f.holdTime=s.holdTime;f.coyote=s.coyote;f.suppressSupport=s.suppressSupport;f.landingWait=s.landingWait;
   f.pressDirection={...s.pressDirection};f.bufferedRelease=s.bufferedRelease?{...s.bufferedRelease}:undefined;

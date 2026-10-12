@@ -37,7 +37,7 @@ export function m15PreservedSource(path:string){let source=m16PreservedSource(pa
 
 export function m16PreservedSource(path:string){let source=classicPreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/milestone-16-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
 
-export function chaosDPreservedSource(path:string){let source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');const m=JSON.parse(readFileSync(new URL('../docs/chaos-d-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+export function chaosDPreservedSource(path:string){let source=chaosDRefinementPreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/chaos-d-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
 
 export function chaosCWindPreservedSource(path:string){let source=chaosDPreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/chaos-c-wind-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
 
@@ -54,3 +54,5 @@ export function chaosBPreservedSource(path:string){let source=chaosBRefinementPr
 export function chaosPreservedSource(path:string){let source=chaosBPreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/chaos-a-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
 
 export function classicPreservedSource(path:string){let source=chaosPreservedSource(path);const m17=JSON.parse(readFileSync(new URL('../docs/milestone-17-preservation.json',import.meta.url),'utf8'));for(const c of m17.files[path]?.changes??[])source=source.replace(c.from,c.to);const poof=JSON.parse(readFileSync(new URL('../docs/tag-poof-preservation.json',import.meta.url),'utf8'));for(const c of poof.files[path]?.changes??[])source=source.replace(c.from,c.to);const m=JSON.parse(readFileSync(new URL('../docs/classic-tag-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+
+export function chaosDRefinementPreservedSource(path:string){let source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');const m=JSON.parse(readFileSync(new URL('../docs/chaos-d-refinement-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
