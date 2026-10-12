@@ -1,0 +1,25 @@
+{
+  "baseline": "7dd2bb9e54e4cdd9cc22e5afa11587bc79d2ff86",
+  "files": {
+    "src/chaos/extreme-chaos.ts": {
+      "beforeSha256": "4f72c1e39b3ed3986f55e9ead2e262478f6d9b5c14f1b3fa61cdb9fefdc42d95",
+      "afterSha256": "3a2a8b54cb385052f2651847408a3601cbb38fe52b6a358a190a32e38a4bb2bd",
+      "changes": [
+        {
+          "from": "pogoSpeed:14.25",
+          "to": "pogoSpeed:9.5"
+        }
+      ]
+    },
+    "src/presentation/courtyard.ts": {
+      "beforeSha256": "6a82dbdca0210d6eb5a76c60abb8570097065178702b01d01616127064a681e3",
+      "afterSha256": "0eb4842b2b5691992e2c94e02f17c77832ccb61b5a5b2186819580c422518f6c",
+      "changes": [
+        {
+          "from": "g.translateCanvas(x,y);if(f.gravityDirection===-1)g.scaleCanvas(1,-1);g.scaleCanvas(size*",
+          "to": "g.translateCanvas(x,y);g.scaleCanvas(size*"
+        }
+      ]
+    }
+  }
+}

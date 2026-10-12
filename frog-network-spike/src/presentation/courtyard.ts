@@ -139,7 +139,7 @@ export class Courtyard {
   this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;if(p.kind==='swap'){for(let j=0;j<7;j++){const a=j*Math.PI*2/7,spread=7+q*30;e.fillStyle(p.color,.55*(1-q));e.fillCircle(p.x+Math.cos(a)*spread,p.y+Math.sin(a)*spread,Math.max(1,11*(1-q)));}return true;}e.lineStyle(2,p.color,1-q);const radius=((p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22))*(1+(p.strength??0)*.35);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});
  }
  frog(g:Phaser.GameObjects.Graphics,x:number,y:number,f:FrogState,slot:number,infection:OutbreakPlayer|undefined,online:boolean,local:boolean,time:number){
-  const size=(f.radius??defaults.frogRadius)/defaults.frogRadius;g.save();g.translateCanvas(x,y);g.scaleCanvas(size*(f.balloonScale??1),size*(f.balloonScale??1));x=0;y=0;
+  const size=(f.radius??defaults.frogRadius)/defaults.frogRadius;g.save();g.translateCanvas(x,y);if(f.gravityDirection===-1)g.scaleCanvas(1,-1);g.scaleCanvas(size*(f.balloonScale??1),size*(f.balloonScale??1));x=0;y=0;
   const charging=f.charging,q=Math.min(1,f.charge/defaults.chargeSeconds),role=poisonRole(infection?.state),poison=role.tagging,grace=role.transforming,accent=POISON_ACCENTS[slot%8];
   const squish=charging ? .8-.12*q : this.reactions[slot]>0 ? .84 : 1;
   const sy=f.balloonInflated?1:f.grounded?squish:Math.min(1.14,1+Math.abs(f.vy)*.006),sx=f.grounded?1+(1-sy)*.6:1/Math.sqrt(sy);
