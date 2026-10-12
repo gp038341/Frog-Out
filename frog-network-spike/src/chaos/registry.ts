@@ -25,6 +25,8 @@ export const MODIFIERS=[
  {...eligibility,id:'bumper_frogs',name:'Bumper Frogs',family:'social',icon:'✹',description:'Huge rubber-frog ricochets, even at low speed. Tags still count.'},
  {...eligibility,id:'balloon_bellies',name:'Balloon Bellies',family:'social',icon:'◍',description:'Launch together every 8 seconds, then float inflated for 6 seconds!'},
  {...eligibility,id:'swap_hop',name:'Swap Hop',family:'social',icon:'⇄',description:'Paired frogs swap places. Watch your partner warning!'},
+ {...eligibility,id:'gravity_flip',name:'Gravity Flip',family:'extreme',icon:'↕',conflicts:['moon_frogs','balloon_bellies','swap_hop','tilt_a_frog','pogo_panic','bubble_trouble'] as readonly string[],description:'Gravity switches: 8 seconds down, 4 up. Jump away from ceilings!'},
+ {...eligibility,id:'pogo_panic',name:'Pogo Panic',family:'extreme',icon:'♬',description:'Ordinary landings launch you. Special surfaces keep their own feel.'},
  {...eligibility,id:'bubble_trouble',name:'Bubble Trouble',family:'social',icon:'○',description:'Frequent floating bubbles. Press action five times to pop!'},
 ] as const;
 export type ModifierId=typeof MODIFIERS[number]['id'];
@@ -39,7 +41,7 @@ export function effectiveTuning(ids:readonly ModifierId[],base:Tuning=defaults):
  t.frogRadius*=scale;t.frogGrappleClearance*=scale;t.grappleMinLength*=scale;
  if(ids.includes('super_suckers')){t.grapplePullAcceleration*=CHAOS_TUNING.pull;t.grappleTakeupSpeed*=CHAOS_TUNING.takeup;t.grappleMaxPullSpeed*=CHAOS_TUNING.pullSpeed;}return t;
 }
-export function applyChaos(sim:Simulation,ids:readonly ModifierId[]){ids=validModifiers(ids);sim.tuning=effectiveTuning(ids);resizeFrogs(sim);sim.chaosAimDegrees=ids.includes('magnet_mouths')?CHAOS_TUNING.magnetDegrees:GRAPPLE_AIM.defaultDegrees;sim.chaosAimLeadSeconds=ids.includes('magnet_mouths')?GRAPPLE_AIM.magnetLeadSeconds:GRAPPLE_AIM.defaultLeadSeconds;sim.chaosSuperSuckers=ids.includes('super_suckers');sim.chaosTurbo=ids.includes('turbo_toads');sim.chaosButterfeet=ids.includes('butterfeet');sim.chaosGroundFriction=CHAOS_TUNING.friction;sim.chaosMoon=ids.includes('moon_frogs');sim.chaosMoonDragX=CHAOS_TUNING.moonHorizontalDrag;sim.chaosMoonDragY=CHAOS_TUNING.moonVerticalDrag;sim.chaosMoonFallSpeed=CHAOS_TUNING.moonFallSpeed;sim.arenaChaos.configure(ids);sim.frogChaos.configure(ids);}
+export function applyChaos(sim:Simulation,ids:readonly ModifierId[]){ids=validModifiers(ids);sim.tuning=effectiveTuning(ids);resizeFrogs(sim);sim.chaosAimDegrees=ids.includes('magnet_mouths')?CHAOS_TUNING.magnetDegrees:GRAPPLE_AIM.defaultDegrees;sim.chaosAimLeadSeconds=ids.includes('magnet_mouths')?GRAPPLE_AIM.magnetLeadSeconds:GRAPPLE_AIM.defaultLeadSeconds;sim.chaosSuperSuckers=ids.includes('super_suckers');sim.chaosTurbo=ids.includes('turbo_toads');sim.chaosButterfeet=ids.includes('butterfeet');sim.chaosGroundFriction=CHAOS_TUNING.friction;sim.chaosMoon=ids.includes('moon_frogs');sim.chaosMoonDragX=CHAOS_TUNING.moonHorizontalDrag;sim.chaosMoonDragY=CHAOS_TUNING.moonVerticalDrag;sim.chaosMoonFallSpeed=CHAOS_TUNING.moonFallSpeed;sim.arenaChaos.configure(ids);sim.frogChaos.configure(ids);sim.extremeChaos.configure(ids);}
 
 export function eligibleModifierIds(active:readonly ModifierId[],mode:GameMode,arena:ArenaId){const kept=active.length===3?active.slice(1):active;return MODIFIERS.filter(m=>!kept.includes(m.id)&&m.supportedModes.includes(mode)&&m.supportsArena(arena)&&kept.every(id=>!m.conflicts.includes(id)&&!modifier(id).conflicts.includes(m.id))).map(m=>m.id);}
 

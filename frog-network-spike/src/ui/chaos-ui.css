@@ -29,3 +29,6 @@
 
 #chaos-swap-clock{position:absolute;right:12px;top:48px;z-index:6;pointer-events:none;padding:5px 9px;border:2px solid #beeafa;border-radius:9px;background:#183f50ec;color:#fff6cf;font-weight:900;font-size:clamp(12px,1.6vw,16px);font-variant-numeric:tabular-nums;max-width:45%;box-shadow:0 2px 0 #122f38}
 #chaos-swap-clock[hidden]{display:none}#chaos-swap-clock[data-urgent=true]{border-color:#ffe292;background:#6d4629ec;color:#fff3b9}
+
+.chaos-card[data-modifier=gravity_flip]{background:linear-gradient(135deg,#483b85,#7665a4);border-color:#dbd0ff}.chaos-card[data-modifier=pogo_panic]{background:linear-gradient(135deg,#813d73,#a75378);border-color:#ffc6e9}
+#chaos-gravity-clock{position:absolute;right:12px;top:48px;z-index:6;pointer-events:none;padding:6px 10px;border:3px solid #d5c7ff;border-radius:10px;background:#2e244de8;color:#f1eaff;font-weight:900;font-size:clamp(12px,1.6vw,17px);max-width:60%;box-shadow:0 2px 0 #142f35}#chaos-gravity-clock[hidden]{display:none}#chaos-gravity-clock[data-warning=true]{border-color:#ffe49b;background:#744431f0;color:#fff4c8;animation:gravity-warning .35s ease-in-out infinite alternate}@keyframes gravity-warning{to{box-shadow:0 0 0 4px #ffe49b55}}@media(prefers-reduced-motion:reduce){#chaos-gravity-clock{animation:none!important}}

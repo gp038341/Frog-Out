@@ -1,3 +1,4 @@
+import {ExtremeChaos} from '../chaos/extreme-chaos';
 import {FrogChaos} from '../chaos/frog-chaos';
 import {platformContact} from './platform-contact';
 import {ArenaChaos} from '../chaos/arena-chaos';
@@ -14,7 +15,7 @@ export type Tongue = {
   target?: Body; localAnchor?: { x: number; y: number };
 };
 export type Frog = {
-  balloonPopTick?:number;balloonBounceTick?:number;bubbleEscapePresses?:number;bubblePressTick?:number;balloonScale?:number;balloonInflated?:boolean;balloonWarning?:boolean;bumperTick?:number;swapTick?:number;swapProtectedUntil?:number;swapPartner?:number;bubbleId?:number;bubbleEscapeTick?:number;
+  pogoTick?:number;gravityFlipTick?:number;balloonPopTick?:number;balloonBounceTick?:number;bubbleEscapePresses?:number;bubblePressTick?:number;balloonScale?:number;balloonInflated?:boolean;balloonWarning?:boolean;bumperTick?:number;swapTick?:number;swapProtectedUntil?:number;swapPartner?:number;bubbleId?:number;bubbleEscapeTick?:number;
   slipperySoap?: boolean; stickyMud?: boolean; surfaceBounceTick?: number; surfaceBounceStrength?: number; surfaceImpactSpeed?: number; surfaceImpactTick?: number;
   aimAssistTick?: number; aimAssistTarget?: number;
   poisonPullFromTick?: number;
@@ -26,6 +27,8 @@ export type Frog = {
 };
 const neutral = (): Input => ({ x: 0, y: 0, held: false });
 export class Simulation {
+  extremeChaos = new ExtremeChaos(this);
+  chaosGravityDirection:1|-1=1;
   arenaChaos = new ArenaChaos(this);
   frogChaos = new FrogChaos(this);
   chaosAimDegrees = GRAPPLE_AIM.defaultDegrees;
@@ -82,6 +85,7 @@ export class Simulation {
   grounded(f: Frog) {
     // Contacts can survive a takeoff step; do not reuse them to jump twice.
     if (f.suppressSupport > 0) return false;
+    if(this.chaosGravityDirection<0)return this.extremeChaos.ceilingGrounded(f);
     const ascending=f.body.getLinearVelocity().y < -0.5;
     for (let e = f.body.getContactList(); e; e = e.next) {
       const c = e.contact;
@@ -94,6 +98,7 @@ export class Simulation {
     return false;
   }
   nearLanding(f: Frog) {
+    if(this.chaosGravityDirection<0)return this.extremeChaos.ceilingNearLanding(f);
     const v = f.body.getLinearVelocity();
     if (v.y <= 0 || f.tongue || f.suppressSupport > 0) return false;
     const p = f.body.getPosition();
@@ -113,7 +118,7 @@ export class Simulation {
     const vy = f.body.getLinearVelocity().y;
     f.body.applyLinearImpulse(Vec2(
       x * this.tuning.chargeHorizontalImpulse * q * f.body.getMass(),
-      (-vertical - vy) * f.body.getMass(),
+      (-vertical * this.chaosGravityDirection - vy) * f.body.getMass(),
     ), f.body.getWorldCenter(), true);
     f.grounded = false; f.coyote = 0; f.suppressSupport = 0.06;
     f.bufferedRelease = undefined; f.jumpPending = false;
@@ -132,6 +137,7 @@ export class Simulation {
     const t = this.tuning;
     this.arenaChaos.before();
     this.frogChaos.before();
+    this.extremeChaos.before();
     const surfaceFrame = prepareSurfaces(this);
     if(this.chaosButterfeet)for(let c=this.world.getContactList();c;c=c.getNext()){
       if(this.frogs.some(f=>f.body===c.getFixtureA().getBody()||f.body===c.getFixtureB().getBody()))c.setFriction(Math.min(c.getFriction(),this.chaosGroundFriction));
@@ -219,13 +225,14 @@ export class Simulation {
         f.tongue.tip = { x: a.x, y: a.y };
       }
       const p = f.body.getPosition();
-      if (!Number.isFinite(p.x + p.y) || p.x < -5 || p.x > WIDTH + 5 || p.y > HEIGHT + 5) {
+      if (!Number.isFinite(p.x + p.y) || p.x < -5 || p.x > WIDTH + 5 || p.y > HEIGHT + 5 || this.chaosGravityDirection<0&&p.y < -5) {
         this.reset(); break;
       }
     }
     resolveSurfaces(this, surfaceFrame);
     this.arenaChaos.after();
     this.frogChaos.after();
+    this.extremeChaos.after();
     if(!this.frogChaos.deferContacts)this.frogChaos.resolveContacts();
   }
   pullGrapple(f: Frog) {
@@ -300,6 +307,7 @@ export class Simulation {
   reset() {
     this.arenaChaos.reset();
     this.frogChaos.reset();
+    this.extremeChaos.reset();
     for (let i = 0; i < this.frogs.length; i++) {
       const f = this.frogs[i]; this.cancelAction(f); f.slipperySoap = undefined; f.stickyMud = undefined; f.surfaceBounceTick = undefined; f.surfaceBounceStrength = undefined; f.surfaceImpactSpeed = undefined; f.surfaceImpactTick = undefined;
       f.body.setTransform(Vec2(i ? 20 : 12, 16), 0);

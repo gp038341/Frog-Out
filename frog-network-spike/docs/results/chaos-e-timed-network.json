@@ -1,0 +1,27 @@
+{
+  "baseline": "233456c81a7b5bef8529c73617014326119d6ec4",
+  "scope": "Compiled local server, eight independent WebSocket clients, actual 8/4-second schedules, real input charge/grapple transport and reconnection. No physical-device claim.",
+  "checks": [
+    "eight clients receive synchronized warning before real 8-second gravity reversal",
+    "real input/ack transport charges on ceiling then launches downward with baseline charged-jump strength",
+    "reconnect preserves same frog/identity and gravity schedule",
+    "rope persists through reversal, after real four-second inverted phase",
+    "periodic second inversion executes at 20 seconds, not one-shot",
+    "eight clients synchronize grounded Pogo launches after Gravity expires; Butterfeet/Tilt stack remains active",
+    "E expiration clears direction/landing overrides and metadata on every client"
+  ],
+  "tickMetrics": [
+    {
+      "p50": 0.18555500000002212,
+      "p95": 0.8862800000006246,
+      "p99": 4.294739999999365,
+      "max": 10.232519000000025
+    },
+    {
+      "p50": 0.1732030000021041,
+      "p95": 0.7037860000000364,
+      "p99": 3.786079000000427,
+      "max": 10.232519000000025
+    }
+  ]
+}

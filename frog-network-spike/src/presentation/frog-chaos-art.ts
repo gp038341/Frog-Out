@@ -1,6 +1,7 @@
 import type Phaser from 'phaser';import type {FrogState} from '../simulation/state';import {defaults} from '../simulation/config';
 /** Screen readability: core/status remains visible under thin, bounded decoration. */
 export function paintFrogChaos(g:Phaser.GameObjects.Graphics,x:number,y:number,f:FrogState,tick:number,slot=0){const r=(f.radius??defaults.frogRadius)*30;
+ if(f.pogoTick!==undefined&&tick-f.pogoTick<18){const q=(tick-f.pogoTick)/18;g.lineStyle(2,0xffb9e3,1-q);for(const d of[-1,0,1])g.lineBetween(x+d*7,y+r+2+q*8,x+d*12,y+r+6+q*13);}
  if(f.balloonWarning){g.lineStyle(2,0xffd591,.7);for(const d of[-1,1])g.lineBetween(x+d*(r+6),y+4,x+d*(r+10),y-3);}
  if((f.balloonScale??1)>1.01){g.lineStyle(1.5,0xfff6d3,.65);g.strokeCircle(x,y,r);g.fillStyle(0xffffff,.55);g.fillEllipse(x-r*.55,y-r*.55,4,7);g.lineStyle(1.5,0xffdfad,.75);g.strokePoints([{x:x-3,y:y+r*1.2},{x:x+3,y:y+r*1.2},{x,y:y+r*1.2+5}],true);}
  if(f.swapPartner!==undefined){const hue=[0xffd59f,0xadebe8,0xdbbdff,0xffa9bf][Math.min(f.swapPartner,slot)%4]??0xffd59f;g.lineStyle(2,hue,.85);g.strokeCircle(x,y,r+7+Math.sin(tick*.18)*2);g.lineBetween(x-r-12,y,x-r-5,y-4);g.lineBetween(x+r+5,y+4,x+r+12,y);}

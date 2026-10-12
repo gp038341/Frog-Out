@@ -1,6 +1,6 @@
 # Frog-Out — Chaos Voting design proposal
 
-Status: Milestones A–C approved; Milestone D authorized as a playtest candidate. A–C values below reflect the approved revisions; D values remain adjustable prototypes. The 20-modifier design catalog is retained; only the first 17 catalog concepts are implemented through D. Gravity Flip, Pogo Panic and Flappy Frogs remain unimplemented.
+Status: Milestones A–D approved. Approved D revision233456c81a7b5bef8529c73617014326119d6ec4, checkpoint checkpoint/approved-chaos-voting-d. Milestone E adds Gravity Flip/Pogo as a playtest candidate:19 implemented of the20 design concepts. Flappy remains design-only pending explicit control approval. Latest D refinement sections and E section supersede historical defaults.
 
 ## Source of truth and baseline
 
@@ -247,3 +247,7 @@ Spawn opportunities every1 second with maximum4 shells (previous2 seconds/max2),
 
 ## Latest D presentation / Balloon candidate
 User selected inflation launch: synchronized immediate upward launch18 once every8s, .75s anticipation and6s inflation (was7); no end launch or additional automatic Balloon landing launches. Original spring surfaces unchanged. Core collider/mass/gravity shell unchanged. Frozen/captured frogs excluded; faster upward and horizontal momentum preserved. Own-frog ring removed; own label light blue #b9eaff, other poisoned/transforming/tagger/freezer labels purple #d5a2ff; ordinary/offline label colors unchanged. Local light blue takes priority when user is tagger. Swap has450ms transparent smoke puffs at departure and arrival, reusing existing bounded effects/sounds. No other modifier/input/viewport/arena/rule changes. Balloon and Bubble remain candidates; Swap/Bumper approved.
+
+
+## Milestone E candidate
+Gravity:8s down/4s up,1s warning, frog-only gravity reversal with magnitude26, ceiling support/buffered/charged jump adapters, unchanged aim and grapple. Pogo: ordinary landing normal speed9.5, added delta ceiling24,12tick cooldown,4tick true separation rearm; special-material surfaces retain their own behavior. Existing Gravity exclusions remain, including Bubble; no active duplicate/conflict or KEEP regression. Paused state is authoritative for prediction. Desktop F/mobile separate FLAP button is recommended only, not implemented. See chaos-e.md for architecture, tests, limitations and control approval proposal.

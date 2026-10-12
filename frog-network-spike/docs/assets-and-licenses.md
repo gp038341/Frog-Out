@@ -32,3 +32,6 @@ All additional cues (pond percussion, charge tiers, tongue miss/tension, impacts
 
 ### Chaos Voting D
 Bumper stars, balloon shell/core, swap rings and translucent bubbles are original procedural Canvas/Phaser graphics implemented in the repository. No external assets added. D reuses the approved original jump/impact/build/attach/miss synth palette; no recordings, music, paid services or additional licensing obligations.
+
+### Chaos E
+Gravity arrows/countdown, warning pulse and Pogo foot bursts are original code-native graphics. Reuse approved original count/go/jump audio cues; no new external assets, fonts, recordings, dependencies or paid resources.
