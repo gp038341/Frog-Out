@@ -29,3 +29,6 @@ All additional cues (pond percussion, charge tiers, tongue miss/tension, impacts
 ## Bubblewash Bathhouse roster revision
 
 `src/presentation/bathhouse.ts` and the shared-geometry SVG preview are original project-native vector drawing code. No external images/textures/audio, fonts or new dependencies. Sponge effects reuse approved lily sound/feedback unchanged.
+
+### Chaos Voting D
+Bumper stars, balloon shell/core, swap rings and translucent bubbles are original procedural Canvas/Phaser graphics implemented in the repository. No external assets added. D reuses the approved original jump/impact/build/attach/miss synth palette; no recordings, music, paid services or additional licensing obligations.

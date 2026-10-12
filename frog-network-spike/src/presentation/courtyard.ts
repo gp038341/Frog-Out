@@ -1,3 +1,4 @@
+import {paintFrogChaos} from './frog-chaos-art';
 import type {ArenaChaosState} from '../chaos/arena-chaos';
 import {ARENA_CHAOS} from '../chaos/arena-chaos';
 import {paintClassicState} from './classic-art';
@@ -20,7 +21,7 @@ import {GameAudio} from './audio';
 const S=30,INK=0x142f35;
 type Point={x:number;y:number};
 type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'charge'|'attach'|'infect'|'bump';strength?:number};
-type Before={surfaceBounceTick?:number;vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};
+type Before={bubbleId?:number;bumperTick?:number;balloonInflated?:boolean;swapTick?:number;bubbleEscapeTick?:number;surfaceBounceTick?:number;vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};
 /** Presentation consumes render positions only. It never writes a physics body or gameplay input. */
 export class Courtyard {
  private tagPuffs:number[]=[];
@@ -70,6 +71,7 @@ export class Courtyard {
   if(layout!==this.chaosLayout){for(const ink of this.platformInk.values())ink.destroy();this.platformInk.clear();for(const bits of this.platformBits.values())for(const b of bits){b.ink.clearMask(true);b.ink.destroy();b.mask.destroy();}this.platformBits.clear();this.chaosLayout=layout;
    if(layout&&state){const covered=new Set(state.platforms.map(p=>p.source));this.paintArena(this.background,{filter:i=>!covered.has(i)});for(const p of state.platforms){const ink=this.scene.add.graphics().setDepth(1);const a=getArena(this.arenaId),solids=a.solids.map(r=>({...r,x:r.x-p.solid.x,y:r.y-p.solid.y}));solids[p.source]={...p.solid,x:0,y:0};this.paintArena(ink,{background:false,filter:i=>i===p.source},{...a,solids});this.platformInk.set(p.id,ink);if(state.crumbling){const bits=[];for(let j=0;j<4;j++){const part=this.scene.add.graphics().setDepth(1);this.paintArena(part,{background:false,filter:i=>i===p.source},{...a,solids});const mask=this.scene.add.graphics().setVisible(false);mask.fillStyle(0xffffff);mask.fillRect(-p.solid.w*S/2+j*p.solid.w*S/4,-p.solid.h*S/2-32,p.solid.w*S/4,p.solid.h*S+64);part.setMask(mask.createGeometryMask());bits.push({ink:part,mask});}this.platformBits.set(p.id,bits);}}}else this.paintArena();
   }
+  // Bubbles have no solid shell: their captured frog keeps its real collision core.
   for(const p of state?.platforms??[]){const ink=this.platformInk.get(p.id);if(!ink)continue;ink.setPosition((p.x??p.solid.x)*S,(p.y??p.solid.y)*S).setRotation(p.angle).setVisible(p.stage==='solid').setAlpha(1);
    const bits=this.platformBits.get(p.id)??[],breaking=p.stage==='cracking',fallen=p.stage==='absent',elapsed=fallen?(ARENA_CHAOS.crumbleAbsent-p.clock)/60:0,progress=breaking?1-p.clock/ARENA_CHAOS.crumbleLoad:0;
    bits.forEach((b,j)=>{const visible=breaking||fallen&&elapsed<.6,side=j-1.5,dx=breaking?side*progress*2:side*elapsed*34,dy=breaking?Math.abs(side)*progress*2:elapsed*elapsed*230;const x=(p.x??p.solid.x)*S+dx,y=(p.y??p.solid.y)*S+dy,rotation=p.angle+(fallen?side*elapsed*.5:0);b.ink.setPosition(x,y).setRotation(rotation).setAlpha(fallen?Math.max(0,1-elapsed/.6):1).setVisible(visible);b.mask.setPosition(x,y).setRotation(rotation);});
@@ -86,6 +88,7 @@ export class Courtyard {
   const g=this.ink;g.clear();this.effects.clear();const time=performance.now()/1000;
   const ratio=this.scene.scale.width/Math.max(1,this.scene.scale.displaySize.width);const labelSize=Math.ceil(Math.min(28,Math.max(18,10*ratio)));
   if(labelSize!==this.labelSize){this.labelSize=labelSize;this.labels.forEach(l=>l.setFontSize(labelSize));}
+  for(const b of states[0]?.chaosBubbles??[]){if(b.slot!==undefined)continue;const x=b.x*S,y=b.y*S;g.fillStyle(0xc8f8ff,.10);g.fillCircle(x,y,20);g.lineStyle(2,INK,.7);g.strokeCircle(x,y,21);g.lineStyle(2,0xc9f7ff);g.strokeCircle(x,y,20);g.fillStyle(0xffffff,.8);g.fillEllipse(x-8,y-8,4,7);}
   // Tongues behind bodies, with a sag only when physical rope length permits slack.
   states.forEach((f,i)=>{const t=f.tongue,p=positions[i];if(!t||!p)return;let tip=t.tip;if(t.phase==='attached'&&t.target&&'frog'in t.target&&t.localAnchor){const target=positions[t.target.frog];if(target)tip={x:target.x+t.localAnchor.x,y:target.y+t.localAnchor.y};}
    const distance=Math.hypot(tip.x-p.x,tip.y-p.y),slack=t.phase==='attached'?Math.min(1.2,Math.max(0,t.length-distance)*.6):0;
@@ -97,6 +100,11 @@ export class Courtyard {
   states.forEach((f,i)=>{
    const p=positions[i];if(!p)return;const infection=view?.mode==='freeze'||view?.mode==='classic'?undefined:view?.players[i],before=this.previous[i],color=FROG_COLORS[i];const state=infection?.state;
    if(before){
+    if(f.bubbleId!==undefined&&before.bubbleId===undefined&&i===local)this.audio.play('attach');
+    if(f.bumperTick!==undefined&&f.bumperTick!==before.bumperTick){this.reactions[i]=150;this.pop(p.x,p.y,0xffd38f,'bump');if(i===local)this.audio.play('impact',1.2);}
+    if(f.balloonInflated!==before.balloonInflated&&i===local)this.audio.play(f.balloonInflated?'build':'miss');
+    if(f.swapTick!==undefined&&f.swapTick!==before.swapTick){this.pop(p.x,p.y,0xc5efff,'attach');if(i===local)this.audio.play('attach');}
+    if(f.bubbleEscapeTick!==undefined&&f.bubbleEscapeTick!==before.bubbleEscapeTick&&i===local)this.audio.play('miss');
     if(f.surfaceBounceTick!==undefined&&f.surfaceBounceTick!==before.surfaceBounceTick){const strength=f.surfaceBounceStrength??0;this.pop(p.x,p.y+.3,0xa2ee6e,'charge',strength);this.reactions[i]=100+strength*80;if(i===local)this.audio.play('charge',1+strength*.25);}
     if(before.grounded&&!f.grounded&&f.vy< -5&&f.surfaceBounceTick===before.surfaceBounceTick){const charged=before.charging;this.pop(p.x,p.y+.3,charged?0xffe79b:color,charged?'charge':'jump');if(i===local)this.audio.play(charged?'charge':'jump');}
     if(f.tongue?.phase==='flying'&&!before.tongue&&i===local)this.audio.play('fire');
@@ -114,19 +122,21 @@ export class Courtyard {
    if(view?.mode==='freeze'){const frozen=view.freeze!.frozen[i];g.save();g.translateCanvas(p.x*S,p.y*S);g.scaleCanvas((f.radius??defaults.frogRadius)/defaults.frogRadius,(f.radius??defaults.frogRadius)/defaults.frogRadius);paintFreezeState(g,0,0,i,view);g.restore();if(before?.state&&before.state!==(frozen?'frozen':'runner')){this.pop(p.x,p.y,0xb3f0ff,'attach');if(i===local)this.audio.play(frozen?'infect':'transform');}}
    if(f.stickyMud){g.fillStyle(0x795343,.8);for(const dx of [-8,8])g.fillEllipse(p.x*S+dx,p.y*S+12,12,5);}
    const status=connected[i]===false?'OFFLINE':view?.mode==='classic'?(i===view.classic!.it?'▲ IT':'NOT IT'):view?.mode==='freeze'?(i===view.freeze!.freezer?'❄ FREEZER':view.freeze!.frozen[i]?'❄ FROZEN':view.freeze!.protectedUntil[i]>view.tick?'◇ PROTECTED':'RUNNER'):infection?.state==='transforming'?'CHANGING · 1s':infection?.state==='infectious'?(infection.patientZero?'◆ DART FROG':'◆ POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.state==='healthy').length===1?'LAST SAFE':'SAFE';
+   paintFrogChaos(g,p.x*S,p.y*S,f,view?.tick??0,i);
+   const chaosStatus=f.bubbleId!==undefined?(i===local?'○ PRESS ACTION TO POP':'○ BUBBLED'):f.swapPartner!==undefined?`⇄ ${names[f.swapPartner]??'SWAP PARTNER'}`:f.balloonWarning?'◍ PUFFING UP…':undefined;
    const label=this.labels[i];
-   label.setVisible(true).setText(`${i===local?'▾ ':''}${names[i]}\n${status}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-(f.radius??defaults.frogRadius)-.3)*S)).setColor(connected[i]===false?'#b2c7c2':state==='transforming'?'#ffe5a3':state==='infectious'?`#${POISON_ACCENTS[i].toString(16).padStart(6,'0')}`:'#fff8d9');
-   this.previous[i]={surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state:view?.mode==='classic'?(i===view.classic!.it?'it':'runner'):view?.mode==='freeze'?(view.freeze!.frozen[i]?'frozen':'runner'):state,x:f.x,y:f.y};
+   label.setVisible(true).setText(`${i===local?'▾ ':''}${names[i]}\n${status}${chaosStatus?` · ${chaosStatus}`:''}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-(f.radius??defaults.frogRadius)-.3)*S)).setColor(connected[i]===false?'#b2c7c2':state==='transforming'?'#ffe5a3':state==='infectious'?`#${POISON_ACCENTS[i].toString(16).padStart(6,'0')}`:'#fff8d9');
+   this.previous[i]={bubbleId:f.bubbleId,bumperTick:f.bumperTick,balloonInflated:f.balloonInflated,swapTick:f.swapTick,bubbleEscapeTick:f.bubbleEscapeTick,surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state:view?.mode==='classic'?(i===view.classic!.it?'it':'runner'):view?.mode==='freeze'?(view.freeze!.frozen[i]?'frozen':'runner'):state,x:f.x,y:f.y};
   });
   this.labels.forEach((l,i)=>{if(i>=states.length)l.setVisible(false);});
   this.feel.render(states,positions,view?.mode==='freeze'||view?.mode==='classic'?undefined:view,local,delta);
   this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;e.lineStyle(2,p.color,1-q);const radius=((p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22))*(1+(p.strength??0)*.35);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});
  }
  frog(g:Phaser.GameObjects.Graphics,x:number,y:number,f:FrogState,slot:number,infection:OutbreakPlayer|undefined,online:boolean,local:boolean,time:number){
-  const size=(f.radius??defaults.frogRadius)/defaults.frogRadius;g.save();g.translateCanvas(x,y);g.scaleCanvas(size,size);x=0;y=0;
+  const size=(f.radius??defaults.frogRadius)/defaults.frogRadius;g.save();g.translateCanvas(x,y);g.scaleCanvas(size*(f.balloonScale??1),size*(f.balloonScale??1));x=0;y=0;
   const charging=f.charging,q=Math.min(1,f.charge/defaults.chargeSeconds),role=poisonRole(infection?.state),poison=role.tagging,grace=role.transforming,accent=POISON_ACCENTS[slot%8];
   const squish=charging ? .8-.12*q : this.reactions[slot]>0 ? .84 : 1;
-  const sy=f.grounded?squish:Math.min(1.14,1+Math.abs(f.vy)*.006),sx=f.grounded?1+(1-sy)*.6:1/Math.sqrt(sy);
+  const sy=f.balloonInflated?1:f.grounded?squish:Math.min(1.14,1+Math.abs(f.vy)*.006),sx=f.grounded?1+(1-sy)*.6:1/Math.sqrt(sy);
   const bob=f.grounded&&!charging?Math.sin(time*15)*Math.min(1.2,Math.abs(f.vx)*.18):0;const r=defaults.frogRadius*S,layers=appearanceLayers(this.appearances[slot],infection?.state,!!infection?.patientZero),bodyColor=layers.skin.color;y+=bob;
   g.fillStyle(INK,.35);g.fillEllipse(x,y+r*.95,r*2.7,6);
   if(local){g.lineStyle(2,0xfff4ba,.7);g.strokeEllipse(x,y,r*2.6,r*2.5);}

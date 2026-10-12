@@ -37,7 +37,9 @@ export function m15PreservedSource(path:string){let source=m16PreservedSource(pa
 
 export function m16PreservedSource(path:string){let source=classicPreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/milestone-16-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
 
-export function chaosCWindPreservedSource(path:string){let source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');const m=JSON.parse(readFileSync(new URL('../docs/chaos-c-wind-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+export function chaosDPreservedSource(path:string){let source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');const m=JSON.parse(readFileSync(new URL('../docs/chaos-d-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+
+export function chaosCWindPreservedSource(path:string){let source=chaosDPreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/chaos-c-wind-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
 
 export function chaosCContactPreservedSource(path:string){let source=chaosCWindPreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/chaos-c-contact-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
 

@@ -22,3 +22,7 @@
 .chaos-card[data-modifier=bouncy_bombardment]{background:linear-gradient(135deg,#733b4c,#a15157);border-color:#ffc39c}
 .chaos-card[data-modifier=crumble_time]{background:linear-gradient(135deg,#695037,#897249);border-color:#ffda82}
 .chaos-card[data-modifier=tilt_a_frog]{background:linear-gradient(135deg,#365744,#5c8557);border-color:#c4f7a1}
+.chaos-card[data-modifier=bumper_frogs]{background:linear-gradient(135deg,#87452b,#ab6340);border-color:#ffdc96}
+.chaos-card[data-modifier=balloon_bellies]{background:linear-gradient(135deg,#653b7b,#905699);border-color:#edd0ff}
+.chaos-card[data-modifier=swap_hop]{background:linear-gradient(135deg,#235970,#467b91);border-color:#bbecff}
+.chaos-card[data-modifier=bubble_trouble]{background:linear-gradient(135deg,#246b70,#368e90);border-color:#c2ffff}

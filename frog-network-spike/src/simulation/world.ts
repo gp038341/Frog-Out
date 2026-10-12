@@ -1,3 +1,4 @@
+import {FrogChaos} from '../chaos/frog-chaos';
 import {platformContact} from './platform-contact';
 import {ArenaChaos} from '../chaos/arena-chaos';
 import {assistedDirection,GRAPPLE_AIM} from './aim-assist';
@@ -13,6 +14,7 @@ export type Tongue = {
   target?: Body; localAnchor?: { x: number; y: number };
 };
 export type Frog = {
+  balloonScale?:number;balloonInflated?:boolean;balloonWarning?:boolean;bumperTick?:number;swapTick?:number;swapProtectedUntil?:number;swapPartner?:number;bubbleId?:number;bubbleEscapeTick?:number;
   slipperySoap?: boolean; stickyMud?: boolean; surfaceBounceTick?: number; surfaceBounceStrength?: number; surfaceImpactSpeed?: number; surfaceImpactTick?: number;
   aimAssistTick?: number; aimAssistTarget?: number;
   poisonPullFromTick?: number;
@@ -25,6 +27,7 @@ export type Frog = {
 const neutral = (): Input => ({ x: 0, y: 0, held: false });
 export class Simulation {
   arenaChaos = new ArenaChaos(this);
+  frogChaos = new FrogChaos(this);
   chaosAimDegrees = GRAPPLE_AIM.defaultDegrees;
   chaosAimLeadSeconds = GRAPPLE_AIM.defaultLeadSeconds;
   chaosSuperSuckers = false;
@@ -41,6 +44,7 @@ export class Simulation {
   constructor(public tuning: Tuning = { ...defaults }) {
     this.world = new World(Vec2(0, tuning.gravity));
     bindSurfaceImpacts(this);
+    this.frogChaos.bind();
     for (const r of arena) {
       const b = this.world.createBody(Vec2(r.x, r.y));
       b.createFixture(Box(r.w / 2, r.h / 2), { friction: tuning.friction });
@@ -127,6 +131,7 @@ export class Simulation {
   step() {
     const t = this.tuning;
     this.arenaChaos.before();
+    this.frogChaos.before();
     const surfaceFrame = prepareSurfaces(this);
     if(this.chaosButterfeet)for(let c=this.world.getContactList();c;c=c.getNext()){
       if(this.frogs.some(f=>f.body===c.getFixtureA().getBody()||f.body===c.getFixtureB().getBody()))c.setFriction(Math.min(c.getFriction(),this.chaosGroundFriction));
@@ -137,6 +142,7 @@ export class Simulation {
       coupled.add(f.body); coupled.add(f.tongue.target);
     }
     for (const f of this.frogs) {
+      if(this.frogChaos.trapped(f)){f.grounded=false;f.charging=false;f.coyote=0;continue;}
       f.suppressSupport = Math.max(0, f.suppressSupport - DT);
       f.grounded = this.grounded(f);
       f.coyote = f.grounded ? t.coyoteSeconds : Math.max(0, f.coyote - DT);
@@ -219,6 +225,8 @@ export class Simulation {
     }
     resolveSurfaces(this, surfaceFrame);
     this.arenaChaos.after();
+    this.frogChaos.after();
+    if(!this.frogChaos.deferContacts)this.frogChaos.resolveContacts();
   }
   pullGrapple(f: Frog) {
     const tongue = f.tongue!;
@@ -291,6 +299,7 @@ export class Simulation {
   }
   reset() {
     this.arenaChaos.reset();
+    this.frogChaos.reset();
     for (let i = 0; i < this.frogs.length; i++) {
       const f = this.frogs[i]; this.cancelAction(f); f.slipperySoap = undefined; f.stickyMud = undefined; f.surfaceBounceTick = undefined; f.surfaceBounceStrength = undefined; f.surfaceImpactSpeed = undefined; f.surfaceImpactTick = undefined;
       f.body.setTransform(Vec2(i ? 20 : 12, 16), 0);

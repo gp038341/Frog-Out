@@ -1,0 +1,1 @@
+{"passed":true,"checks":["real input transport captures/escapes bubble; fresh action consumed without jump/tongue","reconnect preserves same frog/identity and authoritative bubble/balloon state","12-second authoritative swap: synchronized 1.5-second paired warning, safe teleport, cleared tongues, 21-tick contact protection"]}

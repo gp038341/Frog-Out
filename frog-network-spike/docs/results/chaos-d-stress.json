@@ -1,0 +1,569 @@
+{
+  "scope": "Local authoritative simulation microbenchmark; 8 frogs, active action/movement, all arenas, representative 3-modifier stacks. Does not measure Render CPU or physical devices. Milliseconds; 16.67ms budget.",
+  "results": [
+    {
+      "arena": "sunny-pond",
+      "active": [],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.052238999999985936,
+      "p95": 0.15060700000003635,
+      "p99": 0.3011730000000057,
+      "max": 0.6156560000000013
+    },
+    {
+      "arena": "sunny-pond",
+      "active": [
+        "bumper_frogs",
+        "mega_frogs"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.04523799999998346,
+      "p95": 0.1044469999999933,
+      "p99": 0.2669710000000123,
+      "max": 0.8511000000000308
+    },
+    {
+      "arena": "sunny-pond",
+      "active": [
+        "bumper_frogs",
+        "tiny_trouble"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.037916999999993095,
+      "p95": 0.07421099999999115,
+      "p99": 0.2011130000000776,
+      "max": 0.693443000000002
+    },
+    {
+      "arena": "sunny-pond",
+      "active": [
+        "bumper_frogs",
+        "butterfeet"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.044297000000028675,
+      "p95": 0.0867200000000139,
+      "p99": 0.2191890000000285,
+      "max": 2.0468980000000556
+    },
+    {
+      "arena": "sunny-pond",
+      "active": [
+        "balloon_bellies",
+        "moon_frogs"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.033790999999951055,
+      "p95": 0.07881899999995312,
+      "p99": 0.19959000000005744,
+      "max": 0.8045799999999872
+    },
+    {
+      "arena": "sunny-pond",
+      "active": [
+        "balloon_bellies",
+        "windy_weather"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.054411999999956606,
+      "p95": 0.11787700000002133,
+      "p99": 0.28229399999997895,
+      "max": 1.4737660000000687
+    },
+    {
+      "arena": "sunny-pond",
+      "active": [
+        "swap_hop",
+        "mega_tongues"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.04472699999996621,
+      "p95": 0.08800199999996039,
+      "p99": 0.1835160000000542,
+      "max": 1.4490290000001096
+    },
+    {
+      "arena": "sunny-pond",
+      "active": [
+        "swap_hop",
+        "tilt_a_frog"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.06136200000014469,
+      "p95": 0.12999500000000808,
+      "p99": 0.28953500000011445,
+      "max": 1.7843129999998837
+    },
+    {
+      "arena": "sunny-pond",
+      "active": [
+        "bubble_trouble",
+        "bouncy_bombardment"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.06215300000008028,
+      "p95": 0.1181779999999435,
+      "p99": 0.21997099999998682,
+      "max": 0.7365169999998216
+    },
+    {
+      "arena": "sunny-pond",
+      "active": [
+        "bubble_trouble",
+        "moon_frogs"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.02983500000004824,
+      "p95": 0.05364100000019789,
+      "p99": 0.09217899999998735,
+      "max": 0.5793010000002141
+    },
+    {
+      "arena": "sunny-pond",
+      "active": [
+        "bumper_frogs",
+        "balloon_bellies",
+        "bubble_trouble"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.0374859999999444,
+      "p95": 0.06399599999986094,
+      "p99": 0.11275899999986905,
+      "max": 2.4284220000001824
+    },
+    {
+      "arena": "bathhouse",
+      "active": [],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.03963999999996304,
+      "p95": 0.06386599999996179,
+      "p99": 0.10882300000002942,
+      "max": 0.7223660000001928
+    },
+    {
+      "arena": "bathhouse",
+      "active": [
+        "bumper_frogs",
+        "mega_frogs"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.03969900000015514,
+      "p95": 0.06637000000000626,
+      "p99": 0.12403599999993276,
+      "max": 1.3490290000002005
+    },
+    {
+      "arena": "bathhouse",
+      "active": [
+        "bumper_frogs",
+        "tiny_trouble"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.037396000000171625,
+      "p95": 0.06338600000026418,
+      "p99": 0.11643500000036511,
+      "max": 0.6976689999999053
+    },
+    {
+      "arena": "bathhouse",
+      "active": [
+        "bumper_frogs",
+        "butterfeet"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.03846799999973882,
+      "p95": 0.07204899999987902,
+      "p99": 0.12340600000015911,
+      "max": 1.8858510000000024
+    },
+    {
+      "arena": "bathhouse",
+      "active": [
+        "balloon_bellies",
+        "moon_frogs"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.025398000000222964,
+      "p95": 0.05272999999988315,
+      "p99": 0.0979869999996481,
+      "max": 0.6898270000001503
+    },
+    {
+      "arena": "bathhouse",
+      "active": [
+        "balloon_bellies",
+        "windy_weather"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.055252999999993335,
+      "p95": 0.12764199999992343,
+      "p99": 0.40838399999984176,
+      "max": 1.1760589999998956
+    },
+    {
+      "arena": "bathhouse",
+      "active": [
+        "swap_hop",
+        "mega_tongues"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.04324499999984255,
+      "p95": 0.09641499999997905,
+      "p99": 0.15356100000008155,
+      "max": 0.812300999999934
+    },
+    {
+      "arena": "bathhouse",
+      "active": [
+        "swap_hop",
+        "tilt_a_frog"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.055002000000058615,
+      "p95": 0.13397100000020146,
+      "p99": 0.22126200000002427,
+      "max": 0.7266520000002856
+    },
+    {
+      "arena": "bathhouse",
+      "active": [
+        "bubble_trouble",
+        "bouncy_bombardment"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.07329000000027008,
+      "p95": 0.15165799999977025,
+      "p99": 0.19453199999998105,
+      "max": 3.2113100000001396
+    },
+    {
+      "arena": "bathhouse",
+      "active": [
+        "bubble_trouble",
+        "moon_frogs"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.026049000000057276,
+      "p95": 0.04411600000003091,
+      "p99": 0.06504799999993338,
+      "max": 1.0349960000003193
+    },
+    {
+      "arena": "bathhouse",
+      "active": [
+        "bumper_frogs",
+        "balloon_bellies",
+        "bubble_trouble"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.03684500000008484,
+      "p95": 0.07040600000027553,
+      "p99": 0.10165300000016941,
+      "max": 0.922787999999855
+    },
+    {
+      "arena": "canopy",
+      "active": [],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.04024100000015096,
+      "p95": 0.07800799999995434,
+      "p99": 0.1121290000000954,
+      "max": 0.6458910000001197
+    },
+    {
+      "arena": "canopy",
+      "active": [
+        "bumper_frogs",
+        "mega_frogs"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.037906999999904656,
+      "p95": 0.07006499999988591,
+      "p99": 0.1039970000001631,
+      "max": 1.828248999999687
+    },
+    {
+      "arena": "canopy",
+      "active": [
+        "bumper_frogs",
+        "tiny_trouble"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.0353730000001633,
+      "p95": 0.058708000000024185,
+      "p99": 0.08028999999987718,
+      "max": 0.9216359999995802
+    },
+    {
+      "arena": "canopy",
+      "active": [
+        "bumper_frogs",
+        "butterfeet"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.03703600000017104,
+      "p95": 0.0633349999998245,
+      "p99": 0.0944019999997181,
+      "max": 0.6932029999998122
+    },
+    {
+      "arena": "canopy",
+      "active": [
+        "balloon_bellies",
+        "moon_frogs"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.026629999999840948,
+      "p95": 0.05353000000013708,
+      "p99": 0.09183900000016365,
+      "max": 0.9178600000000188
+    },
+    {
+      "arena": "canopy",
+      "active": [
+        "balloon_bellies",
+        "windy_weather"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.048844000000372034,
+      "p95": 0.10848299999997835,
+      "p99": 0.3136420000000726,
+      "max": 0.8569789999996829
+    },
+    {
+      "arena": "canopy",
+      "active": [
+        "swap_hop",
+        "mega_tongues"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.04055100000005041,
+      "p95": 0.06675100000029488,
+      "p99": 0.11839800000007017,
+      "max": 0.9254519999999502
+    },
+    {
+      "arena": "canopy",
+      "active": [
+        "swap_hop",
+        "tilt_a_frog"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.049543999999968946,
+      "p95": 0.08083200000010038,
+      "p99": 0.13868900000034046,
+      "max": 0.8527129999997669
+    },
+    {
+      "arena": "canopy",
+      "active": [
+        "bubble_trouble",
+        "bouncy_bombardment"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.057625999999800115,
+      "p95": 0.1294449999995777,
+      "p99": 0.20351600000049075,
+      "max": 1.3347069999999803
+    },
+    {
+      "arena": "canopy",
+      "active": [
+        "bubble_trouble",
+        "moon_frogs"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.028543000000354368,
+      "p95": 0.06179299999985233,
+      "p99": 0.1240669999997408,
+      "max": 0.8589019999999437
+    },
+    {
+      "arena": "canopy",
+      "active": [
+        "bumper_frogs",
+        "balloon_bellies",
+        "bubble_trouble"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.036555000000589644,
+      "p95": 0.09262899999976071,
+      "p99": 0.228172999999515,
+      "max": 1.290219999999863
+    },
+    {
+      "arena": "toyshop",
+      "active": [],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.04370599999947444,
+      "p95": 0.1020330000001195,
+      "p99": 0.17019599999912316,
+      "max": 2.1358119999995324
+    },
+    {
+      "arena": "toyshop",
+      "active": [
+        "bumper_frogs",
+        "mega_frogs"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.037836999999854015,
+      "p95": 0.06148300000040763,
+      "p99": 0.09547399999974004,
+      "max": 0.8477149999998801
+    },
+    {
+      "arena": "toyshop",
+      "active": [
+        "bumper_frogs",
+        "tiny_trouble"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.03656399999999849,
+      "p95": 0.058227000000442786,
+      "p99": 0.09301000000050408,
+      "max": 2.29569199999969
+    },
+    {
+      "arena": "toyshop",
+      "active": [
+        "bumper_frogs",
+        "butterfeet"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.03833699999995588,
+      "p95": 0.06078200000047218,
+      "p99": 0.1085030000003826,
+      "max": 1.0420569999996587
+    },
+    {
+      "arena": "toyshop",
+      "active": [
+        "balloon_bellies",
+        "moon_frogs"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.025679000000309316,
+      "p95": 0.050865999999587075,
+      "p99": 0.07642500000019936,
+      "max": 1.2052230000008421
+    },
+    {
+      "arena": "toyshop",
+      "active": [
+        "balloon_bellies",
+        "windy_weather"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.05710499999986496,
+      "p95": 0.1376270000000659,
+      "p99": 0.30432699999983015,
+      "max": 0.799351999999999
+    },
+    {
+      "arena": "toyshop",
+      "active": [
+        "swap_hop",
+        "mega_tongues"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.04850299999998242,
+      "p95": 0.1000610000000961,
+      "p99": 0.1523590000006152,
+      "max": 1.218232000000171
+    },
+    {
+      "arena": "toyshop",
+      "active": [
+        "swap_hop",
+        "tilt_a_frog"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.05202800000006391,
+      "p95": 0.08268499999940104,
+      "p99": 0.12716100000034203,
+      "max": 1.8942389999992884
+    },
+    {
+      "arena": "toyshop",
+      "active": [
+        "bubble_trouble",
+        "bouncy_bombardment"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.05633399999987887,
+      "p95": 0.10651099999995495,
+      "p99": 0.15852899999936199,
+      "max": 0.6578689999996641
+    },
+    {
+      "arena": "toyshop",
+      "active": [
+        "bubble_trouble",
+        "moon_frogs"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.02541800000017247,
+      "p95": 0.042043000000376196,
+      "p99": 0.06060099999922386,
+      "max": 0.730598999999529
+    },
+    {
+      "arena": "toyshop",
+      "active": [
+        "bumper_frogs",
+        "balloon_bellies",
+        "bubble_trouble"
+      ],
+      "clients": 8,
+      "ticks": 2280,
+      "p50": 0.03705600000012055,
+      "p95": 0.059650000000146974,
+      "p99": 0.08023099999991246,
+      "max": 0.7455310000004829
+    }
+  ]
+}

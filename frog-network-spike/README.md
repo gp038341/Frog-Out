@@ -161,3 +161,7 @@ Chaos B follow-up candidate tuning and validation: [refinement report](docs/chao
 Arena-wide Chaos Voting C candidate: [behavior, tuning, validation and playtest](docs/chaos-c.md). B approval checkpoint: `checkpoint/approved-chaos-voting-b`.
 
 Latest C playtest refinements: [full platform rotation, persistent bombardment, crumble artwork and KEEP voting](docs/chaos-c-refinement.md). Wind still awaits player acceptance.
+
+## Current Chaos Voting milestone
+Milestone C is approved at `b31caa9c1916d1647123934da8321de76bbb0469`, checkpoint `checkpoint/approved-chaos-voting-c`.
+Milestone D adds Bumper Frogs, Balloon Bellies, Swap Hop and Bubble Trouble as a playtest candidate. There are 17 implemented modifiers. The expiring modifier remains a KEEP choice; Round1 is normal. See [D rules, values, validation and playtest](docs/chaos-d.md) and the [current design specification](docs/chaos-voting-design.md). No Flappy/Gravity Flip/Pogo implementation yet.
