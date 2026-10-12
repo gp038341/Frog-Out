@@ -31,3 +31,6 @@ Full automated tests/build, compiled local network and timed network reports, an
 
 ## Playtest
 Vote Balloon: watch seven-second inflation, stronger hands-off terrain rebounds and synchronized end POP. Try angled spring platforms; verify strong existing swing momentum remains useful. Vote Bumper: stand/run into another frog at low/high speeds; all contacts should launch strongly, tag first and avoid repeated jitter. Vote Bubble: try hold (one press only), then five released taps, confirm visible progress and no accidental tongue/jump on fifth; wait for safety timeout; check more frequent entries while below2. Vote Swap: check countdown throughout, own YOU marker after swaps, and normal controls/reconnect. Try four/eight players and Moon/Wind/Ball/size combinations. Physical phone feel remains for player acceptance. No Milestone E or unrelated feature work.
+
+## Partial approval and label-only follow-up
+User approved Swap Hop and Bumper Frogs. Balloon Bellies and Bubble Trouble remain pending playtesting. Own-frog text now uses dedicated orchid `#e39bff`, retaining dark letter outlines, YOU caption and halo; the solid label background and padding are removed. No modifier, input, viewport, networking or physics behavior changed.

@@ -1,0 +1,17 @@
+{
+  "baseline": "c457b0b8ce7d6d4975d39b3a143a2c074632d912",
+  "files": {
+    "src/presentation/courtyard.ts": {
+      "changes": [
+        {
+          "from": "label.setBackgroundColor('transparent').setPadding(0,0)",
+          "to": "label.setBackgroundColor(i===local?'#183f50':'transparent').setPadding(i===local?4:0,i===local?2:0)"
+        },
+        {
+          "from": ".setColor(i===local?'#e39bff':connected[i]===false?'#b2c7c2'",
+          "to": ".setColor(connected[i]===false?'#b2c7c2'"
+        }
+      ]
+    }
+  }
+}
