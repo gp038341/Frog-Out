@@ -34,3 +34,6 @@ Vote Balloon: watch seven-second inflation, stronger hands-off terrain rebounds 
 
 ## Partial approval and label-only follow-up
 User approved Swap Hop and Bumper Frogs. Balloon Bellies and Bubble Trouble remain pending playtesting. Own-frog text now uses dedicated orchid `#e39bff`, retaining dark letter outlines, YOU caption and halo; the solid label background and padding are removed. No modifier, input, viewport, networking or physics behavior changed.
+
+### Bubble follow-up candidate
+Spawn opportunities every1 second with maximum4 shells (previous2 seconds/max2), to make frequency visibly greater rather than staying bottlenecked at two occupied slots. Bubble shell shakes with increasing amplitude for each fresh escape press, replacing numeric/dot progress; local hint TAP ACTION TO POP remains. Five fresh presses, capture6s maximum, lift/steer/ceiling safety/taggability unchanged. Cosmetic shake never moves the authoritative body or changes capture physics. Own label background removed; dedicated orchid text #e39bff. Swap Hop and Bumper approved; Balloon/Bubble acceptance remains pending.
