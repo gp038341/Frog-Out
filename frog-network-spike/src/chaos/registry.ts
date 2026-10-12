@@ -23,7 +23,7 @@ export const MODIFIERS=[
  {...eligibility,id:'crumble_time',name:'Crumble Time',family:'platform',icon:'▧',conflicts:['tilt_a_frog'] as readonly string[],description:'Airborne platforms crack, fall and grow back. Ground stays solid.'},
  {...eligibility,id:'tilt_a_frog',name:'Tilt-a-Frog',family:'platform',icon:'∠',conflicts:['crumble_time'] as readonly string[],description:'Airborne platforms spin under weight and grapples.'},
  {...eligibility,id:'bumper_frogs',name:'Bumper Frogs',family:'social',icon:'✹',description:'Huge rubber-frog ricochets, even at low speed. Tags still count.'},
- {...eligibility,id:'balloon_bellies',name:'Balloon Bellies',family:'social',icon:'◍',description:'Puff up for longer, spring high, then POP into the air!'},
+ {...eligibility,id:'balloon_bellies',name:'Balloon Bellies',family:'social',icon:'◍',description:'Launch together every 8 seconds, then float inflated for 6 seconds!'},
  {...eligibility,id:'swap_hop',name:'Swap Hop',family:'social',icon:'⇄',description:'Paired frogs swap places. Watch your partner warning!'},
  {...eligibility,id:'bubble_trouble',name:'Bubble Trouble',family:'social',icon:'○',description:'Frequent floating bubbles. Press action five times to pop!'},
 ] as const;
