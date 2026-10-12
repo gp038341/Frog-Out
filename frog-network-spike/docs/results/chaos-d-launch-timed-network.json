@@ -1,0 +1,10 @@
+{
+  "scope": "Compiled local server, three independent clients, real 12-second swap interval and actual input transport; no physical-device testing",
+  "checks": [
+    "real input transport captures/escapes bubble; five fresh actions consumed without jump/tongue",
+    "all independent clients receive the same authoritative inflation-launch event",
+    "reconnect preserves same frog/identity and authoritative bubble/balloon state",
+    "12-second authoritative swap: synchronized 1.5-second paired warning, safe teleport, cleared tongues, 21-tick contact protection"
+  ],
+  "revisionBase": "f8aadf0d54ba82d57e75acbc4f9f39087eccc9f9"
+}

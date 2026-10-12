@@ -20,7 +20,7 @@ import {TAG_POOF_MS,paintTagPoof} from './tag-poof';
 import {GameAudio} from './audio';
 const S=30,INK=0x142f35;
 type Point={x:number;y:number};
-type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'charge'|'attach'|'infect'|'bump';strength?:number};
+type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'charge'|'attach'|'infect'|'bump'|'swap';strength?:number};
 type Before={balloonPopTick?:number;balloonBounceTick?:number;bubblePressTick?:number;bubbleId?:number;bumperTick?:number;balloonInflated?:boolean;swapTick?:number;bubbleEscapeTick?:number;surfaceBounceTick?:number;vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};
 /** Presentation consumes render positions only. It never writes a physics body or gameplay input. */
 export class Courtyard {
@@ -82,7 +82,7 @@ export class Courtyard {
   if(state?.wind.direction&&state.wind.stage!=='calm'){const d=state.wind.direction;g.lineStyle(state.wind.stage==='gust'?3:2,0xc4f4ff,state.wind.stage==='gust'?.65:.35);for(let i=0;i<8;i++){const x=90+i*140,y=55+(i%3)*16;g.lineBetween(x-d*25,y,x+d*25,y);g.lineBetween(x+d*25,y,x+d*14,y-5);g.lineBetween(x+d*25,y,x+d*14,y+5);}}
  }
  clear(){this.tagPuffs=[];this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}
- pop(x:number,y:number,color:number,kind:Pop['kind'],strength=0){if(this.pops.length<64)this.pops.push({x:x*S,y:y*S,age:0,life:kind==='infect'?650:360,color,kind,strength});}
+ pop(x:number,y:number,color:number,kind:Pop['kind'],strength=0){if(this.pops.length<64)this.pops.push({x:x*S,y:y*S,age:0,life:kind==='infect'?650:kind==='swap'?450:360,color,kind,strength});}
  render(states:FrogState[],positions:Point[],view:OutbreakView|undefined,connected:boolean[],names:string[],local:number,delta:number){
   if(view?.round!==this.round){this.round=view?.round??-1;this.previous=[];this.pops=[];}
   const g=this.ink;g.clear();this.effects.clear();const time=performance.now()/1000;
@@ -106,7 +106,7 @@ export class Courtyard {
     if(f.bubbleId!==undefined&&before.bubbleId===undefined&&i===local)this.audio.play('attach');
     if(f.bumperTick!==undefined&&f.bumperTick!==before.bumperTick){this.reactions[i]=150;this.pop(p.x,p.y,0xffd38f,'bump');if(i===local)this.audio.play('impact',1.2);}
     if(f.balloonInflated!==before.balloonInflated&&f.balloonPopTick===before.balloonPopTick&&i===local)this.audio.play(f.balloonInflated?'build':'miss');
-    if(f.swapTick!==undefined&&f.swapTick!==before.swapTick){this.pop(p.x,p.y,0xc5efff,'attach');if(i===local)this.audio.play('attach');}
+    if(f.swapTick!==undefined&&f.swapTick!==before.swapTick){this.pop(before.x,before.y,0xc5efff,'swap');this.pop(p.x,p.y,0xc5efff,'swap');if(i===local)this.audio.play('attach');}
     if(f.bubbleEscapeTick!==undefined&&f.bubbleEscapeTick!==before.bubbleEscapeTick&&i===local)this.audio.play('miss');
     if(f.surfaceBounceTick!==undefined&&f.surfaceBounceTick!==before.surfaceBounceTick){const strength=f.surfaceBounceStrength??0;this.pop(p.x,p.y+.3,0xa2ee6e,'charge',strength);this.reactions[i]=100+strength*80;if(i===local)this.audio.play('charge',1+strength*.25);}
     if(before.grounded&&!f.grounded&&f.vy< -5&&f.surfaceBounceTick===before.surfaceBounceTick){const charged=before.charging;this.pop(p.x,p.y+.3,charged?0xffe79b:color,charged?'charge':'jump');if(i===local)this.audio.play(charged?'charge':'jump');}
@@ -125,15 +125,15 @@ export class Courtyard {
    if(view?.mode==='freeze'){const frozen=view.freeze!.frozen[i];g.save();g.translateCanvas(p.x*S,p.y*S);g.scaleCanvas((f.radius??defaults.frogRadius)/defaults.frogRadius,(f.radius??defaults.frogRadius)/defaults.frogRadius);paintFreezeState(g,0,0,i,view);g.restore();if(before?.state&&before.state!==(frozen?'frozen':'runner')){this.pop(p.x,p.y,0xb3f0ff,'attach');if(i===local)this.audio.play(frozen?'infect':'transform');}}
    if(f.stickyMud){g.fillStyle(0x795343,.8);for(const dx of [-8,8])g.fillEllipse(p.x*S+dx,p.y*S+12,12,5);}
    const status=connected[i]===false?'OFFLINE':view?.mode==='classic'?(i===view.classic!.it?'▲ IT':'NOT IT'):view?.mode==='freeze'?(i===view.freeze!.freezer?'❄ FREEZER':view.freeze!.frozen[i]?'❄ FROZEN':view.freeze!.protectedUntil[i]>view.tick?'◇ PROTECTED':'RUNNER'):infection?.state==='transforming'?'CHANGING · 1s':infection?.state==='infectious'?(infection.patientZero?'◆ DART FROG':'◆ POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.state==='healthy').length===1?'LAST SAFE':'SAFE';
-   paintFrogChaos(g,p.x*S,p.y*S,f,view?.tick??0,i,i===local);
+   paintFrogChaos(g,p.x*S,p.y*S,f,view?.tick??0,i);
    const chaosStatus=f.bubbleId!==undefined?(i===local?'○ TAP ACTION TO POP':'○ BUBBLED'):f.swapPartner!==undefined?`⇄ ${names[f.swapPartner]??'SWAP PARTNER'}`:f.balloonWarning?'◍ PUFFING UP…':undefined;
    const label=this.labels[i];
-   label.setBackgroundColor('transparent').setPadding(0,0).setVisible(true).setText(`${i===local?'▼ YOU · ':''}${names[i]}\n${status}${chaosStatus?` · ${chaosStatus}`:''}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-(f.radius??defaults.frogRadius)-.3)*S)).setColor(i===local?'#e39bff':connected[i]===false?'#b2c7c2':state==='transforming'?'#ffe5a3':state==='infectious'?`#${POISON_ACCENTS[i].toString(16).padStart(6,'0')}`:'#fff8d9');
+   label.setBackgroundColor('transparent').setPadding(0,0).setVisible(true).setText(`${i===local?'▼ YOU · ':''}${names[i]}\n${status}${chaosStatus?` · ${chaosStatus}`:''}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-(f.radius??defaults.frogRadius)-.3)*S)).setColor(i===local?'#b9eaff':connected[i]===false?'#b2c7c2':state==='transforming'||state==='infectious'||view?.mode==='classic'&&i===view.classic!.it||view?.mode==='freeze'&&i===view.freeze!.freezer?'#d5a2ff':'#fff8d9');
    this.previous[i]={balloonPopTick:f.balloonPopTick,balloonBounceTick:f.balloonBounceTick,bubblePressTick:f.bubblePressTick,bubbleId:f.bubbleId,bumperTick:f.bumperTick,balloonInflated:f.balloonInflated,swapTick:f.swapTick,bubbleEscapeTick:f.bubbleEscapeTick,surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state:view?.mode==='classic'?(i===view.classic!.it?'it':'runner'):view?.mode==='freeze'?(view.freeze!.frozen[i]?'frozen':'runner'):state,x:f.x,y:f.y};
   });
   this.labels.forEach((l,i)=>{if(i>=states.length)l.setVisible(false);});
   this.feel.render(states,positions,view?.mode==='freeze'||view?.mode==='classic'?undefined:view,local,delta);
-  this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;e.lineStyle(2,p.color,1-q);const radius=((p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22))*(1+(p.strength??0)*.35);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});
+  this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;if(p.kind==='swap'){for(let j=0;j<7;j++){const a=j*Math.PI*2/7,spread=7+q*30;e.fillStyle(p.color,.55*(1-q));e.fillCircle(p.x+Math.cos(a)*spread,p.y+Math.sin(a)*spread,Math.max(1,11*(1-q)));}return true;}e.lineStyle(2,p.color,1-q);const radius=((p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22))*(1+(p.strength??0)*.35);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});
  }
  frog(g:Phaser.GameObjects.Graphics,x:number,y:number,f:FrogState,slot:number,infection:OutbreakPlayer|undefined,online:boolean,local:boolean,time:number){
   const size=(f.radius??defaults.frogRadius)/defaults.frogRadius;g.save();g.translateCanvas(x,y);g.scaleCanvas(size*(f.balloonScale??1),size*(f.balloonScale??1));x=0;y=0;

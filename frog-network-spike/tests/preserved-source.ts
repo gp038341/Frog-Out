@@ -59,4 +59,6 @@ export function chaosDRefinementPreservedSource(path:string){let source=chaosDLa
 
 export function chaosDLabelPreservedSource(path:string){let source=chaosDBubblePreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/chaos-d-label-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
 
-export function chaosDBubblePreservedSource(path:string){let source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');const m=JSON.parse(readFileSync(new URL('../docs/chaos-d-bubble-shake-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+export function chaosDBubblePreservedSource(path:string){let source=chaosDBalloonPreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/chaos-d-bubble-shake-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+
+export function chaosDBalloonPreservedSource(path:string){let source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');const m=JSON.parse(readFileSync(new URL('../docs/chaos-d-balloon-launch-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
