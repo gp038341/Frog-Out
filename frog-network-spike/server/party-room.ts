@@ -45,7 +45,7 @@ export class PartyRoom extends SpikeRoom {
  async onLeave(client:Client,consented=false){const p=this.players.get(client.sessionId);if(!p)return;
   p.connected=false;p.ready=false;const i=p.slot;
   if(i>=0&&this.sim.frogs[i]){this.sim.setInput(i,{x:0,y:0,held:false});this.sim.cancelAction(this.sim.frogs[i]);for(const f of this.sim.frogs)if(f.tongue?.target===this.sim.frogs[i].body)this.sim.detach(f);this.sim.frogs[i].body.setLinearVelocity(Vec2(0,0));this.sim.frogs[i].body.setActive(false);this.queues[i]=[];this.slots.delete(p.id);}
-  if(this.hostId===p.id)this.hostId=[...this.players.values()].find(q=>q.connected)?.id??'';
+  if(this.hostId===p.id)this.transferHost();
   if(!consented)p.reconnectUntil=Date.now()+this.reconnectSeconds*1000;
   if(this.phase==='game')this.unavailable(p);
   if(consented)this.removePlayer(p.id);
@@ -59,7 +59,8 @@ export class PartyRoom extends SpikeRoom {
    p.connected=true;delete p.reconnectUntil;if(!this.hostId)this.hostId=p.id;this.resumed(p);this.welcome(peer);this.announce(`${p.name} reconnected.`);this.publish();
   }catch{this.reservations.delete(p.id);if(this.players.has(p.id)&&!p.connected){this.removePlayer(p.id);this.announce(`${p.name}'s reconnect window expired. The room stays open.`);}}
  }
- removePlayer(id:string){this.players.delete(id);this.slots.delete(id);if(this.hostId===id)this.hostId=[...this.players.values()].find(p=>p.connected)?.id??'';}
+ transferHost(){this.hostId=[...this.players.values()].find(p=>p.connected)?.id??'';const peer=this.clients.find(c=>c.sessionId===this.hostId);peer?.send('host-changed','You are now the host.');}
+ removePlayer(id:string){this.players.delete(id);this.slots.delete(id);if(this.hostId===id)this.transferHost();}
  interrupt(message:string){this.phase='lobby';this.notice=message;this.sim.clearInputs();this.slots.clear();this.matchRoster=[];this.queues=this.queues.map(()=>[]);for(const p of [...this.players.values()]){p.ready=false;p.slot=-1;if(p.connected)delete p.reconnectUntil;}this.rosterInfo=[];this.resetId++;void this.unlock();this.lobby();for(const c of this.clients)this.welcome(c);}
  advance(){if(this.phase==='game')super.advance();else{this.lastClock=performance.now();this.accumulator=0;}}
  publish(){if(this.phase==='game')super.publish();}

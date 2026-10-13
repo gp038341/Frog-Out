@@ -12,7 +12,7 @@
     "classic: absent body/tongue/input clear, score pauses, safe same-frog reconnect",
     "classic: intentional runner leave leaves others playing",
     "classic: departing current tagger ends/advances round, host ownership transfers if needed",
-    "departing tagger auto-enters synchronized Chaos vote and advances with one winner; no manual host dependency",
+    "departing tagger shows earned round results before host continues to synchronized Chaos vote",
     "frozen reconnect retains frozen status at safe placement, without duplicate body or automatic thaw",
     "eight-player departure preserves stable slots and seven active players without compacting physics roster",
     "reservation expiration removes only absent player; no match-wide interruption",
