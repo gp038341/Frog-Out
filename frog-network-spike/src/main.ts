@@ -19,6 +19,7 @@ import {Courtyard} from './presentation/courtyard';
 import {GameAudio} from './presentation/audio';
 import {cssColor} from './presentation/identity';
 import {TouchControls} from './input/touch';
+import {mobileControlDevice} from './input/device';
 import {Connection} from './network/client';
 import {NETWORK,type Snapshot} from './network/protocol';
 import {capture,type FrogState} from './simulation/state';
@@ -29,6 +30,9 @@ const chaosUI=new ChaosUI(net);
 const down=new Set<string>();
 const inputSwitches:{at:number;touch:boolean;phase:string;status:string}[]=[];
 const touch=new TouchControls(sample,switchControls,()=>net.playing&&net.status==='connected'&&!document.querySelector('dialog[open]'));
+const mobileControls=mobileControlDevice(navigator.userAgent,navigator.platform,navigator.maxTouchPoints);
+touch.enabled=mobileControls&&new URLSearchParams(location.search).get('touch')!=='0';
+document.getElementById('touch-toggle')!.hidden=!mobileControls;
 function switchControls(){clear();inputSwitches.push({at:Date.now(),touch:touch.enabled,phase:net.outbreak?.phase??'none',status:net.status});if(inputSwitches.length>50)inputSwitches.shift();}
 const keys=new Set(['KeyA','KeyD','KeyW','KeyS','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space']);
 function sample(){if(!net.playing||document.activeElement instanceof HTMLInputElement)return;const x=Number(down.has('KeyD')||down.has('ArrowRight'))-Number(down.has('KeyA')||down.has('ArrowLeft')),y=Number(down.has('KeyS')||down.has('ArrowDown'))-Number(down.has('KeyW')||down.has('ArrowUp'));net.setInput({x:x||touch.input.x,y:y||touch.input.y,held:down.has('Space')||touch.input.held});}
