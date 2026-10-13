@@ -4,7 +4,7 @@ Approved D: `233456c81a7b5bef8529c73617014326119d6ec4`, checkpoint `checkpoint/a
 
 ## Implemented
 
-Gravity Flip and Pogo Panic raise the live modifier count to19. Flappy Frogs remains design-only; the official catalog remains20. Round1 normal, 15s votes, maximum3 active, oldest expiry and guaranteed eligible KEEP renewal are unchanged. Poison Tag, Freeze Tag and Classic Tag rules/scoring, four arenas, Sunny Pond default, cosmetics, audio palette, static camera, input and iPhone viewport remain unchanged.
+Gravity Flip and Pogo Panic were approved at e8237382843cc80737882e3fd67a3c37f2f0b5a3. Sticky Frogs now replaces the abandoned extra-flap concept as modifier20; see `sticky-frogs.md`. Round1 normal, 15s votes, maximum3 active, oldest expiry and guaranteed eligible KEEP renewal are unchanged. Poison Tag, Freeze Tag and Classic Tag rules/scoring, four arenas, Sunny Pond default, cosmetics, audio palette, static camera, input and iPhone viewport remain unchanged.
 
 ### Gravity Flip
 `EXTREME_CHAOS` in `src/chaos/extreme-chaos.ts`: `downTicks=480` (8s), `upTicks=240` (4s), `warningTicks=60` (1s). Repeat continuously while playing. Gravity magnitude stays26. Only frog gravity scales reverse; rubber balls and other bodies retain ordinary gravity. A persistent screen-space arrow/countdown turns amber and pulses at the warning; original countdown/start sounds are reused, one local mix rather than eight concurrent cues.
@@ -19,12 +19,7 @@ Only ordinary surfaces participate. Lily pads/rubber cushions/sponges keep the a
 ## Architecture / exclusions
 One isolated snapshot-able `ExtremeChaos` module runs before/after the unchanged core step. Small guarded world adapters invert support/raycast/jump direction only when Gravity is active. Effective baseline tuning is never mutated. Snapshot metadata includes clock, direction, contact/rearm state and authoritative paused state so prediction cannot auto-bounce during countdown. Reconnection restores the same schedule. Server mode/contact pipeline and network transport/predictor code are untouched.
 
-Gravity exclusions from the approved matrix remain: Moon, Balloon, Swap, Tilt, Pogo, Bubble (Flappy is not implemented). Gravity+Bubble was explicitly tested as a rejected pair, not enabled. Ballots and payload validation reject both directions. Moon+Gravity remains excluded even when order is reversed. Replacing an expiring incompatible effect is allowed when it will no longer coexist. Crumble/Tilt and Tiny/Mega exclusions remain. Pogo+Butterfeet/Turbo/Tilt/Bombardment and Gravity+Mega Tongues/Super Suckers/Wind are tested. No compatibility matrix is silently broadened.
-
-## Flappy controls — recommendation, approval required
-Use one dedicated FLAP action: **desktop F**, **mobile a separate compact FLAP button above the existing right action button**, shown only when Flappy is active. Existing Space/touch action remains jump/tongue. The added action gets its own edge/ownership and cannot steal either approved thumb control. Keep both existing touch regions and viewport sizing untouched. Disable flap while grounded, frozen, contained or after its one-use token is spent; visually show availability.
-
-This is more reliable than double-tap: today's first airborne tap fires a tongue, and release retracts it. Reinterpreting a second tap creates accidental grapples/flaps and adds a timing demand on physical iPhone Safari. A dedicated action is consistent across desktop/mobile, accessible and unambiguous. Start with the catalog's extra upward Δv3.5 and speed ceiling18, one flap rearmed only on valid landing; no recharge from release/swap/bubble escape. First validate the additive controls in an isolated desktop/two-thumb prototype after explicit approval, then integrate server-authoritative token/edge handling. No Flappy code, input fields, listeners, button or live registry entry has been added in E.
+Gravity exclusions from the approved matrix remain: Moon, Balloon, Swap, Tilt, Pogo, Bubble (the abandoned extra-flap concept is not implemented). Gravity+Bubble was explicitly tested as a rejected pair, not enabled. Ballots and payload validation reject both directions. Moon+Gravity remains excluded even when order is reversed. Replacing an expiring incompatible effect is allowed when it will no longer coexist. Crumble/Tilt and Tiny/Mega exclusions remain. Pogo+Butterfeet/Turbo/Tilt/Bombardment and Gravity+Mega Tongues/Super Suckers/Wind are tested. No compatibility matrix is silently broadened.
 
 ## Validation
 - Full suite:221 passing tests and production build.
@@ -44,7 +39,7 @@ Physical iPhone/Android playtesting of E has not occurred. Their accepted input/
 5. Refresh during either effect; confirm own identity, clock/direction/active effects remain synchronized. Return/rematch and check Round1 normal; verify KEEP renewal and denied pairs.
 6. On phones verify warning banner/labels do not obscure touch controls or charge cues and simultaneous two-thumb input remains reliable. Report any corrections, ceiling-stuck states or overly disruptive hops.
 
-Stop after deployment; neither E nor Flappy control design is approved by automated testing.
+Stop after deployment; Sticky acceptance requires user playtesting; Gravity Flip/Pogo are now approved.
 
 ## Playtest refinement
 Pogo launch speed increases from9.5 to14.25 (1.5×), yielding approximately2.25× ordinary ballistic height under the same gravity. Contact timing, separation, cooldown, tangent momentum and bounds remain unchanged. Gravity-reversed frog artwork and attached cosmetics flip vertically around their body centers; names and HUD stay upright, horizontal facing/aim stays intuitive, collision geometry stays unchanged. Input, viewport, camera and other mechanics are untouched. Physical-device acceptance remains for the user.

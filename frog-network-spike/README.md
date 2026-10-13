@@ -154,7 +154,7 @@ Chaos Voting is ON by default; the host can turn it off in the lobby. Round 1 us
 
 ## Chaos Voting B candidate
 
-Approved A is preserved at `checkpoint/approved-chaos-voting-a` (`5b9f3403bff1b49946a8dfa23f48da98d9e87429`). Nine modifiers are now available: the four approved A effects plus Turbo Toads, Tiny Trouble, Mega Frogs, Super Suckers and Magnet Mouths. Tiny and Mega change physical bodies and are mutually exclusive. The oldest effect can still be renewed. See [B tuning, tests, limitations and playtest](docs/chaos-b.md). Flappy remains design-only and requires control approval. Public service remains https://frog-out.onrender.com/ on Render Free.
+Approved A is preserved at `checkpoint/approved-chaos-voting-a` (`5b9f3403bff1b49946a8dfa23f48da98d9e87429`). Nine modifiers are now available: the four approved A effects plus Turbo Toads, Tiny Trouble, Mega Frogs, Super Suckers and Magnet Mouths. Tiny and Mega change physical bodies and are mutually exclusive. The oldest effect can still be renewed. See [B tuning, tests, limitations and playtest](docs/chaos-b.md). The planned extra-flap modifier has since been retired in favor of Sticky Frogs. Public service remains https://frog-out.onrender.com/ on Render Free.
 
 Chaos B follow-up candidate tuning and validation: [refinement report](docs/chaos-b-refinement.md).
 
@@ -164,8 +164,11 @@ Latest C playtest refinements: [full platform rotation, persistent bombardment, 
 
 ## Current Chaos Voting milestone
 Milestone C is approved at `b31caa9c1916d1647123934da8321de76bbb0469`, checkpoint `checkpoint/approved-chaos-voting-c`.
-Milestone D adds Bumper Frogs, Balloon Bellies, Swap Hop and Bubble Trouble as a playtest candidate. There are 17 implemented modifiers. The expiring modifier remains a KEEP choice; Round1 is normal. See [D rules, values, validation and playtest](docs/chaos-d.md) and the [current design specification](docs/chaos-voting-design.md). No Flappy/Gravity Flip/Pogo implementation yet.
+Milestone D adds Bumper Frogs, Balloon Bellies, Swap Hop and Bubble Trouble as a playtest candidate. There are 17 implemented modifiers. The expiring modifier remains a KEEP choice; Round1 is normal. See [D rules, values, validation and playtest](docs/chaos-d.md) and the [current design specification](docs/chaos-voting-design.md). This historical D record predates approved Gravity Flip/Pogo.
 
 Latest D feedback candidate: [bigger pop/bounce, five-press bubbles and persistent swap clock](docs/chaos-d-refinement.md). Physical-device acceptance remains pending.
 
-Chaos Voting D approved at233456c81a7b5bef8529c73617014326119d6ec4 (`checkpoint/approved-chaos-voting-d`). E playtest candidate adds Gravity Flip and Pogo Panic;19 implemented modifiers. Flappy remains unimplemented awaiting control approval. See [E behavior, validation and playtest](docs/chaos-e.md).
+Chaos Voting D approved at233456c81a7b5bef8529c73617014326119d6ec4 (`checkpoint/approved-chaos-voting-d`). Gravity Flip/Pogo were approved at e8237382843cc80737882e3fd67a3c37f2f0b5a3. Sticky Frogs is the twentieth modifier candidate and uses existing controls. See [E behavior, validation and playtest](docs/chaos-e.md).
+
+### Sticky Frogs candidate
+20 Chaos modifiers. Existing direction crawls along contacted surfaces; tap/release jumps away, hold/release charges. Jump off before a fresh airborne tongue press; a live grapple may remain while adhered. See [Sticky behavior and validation](docs/sticky-frogs.md). No input/viewport/camera changes.

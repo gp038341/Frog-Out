@@ -1,0 +1,26 @@
+{
+  "baseline": "e8237382843cc80737882e3fd67a3c37f2f0b5a3",
+  "scope": "Compiled local server, eight independent WebSocket clients, real wall adhesion/charge/launch, actual gravity reversal and normal tongue input/reconnection. No physical-device claim.",
+  "checks": [
+    "eight real WebSocket clients see all eight frogs adhered to physical wall contacts",
+    "actual periodic gravity reversal retains every wall attachment and charged jump",
+    "same action release launches away from wall; server acknowledgements and cooldown arrive together",
+    "reconnect restores same frog/identity, authoritative surface frame and local anchor",
+    "Sticky/Tilt/Suck snapshots synchronize; surface charge then ordinary airborne tongue reaches terrain",
+    "expiration removes all attachment/cooldown/orientation/event state without stale controls"
+  ],
+  "tickMetrics": [
+    {
+      "p50": 0.22618900000088615,
+      "p95": 0.8703519999999116,
+      "p99": 2.1277519999999868,
+      "max": 5.219008000000031
+    },
+    {
+      "p50": 0.23939100000006874,
+      "p95": 0.9910299999999097,
+      "p99": 2.5316879999999173,
+      "max": 5.219008000000031
+    }
+  ]
+}

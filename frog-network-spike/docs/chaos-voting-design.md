@@ -1,6 +1,6 @@
 # Frog-Out — Chaos Voting design proposal
 
-Status: Milestones A–D approved. Approved D revision233456c81a7b5bef8529c73617014326119d6ec4, checkpoint checkpoint/approved-chaos-voting-d. Milestone E adds Gravity Flip/Pogo as a playtest candidate:19 implemented of the20 design concepts. Flappy remains design-only pending explicit control approval. Latest D refinement sections and E section supersede historical defaults.
+Status: Milestones A–D and Gravity Flip/Pogo Panic approved. Approved E baseline e8237382843cc80737882e3fd67a3c37f2f0b5a3, checkpoint checkpoint/approved-chaos-voting-e-gravity-pogo. Sticky Frogs replaces the abandoned extra-flap concept as the official 20th modifier. The current Sticky section supersedes historical milestone records.
 
 ## Source of truth and baseline
 
@@ -48,10 +48,10 @@ All effects apply symmetrically to eligible frogs. Frozen bodies are excluded fr
 | 14 `bumper_frogs` Bumper Frogs | Pair restitution .45, only frog/frog; capture pre-solver approach speed and valid body contact. One separation impulse/event per contact episode; proposed resulting normal separation speed ≤8. Do not amplify separating contacts. | Comic ricochets; stars/boing. High: tag-before-knockback order and multi-body solver consistency. |
 | 15 `balloon_bellies` Balloon Bellies | All eligible frogs inflate for 3 s every 10 s, .75 s warning. Visual radius ×1.20; collider stays unchanged initially with a clear solid core. Gravity ×.65; body collision restitution .20, only while inflated. No persistent upward force. | Buoyant intervals; inflation/pop and core markings. High: honest hitbox presentation. Physical enlargement is an alternative needing approval. |
 | 16 `swap_hop` Swap Hop | Every 12 s, warn 1.5 s; shuffle connected movable frogs into pairs; odd frog sits out with rotation of exclusion. Swap positions, retain own velocity clamped only to approved limits. Clear participating tongues and charge/buffer state at swap. Require safe clearance for both destinations. Proposed .35 s visible phase shield against incoming AND outgoing body tag/freeze/poison events. | Sudden pursuit changes; paired symbols/rings. High: temporary rule protection requires explicit approval; skip invalid pairs, never force placement. Frozen or bubble-contained frogs excluded. |
-| 17 `gravity_flip` Gravity Flip | Alternate 8 s down / 4 s up, 1 s warning before each switch; magnitude remains 26. Jump/flap/ground support operate opposite gravity direction. Clear support caches at reversal, retain momentum/rope. | Ceiling chases; large gravity arrow and whoosh. Very high: underside support, recovery, bounce normals, arena ceiling access. Special surfaces activate only on authored allowed faces. |
+| 17 `gravity_flip` Gravity Flip | Alternate 8 s down / 4 s up, 1 s warning before each switch; magnitude remains 26. Jump/ground support operate opposite gravity direction. Clear support caches at reversal, retain momentum/rope. | Ceiling chases; large gravity arrow and whoosh. Very high: underside support, recovery, bounce normals, arena ceiling access. Special surfaces activate only on authored allowed faces. |
 | 18 `pogo_panic` Pogo Panic | Each valid ordinary-terrain landing launches opposite support direction at speed 9.5; rearm after separation ≥.06 s, minimum 12-tick interval. Preserve tangential momentum. Normal controller launch in that tick takes precedence. Spring surfaces use their own approved impact formula instead. | Perpetual hopping; foot ring/short boing. Medium–high: jitter, landing buffers, confusing charge behavior. Ground charge naturally difficult; document it. |
 | 19 `bubble_trouble` Bubble Trouble | Max 2 bubbles; radius .65; spawn every 8 s, lifetime 8 s. Capture at most one movable frog; 2 s max enclosure; capped rise speed 2.5. Tongues release on capture. Direction steers with .5× ordinary air control; fresh action press pops bubble, without also firing tongue. Body tag contacts remain enabled on original frog collider. | Temporary floating escape; translucent bubble, escape hint/pop. High: mobile action context, networking, freeze priority. Frozen frogs cannot capture; freeze pops current bubble. |
-| 20 `flappy_frogs` Flappy Frogs | One airborne flap per landing; Δv upward 3.5, upward-speed ceiling equal to approved charged jump 18. No refresh from tongue release, swaps or bubble pops; valid spring launches may refresh once. Proposed gesture: double-tap action ≤.22 s while airborne; first tap keeps normal tongue behavior, second triggers flap only if not attached. Attached holds/releases retain existing meaning. | Last-second saves; wings/puff. High: single-button ambiguity and accidental flaps. Gesture requires approval; no input architecture rewrite. |
+| 20 `sticky_frogs` Sticky Frogs | Automatic adhesion at physical solid contacts. Existing direction projects onto the local tangent; stop and hold. Jump/charge launches along the outward normal with .2s reattachment cooldown. Rotating body local anchors; no new input gesture. | Wall/ceiling/underside chase routes; suction feet and rotated artwork. High: corner stability, moving support, material/pogo priority, contact/frame synchronization. |
 
 ## Compatibility: complete symmetric pair matrix
 
@@ -61,39 +61,39 @@ Legend: Y = proposed compatible subject to general limits; C = conditional, pair
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 Moon | — | Y | Y | Y | Y | Y | Y | Y | Y | C | Y | Y | Y | Y | C | Y | X | Y | C | C |
 | 2 Turbo | Y | — | Y | Y | C | Y | Y | Y | Y | Y | Y | Y | Y | C | Y | Y | Y | C | Y | Y |
-| 3 Tiny | Y | Y | — | X | Y | Y | Y | C | Y | Y | Y | Y | C | C | Y | Y | C | Y | C | Y |
-| 4 MegaF | Y | Y | X | — | Y | Y | Y | C | Y | Y | Y | C | C | C | Y | Y | C | Y | C | Y |
-| 5 Butter | Y | C | Y | Y | — | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | C | Y | Y | Y |
+| 3 Tiny | Y | Y | — | X | Y | Y | Y | C | Y | Y | Y | Y | C | C | Y | Y | C | Y | C | C |
+| 4 MegaF | Y | Y | X | — | Y | Y | Y | C | Y | Y | Y | C | C | C | Y | Y | C | Y | C | C |
+| 5 Butter | Y | C | Y | Y | — | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | C | Y | Y | C |
 | 6 Tongue | Y | Y | Y | Y | Y | — | C | Y | C | Y | Y | Y | Y | Y | Y | Y | C | Y | Y | Y |
-| 7 Suck | Y | Y | Y | Y | Y | C | — | C | Y | Y | C | Y | C | C | C | Y | C | Y | Y | Y |
+| 7 Suck | Y | Y | Y | Y | Y | C | — | C | Y | Y | C | Y | C | C | C | Y | C | Y | Y | C |
 | 8 Magnet | Y | Y | C | C | Y | Y | C | — | C | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y |
 | 9 Quick | Y | Y | Y | Y | Y | C | Y | C | — | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y |
-| 10 Wind | C | Y | Y | Y | Y | Y | Y | Y | Y | — | C | Y | Y | Y | C | Y | C | Y | C | Y |
-| 11 Balls | Y | Y | Y | Y | Y | Y | C | Y | Y | C | — | C | C | C | Y | Y | Y | Y | C | Y |
-| 12 Crumble | Y | Y | Y | C | Y | Y | Y | Y | Y | Y | C | — | C | Y | Y | Y | C | C | Y | Y |
-| 13 Tilt | Y | Y | C | C | Y | Y | C | Y | Y | Y | C | C | — | C | Y | Y | X | C | Y | Y |
-| 14 Bumper | Y | C | C | C | Y | Y | C | Y | Y | Y | C | Y | C | — | C | Y | Y | Y | C | Y |
+| 10 Wind | C | Y | Y | Y | Y | Y | Y | Y | Y | — | C | Y | Y | Y | C | Y | C | Y | C | C |
+| 11 Balls | Y | Y | Y | Y | Y | Y | C | Y | Y | C | — | C | C | C | Y | Y | Y | Y | C | C |
+| 12 Crumble | Y | Y | Y | C | Y | Y | Y | Y | Y | Y | C | — | C | Y | Y | Y | C | C | Y | C |
+| 13 Tilt | Y | Y | C | C | Y | Y | C | Y | Y | Y | C | C | — | C | Y | Y | X | C | Y | C |
+| 14 Bumper | Y | C | C | C | Y | Y | C | Y | Y | Y | C | Y | C | — | C | Y | Y | Y | C | C |
 | 15 Balloon | C | Y | Y | Y | Y | Y | C | Y | Y | C | Y | Y | Y | C | — | Y | X | Y | C | C |
 | 16 Swap | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | — | X | Y | C | C |
-| 17 Flip | X | Y | C | C | C | C | C | Y | Y | C | Y | C | X | Y | X | X | — | X | X | X |
+| 17 Flip | X | Y | C | C | C | C | C | Y | Y | C | Y | C | X | Y | X | X | — | X | X | C |
 | 18 Pogo | Y | C | Y | Y | Y | Y | Y | Y | Y | Y | Y | C | C | Y | Y | Y | X | — | C | C |
-| 19 Bubble | C | Y | C | C | Y | Y | Y | Y | Y | C | C | Y | Y | C | C | C | X | C | — | Y |
-| 20 Flappy | C | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | Y | C | C | X | C | Y | — |
+| 19 Bubble | C | Y | C | C | Y | Y | Y | Y | Y | C | C | Y | Y | C | C | C | X | C | — | C |
+| 20 Sticky | C | Y | C | C | C | Y | C | Y | Y | C | C | C | C | C | C | C | C | C | C | — |
 
 ### Conditional pair contracts and exclusions
 
 - **Size + aim/bodies/geometry (Tiny/Mega with Magnet, Bumper, bubbles, tilts/crumble/Flip):** assist uses actual collider; fixture/radius and clearance change only between rounds; support tolerances scale; never respawn inside geometry. Size does not shrink labels. Tiny and Mega are mutually exclusive.
-- **Moon + Balloon/Flappy/Bubble/Wind:** combined gravity floor .25× baseline (the approved Moon value), so Moon+Balloon remains .25 rather than .1625. Standalone Balloon uses .65. This reconciles the obsolete .60 floor with approved Milestone A. Show the capped combined effect honestly. Control and reach must remain useful; log Poison round length.
+- **Moon + Balloon/Bubble/Wind:** combined gravity floor .25× baseline (the approved Moon value), so Moon+Balloon remains .25 rather than .1625. Standalone Balloon uses .65. This reconciles the obsolete .60 floor with approved Milestone A. Show the capped combined effect honestly. Control and reach must remain useful; log Poison round length.
 - **Turbo + Butter/Bumper/Pogo:** running target ≤1.50× baseline; steering remains nonzero; no impact impulse from raw horizontal speed into flat pads. Test overshoot, stopping and multi-frog collisions.
 - **Tongue + Suck/Quick, Suck + Magnet/Bumper/Balloon/Tilt/Balls, Magnet + Quick:** pulling still obeys per-role speed/force caps and reciprocal impulses. Assistance occurs once; moving anchor has stable ID/local attachment coordinate. Balls remain grapple-ineligible unless separately approved. Reject pair if solver/correction benchmarks regress.
 - **Wind + Balloon/Bubble/Balls/Flip:** deterministic force schedule, bounded velocities; bubble rise and wind compose without position teleportation. Flip combination needs upside-down arena certification.
 - **Balls + Crumble/Tilt/Bumper/Bubble:** bounded body/contact counts; balls may collide with solid bubbles but cannot capture, tag or score. Only frogs load crumble/seesaw gameplay triggers. No ball-driven perpetual launch loop.
 - **Crumble + Tilt:** mutually incompatible at registry/ballot level; runtime platforms are never both collapsing and rotating. Crumble + Pogo/Flip needs recovery routes and safe respawn testing. Tilt + Bumper/Pogo needs swept clearances and correct normal-based launches.
 - **Bumper + Balloon/Bubble:** choose maximum active restitution rather than sum; captured frog's body contacts still count; collision episode guard prevents double impulses.
-- **Balloon + Bubble/Flappy:** gravity floor/upward cap; no extra flap recharge. Presentation does not hide original tag collider.
-- **Swap + Bubble/Flappy:** contained frogs excluded; flap token travels with identity, not location; no recharge. Swap+Gravity Flip excluded until safe positioning and warning semantics are certified.
-- **Pogo + Bubble/Flappy:** capture/landing precedence and tokens must be deterministic; no rearming while merely touching a surface.
-- **Gravity Flip exclusions:** Moon, Balloon, Swap, Tilt, Pogo, Bubble and Flappy excluded initially. Other C pairs require upside-down support/arena certification. Preserve these exclusions until explicitly designed and approved, not silently enabled by a developer.
+- **Balloon + Bubble:** composed gravity floor and original tag collider remain. Sticky yields to balloon launch/capture; no altered collider.
+- **Swap + Bubble:** contained frogs excluded. Swap+Gravity Flip remains excluded. Sticky invalidates an old attachment after teleportation and can attach at the new location only from real contact.
+- **Pogo + Bubble:** capture/landing precedence stays deterministic. Sticky yields immediately to valid Pogo landings; reattachment cooldown prevents jitter loops.
+- **Gravity Flip exclusions:** Moon, Balloon, Swap, Tilt, Pogo and Bubble remain excluded. Sticky is compatible: its contact normal is independent of world gravity; a reversal retains attachment and charging. No existing pair restriction is relaxed.
 
 ### Global effect bounds and composition
 
@@ -126,7 +126,7 @@ Use stable registry order for composition, independent of conveyor age. Conveyor
 | 19 | Conditional | Conditional | Conditional | Safe bubble entry lanes + rise headroom |
 | 20 | Conditional | Conditional | Conditional | All four existing arenas, after regression tests |
 
-“Supported with tests” is a design target, not released support. Freeze Tag adds a mandatory invariant to every row: frozen bodies cannot move/flap/bounce/swap/inflate physically/capture a bubble, have no tongue, and remain rescue-contact eligible. Freezer rescue rules, grace and scores remain unchanged. When frozen, release dynamic attachments and bubble state before locking; no automatic thaw. Poison grace and role advantage remain unchanged. Classic transfer retains its one-per-tick and tag-back protection rules. Tongues/balls/bubbles/wind never directly tag. Collision knockback cannot erase an already detected valid tag contact. Disconnect bodies retain mode eligibility, except Swap excludes offline frogs; reservation expiry aborts normally.
+“Supported with tests” is a design target, not released support. Freeze Tag adds a mandatory invariant to every row: frozen bodies cannot move/crawl/bounce/swap/inflate physically/capture a bubble, have no tongue, and remain rescue-contact eligible. Freezer rescue rules, grace and scores remain unchanged. When frozen, release dynamic attachments and bubble state before locking; no automatic thaw. Poison grace and role advantage remain unchanged. Classic transfer retains its one-per-tick and tag-back protection rules. Tongues/balls/bubbles/wind never directly tag. Collision knockback cannot erase an already detected valid tag contact. Disconnect bodies retain mode eligibility, except Swap excludes offline frogs; reservation expiry aborts normally.
 
 Current arenas: Sunny Pond default, Bubblewash Bathhouse, Canopy Courtyard, Croakwork Toyshop. Authored geometry remains immutable. Tilt/Crumble runtime clones cover every airborne playable platform; bottom ground and invisible boundaries remain fixed. All materials remain; no manual platform whitelist. Water stays scenery. No physical-device certification is inferred from emulation.
 
@@ -149,11 +149,11 @@ Room state: chaos toggle, ordered active IDs, ballot ID/candidates/priority/dead
 
 Lifecycle: results → vote → atomic resolve/configure/reset → reveal/countdown → playing. Existing mode rules retain ownership of points, timers, body-contact effects and wins. Configuration is finalized before client prediction starts. Ballot clock uses server monotonic time; gameplay events use authoritative ticks. Inputs/scores cannot advance during voting. No changes to accepted input normalization, touch ownership, Safari sizing or camera required.
 
-Physics: derive effective config from frozen baseline + role + surfaces + modifiers with explicit precedence/bounds. Constant parameter changes shared by prediction/server. Per-frog state includes body scale, flap availability, balloon phase, bubble ownership, swap immunity deadline and normal direction where applicable. Add only needed snapshot fields, version them and reconcile on authoritative reset/event. Assist prediction may suggest a heading from interpolated frogs, but authoritative heading/target wins; never client-authorized tags.
+Physics: derive effective config from frozen baseline + role + surfaces + modifiers with explicit precedence/bounds. Constant parameter changes shared by prediction/server. Per-frog state includes body scale, sticky surface-local anchors/cooldowns, balloon phase, bubble ownership, swap immunity deadline and normal direction where applicable. Add only needed snapshot fields, version them and reconcile on authoritative reset/event. Assist prediction may suggest a heading from interpolated frogs, but authoritative heading/target wins; never client-authorized tags.
 
 Dynamic objects: server-owned stable IDs, limited spawn/despawn, transforms/velocities and material flags. Clients interpolate balls/platforms and draw bubbles from authoritative state. Existing prediction must account for visible solid objects where necessary; measure corrections before expanding prediction. Do not duplicate physics engines or preemptively add rollback. Moving terrain anchors use body ID + local attachment coordinates; detach on despawn. Snapshot recovery must work without receiving a prior spawn event.
 
-Contact processing: capture pre-solve collision facts/approach velocity, finish authoritative step, resolve mode contacts from a stable batch, then schedule optional knockback/capture/surface effects with mode-state precedence. Preserve Poison same-tick infection ties. Freeze takes priority over bubble/flap/pogo; rescue follows approved order. Any scheduling change requires exact tag-contact regression tests, especially Bumper. Avoid changing the existing contact pipeline for simple parameter-only modifiers.
+Contact processing: capture pre-solve collision facts/approach velocity, finish authoritative step, resolve mode contacts from a stable batch, then schedule optional knockback/capture/surface effects with mode-state precedence. Preserve Poison same-tick infection ties. Freeze takes priority over bubble/sticky/pogo; rescue follows approved order. Any scheduling change requires exact tag-contact regression tests, especially Bumper. Avoid changing the existing contact pipeline for simple parameter-only modifiers.
 
 Eight-player performance: max8 balls,2 bubbles, all airborne platforms for Tilt or Crumble (mutually incompatible); shared effect particle budget ≤60 transient particles per client, adjustable. Benchmark against current tick time and payload before/after; target p95 simulation work <8 ms and p99 <12 ms of 16.67 ms tick on existing Free instance. These are acceptance targets, not measured results. Detect runaway contacts and solver loops; do not silently disable voted effects midround. Fail certification before release if budget/readability unacceptable.
 
@@ -161,13 +161,13 @@ Eight-player performance: max8 balls,2 bubbles, all airborne platforms for Tilt 
 
 A — Toggle, 15-second voting/reveal, authoritative ballots, compatibility/registry, resets, reconnects, Moon/Mega Tongues/Butterfeet. Tests: normal round1, all votes/ties/abstentions, host/nonhost controls, expiry/full conveyor data model, zero-candidate fallback, invalid/stale votes, timeout interruption, disabled mode identical baseline. Real playable rotation pending 4th ID.
 
-B — Turbo, Tiny, Mega Frogs, Super Suckers, Magnet, Quick Licks, Flappy. Recommend Quick Licks first to unlock rotation; gate Flappy behind gesture approval/prototype. Tests: effective config roundtrips, fixture/spawn/rope clearance, heading lock/occlusion, reciprocal pull, action semantics on desktop/touch, no surprise flap. Certify 6 eligible IDs for reliable three-card conveyor.
+B — Turbo, Tiny, Mega Frogs, Super Suckers, Magnet, Quick Licks. Extra-flap controls were not approved and are no longer planned. Tests: effective config roundtrips, fixture/spawn/rope clearance, heading lock/occlusion, reciprocal pull, unchanged desktop/touch action semantics.
 
 C — Wind, Balls, Crumble, Tilt. Begin wind, then shared dynamic-object snapshot/anchor lifecycle, balls, crumble, seesaws. Tests: deterministic schedules, safe spawn/regeneration, reconnect mid-event, contact budgets, moving anchors, platform load rules and paths on each map.
 
 D — Bumper, Balloon, Swap, Bubble. Implement Bumper with exact body-tag ordering tests, then Balloon; approve Swap protection and Bubble escape before implementation. Tests: simultaneous contacts, IT transfer/poison ties, frozen bypass prevention, odd/offline pairing, unsafe swap cancellation, bubble scoring/contact/escape semantics.
 
-E — Gravity Flip, Pogo. Recommend Pogo first; Gravity last after inverted support/jump/recovery spike and explicit arena certification. Tests: underside contacts, flipped launch normals, gravity-aware recovery, no contact jitter loops, input buffers, all denied pairs and role lock.
+E — Gravity Flip, Pogo, then Sticky Frogs. Gravity/Pogo are approved. Sticky tests: actual physical floor/wall/ceiling/underside contacts, normal-relative jumps, tangent crawling, rotation/collapse, all modes/arenas, restores/reconnects, input preservation.
 
 Every stage: full existing tests/build, all three modes and four arenas, 2/4/6/8 clients, latency 50/100/150 ms with jitter where supported, reconnect/deadline/multiple rounds/rematch, effective baseline restoration and preserved poison advantage. Add registry schema + complete pair eligibility tests; enumerate allowed triples and verify bounds/restoration, then targeted runtime tests for highest-risk triples. Compare packet size/tick cost and client corrections. Desktop, Android-style touch, hybrid and WebKit browser tests, landscape layouts. Physical iPhone/Android acceptance remains a separate gate for new action semantics; preserve accepted viewport/multitouch files byte-for-byte wherever possible. Automated tests do not replace physical testing.
 
@@ -179,7 +179,7 @@ Each stage gets a separate checkpoint and playtest deployment ONLY after explici
 2. Approve numbers as prototype starting points, including .75 gravity and body scales .75/1.25; all subject to per-stage acceptance.
 3. Choose foundation-only A versus moving Quick Licks into A; six certified eligible entries needed for full ballot variety at cap.
 4. Approve constant mass during size modifiers and Balloon visual-only expansion with truthful core indicator; otherwise physical expansion raises risk.
-5. Approve Flappy double-tap gesture or choose a separate compact action. Current one-button semantics leave no unambiguous spare press. Do not silently consume ordinary tongue presses.
+5. Sticky uses existing direction/action controls; no additional button or timing gesture is planned.
 6. Approve Swap .35 s bidirectional contact protection; this is a temporary explicit mode-rule exception necessary for fair teleports. If declined, design a safe alternative before implementation.
 7. Approve Bubble fresh-action pop, 2 s maximum enclosure, control steering and no immunity; frozen/Swap exclusions.
 8. Approve ball grapple-ineligibility, bounds and all conditional/excluded pair policies initially.
@@ -189,13 +189,13 @@ Each stage gets a separate checkpoint and playtest deployment ONLY after explici
 No implementation or deployment is included in this document. No modifier has been removed; higher-risk entries remain designed and gated.
 
 ## Milestone A approval — 2026-10-10
-Round 1 normal; Chaos ON by default with host toggle; 15-second authoritative votes. Maximum three modifiers with oldest replacement, expiring shown separately and excluded from ballot. A includes Moon Frogs, Mega Tongues, Butterfeet, Quick Licks; gracefully allow fewer cards. Numerical values provisional/centralized. Flappy gesture remains unapproved pending control prototype. Swap .35-second bidirectional contact-only protection approved provisionally; Balloon visual inflation/unchanged collider approved; Bubble fresh press escape consumes input and grants no immunity. No B–E implementation authorized. Pre-A checkpoint `checkpoint/pre-chaos-milestone-a` at `966c7778923560f040b33c18bafd91faf91f7a3b`. Old Render service remains untouched.
+Round 1 normal; Chaos ON by default with host toggle; 15-second authoritative votes. Maximum three modifiers with oldest replacement, expiring shown separately and excluded from ballot. A includes Moon Frogs, Mega Tongues, Butterfeet, Quick Licks; gracefully allow fewer cards. Numerical values provisional/centralized. Sticky replaces the extra-flap concept; no new gesture. Swap .35-second bidirectional contact-only protection approved provisionally; Balloon visual inflation/unchanged collider approved; Bubble fresh press escape consumes input and grants no immunity. No B–E implementation authorized. Pre-A checkpoint `checkpoint/pre-chaos-milestone-a` at `966c7778923560f040b33c18bafd91faf91f7a3b`. Old Render service remains untouched.
 
 ## Owner playtest refinement — 2026-10-10
 Supersedes earlier A tuning and expiring-ballot exclusion. Moon gravity is ×0.25 (6.5), free-flight air acceleration ×0.45 (4.5), horizontal drag 1.5/s, vertical drag .6/s, maximum downward speed 4.2. Air resistance excludes frogs attached to terrain and either end of frog-to-frog grapples; lower gravity remains active. Butterfeet acceleration ×.40 (24), braking ×.025 (1.25), friction cap .001. Mega Tongues reach covers the full 40×22.5 arena diagonal plus 2 units (47.8939); no infinite ray or change to boundaries. Quick Licks unchanged. At capacity, expiring modifier appears with RENEW on the ballot; choosing it moves it to newest without duplication. Ballots become 3→2→1→2 with this limited catalog. Distinct moon-purple, tongue-pink, butter-gold and lightning-teal cards retain names/icons and checked state. Normal baseline, input and viewport systems unchanged. Physical acceptance pending.
 
 ## Milestone B implementation clarification — 2026-10-11
-The owner confirmed **keep the approved A renewal behavior**, superseding the B prompt's conflicting expiring-exclusion sentence. At capacity, the expiring modifier remains separately explained and is guaranteed a ballot slot when eligible; winning renews it as newest. The other two cards exclude kept/incompatible modifiers. There are now nine implemented modifiers, not Flappy Frogs. B uses the catalog's .75/1.25 physical scales, constant mass, 1.15/1.20 Turbo factors, 1.20/1.10 Super factors with unchanged closing-speed limit, and one-time 6° aim cone. Approved A refinement values remain unchanged.
+The owner confirmed **keep the approved A renewal behavior**, superseding the B prompt's conflicting expiring-exclusion sentence. At capacity, the expiring modifier remains separately explained and is guaranteed a ballot slot when eligible; winning renews it as newest. The other two cards exclude kept/incompatible modifiers. There are now nine implemented modifiers, not the abandoned extra-flap concept. B uses the catalog's .75/1.25 physical scales, constant mass, 1.15/1.20 Turbo factors, 1.20/1.10 Super factors with unchanged closing-speed limit, and one-time 6° aim cone. Approved A refinement values remain unchanged.
 
 ## Chaos B player-feedback tuning override
 
@@ -211,7 +211,7 @@ Approved B: `bebe643ea43b80c084ee583212ed0e3f1b359449`, checkpoint `checkpoint/a
 
 Crumble Time and Tilt-a-Frog apply to **every playable platform** in all four arenas, including special materials and the entire playable floor (eight independent runtime sections). Earlier handpicked/optional platform limits and floor exclusions are superseded; fixed invisible boundary/recovery systems remain unchanged. Crumble/Tilt are incompatible. Crumble landing initiates a one-second warning so springy surfaces participate. Tilt uses bounded pinned kinematic rotation rather than freely dynamic hinges; angle/speed limits preserved.
 
-Historical initial C exclusion was rejected: current approved C guarantees expiring KEEP renewal and excludes only the retained active modifiers. No duplicate activation. Other approved conveyor, baseline and input behavior remains intact. Full tuning, architecture and validation: `chaos-c.md`. Flappy and Milestone D remain unimplemented.
+Historical initial C exclusion was rejected: current approved C guarantees expiring KEEP renewal and excludes only the retained active modifiers. No duplicate activation. Other approved conveyor, baseline and input behavior remains intact. Full tuning, architecture and validation: `chaos-c.md`. This historical C record precedes the approved D/E work.
 
 ## Latest C playtest refinement override
 
@@ -229,7 +229,7 @@ Owner feedback requests slightly gentler Tilt and substantial Wind on ground and
 
 ## Milestone D current implementation contract
 
-C is approved at `b31caa9c1916d1647123934da8321de76bbb0469`. Older milestone records below/above are historical where they differ from the current table and contracts. KEEP renewal is unchanged. Compatibility matrix entries for implemented D pairs remain conditional-compatible; targeted tests cover them, and no new pair exclusion is introduced. Gravity Flip/Pogo/Flappy are not implemented or offered.
+C is approved at `b31caa9c1916d1647123934da8321de76bbb0469`. Older milestone records below/above are historical where they differ from the current table and contracts. KEEP renewal is unchanged. Compatibility matrix entries for implemented D pairs remain conditional-compatible; targeted tests cover them, and no new pair exclusion is introduced. This historical D record precedes approved Gravity Flip/Pogo and the Sticky candidate.
 
 - **Bumper:** pre-solve restitution.45 only for frog/frog, contact episode guard, normal separation target4–8 and per-frog added-velocity budget6/tick. Valid pre-solve contacts join the authoritative rules batch before extra impulse. Preserve mass and tangential momentum. Frozen bodies stay immovable.
 - **Balloon:** .75 s warning then3 s inflation every10 s; visual scale1.20, real collider/mass unchanged and solid-core ring visible. Per-body gravity.65 (combined floor.25); restitution.20 while inflated, maximum with Bumper. Deflate over.2 s; all overrides restore.
@@ -251,3 +251,11 @@ User selected inflation launch: synchronized immediate upward launch18 once ever
 
 ## Milestone E candidate
 Gravity:8s down/4s up,1s warning, frog-only gravity reversal with magnitude26, ceiling support/buffered/charged jump adapters, unchanged aim and grapple. Pogo: ordinary landing normal speed9.5, added delta ceiling24,12tick cooldown,4tick true separation rearm; special-material surfaces retain their own behavior. Existing Gravity exclusions remain, including Bubble; no active duplicate/conflict or KEEP regression. Paused state is authoritative for prediction. Desktop F/mobile separate FLAP button is recommended only, not implemented. See chaos-e.md for architecture, tests, limitations and control approval proposal.
+
+## Sticky Frogs — current owner-approved specification and candidate
+
+The official catalog is now 20 implemented entries: Sticky Frogs replaces the retired extra-flap concept entirely. No flap code/control/gesture is implemented or planned. See `sticky-frogs.md` for exact prototype values and validation.
+
+Automatic contact-based adhesion applies to static and runtime platform solids, including walls, ceilings, undersides and sloped/rotating faces. Frog bodies, sensors, balls and ball-only recovery boundaries are excluded. Anchors are real fixture contact/raycast points stored in body-local coordinates; no center snapping or positional teleport. Existing direction projects onto the contact tangent. Neutral grip resists sliding; Butterfeet and soap reduce deliberate tangential traction without disabling adhesion. Jump/charge retains tangent momentum and launches along the current outward normal; 12-tick reattachment suppression. Existing live grapples survive attachment; jump from a surface and use the existing airborne press to fire a tongue. No new input controls.
+
+Spring, Pogo, balloon launches and strong collision separation win over adhesion. Freeze/capture, invalid/removed support and teleports safely release. Gravity reversal preserves contact and charge. All new Sticky pairs are conditionally compatible, including the explicitly requested Gravity/Pogo pairs; the existing 19-by-19 matrix stays unchanged. Pogo remains its normal automatic floor bounce rather than being suppressed by grip. Round/reset/expiry clears state; snapshots synchronize local contact, cooldowns and orientation. KEEP renewal and all conveyor rules are unchanged.
