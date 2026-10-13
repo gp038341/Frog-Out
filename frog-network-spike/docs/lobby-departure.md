@@ -26,3 +26,6 @@ Public browser verification exposed an abnormal transport-close code after a val
 
 ## Owner visibility refinement
 Temporary disconnects retain the on-screen frog and existing gray OFFLINE label during the30-second reservation. Permanent Leave/Kick or reservation expiry hides it. This is a presentation-only refinement; score pause, cleared inputs, safe reconnect, role-departure advancement and one-player same-lobby rules remain unchanged.
+
+## Expired-session and notice correction
+Client reconnect stops immediately on authoritative expired/invalid-token or missing-room responses rather than retrying them for another30seconds. A known reconnect deadline survives refresh; successful reconnection clears it. Home Create/Join remain usable during a saved-session lookup and cancel that lookup safely, including a late reconnect success. Transient network failures can still retry within the reservation. Active-game notices now overlay the play area without taking layout space or intercepting controls; accepted mobile viewport/pointer code is untouched.249 automated tests pass, including expiry, preserved deadline, Create/Join during saved-session lookup and late-response cleanup. Physical-device acceptance remains owner-tested.
