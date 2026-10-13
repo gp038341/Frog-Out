@@ -8,6 +8,14 @@ Build: `cd frog-network-spike && npm ci && npm run build`.
 Start: `cd frog-network-spike && npm start`.
 Auto-deploy is off. Trigger deployments on this service only after verified pushes.
 
+## Current approval
+
+All20 modifiers and existing systems approved at gameplay revision `e6f6cafec250d2713d02f61c1f1a05bf8e5c9183`. Checkpoint `checkpoint/approved-all-20-chaos-modifiers` includes documentation-only finalization with identical runtime/assets. Current Git/deployment revision is the commit resolved by that checkpoint; exact metadata is reported at handoff. The existing Sticky deployment before finalization was `dep-db6oi1nf3r2c73bt63og`, live at that approved gameplay revision.
+
+[Approved catalog, rules, compatibility and remaining items](approved-chaos-system.md). Development continues through owner-directed small improvements; no feature freeze, Milestone F or submission work is authorized.
+
+## Historical deployment records
+
 Migration source gameplay revision: `18bebf5f9f7e19a6765a37c9165bcd41791455da`.
 No gameplay, input, physics, arena, audio, or networking code was changed for migration.
 
@@ -18,4 +26,4 @@ Rooms run in server memory and are separate between services; open the canonical
 Approved pre-E gameplay checkpoint:233456c81a7b5bef8529c73617014326119d6ec4, `checkpoint/approved-chaos-voting-d`; GitHub main and live Render verified matching before E. Deploy E candidates only to the canonical Free service above.
 
 ## Approved Gravity Flip/Pogo checkpoint and Sticky candidate
-Owner approved revision `e8237382843cc80737882e3fd67a3c37f2f0b5a3`, live deploy `dep-db6mm3hsrm7s73c4c8gg`, preserved as `checkpoint/approved-chaos-voting-e-gravity-pogo`. The Sticky candidate is recorded by `checkpoint/sticky-frogs-playtest-candidate`; see `sticky-frogs.md`. Canonical service remains `frog-out`, Free, https://frog-out.onrender.com/. Old service, input/viewport and camera are untouched. Sticky requires owner acceptance.
+Owner approved revision `e8237382843cc80737882e3fd67a3c37f2f0b5a3`, live deploy `dep-db6mm3hsrm7s73c4c8gg`, preserved as `checkpoint/approved-chaos-voting-e-gravity-pogo`. The Sticky candidate is recorded by `checkpoint/sticky-frogs-playtest-candidate`; see `sticky-frogs.md`. Canonical service remains `frog-out`, Free, https://frog-out.onrender.com/. Old service, input/viewport and camera are untouched. Sticky and all20 modifiers are now owner-approved; this candidate record is historical.

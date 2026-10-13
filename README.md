@@ -2,6 +2,8 @@
 
 A playful **2–8 player** real-time physics party game. Run, charge-jump and swing through four playful arenas with a pulling tongue. Choose Poison Tag, Freeze Tag or Classic Tag; Sunny Pond is the default arena. Customize your frog in the lobby.
 
+All20 Chaos Voting modifiers are approved. Gameplay revision `e6f6cafec250d2713d02f61c1f1a05bf8e5c9183`; checkpoint `checkpoint/approved-all-20-chaos-modifiers`. [Current approved system](frog-network-spike/docs/approved-chaos-system.md). Further non-gameplay improvements remain individually directed; no feature freeze or submission work.
+
 **[Play Frog-Out](https://frog-out.onrender.com/)**. No player accounts or installation. Bring at least one friend on another browser/device.
 
 ## Play

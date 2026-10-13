@@ -1,3 +1,5 @@
+Approval status: all20 modifiers, including Sticky, approved at `e6f6cafec250d2713d02f61c1f1a05bf8e5c9183`; checkpoint `checkpoint/approved-all-20-chaos-modifiers`. See `approved-chaos-system.md`.
+
 # Chaos Voting E — Extreme physics playtest candidate
 
 Approved D: `233456c81a7b5bef8529c73617014326119d6ec4`, checkpoint `checkpoint/approved-chaos-voting-d`. GitHub main, local index/working content and Render were verified before editing. The local historical HEAD is not pushed wholesale; changes are appended through the existing GitHub tree/commit/ref workflow with an expected-parent check. No force push or history replacement.
@@ -39,7 +41,7 @@ Physical iPhone/Android playtesting of E has not occurred. Their accepted input/
 5. Refresh during either effect; confirm own identity, clock/direction/active effects remain synchronized. Return/rematch and check Round1 normal; verify KEEP renewal and denied pairs.
 6. On phones verify warning banner/labels do not obscure touch controls or charge cues and simultaneous two-thumb input remains reliable. Report any corrections, ceiling-stuck states or overly disruptive hops.
 
-Stop after deployment; Sticky acceptance requires user playtesting; Gravity Flip/Pogo are now approved.
+Stop after deployment; all20 modifiers are now owner-approved. No additional work starts without instructions.
 
 ## Playtest refinement
 Pogo launch speed increases from9.5 to14.25 (1.5×), yielding approximately2.25× ordinary ballistic height under the same gravity. Contact timing, separation, cooldown, tangent momentum and bounds remain unchanged. Gravity-reversed frog artwork and attached cosmetics flip vertically around their body centers; names and HUD stay upright, horizontal facing/aim stays intuitive, collision geometry stays unchanged. Input, viewport, camera and other mechanics are untouched. Physical-device acceptance remains for the user.

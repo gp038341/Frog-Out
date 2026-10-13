@@ -162,13 +162,16 @@ Arena-wide Chaos Voting C candidate: [behavior, tuning, validation and playtest]
 
 Latest C playtest refinements: [full platform rotation, persistent bombardment, crumble artwork and KEEP voting](docs/chaos-c-refinement.md). Wind still awaits player acceptance.
 
-## Current Chaos Voting milestone
+## Historical Chaos Voting milestones
 Milestone C is approved at `b31caa9c1916d1647123934da8321de76bbb0469`, checkpoint `checkpoint/approved-chaos-voting-c`.
 Milestone D adds Bumper Frogs, Balloon Bellies, Swap Hop and Bubble Trouble as a playtest candidate. There are 17 implemented modifiers. The expiring modifier remains a KEEP choice; Round1 is normal. See [D rules, values, validation and playtest](docs/chaos-d.md) and the [current design specification](docs/chaos-voting-design.md). This historical D record predates approved Gravity Flip/Pogo.
 
 Latest D feedback candidate: [bigger pop/bounce, five-press bubbles and persistent swap clock](docs/chaos-d-refinement.md). Physical-device acceptance remains pending.
 
-Chaos Voting D approved at233456c81a7b5bef8529c73617014326119d6ec4 (`checkpoint/approved-chaos-voting-d`). Gravity Flip/Pogo were approved at e8237382843cc80737882e3fd67a3c37f2f0b5a3. Sticky Frogs is the twentieth modifier candidate and uses existing controls. See [E behavior, validation and playtest](docs/chaos-e.md).
+Chaos Voting D approved at233456c81a7b5bef8529c73617014326119d6ec4 (`checkpoint/approved-chaos-voting-d`). Gravity Flip/Pogo were approved at e8237382843cc80737882e3fd67a3c37f2f0b5a3. Sticky Frogs is the approved twentieth modifier and uses existing controls. See [E behavior, validation and playtest](docs/chaos-e.md).
 
-### Sticky Frogs candidate
-20 Chaos modifiers. Existing direction crawls along contacted surfaces; tap/release jumps away, hold/release charges. Jump off before a fresh airborne tongue press; a live grapple may remain while adhered. See [Sticky behavior and validation](docs/sticky-frogs.md). No input/viewport/camera changes.
+## Current approval checkpoint
+
+All20 Chaos Voting modifiers are implemented and owner-approved, including Sticky Frogs. Flappy Frogs is retired. Approved gameplay revision: `e6f6cafec250d2713d02f61c1f1a05bf8e5c9183`; checkpoint `checkpoint/approved-all-20-chaos-modifiers`. See [approved systems, current catalog/rules/compatibility and outstanding items](docs/approved-chaos-system.md).
+
+This is not a feature freeze or submission phase. Further minor non-gameplay improvements will be directed individually. Preserve all approved systems; do not begin Milestone F or broad polish.

@@ -1,10 +1,10 @@
-# Frog-Out — Chaos Voting design proposal
+# Frog-Out — Chaos Voting approved system and design history
 
-Status: Milestones A–D and Gravity Flip/Pogo Panic approved. Approved E baseline e8237382843cc80737882e3fd67a3c37f2f0b5a3, checkpoint checkpoint/approved-chaos-voting-e-gravity-pogo. Sticky Frogs replaces the abandoned extra-flap concept as the official 20th modifier. The current Sticky section supersedes historical milestone records.
+Status: all20 implemented modifiers, including Sticky Frogs, are owner-approved at gameplay revision `e6f6cafec250d2713d02f61c1f1a05bf8e5c9183`. Approval checkpoint: `checkpoint/approved-all-20-chaos-modifiers`. See `approved-chaos-system.md` for current approved catalog, rules, hard compatibility restrictions and development boundaries. Older provisional sections below remain historical; they do not authorize changes or future modifiers.
 
 ## Source of truth and baseline
 
-The full catalog is the starting design, subject to subsequent owner approvals. The expiring oldest modifier is guaranteed a **KEEP** ballot choice, alongside eligible new modifiers. KEEP renews it as the newest effect; the other retained active modifiers cannot be offered. This approved renewal rule supersedes all historical exclusion statements below. Previously approved decisions retained: Chaos defaults ON with host toggle; 15-second vote; ordinary first round; visible shuffled tie priority; existing scoring, starting-tagger rotation and match length.
+The current registry and `approved-chaos-system.md` record the completed approved catalog. Historical design numbers are superseded by the implemented, playtested values. The expiring oldest modifier is guaranteed a **KEEP** ballot choice, alongside eligible new modifiers. KEEP renews it as the newest effect; the other retained active modifiers cannot be offered. This approved renewal rule supersedes all historical exclusion statements below. Previously approved decisions retained: Chaos defaults ON with host toggle; 15-second vote; ordinary first round; visible shuffled tie priority; existing scoring, starting-tagger rotation and match length.
 
 Approved Milestone C GitHub/Render baseline: `b31caa9c1916d1647123934da8321de76bbb0469`, checkpoint `checkpoint/approved-chaos-voting-c`, at https://frog-out.onrender.com/. The old service remains outside scope. D adds isolated, server-authoritative interaction state; preserve C, all approved physics, inputs and presentation.
 
@@ -252,7 +252,7 @@ User selected inflation launch: synchronized immediate upward launch18 once ever
 ## Milestone E candidate
 Gravity:8s down/4s up,1s warning, frog-only gravity reversal with magnitude26, ceiling support/buffered/charged jump adapters, unchanged aim and grapple. Pogo: ordinary landing normal speed9.5, added delta ceiling24,12tick cooldown,4tick true separation rearm; special-material surfaces retain their own behavior. Existing Gravity exclusions remain, including Bubble; no active duplicate/conflict or KEEP regression. Paused state is authoritative for prediction. Desktop F/mobile separate FLAP button is recommended only, not implemented. See chaos-e.md for architecture, tests, limitations and control approval proposal.
 
-## Sticky Frogs — current owner-approved specification and candidate
+## Sticky Frogs — current owner-approved implementation
 
 The official catalog is now 20 implemented entries: Sticky Frogs replaces the retired extra-flap concept entirely. No flap code/control/gesture is implemented or planned. See `sticky-frogs.md` for exact prototype values and validation.
 

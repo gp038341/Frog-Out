@@ -1,6 +1,8 @@
-# Sticky Frogs — final Milestone E playtest candidate
+# Sticky Frogs — approved final Milestone E modifier
 
-## Approved baseline
+Owner approved Sticky Frogs and all20 modifiers at `e6f6cafec250d2713d02f61c1f1a05bf8e5c9183`; checkpoint `checkpoint/approved-all-20-chaos-modifiers`. See `approved-chaos-system.md`. New non-gameplay work remains owner-directed; no feature freeze or submission preparation.
+
+## Pre-implementation approved baseline
 
 Gravity Flip/Pogo were personally approved at `e8237382843cc80737882e3fd67a3c37f2f0b5a3`; checkpoint `checkpoint/approved-chaos-voting-e-gravity-pogo`. GitHub main and the live Free Render service matched that revision before editing; no outstanding working-v-index changes. Previous candidate checkpoint remains recoverable. Existing historical local HEAD is not pushed wholesale. Normal GitHub parent/tree/ref append only, no rewrite or force push.
 
@@ -50,7 +52,7 @@ KEEP renewal, normalRound1,15s voting,3-active conveyor and duplicate/compatibil
 - `results/sticky-timed-network.json`:8independent WebSocket clients simultaneously adhere/charge on a wall; actual gravity reversal retains both; action release launches; same-frog reconnect; Sticky/Tilt/Suck and ordinary airborne tongue; expiry cleanup. Local server p95≤**.992ms**, p99≤**2.532ms**, maximum5.220ms versus16.67ms budget.
 - `results/sticky-stress.json`:68 local8-frog simulation cases, all4arenas,2400ticks/case including requested pairs and four triple stacks. Local CPU measurements: maximum case p95 **.440ms**, p99 **.759ms**, versus16.67ms budget; not Render or physical-phone FPS claims.
 
-## Manual acceptance
+## Regression playtest reference
 
 1. Refresh the public URL and create a2–8player room. Round1 must still feel unchanged. Vote **Sticky Frogs** when offered.
 2. Run into a wall, use up/down, stop, jump sideways, then hold/release a charge. On a ceiling/underside, use left/right and jump downward. Try slopes and inner/outer corners; report awkward transitions/traps.
@@ -60,4 +62,4 @@ KEEP renewal, normalRound1,15s voting,3-active conveyor and duplicate/compatibil
 6. Play each mode; tag/freeze/rescue must still register on adhered frogs. Refresh/reconnect, KEEP Sticky, replace it, finish/rematch; no stale adhesion.
 7. Physical phone landscape: use both thumbs, charge, jump, tongue, stop/crawl and rotate the device. Accepted iPhone source is unchanged; **this new traversal has not been physically tested here**. Report mobile readability and accidental actions.
 
-Stop after deployment for owner acceptance. Sharp-edge traversal, perches/chase fairness, mixed stacks and physical-phone feel remain playtest judgments. No unrelated feature is authorized.
+Owner acceptance is complete. Preserve these behaviors; further validation can be recorded without claiming unperformed physical-device tests. Wait for individually directed changes.
