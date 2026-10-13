@@ -25,12 +25,12 @@ export class Connection {
  error(e:unknown){const message=e instanceof Error?e.message:String(e);return /locked|full|maxClients/i.test(message)?'This room is full or has already started.':message;}
  private save(){if(this.room&&this.lobby)sessionStorage.setItem(cacheKey,JSON.stringify({token:this.room.reconnectionToken,phase:this.lobby.phase,code:this.lobby.code}));}
  private stop(){clearInterval(this.interval);clearInterval(this.ping);this.link.clear();this.input={x:0,y:0,held:false};this.predictor.pending=[];this.predictor.initialized=false;}
- private attach(room:Room){const generation=++this.generation;this.room=room;this.chaos=undefined;this.outbreak=undefined;this.status='connected';this.snapshots=[];this.slot=-1;this.seq=0;this.lastReset=-1;this.lastReceive=0;this.predictor.initialized=false;this.predictor.pending=[];this.notice='';
+ private attach(room:Room){const generation=++this.generation;let kicked=false;this.room=room;this.chaos=undefined;this.outbreak=undefined;this.status='connected';this.snapshots=[];this.slot=-1;this.seq=0;this.lastReset=-1;this.lastReceive=0;this.predictor.initialized=false;this.predictor.pending=[];this.notice='';
   room.onMessage('welcome',data=>{this.slot=data.slot;this.playerId=data.playerId;this.predictor.slot=data.slot;this.seq=Math.max(this.seq,data.seqBase??0);this.status='connected';});
   room.onMessage('lobby',(state:LobbyState)=>{if(state.phase!==this.lobby?.phase){if(this.lobby?.phase==='lobby'&&state.phase==='game')this.seq=0;this.snapshots=[];this.predictor.initialized=false;this.predictor.pending=[];this.input={x:0,y:0,held:false};this.lastReceive=0;}this.lobby=state;this.notice=state.notice;this.save();});
   room.onMessage('outbreak',(state:OutbreakView|null)=>this.link.schedule('receive',()=>{if(state?.phase!==this.outbreak?.phase||state?.round!==this.outbreak?.round){this.snapshots=[];this.predictor.initialized=false;this.predictor.pending=[];this.input={x:0,y:0,held:false};}this.outbreak=state??undefined;}));
   room.onMessage('chaos',(state:ChaosView|null)=>this.link.schedule('receive',()=>{this.chaos=state??undefined;}));
-  room.onMessage('kicked',(message:string)=>{this.notice=message;});
+  room.onMessage('kicked',(message:string)=>{kicked=true;this.stop();this.room=undefined;this.lobby=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);this.status=message;this.notice=message;});
   room.onMessage('notice',(message:string)=>this.notice=message);
   room.onMessage('pong',data=>this.link.schedule('receive',()=>{const now=Date.now();const sample=now-data.at;this.rtt=this.rtt?this.rtt*.8+sample*.2:sample;const measured=data.serverTime-(data.at+now)/2;this.offset=this.offset?this.offset*.8+measured*.2:measured;}));
   room.onMessage('snapshot',(s:Snapshot)=>this.link.schedule('receive',()=>{
@@ -39,7 +39,7 @@ export class Connection {
    if(this.lastReset!==s.resetId){this.predictor.initialized=false;this.lastReset=s.resetId;}
    this.snapshots.push(s);if(this.snapshots.length>90)this.snapshots.shift();if(this.prediction&&this.playing)this.predictor.reconcile(s,Date.now()+this.offset,this.offset);
   }));
-  room.onLeave(code=>{if(generation!==this.generation)return;const playing=this.lobby?.phase==='game';const token=room.reconnectionToken;this.stop();this.room=undefined;this.status='Disconnected.';if(code!==4000&&code!==4003){void this.resume(token);}else{this.lobby=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);this.status=code===4003?'The host removed you from the lobby.':'You left the room. Create or join another room.';}});
+  room.onLeave(code=>{if(generation!==this.generation)return;if(kicked)code=4003;const playing=this.lobby?.phase==='game';const token=room.reconnectionToken;this.stop();this.room=undefined;this.status='Disconnected.';if(code!==4000&&code!==4003){void this.resume(token);}else{this.lobby=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);this.status=code===4003?'The host removed you from the lobby.':'You left the room. Create or join another room.';}});
   room.onError((_code,message)=>this.notice=`Connection error: ${message}`);
   room.send('hello');this.sendPing();this.ping=setInterval(()=>this.sendPing(),1000);this.interval=setInterval(()=>this.sendInput(),1000/NETWORK.inputHz);this.save();
  }
