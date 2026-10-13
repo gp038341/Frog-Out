@@ -3,7 +3,7 @@
 Baseline: `d033b9059fb5c19a61041343fcd1553356a41bc5`, `checkpoint/pre-lobby-departure-phase`. Candidate checkpoint: `checkpoint/lobby-departure-playtest-candidate`. Public URL: https://frog-out.onrender.com/ . Owner acceptance is pending.
 
 ## Authorized behavior
-- Accidental disconnect immediately deactivates the frog, clears controls and incoming/outgoing tongues, hides its lobby entry and pauses score accumulation. Same identity reserves30s after server detection.
+- Accidental disconnect keeps the frog visible with its gray OFFLINE indicator until expiry, deactivates physical participation, clears controls and incoming/outgoing tongues, hides its lobby entry and pauses score accumulation. Same identity reserves30s after server detection.
 - Reconnect restores current-round role/status/cosmetics at a safe position, not original momentum. Frozen status remains frozen. No duplicate frog.
 - Explicit Leave is permanent. Expiry removes only that player. Neither closes everyone’s room.
 - Host responsibility transfers to the first connected remaining member. Hosts can kick another connected player in the lobby only; this removes the session, not a permanent identity/IP ban.
@@ -23,3 +23,6 @@ Preservation manifest verifies untouched tuning, input/viewport, artwork/sound a
 Create a3–4player room. Kick one lobby guest; verify others stay and only host has the control. Test lobby Leave and automatic host transfer. Start each mode; use Escape/Menu and resume, then have a runner leave. Temporarily interrupt another connection and restore within30s; verify same cosmetics/status and no duplicate. Let one reservation expire; others should continue. Have the current tagger/freezer leave; verify round advances and normal voting appears. Reduce to one connected player; verify same room code/lobby stays usable. Verify desktop/two-thumb controls and approved gameplay feel. Server redeploy still clears in-memory rooms.
 
 Public browser verification exposed an abnormal transport-close code after a valid kick message. The explicit server kick message now clears the local session immediately and prevents reconnect regardless of transport close code; focused client regression coverage verifies this.
+
+## Owner visibility refinement
+Temporary disconnects retain the on-screen frog and existing gray OFFLINE label during the30-second reservation. Permanent Leave/Kick or reservation expiry hides it. This is a presentation-only refinement; score pause, cleared inputs, safe reconnect, role-departure advancement and one-player same-lobby rules remain unchanged.

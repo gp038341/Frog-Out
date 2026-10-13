@@ -54,7 +54,7 @@ Host selects the mode in the lobby; Poison Tag remains the default. Mode changes
 
 ## Connection lifecycle
 
-Accidental disconnects reserve the same player identity for **30 seconds after server detection**. The frog immediately disappears from physical play, controls and incoming/outgoing tongues clear, and score accumulation pauses. Same-tab reconnect restores current round status and cosmetics at a safe location without creating a duplicate. Expiry removes only that player. Explicit Leave is permanent for that match.
+Accidental disconnects reserve the same player identity for **30 seconds after server detection**. The frog remains visible with its gray OFFLINE indicator during the reservation, while physical participation pauses; controls and incoming/outgoing tongues clear, and score accumulation pauses. Same-tab reconnect restores current round status and cosmetics at a safe location without creating a duplicate. Expiry removes only that player. Explicit Leave is permanent for that match.
 
 The host can kick another connected player in the lobby only. Lobby Leave is beside Ready; during gameplay use **Escape** or **Menu · Esc**, then Leave Match. Opening the menu clears your controls but does not pause other players. Host ownership transfers automatically. A designated tagger/freezer departure ends the current round, preserves earned points without departure bonuses, and advances through the normal between-round flow. Absent starting-role turns are skipped. With fewer than two connected players, the remaining player returns to the same open lobby. Brief departure notices are shown. Rooms remain in memory: restart/redeploy loses them. See [lifecycle phase](docs/lobby-departure.md).
 

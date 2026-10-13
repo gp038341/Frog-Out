@@ -26,6 +26,7 @@ type Before={stickyAttachTick?:number;stickyReleaseTick?:number;pogoTick?:number
 export class Courtyard {
  private tagPuffs:number[]=[];
  appearances:(Appearance|undefined)[]=[];
+ reserved:boolean[]=[];
  feel:Feel;
  arenaId:ArenaId=DEFAULT_ARENA;
  background:Phaser.GameObjects.Graphics;ink:Phaser.GameObjects.Graphics;effects:Phaser.GameObjects.Graphics;
@@ -98,7 +99,7 @@ export class Courtyard {
    if(t.phase==='attached'&&distance>t.length-.3){g.lineStyle(1.5,0xffd6df,.8);g.strokeCircle(bx,by,7+Math.sin(time*13)*1.2);}
   });
   states.forEach((f,i)=>{
-   const p=positions[i];if(f.active===false){this.labels[i]?.setVisible(false);this.previous[i]=undefined as any;return;}if(!p)return;const infection=view?.mode==='freeze'||view?.mode==='classic'?undefined:view?.players[i],before=this.previous[i],color=FROG_COLORS[i];const state=infection?.state;
+   const p=positions[i];if(f.active===false&&!this.reserved[i]){this.labels[i]?.setVisible(false);this.previous[i]=undefined as any;return;}if(!p)return;const infection=view?.mode==='freeze'||view?.mode==='classic'?undefined:view?.players[i],before=this.previous[i],color=FROG_COLORS[i];const state=infection?.state;
    if(before){
     if(view?.phase==='playing'&&f.stickyAttachTick!==undefined&&f.stickyAttachTick!==before.stickyAttachTick){this.pop(p.x,p.y,0xc3fbb4,'attach');if(i===local)this.audio.play('attach',.65);}
     if(view?.phase==='playing'&&f.stickyReleaseTick!==undefined&&f.stickyReleaseTick!==before.stickyReleaseTick){this.pop(p.x,p.y,0xc3fbb4,'jump');}
