@@ -28,7 +28,7 @@ Canonical deployment: https://frog-out.onrender.com/; Render service `frog-out`,
 
 Tongue contact never directly triggers any mode contact effect. Everybody starts tagger/freezer once per match in a randomized roster order. Cumulative highest score wins; tied totals share victory. The host advances results/next rounds and final/rematch flow. Mode timers/scoring/grace and modifier state are server-authoritative.
 
-During an accidental in-match disconnect, controls and outgoing tongue clear while the frog remains physically present and mode-eligible. Same-tab reconnect within30s restores it; reservation expiry interrupts the entire match and returns remaining players to lobby. Intentional in-match Leave ends the match for everyone after confirmation. Redeploy/restart loses in-memory rooms.
+Historical all20 approval used the original abort-on-expiry contract. The owner subsequently authorized the [lobby/player lifecycle phase](lobby-departure.md): absent frogs leave physical play, scoring pauses, same identity reserves30s, and departures no longer end everyone’s room. Tagger/freezer departure advances the round; one remaining returns to the same lobby. No modifier tuning changed.
 
 ## Chaos Conveyor / voting
 

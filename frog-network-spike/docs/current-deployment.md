@@ -27,3 +27,6 @@ Approved pre-E gameplay checkpoint:233456c81a7b5bef8529c73617014326119d6ec4, `ch
 
 ## Approved Gravity Flip/Pogo checkpoint and Sticky candidate
 Owner approved revision `e8237382843cc80737882e3fd67a3c37f2f0b5a3`, live deploy `dep-db6mm3hsrm7s73c4c8gg`, preserved as `checkpoint/approved-chaos-voting-e-gravity-pogo`. The Sticky candidate is recorded by `checkpoint/sticky-frogs-playtest-candidate`; see `sticky-frogs.md`. Canonical service remains `frog-out`, Free, https://frog-out.onrender.com/. Old service, input/viewport and camera are untouched. Sticky and all20 modifiers are now owner-approved; this candidate record is historical.
+
+## Lobby/player lifecycle candidate
+Pre-phase baseline `d033b9059fb5c19a61041343fcd1553356a41bc5`, preserved as `checkpoint/pre-lobby-departure-phase`. The new candidate is resolved by `checkpoint/lobby-departure-playtest-candidate`; exact Git/live deployment metadata is reported at handoff. See [phase report](lobby-departure.md). This phase changes only the owner-approved departure contract and its UI; all20 tuning remains approved.

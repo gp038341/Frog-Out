@@ -9,7 +9,7 @@ export class Moments {
   if(!view){this.reset();return [];}
   const events:Moment[]=[],key=`${view.mode??'poison'}:${view.patientZeroOrder.join(',')}:${view.round}`;
   if(key!==this.roundKey){this.roundKey=key;this.phase='';this.count=-1;this.healthy=-1;this.states=[];}
-  const freeze=view.mode==='freeze',classic=view.mode==='classic';const healthy=freeze?view.players.filter(p=>p.slot!==view.freeze!.freezer&&!view.freeze!.frozen[p.slot]).length:view.players.filter(p=>p.state==='healthy').length;
+  const freeze=view.mode==='freeze',classic=view.mode==='classic';const healthy=freeze?view.players.filter(p=>p.slot!==view.freeze!.freezer&&!view.freeze!.frozen[p.slot]).length:view.players.filter(p=>p.present!==false&&p.state==='healthy').length;
   if(view.phase!==this.phase){
    if(view.phase==='announcement')events.push({cue:'reveal'});
    if(view.phase==='playing')events.push({cue:'go',text:classic?'CLASSIC TAG!':freeze?'FREEZE TAG!':'POISON TAG!'});

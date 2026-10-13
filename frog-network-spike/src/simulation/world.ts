@@ -155,6 +155,7 @@ export class Simulation {
       coupled.add(f.body); coupled.add(f.tongue.target);
     }
     for (const f of this.frogs) {
+      if(!f.body.isActive())continue;
       if(this.frogChaos.trapped(f)){f.grounded=false;f.charging=false;f.coyote=0;continue;}
       f.suppressSupport = Math.max(0, f.suppressSupport - DT);
       f.grounded = this.grounded(f);
@@ -226,6 +227,7 @@ export class Simulation {
     this.world.step(DT, t.velocityIterations, t.positionIterations);
     this.tick++;
     for (const f of this.frogs) {
+      if(!f.body.isActive())continue;
       f.grounded = this.grounded(f);
       if (f.grounded && f.bufferedRelease) this.launch(f, f.bufferedRelease.x, f.bufferedRelease.charge);
       if (f.tongue?.phase === 'attached') {

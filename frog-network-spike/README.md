@@ -50,13 +50,14 @@ Host selects the mode in the lobby; Poison Tag remains the default. Mode changes
 - Earn 1 point/second not IT (complete tenths). No placement bonus. Round winners have the highest round score; cumulative highest totals win the match; ties share victory.
 - One transfer per authoritative tick. Multiple contacts choose nearest body centre, then roster slot for an exact distance tie, never physics callback order.
 - Amber pennant/IT label retains cosmetics, distinct from poison patterns or ice. Transfer produces a purple poison poof and compact YOU’RE IT notice using the approved audio palette.
-- Existing host-led results/next/final/rematch and 30-second reconnect apply; disconnected bodies can still transfer IT and accrue score under their current role. Expiry interrupts the whole match.
+- Existing host-led results/next/final/rematch and 30-second reconnect apply. Absent frogs are removed from physical play and their scoring pauses; departure of the current IT ends the round.
 
 ## Connection lifecycle
 
-During a match, accidental disconnects reserve the same player/frog for up to **30 seconds after server detection**. Inputs/outgoing tongue clear; the body remains in the simulation and can be poisoned/frozen or rescued under the selected mode rules. Automatic reconnect or refresh of the **same tab** restores current state within the reservation. A new tab does not reliably retain identity. Expiry interrupts the match, returns connected players to the lobby and resets readiness.
+Accidental disconnects reserve the same player identity for **30 seconds after server detection**. The frog immediately disappears from physical play, controls and incoming/outgoing tongues clear, and score accumulation pauses. Same-tab reconnect restores current round status and cosmetics at a safe location without creating a duplicate. Expiry removes only that player. Explicit Leave is permanent for that match.
 
-Lobby disconnects remove entries; host responsibility transfers if needed. Explicit Leave during a match ends it for everyone immediately and now asks for confirmation, for both host and non-host. Lobby Leave does not end the room for others. Rooms are in memory: restart/redeploy loses them.
+The host can kick another connected player in the lobby only. Lobby Leave is beside Ready; during gameplay use **Escape** or **Menu · Esc**, then Leave Match. Opening the menu clears your controls but does not pause other players. Host ownership transfers automatically. A designated tagger/freezer departure ends the current round, preserves earned points without departure bonuses, and advances through the normal between-round flow. Absent starting-role turns are skipped. With fewer than two connected players, the remaining player returns to the same open lobby. Brief departure notices are shown. Rooms remain in memory: restart/redeploy loses them. See [lifecycle phase](docs/lobby-departure.md).
+
 
 ## Local development
 

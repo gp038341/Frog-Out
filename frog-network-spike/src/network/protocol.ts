@@ -9,4 +9,4 @@ export type Snapshot={chaos?:{active:ModifierId[];version:number};frozen?:boolea
 export const NETWORK={snapshotHz:30,inputHz:30,interpolationMs:65,staleInputMs:350,maxPredictionMs:250,correctionSmoothMs:80,snapDistance:2};
 
 export type PlayerInfo={id:string;name:string;connected:boolean;ready:boolean;slot:number;reconnectUntil?:number;appearance?:Appearance};
-export type LobbyState={chaosEnabled?:boolean;mode?:GameMode;arenaId:ArenaId;code:string;phase:'lobby'|'game';hostId:string;players:PlayerInfo[];notice:string;reconnectSeconds:number};
+export type LobbyState={chaosEnabled?:boolean;mode?:GameMode;arenaId:ArenaId;code:string;phase:'lobby'|'game';hostId:string;players:PlayerInfo[];roster?:PlayerInfo[];notice:string;reconnectSeconds:number};

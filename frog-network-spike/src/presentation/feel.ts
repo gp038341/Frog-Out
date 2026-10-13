@@ -14,8 +14,8 @@ export class Feel {
  private burst(x:number,y:number,color:number,kind:Spark['kind']){if(this.sparks.length<24)this.sparks.push({x:x*30,y:y*30,color,kind,age:0,life:kind==='infection'?480:220});}
  render(states:FrogState[],positions:Point[],view:OutbreakView|undefined,local:number,delta:number){
   const key=view?`${view.patientZeroOrder.join(',')}:${view.round}`:'';if(key!==this.round){this.clear();this.round=key;}
-  const g=this.graphics;g.clear();this.pulse+=Math.min(delta,50)/1000;const healthy=view?.players.filter(p=>p.state==='healthy').length;
-  states.forEach((f,i)=>{const p=positions[i],old=this.before[i],state=view?.players[i]?.state;if(!p)return;const r=defaults.frogRadius*30;
+  const g=this.graphics;g.clear();this.pulse+=Math.min(delta,50)/1000;const healthy=view?.players.filter(p=>p.present!==false&&p.state==='healthy').length;
+  states.forEach((f,i)=>{if(f.active===false)return;const p=positions[i],old=this.before[i],state=view?.players[i]?.state;if(!p)return;const r=defaults.frogRadius*30;
    if(old){
     if(old.grounded&&!f.grounded&&f.vy<-5){this.burst(p.x,p.y+.4,old.charging?0xffe4a1:FROG_COLORS[i],'launch');}
     if(f.tongue?.phase==='flying'&&!old.tongue)this.burst(p.x,p.y,0xffbacb,'fire');

@@ -90,7 +90,7 @@ export class Courtyard {
   if(labelSize!==this.labelSize){this.labelSize=labelSize;this.labels.forEach(l=>l.setFontSize(labelSize));}
   for(const b of states[0]?.chaosBubbles??[]){if(b.slot!==undefined)continue;const x=b.x*S,y=b.y*S;g.fillStyle(0xc8f8ff,.10);g.fillCircle(x,y,20);g.lineStyle(2,INK,.7);g.strokeCircle(x,y,21);g.lineStyle(2,0xc9f7ff);g.strokeCircle(x,y,20);g.fillStyle(0xffffff,.8);g.fillEllipse(x-8,y-8,4,7);}
   // Tongues behind bodies, with a sag only when physical rope length permits slack.
-  states.forEach((f,i)=>{const t=f.tongue,p=positions[i];if(!t||!p)return;let tip=t.tip;if(t.phase==='attached'&&t.target&&'frog'in t.target&&t.localAnchor){const target=positions[t.target.frog];if(target)tip={x:target.x+t.localAnchor.x,y:target.y+t.localAnchor.y};}
+  states.forEach((f,i)=>{const t=f.tongue,p=positions[i];if(f.active===false||!t||!p)return;let tip=t.tip;if(t.phase==='attached'&&t.target&&'frog'in t.target&&t.localAnchor){const target=positions[t.target.frog];if(target)tip={x:target.x+t.localAnchor.x,y:target.y+t.localAnchor.y};}
    const distance=Math.hypot(tip.x-p.x,tip.y-p.y),slack=t.phase==='attached'?Math.min(1.2,Math.max(0,t.length-distance)*.6):0;
    const ax=p.x*S,ay=p.y*S,bx=tip.x*S,by=tip.y*S;const curve=new Phaser.Curves.QuadraticBezier(new Phaser.Math.Vector2(ax,ay),new Phaser.Math.Vector2((ax+bx)/2,(ay+by)/2+slack*S),new Phaser.Math.Vector2(bx,by));const points=curve.getPoints(12);
    g.lineStyle(7,INK);g.strokePoints(points);g.lineStyle(4,0xff9baf);g.strokePoints(points);g.fillStyle(0xffc4ce);g.fillCircle(bx,by,4);g.lineStyle(2,INK);g.strokeCircle(bx,by,4);
@@ -98,7 +98,7 @@ export class Courtyard {
    if(t.phase==='attached'&&distance>t.length-.3){g.lineStyle(1.5,0xffd6df,.8);g.strokeCircle(bx,by,7+Math.sin(time*13)*1.2);}
   });
   states.forEach((f,i)=>{
-   const p=positions[i];if(!p)return;const infection=view?.mode==='freeze'||view?.mode==='classic'?undefined:view?.players[i],before=this.previous[i],color=FROG_COLORS[i];const state=infection?.state;
+   const p=positions[i];if(f.active===false){this.labels[i]?.setVisible(false);this.previous[i]=undefined as any;return;}if(!p)return;const infection=view?.mode==='freeze'||view?.mode==='classic'?undefined:view?.players[i],before=this.previous[i],color=FROG_COLORS[i];const state=infection?.state;
    if(before){
     if(view?.phase==='playing'&&f.stickyAttachTick!==undefined&&f.stickyAttachTick!==before.stickyAttachTick){this.pop(p.x,p.y,0xc3fbb4,'attach');if(i===local)this.audio.play('attach',.65);}
     if(view?.phase==='playing'&&f.stickyReleaseTick!==undefined&&f.stickyReleaseTick!==before.stickyReleaseTick){this.pop(p.x,p.y,0xc3fbb4,'jump');}
@@ -129,7 +129,7 @@ export class Courtyard {
    if(view?.mode!=='classic'&&view?.mode!=='freeze'){this.tagPuffs[i]=Math.max(0,(this.tagPuffs[i]??0)-delta);paintTagPoof(g,p.x*S,p.y*S,this.tagPuffs[i]);}
    if(view?.mode==='freeze'){const frozen=view.freeze!.frozen[i];g.save();g.translateCanvas(p.x*S,p.y*S);g.scaleCanvas((f.radius??defaults.frogRadius)/defaults.frogRadius,(f.radius??defaults.frogRadius)/defaults.frogRadius);paintFreezeState(g,0,0,i,view);g.restore();if(before?.state&&before.state!==(frozen?'frozen':'runner')){this.pop(p.x,p.y,0xb3f0ff,'attach');if(i===local)this.audio.play(frozen?'infect':'transform');}}
    if(f.stickyMud){g.fillStyle(0x795343,.8);for(const dx of [-8,8])g.fillEllipse(p.x*S+dx,p.y*S+12,12,5);}
-   const status=connected[i]===false?'OFFLINE':view?.mode==='classic'?(i===view.classic!.it?'▲ IT':'NOT IT'):view?.mode==='freeze'?(i===view.freeze!.freezer?'❄ FREEZER':view.freeze!.frozen[i]?'❄ FROZEN':view.freeze!.protectedUntil[i]>view.tick?'◇ PROTECTED':'RUNNER'):infection?.state==='transforming'?'CHANGING · 1s':infection?.state==='infectious'?(infection.patientZero?'◆ DART FROG':'◆ POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.state==='healthy').length===1?'LAST SAFE':'SAFE';
+   const status=connected[i]===false?'OFFLINE':view?.mode==='classic'?(i===view.classic!.it?'▲ IT':'NOT IT'):view?.mode==='freeze'?(i===view.freeze!.freezer?'❄ FREEZER':view.freeze!.frozen[i]?'❄ FROZEN':view.freeze!.protectedUntil[i]>view.tick?'◇ PROTECTED':'RUNNER'):infection?.state==='transforming'?'CHANGING · 1s':infection?.state==='infectious'?(infection.patientZero?'◆ DART FROG':'◆ POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.present!==false&&v.state==='healthy').length===1?'LAST SAFE':'SAFE';
    paintFrogChaos(g,p.x*S,p.y*S,f,view?.tick??0,i);
    const chaosStatus=f.bubbleId!==undefined?(i===local?'○ TAP ACTION TO POP':'○ BUBBLED'):f.swapPartner!==undefined?`⇄ ${names[f.swapPartner]??'SWAP PARTNER'}`:f.balloonWarning?'◍ PUFFING UP…':undefined;
    const label=this.labels[i];

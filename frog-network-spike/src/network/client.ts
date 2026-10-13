@@ -19,7 +19,7 @@ export class Connection {
  client:Client;http:string;busy=false;reconnecting=false;private generation=0;private reconnectAttempt=0;
  private interval?:ReturnType<typeof setInterval>;private ping?:ReturnType<typeof setInterval>;
  constructor(){const url=new URL(location.href);this.http=url.origin;this.client=new Client((url.port==='5173'?'http://127.0.0.1:2567':url.origin).replace(/^http/,'ws'));const params=url.searchParams;this.link=new DelayLink(Math.max(0,Math.min(500,Number(params.get('lag')??0))),Math.max(0,Math.min(100,Number(params.get('jitter')??0))));this.prediction=params.get('prediction')!=='0';}
- async boot(){try{const saved=JSON.parse(sessionStorage.getItem(cacheKey)??'null');if(saved?.phase==='game'&&typeof saved.token==='string')await this.resume(saved.token);else sessionStorage.removeItem(cacheKey);}catch{sessionStorage.removeItem(cacheKey);this.status='Your previous session ended. Create or join a room.';}}
+ async boot(){try{const saved=JSON.parse(sessionStorage.getItem(cacheKey)??'null');if((saved?.phase==='game'||saved?.phase==='lobby')&&typeof saved.token==='string')await this.resume(saved.token);else sessionStorage.removeItem(cacheKey);}catch{sessionStorage.removeItem(cacheKey);this.status='Your previous session ended. Create or join a room.';}}
  async create(name:string){if(this.busy||this.room)return;this.busy=true;this.status='Creating room…';try{this.attach(await this.client.create('frog_party',{name,appearance:loadAppearance()}));}catch(e){this.status=this.error(e);}finally{this.busy=false;}}
  async join(name:string,code:string){if(this.busy||this.room)return;this.busy=true;this.status='Joining room…';try{const normalized=code.trim().toUpperCase();if(!/^[A-Z2-9]{6}$/.test(normalized))throw Error('Enter a six-character room code.');const response=await fetch(`${this.http}/api/rooms/${encodeURIComponent(normalized)}`);const data=await response.json();if(!response.ok)throw Error(data.error);this.attach(await this.client.joinById(data.roomId,{name,appearance:loadAppearance()}));}catch(e){this.status=this.error(e);}finally{this.busy=false;}}
  error(e:unknown){const message=e instanceof Error?e.message:String(e);return /locked|full|maxClients/i.test(message)?'This room is full or has already started.':message;}
@@ -30,6 +30,7 @@ export class Connection {
   room.onMessage('lobby',(state:LobbyState)=>{if(state.phase!==this.lobby?.phase){if(this.lobby?.phase==='lobby'&&state.phase==='game')this.seq=0;this.snapshots=[];this.predictor.initialized=false;this.predictor.pending=[];this.input={x:0,y:0,held:false};this.lastReceive=0;}this.lobby=state;this.notice=state.notice;this.save();});
   room.onMessage('outbreak',(state:OutbreakView|null)=>this.link.schedule('receive',()=>{if(state?.phase!==this.outbreak?.phase||state?.round!==this.outbreak?.round){this.snapshots=[];this.predictor.initialized=false;this.predictor.pending=[];this.input={x:0,y:0,held:false};}this.outbreak=state??undefined;}));
   room.onMessage('chaos',(state:ChaosView|null)=>this.link.schedule('receive',()=>{this.chaos=state??undefined;}));
+  room.onMessage('kicked',(message:string)=>{this.notice=message;});
   room.onMessage('notice',(message:string)=>this.notice=message);
   room.onMessage('pong',data=>this.link.schedule('receive',()=>{const now=Date.now();const sample=now-data.at;this.rtt=this.rtt?this.rtt*.8+sample*.2:sample;const measured=data.serverTime-(data.at+now)/2;this.offset=this.offset?this.offset*.8+measured*.2:measured;}));
   room.onMessage('snapshot',(s:Snapshot)=>this.link.schedule('receive',()=>{
@@ -38,12 +39,13 @@ export class Connection {
    if(this.lastReset!==s.resetId){this.predictor.initialized=false;this.lastReset=s.resetId;}
    this.snapshots.push(s);if(this.snapshots.length>90)this.snapshots.shift();if(this.prediction&&this.playing)this.predictor.reconcile(s,Date.now()+this.offset,this.offset);
   }));
-  room.onLeave(code=>{if(generation!==this.generation)return;const playing=this.lobby?.phase==='game';const token=room.reconnectionToken;this.stop();this.room=undefined;this.status='Disconnected.';if(playing&&code!==4000){void this.resume(token);}else{this.lobby=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);this.status='You left the room. Create or join another room.';}});
+  room.onLeave(code=>{if(generation!==this.generation)return;const playing=this.lobby?.phase==='game';const token=room.reconnectionToken;this.stop();this.room=undefined;this.status='Disconnected.';if(code!==4000&&code!==4003){void this.resume(token);}else{this.lobby=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);this.status=code===4003?'The host removed you from the lobby.':'You left the room. Create or join another room.';}});
   room.onError((_code,message)=>this.notice=`Connection error: ${message}`);
   room.send('hello');this.sendPing();this.ping=setInterval(()=>this.sendPing(),1000);this.interval=setInterval(()=>this.sendInput(),1000/NETWORK.inputHz);this.save();
  }
  async resume(token:string){if(this.reconnecting)return;this.reconnecting=true;this.busy=true;const attempt=++this.reconnectAttempt;this.stop();const deadline=Date.now()+30000;try{while(Date.now()<deadline){if(attempt!==this.reconnectAttempt)return;this.status=`Reconnecting… ${Math.max(0,Math.ceil((deadline-Date.now())/1000))}s remaining`;try{const room=await this.client.reconnect(token);if(attempt!==this.reconnectAttempt){await room.leave();return;}this.attach(room);return;}catch{await new Promise(r=>setTimeout(r,1000));}}if(attempt!==this.reconnectAttempt)return;this.lobby=undefined;this.room=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);this.status='Reconnection window expired or the session ended. Join the room lobby again.';}finally{if(attempt===this.reconnectAttempt){this.reconnecting=false;this.busy=false;}}}
  setAppearance(appearance:Appearance){if(this.status==='connected'&&this.lobby?.phase==='lobby')this.room?.send('appearance',appearance);}
+ kick(id:string){if(this.status==='connected'&&this.lobby?.phase==='lobby'&&this.lobby.hostId===this.playerId)this.room?.send('kick',id);}
  selectMode(mode:GameMode){if(this.status==='connected')this.room?.send('select-mode',mode);}
  selectArena(id:ArenaId){if(this.status==='connected')this.room?.send('select-arena',id);}
  ready(value:boolean){if(this.status==='connected')this.room?.send('ready',value);}
