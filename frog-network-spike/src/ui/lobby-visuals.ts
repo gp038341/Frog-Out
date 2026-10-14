@@ -1,8 +1,9 @@
+import {participating} from '../game/participants';
 import type {PlayerInfo} from '../network/protocol';
 import {appearancePreview} from '../presentation/cosmetic-art';
 import {skinFor} from '../presentation/cosmetics';
-export function lobbySeats(players:readonly PlayerInfo[]){const connected=players.filter(p=>p.connected).slice(0,8);return Array.from({length:8},(_,i)=>connected[i] as PlayerInfo|undefined);}
-export function votersFor(choice:string,votes:Record<string,string>,players:readonly PlayerInfo[]){return players.filter(p=>p.connected&&votes[p.id]===choice);}
+export function lobbySeats(players:readonly PlayerInfo[],reserved:readonly PlayerInfo[]=[]){const visible=[...players,...reserved].filter(p=>participating(p)||p.reconnectUntil);return Array.from({length:8},(_,i)=>visible.find(p=>p.lobbySeat===i)??visible.filter(p=>p.lobbySeat===undefined)[i]);}
+export function votersFor(choice:string,votes:Record<string,string>,players:readonly PlayerInfo[]){return players.filter(p=>participating(p)&&votes[p.id]===choice);}
 export function frogStampColor(player:PlayerInfo){return '#'+skinFor(player.appearance).color.toString(16).padStart(6,'0');}
 /** Five splayed toe pads joined by pointed webbing: a frog's hind-foot print. */
 export const footStamp='<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M16 35L8 21 3 17l9 2-1-12 8 12L22 3l4 16L35 9l-4 16 6-3-10 13Q21 39 16 35Z"/><g><circle cx="3" cy="17" r="2.6"/><circle cx="11" cy="7" r="2.6"/><circle cx="22" cy="3.5" r="2.7"/><circle cx="35" cy="9" r="2.6"/><circle cx="37" cy="22" r="2.3"/></g></svg>';

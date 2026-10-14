@@ -8,5 +8,5 @@ export type Command={seq:number;at:number;input:Input};
 export type Snapshot={chaos?:{active:ModifierId[];version:number};frozen?:boolean[];arenaId?:ArenaId;state:PhysicsState;serverTime:number;ack:number[];connected:boolean[];tickMs:{p50:number;p95:number;p99:number;max:number};overruns:number;resetId:number};
 export const NETWORK={snapshotHz:30,inputHz:30,interpolationMs:65,staleInputMs:350,maxPredictionMs:250,correctionSmoothMs:80,snapDistance:2};
 
-export type PlayerInfo={id:string;name:string;connected:boolean;ready:boolean;slot:number;reconnectUntil?:number;appearance?:Appearance};
-export type LobbyState={chaosEnabled?:boolean;mode?:GameMode;arenaId:ArenaId;code:string;phase:'lobby'|'game';hostId:string;players:PlayerInfo[];roster?:PlayerInfo[];notice:string;reconnectSeconds:number};
+export type PlayerInfo={kind?:'human'|'cpu';lobbySeat?:number;cpuOrder?:number;id:string;name:string;connected:boolean;ready:boolean;slot:number;reconnectUntil?:number;appearance?:Appearance};
+export type LobbyState={reserved?:PlayerInfo[];paused?:boolean;chaosEnabled?:boolean;mode?:GameMode;arenaId:ArenaId;code:string;phase:'lobby'|'game';hostId:string;players:PlayerInfo[];roster?:PlayerInfo[];notice:string;reconnectSeconds:number};

@@ -69,4 +69,7 @@ export function chaosERefinementPreservedSource(path:string){let source=stickyPr
 
 export function stickyPreservedSource(path:string){let source=departurePreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/sticky-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
 
-export function departurePreservedSource(path:string){let source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8');const m=JSON.parse(readFileSync(new URL('../docs/departure-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+export function departurePreservedSource(path:string){let source=botPreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/departure-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
+
+/** Reverse only owner-authorized CPU participant adapters before historical preservation checks. */
+export function botPreservedSource(path:string){const source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8'),m=JSON.parse(readFileSync(new URL('../docs/bot-a-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}

@@ -49,6 +49,9 @@ export class Connection {
  async resume(token:string,resumeUntil=Date.now()+30000){if(this.reconnecting)return;if(resumeUntil<=Date.now()){this.expiredResume();return;}this.reconnecting=true;this.busy=!!this.lobby;const attempt=++this.reconnectAttempt;this.stop();try{while(Date.now()<resumeUntil){if(attempt!==this.reconnectAttempt)return;this.status=`Reconnecting… ${Math.max(0,Math.ceil((resumeUntil-Date.now())/1000))}s remaining`;try{const room=await this.client.reconnect(token);if(attempt!==this.reconnectAttempt){await room.leave();return;}this.attach(room);return;}catch(e){if(attempt!==this.reconnectAttempt)return;const error=e as {code?:number;message?:string};if(error.code===4212||error.code===4214||/reconnection token.*(?:invalid|expired)|seat reservation expired|already consumed|room .*?(?:disposed|not found)/i.test(error.message??''))break;await new Promise(r=>setTimeout(r,1000));}}if(attempt===this.reconnectAttempt)this.expiredResume();}finally{if(attempt===this.reconnectAttempt){this.reconnecting=false;this.busy=false;}}}
 
  setAppearance(appearance:Appearance){if(this.status==='connected'&&this.lobby?.phase==='lobby')this.room?.send('appearance',appearance);}
+ addCPU(seat:number){this.room?.send('add-cpu',seat);}
+ removeCPU(id:string){this.room?.send('remove-cpu',id);}
+ cpuAppearance(id:string,appearance:Appearance){this.room?.send('cpu-appearance',{id,appearance});}
  kick(id:string){if(this.status==='connected'&&this.lobby?.phase==='lobby'&&this.lobby.hostId===this.playerId)this.room?.send('kick',id);}
  selectMode(mode:GameMode){if(this.status==='connected')this.room?.send('select-mode',mode);}
  selectArena(id:ArenaId){if(this.status==='connected')this.room?.send('select-arena',id);}

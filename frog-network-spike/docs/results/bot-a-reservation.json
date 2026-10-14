@@ -1,0 +1,6 @@
+{
+  "scope": "Local compiled server, production 30-second reconnect setting, human with manually added CPU; no physical-device claim.",
+  "reservationExpiresMs": 30049,
+  "roomRetainedAt29Seconds": true,
+  "cleanupPassed": true
+}
