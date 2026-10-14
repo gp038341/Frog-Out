@@ -7,3 +7,13 @@
 .cosmetic-choices label{font-size:14px;font-weight:800;display:grid;gap:5px}.cosmetic-choices select{width:100%;min-width:0;min-height:42px;font:inherit;color:#142f35;background:#fff7da;border:2px solid #477e83;border-radius:10px;padding:6px}
 #players .player-card{display:flex;align-items:center;gap:8px}#players .player-portrait{flex:0 0 54px}#players .player-portrait svg{display:block;width:54px;height:45px}#players .player-name{min-width:0;overflow-wrap:anywhere}
 @media(max-width:720px){.frog-preview{flex-basis:90px}.cosmetic-choices{grid-template-columns:1fr;gap:6px}.cosmetic-choices label{grid-template-columns:110px minmax(0,1fr);align-items:center;font-size:12px}.customization-body{gap:8px}#frog-customization{padding:10px}#frog-customization summary{font-size:14px}}
+
+/* Visual candidate: direct access at home and an always-expanded lobby editor. */
+#home .home-intro{min-height:320px;padding-bottom:160px}#home .hero-frog{bottom:42px}
+#home-edit-frog{position:absolute;bottom:0;left:100px;padding:8px 12px;min-height:40px;border-color:#9de0d6;background:#255f65;color:#fff4ca;box-shadow:0 3px 0 #153d45;font-size:13px}#home-edit-frog span{font-size:20px;vertical-align:middle}
+#frog-customization h3{margin:0 0 6px;font-size:18px;color:#173f48}#frog-customization small{font-size:11px}#frog-customization .customization-body{margin:4px 0}
+#customization-dialog{width:min(780px,calc(100vw - 24px))}#customization-dialog #frog-customization{margin:0;box-shadow:none}#customization-dialog h2{margin-bottom:12px}
+#players{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}#players .player-card{min-height:78px;padding:10px;position:relative;min-width:0;flex-wrap:wrap;border-radius:12px}#players .player-name{flex:1;font-size:12px}#players .player-portrait{flex-basis:42px}#players .player-portrait svg{width:42px;height:38px}#players .lobby-kick{min-height:28px;padding:3px 7px;font-size:10px;box-shadow:none;margin:0}#players .empty-slot{border:2px dashed #79aba766;background:#183f483d;color:#a6c8c3;box-shadow:none;font-size:13px;justify-content:center}#players .empty-slot small{display:block;font-size:10px;margin-top:3px;color:#8fb5af}.empty-seat-icon{display:grid;place-items:center;width:32px;height:32px;border:2px dashed #79aba7;border-radius:50%;font-size:23px;line-height:1}
+@media(max-width:900px){#players{grid-template-columns:repeat(2,minmax(0,1fr))}#players .player-card{min-height:64px}}
+@media(max-width:700px){#home .home-intro{min-height:210px;padding-bottom:50px}#home .hero-frog{bottom:46px}#home-edit-frog{left:auto;right:-2px;bottom:0;width:132px;font-size:11px;padding:6px}#frog-customization h3{font-size:15px}}
+@media(max-width:380px){#players{grid-template-columns:1fr}}

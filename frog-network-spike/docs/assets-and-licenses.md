@@ -35,3 +35,5 @@ Bumper stars, balloon shell/core, swap rings and translucent bubbles are origina
 
 ### Chaos E
 Gravity arrows/countdown, warning pulse and Pogo foot bursts are original code-native graphics. Reuse approved original count/go/jump audio cues; no new external assets, fonts, recordings, dependencies or paid resources.
+
+Lobby visual candidate: original code-drawn Chaos badge, frog-foot vote stamps and Frog-Out SVG/PNG favicon created in this repository. No external artwork, fonts or paid assets. Original hero frog and all approved arena/gameplay art retained.
