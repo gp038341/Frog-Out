@@ -72,4 +72,7 @@ export function stickyPreservedSource(path:string){let source=departurePreserved
 export function departurePreservedSource(path:string){let source=botPreservedSource(path);const m=JSON.parse(readFileSync(new URL('../docs/departure-preservation.json',import.meta.url),'utf8'));for(const c of m.files[path]?.changes??[])source=source.replace(c.from,c.to);return source;}
 
 /** Reverse only owner-authorized CPU participant adapters before historical preservation checks. */
-export function botPreservedSource(path:string){const source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8'),m=JSON.parse(readFileSync(new URL('../docs/bot-a-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+export function botPreservedSource(path:string){const source=b1PreservedSource(path),m=JSON.parse(readFileSync(new URL('../docs/bot-a-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+
+/** B1 is a CPU-only controller replacement; retain Bot A historical source checks. */
+export function b1PreservedSource(path:string){const source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8'),m=JSON.parse(readFileSync(new URL('../docs/bot-b1-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}

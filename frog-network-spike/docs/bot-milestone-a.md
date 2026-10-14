@@ -48,3 +48,8 @@ Basic CPUs are intentionally not competitive yet; they may remain on low routes 
 Public smoke check: room creation, independent guest join and host-only CPU controls, CPU hat synchronization, removal/addition preserving Ready, solo start, and a completed Poison Tag round, and a legitimate CPU vote with a colored footprint were observed. A CPU-card grid layout keeps names readable instead of squeezing them beside Remove.
 
 Owner lobby refinement: all eight seats reserve the same 160px outer height before CPUs join. CPU customization scrolls inside its seat if expanded; adding/removing CPUs or opening the editor cannot resize the grid. Width remains responsive at the existing breakpoints. No gameplay changes.
+
+
+## Approved checkpoint and B1 follow-up
+
+Bot A including fixed-size lobby seats is approved at `cc4673064381aec696e2a40fe83203d5389d356a`, checkpoint `checkpoint/approved-bot-milestone-a`. The movement/navigation follow-up is documented in [bot-milestone-b1.md](bot-milestone-b1.md); its playtest candidate does not imply approval of B1.

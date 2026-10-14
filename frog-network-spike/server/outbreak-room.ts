@@ -32,7 +32,7 @@ export class OutbreakRoom extends PartyRoom {
  resumed(p:PlayerInfo){const r=this.outbreak;if(r&&p.slot>=0)r.presence.set(p.slot,true,r.stoppedTick??this.sim.tick,r.startedTick!==null);}
 
  pauseChanged(elapsed:number){if(this.chaos.phase!=='idle')this.chaos.closesAt+=elapsed;for(const cpu of this.cpus.values())cpu.resume(elapsed);}
- controlledInput(i:number){const id=this.matchRoster[i],cpu=this.cpus.get(id);if(!cpu)return undefined;try{return cpu.input(this.sim.frogs[i],this.sim.tick,this.outbreak?.phase==='playing'&&this.chaos.phase==='idle'&&!this.paused,this.outbreak instanceof FreezeRules&&this.outbreak.frozen[i],this.sim.frogChaos.trapped(this.sim.frogs[i]));}catch{return{x:0,y:0,held:false};}}
+ controlledInput(i:number){const id=this.matchRoster[i],cpu=this.cpus.get(id);if(!cpu)return undefined;try{return cpu.input(this.sim.frogs[i],this.sim.tick,this.outbreak?.phase==='playing'&&this.chaos.phase==='idle'&&!this.paused,this.outbreak instanceof FreezeRules&&this.outbreak.frozen[i],this.sim.frogChaos.trapped(this.sim.frogs[i]),this.sim);}catch{return{x:0,y:0,held:false};}}
 
  onCreate(){
   super.onCreate();this.sim.frogChaos.deferContacts=true;const physicsStep=this.sim.step.bind(this.sim);
