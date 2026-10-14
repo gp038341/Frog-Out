@@ -6,7 +6,7 @@
 - Approval checkpoint: `checkpoint/approved-lobby-customization-voting-visuals`.
 - Pre-bot repository: `9925f0bdcd9c17d3ed4192afcdcdca1ed96c0a05` (documentation-only successor).
 - Pre-implementation checkpoint: `checkpoint/pre-bot-milestone-a`.
-- This implementation is a playtest candidate, not owner-approved. See `checkpoint/bot-milestone-a-candidate` for the delivered revision.
+- This implementation is a playtest candidate, not owner-approved. See `checkpoint/bot-milestone-a-playtest` for the delivered revision.
 
 ## Implemented contract
 
@@ -44,3 +44,5 @@ When the last connected human accidentally disconnects, valid human reservations
 8. Verify desktop and mobile landscape controls, original visuals, existing Chaos and human-only play.
 
 Basic CPUs are intentionally not competitive yet; they may remain on low routes or make poor choices. In Poison Tag a passive/basic CPU can prolong a round because its approved mode has no timeout. Bubble-trapped CPUs currently wait safely rather than perform intelligent escape presses. Competent navigation, grappling, rescue strategy and modifier-aware decisions belong to later approved bot milestones. No physical iPhone/Android testing is claimed for this candidate. No hosting configuration, service identity or plan changes.
+
+Public smoke check: room creation, independent guest join and host-only CPU controls, CPU hat synchronization, removal/addition preserving Ready, solo start, and a completed Poison Tag round, and a legitimate CPU vote with a colored footprint were observed. A CPU-card grid layout keeps names readable instead of squeezing them beside Remove.

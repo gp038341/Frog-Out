@@ -29,3 +29,9 @@
 /* CPU lobby controls only; game viewport and input controls are unchanged. */
 .cpu-slot-action{font-size:11px;min-height:32px;padding:5px 8px;margin:2px;box-shadow:none}
 .cpu-editor{width:100%;font-size:11px}.cpu-editor summary{cursor:pointer;padding:5px;color:#b7e4be}.cpu-editor label{display:grid;gap:3px;margin:5px 0;color:#c9decf}.cpu-editor select{max-width:100%;min-width:0;width:100%;font:inherit;min-height:32px;background:#255158;color:#fff4d2;border:1px solid #47736c;border-radius:6px}
+
+#players .cpu-seat{display:grid;grid-template-columns:42px minmax(0,1fr);align-content:start;align-items:center}
+#players .cpu-seat.ready::before{position:absolute;top:4px;right:7px}
+#players .cpu-seat .player-name{grid-column:2;overflow-wrap:anywhere;padding-right:6px}
+#players .cpu-seat .cpu-slot-action,#players .cpu-seat .cpu-editor{grid-column:1 / -1}
+#players .cpu-seat .cpu-slot-action{justify-self:start}
