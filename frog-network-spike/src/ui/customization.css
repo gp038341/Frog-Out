@@ -19,3 +19,9 @@
 @media(max-width:380px){#players{grid-template-columns:1fr}}
 
 #frog-customization .cosmetic-choices label{color:#234850}
+
+/* Refinement: blend the expanded lobby editor into the existing pond panels. */
+#lobby #frog-customization{background:#183f4866;border:1px solid #47736c;color:#c9decf;border-radius:14px;box-shadow:none}
+#lobby #frog-customization h3{color:#c9decf;font-size:16px}
+#lobby #frog-customization .cosmetic-choices label{color:#bcd6cb}
+#lobby #frog-customization .cosmetic-choices select{background:#255158;color:#fff4d2;border-color:#47736c}
