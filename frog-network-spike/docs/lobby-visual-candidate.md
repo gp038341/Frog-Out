@@ -19,3 +19,7 @@ Acceptance: home Edit/Done/Escape, save color/eyes/hat and join; expanded lobby 
 The accepted visual version is recoverable at `998c56d4db613402f047eb0390e5e4c80c382b3a`, checkpoint `checkpoint/accepted-lobby-visuals-before-refinements`.
 
 Only the four requested refinements are included: Sunny Pond sky-blue favicon background (`#8acdd9`), home hero using the existing saved cosmetics portrait with a mouth-rooted tongue, a subdued lobby editor placed immediately below the eight player seats, and frog-shaped colored vote stamps. PNG favicon is exported from the same SVG. No game/input/viewport/physics changes. This refinement remains pending physical/user visual acceptance.
+
+## Mouth, favicon and footprint refinement
+
+Follow-up requested changes only: home hero has an open mouth with its tongue rooted inside; favicon has a brighter smiling lime frog with sky-blue background, light green outlines and rosy cheeks; icon URLs carry a new version to bypass old favicon caches; vote stamp is a five-toed webbed frog hind-foot print. Gameplay and all other visual layouts remain unchanged. User visual approval is pending.
