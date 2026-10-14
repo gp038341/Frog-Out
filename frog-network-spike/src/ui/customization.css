@@ -35,3 +35,7 @@
 #players .cpu-seat .player-name{grid-column:2;overflow-wrap:anywhere;padding-right:6px}
 #players .cpu-seat .cpu-slot-action,#players .cpu-seat .cpu-editor{grid-column:1 / -1}
 #players .cpu-seat .cpu-slot-action{justify-self:start}
+
+/* Reserve CPU-control space up front: empty, human and CPU seats never resize. */
+#players{grid-auto-rows:160px;align-items:stretch}
+#players .player-card{box-sizing:border-box;height:160px;min-height:160px;max-height:160px;overflow:auto}
