@@ -84,4 +84,7 @@ export function b2PreservedSource(path:string){const source=b2rPreservedSource(p
 export function b2rPreservedSource(path:string){const source=b2sPreservedSource(path),m=JSON.parse(readFileSync(new URL('../docs/bot-b2r-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
 
 /** Reverse only the focused B2 pursuit/spring/bubble correction for historical evidence. */
-export function b2sPreservedSource(path:string){const source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8'),m=JSON.parse(readFileSync(new URL('../docs/bot-b2s-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+export function b2sPreservedSource(path:string){const source=b2iPreservedSource(path),m=JSON.parse(readFileSync(new URL('../docs/bot-b2s-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+
+/** Reverse the owner-authorized independent tactics refinement for historical checks. */
+export function b2iPreservedSource(path:string){const source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8'),m=JSON.parse(readFileSync(new URL('../docs/bot-b2i-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}

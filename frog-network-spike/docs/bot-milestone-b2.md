@@ -103,3 +103,7 @@ Stop after deployment and await B2 approval. Do not begin Bot C.
 ## Focused pursuit/spring/bubble playtest candidate
 
 See [the focused B2 correction report](bot-b2-pursuit-spring-bubble.md). B2 remains pending personal approval.
+
+## Independent tactics and opening refinement
+
+See [independent tactics/opening candidate](bot-b2-independent-openings.md). This is a focused B2 playtest candidate; B2 approval and Bot C remain pending.
