@@ -1,4 +1,4 @@
-# Bot B1 — movement, navigation and grappling playtest candidate
+# Bot B1 — approved movement, navigation and grappling baseline
 
 ## Preserved approval
 
@@ -6,7 +6,7 @@ Bot A, including the fixed-size lobby-seat refinement, is preserved at
 `cc4673064381aec696e2a40fe83203d5389d356a`, branch
 `checkpoint/approved-bot-milestone-a`.
 The B1 candidate is identified by `checkpoint/bot-milestone-b1-playtest`.
-B1 is not approved until the owner playtests it. No B2 tactics or modifier-specific AI are included.
+B1 was personally playtested and approved by the owner. Approved revision: `cab49c298b8f8ec33a55d330707040a26f8131b6`, checkpoint `checkpoint/approved-bot-b1-navigation`. Its movement implementation is preserved unchanged by [B2](bot-milestone-b2.md). No modifier-specific AI is included.
 Canonical public service remains https://frog-out.onrender.com/ (existing free Render service).
 
 ## Architecture and behavior

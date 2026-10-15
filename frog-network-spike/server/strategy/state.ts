@@ -1,0 +1,4 @@
+import type {OutbreakView} from '../../src/game/outbreak';
+/** Deliberately excludes identities, human/CPU kind, future role order, random seeds and opponent inputs. */
+export type TacticalState={mode:'poison'|'freeze'|'classic';phase:string;round:number;tagger:number;remainingMs:number;players:{present:boolean;poisoned:boolean;infectious:boolean;frozen:boolean;protectedUntil:number}[]};
+export function tacticalState(v:OutbreakView):TacticalState{return{mode:v.mode??'poison',phase:v.phase,round:v.round,tagger:v.classic?.it??v.freeze?.freezer??v.patientZero,remainingMs:v.remainingMs,players:v.players.map((p,i)=>({present:p.present!==false,poisoned:p.state!=='healthy',infectious:p.state==='infectious',frozen:v.freeze?.frozen[i]??false,protectedUntil:v.classic?.protectedUntil??v.freeze?.protectedUntil[i]??0}))};}

@@ -1,0 +1,3789 @@
+{
+  "scope": "Deterministic real Planck physics, normalized AI input only. Local Node/tsx measurements, not physical-device or Render capacity claims. Course limit 15s; arena limit 30s. Success means center enters 0.85m destination radius (spring routes may be fly-throughs, not retained landings).",
+  "seeds": [
+    1,
+    23,
+    123,
+    999,
+    7001
+  ],
+  "courseResults": [
+    {
+      "course": "same-platform",
+      "seed": 1,
+      "success": true,
+      "seconds": 0.9833333333333333,
+      "closestDistance": 0.7795227443807617,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 11
+      }
+    },
+    {
+      "course": "same-platform",
+      "seed": 23,
+      "success": true,
+      "seconds": 0.9833333333333333,
+      "closestDistance": 0.7795227443807617,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 11
+      }
+    },
+    {
+      "course": "same-platform",
+      "seed": 123,
+      "success": true,
+      "seconds": 0.9833333333333333,
+      "closestDistance": 0.7795227443807617,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 11
+      }
+    },
+    {
+      "course": "same-platform",
+      "seed": 999,
+      "success": true,
+      "seconds": 0.9833333333333333,
+      "closestDistance": 0.7795227443807617,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 11
+      }
+    },
+    {
+      "course": "same-platform",
+      "seed": 7001,
+      "success": true,
+      "seconds": 0.9833333333333333,
+      "closestDistance": 0.7795227443807617,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 11
+      }
+    },
+    {
+      "course": "normal-jump",
+      "seed": 1,
+      "success": true,
+      "seconds": 1.4,
+      "closestDistance": 0.768169254349478,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 14
+      }
+    },
+    {
+      "course": "normal-jump",
+      "seed": 23,
+      "success": true,
+      "seconds": 1.4,
+      "closestDistance": 0.768169254349478,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 14
+      }
+    },
+    {
+      "course": "normal-jump",
+      "seed": 123,
+      "success": true,
+      "seconds": 1.4,
+      "closestDistance": 0.768169254349478,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 14
+      }
+    },
+    {
+      "course": "normal-jump",
+      "seed": 999,
+      "success": true,
+      "seconds": 1.4166666666666667,
+      "closestDistance": 0.768169254349478,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 14
+      }
+    },
+    {
+      "course": "normal-jump",
+      "seed": 7001,
+      "success": true,
+      "seconds": 1.4333333333333333,
+      "closestDistance": 0.768169254349478,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 14
+      }
+    },
+    {
+      "course": "charged-jump",
+      "seed": 1,
+      "success": true,
+      "seconds": 2.5,
+      "closestDistance": 0.8250281825841321,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 16
+      }
+    },
+    {
+      "course": "charged-jump",
+      "seed": 23,
+      "success": true,
+      "seconds": 2.5,
+      "closestDistance": 0.8250281825841321,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 16
+      }
+    },
+    {
+      "course": "charged-jump",
+      "seed": 123,
+      "success": true,
+      "seconds": 2.5,
+      "closestDistance": 0.8250281825841321,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 16
+      }
+    },
+    {
+      "course": "charged-jump",
+      "seed": 999,
+      "success": true,
+      "seconds": 2.5166666666666666,
+      "closestDistance": 0.8250281825841321,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 16
+      }
+    },
+    {
+      "course": "charged-jump",
+      "seed": 7001,
+      "success": true,
+      "seconds": 2.533333333333333,
+      "closestDistance": 0.8250281825841321,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 16
+      }
+    },
+    {
+      "course": "gap-crossing",
+      "seed": 1,
+      "success": true,
+      "seconds": 1.8,
+      "closestDistance": 0.764004959501949,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 18
+      }
+    },
+    {
+      "course": "gap-crossing",
+      "seed": 23,
+      "success": true,
+      "seconds": 1.8,
+      "closestDistance": 0.764004959501949,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 18
+      }
+    },
+    {
+      "course": "gap-crossing",
+      "seed": 123,
+      "success": true,
+      "seconds": 1.8,
+      "closestDistance": 0.764004959501949,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 18
+      }
+    },
+    {
+      "course": "gap-crossing",
+      "seed": 999,
+      "success": true,
+      "seconds": 1.8166666666666667,
+      "closestDistance": 0.764004959501949,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 18
+      }
+    },
+    {
+      "course": "gap-crossing",
+      "seed": 7001,
+      "success": true,
+      "seconds": 1.8333333333333333,
+      "closestDistance": 0.764004959501949,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 18
+      }
+    },
+    {
+      "course": "grapple-swing-release",
+      "seed": 1,
+      "success": true,
+      "seconds": 5.383333333333334,
+      "closestDistance": 0.804599965367912,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 3,
+        "attachments": 3,
+        "releases": 3,
+        "swings": 23,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 19
+      }
+    },
+    {
+      "course": "grapple-swing-release",
+      "seed": 23,
+      "success": true,
+      "seconds": 5.383333333333334,
+      "closestDistance": 0.804599965367912,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 3,
+        "attachments": 3,
+        "releases": 3,
+        "swings": 23,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 19
+      }
+    },
+    {
+      "course": "grapple-swing-release",
+      "seed": 123,
+      "success": true,
+      "seconds": 5.383333333333334,
+      "closestDistance": 0.804599965367912,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 3,
+        "attachments": 3,
+        "releases": 3,
+        "swings": 23,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 19
+      }
+    },
+    {
+      "course": "grapple-swing-release",
+      "seed": 999,
+      "success": true,
+      "seconds": 5.033333333333333,
+      "closestDistance": 0.7573323466166955,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 3,
+        "attachments": 3,
+        "releases": 3,
+        "swings": 22,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 19
+      }
+    },
+    {
+      "course": "grapple-swing-release",
+      "seed": 7001,
+      "success": true,
+      "seconds": 2.05,
+      "closestDistance": 0.8492160812616907,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 1,
+        "attachments": 1,
+        "releases": 1,
+        "swings": 5,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 7
+      }
+    }
+  ],
+  "arenaResults": [
+    {
+      "arena": "sunny-pond",
+      "level": 0,
+      "seed": 1,
+      "goal": {
+        "x": 34,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 6.4,
+      "closestDistance": 0.7153398814732507,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 55
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 0,
+      "seed": 23,
+      "goal": {
+        "x": 34,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 6.4,
+      "closestDistance": 0.7153398814732507,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 55
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 0,
+      "seed": 123,
+      "goal": {
+        "x": 34,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 6.4,
+      "closestDistance": 0.7153398814732507,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 55
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 0,
+      "seed": 999,
+      "goal": {
+        "x": 34,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 6.416666666666667,
+      "closestDistance": 0.7618263513822595,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 55
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 0,
+      "seed": 7001,
+      "goal": {
+        "x": 34,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 6.433333333333334,
+      "closestDistance": 0.7618263513822595,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 55
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 1,
+      "seed": 1,
+      "goal": {
+        "x": 6,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 2.3833333333333333,
+      "closestDistance": 0.7958460290836796,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 15
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 1,
+      "seed": 23,
+      "goal": {
+        "x": 6,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 2.3833333333333333,
+      "closestDistance": 0.7958460290836796,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 15
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 1,
+      "seed": 123,
+      "goal": {
+        "x": 6,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 2.3833333333333333,
+      "closestDistance": 0.7958460290836796,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 15
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 1,
+      "seed": 999,
+      "goal": {
+        "x": 6,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 2.4,
+      "closestDistance": 0.7967948375299815,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 15
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 1,
+      "seed": 7001,
+      "goal": {
+        "x": 6,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 2.4166666666666665,
+      "closestDistance": 0.7967948375303405,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 15
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 2,
+      "seed": 1,
+      "goal": {
+        "x": 27,
+        "y": 15.215
+      },
+      "success": true,
+      "seconds": 6.083333333333333,
+      "closestDistance": 0.7306863166683649,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 52
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 2,
+      "seed": 23,
+      "goal": {
+        "x": 27,
+        "y": 15.215
+      },
+      "success": true,
+      "seconds": 6.083333333333333,
+      "closestDistance": 0.7306863166683649,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 52
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 2,
+      "seed": 123,
+      "goal": {
+        "x": 27,
+        "y": 15.215
+      },
+      "success": true,
+      "seconds": 6.083333333333333,
+      "closestDistance": 0.7306863166683649,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 52
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 2,
+      "seed": 999,
+      "goal": {
+        "x": 27,
+        "y": 15.215
+      },
+      "success": true,
+      "seconds": 6.1,
+      "closestDistance": 0.7306863166683649,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 52
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 2,
+      "seed": 7001,
+      "goal": {
+        "x": 27,
+        "y": 15.215
+      },
+      "success": true,
+      "seconds": 6.116666666666666,
+      "closestDistance": 0.7306863166683649,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 52
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 3,
+      "seed": 1,
+      "goal": {
+        "x": 13,
+        "y": 15.215
+      },
+      "success": true,
+      "seconds": 3.716666666666667,
+      "closestDistance": 0.8450654670407065,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 28
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 3,
+      "seed": 23,
+      "goal": {
+        "x": 13,
+        "y": 15.215
+      },
+      "success": true,
+      "seconds": 3.716666666666667,
+      "closestDistance": 0.8450654670407065,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 28
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 3,
+      "seed": 123,
+      "goal": {
+        "x": 13,
+        "y": 15.215
+      },
+      "success": true,
+      "seconds": 3.716666666666667,
+      "closestDistance": 0.8450654670407065,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 28
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 3,
+      "seed": 999,
+      "goal": {
+        "x": 13,
+        "y": 15.215
+      },
+      "success": true,
+      "seconds": 3.7333333333333334,
+      "closestDistance": 0.8450654670407065,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 28
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "level": 3,
+      "seed": 7001,
+      "goal": {
+        "x": 13,
+        "y": 15.215
+      },
+      "success": true,
+      "seconds": 3.75,
+      "closestDistance": 0.8450654670407065,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 28
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 0,
+      "seed": 1,
+      "goal": {
+        "x": 8,
+        "y": 16.965
+      },
+      "success": true,
+      "seconds": 2.4,
+      "closestDistance": 0.7884230797586725,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 17
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 0,
+      "seed": 23,
+      "goal": {
+        "x": 8,
+        "y": 16.965
+      },
+      "success": true,
+      "seconds": 2.4,
+      "closestDistance": 0.7884230797586725,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 17
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 0,
+      "seed": 123,
+      "goal": {
+        "x": 8,
+        "y": 16.965
+      },
+      "success": true,
+      "seconds": 2.4,
+      "closestDistance": 0.7884230797586725,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 17
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 0,
+      "seed": 999,
+      "goal": {
+        "x": 8,
+        "y": 16.965
+      },
+      "success": true,
+      "seconds": 2.4166666666666665,
+      "closestDistance": 0.7826520786939882,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 17
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 0,
+      "seed": 7001,
+      "goal": {
+        "x": 8,
+        "y": 16.965
+      },
+      "success": true,
+      "seconds": 2.4166666666666665,
+      "closestDistance": 0.8272530751434107,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 16
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 1,
+      "seed": 1,
+      "goal": {
+        "x": 30,
+        "y": 16.065
+      },
+      "success": true,
+      "seconds": 11.166666666666666,
+      "closestDistance": 0.7118890856824427,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 1,
+        "plans": 100
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 1,
+      "seed": 23,
+      "goal": {
+        "x": 30,
+        "y": 16.065
+      },
+      "success": true,
+      "seconds": 11.166666666666666,
+      "closestDistance": 0.7118890856824427,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 1,
+        "plans": 100
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 1,
+      "seed": 123,
+      "goal": {
+        "x": 30,
+        "y": 16.065
+      },
+      "success": true,
+      "seconds": 11.166666666666666,
+      "closestDistance": 0.7118890856824427,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 1,
+        "plans": 100
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 1,
+      "seed": 999,
+      "goal": {
+        "x": 30,
+        "y": 16.065
+      },
+      "success": true,
+      "seconds": 11.183333333333334,
+      "closestDistance": 0.7921663754264291,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 1,
+        "plans": 100
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 1,
+      "seed": 7001,
+      "goal": {
+        "x": 30,
+        "y": 16.065
+      },
+      "success": true,
+      "seconds": 11.216666666666667,
+      "closestDistance": 0.6861757027940099,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 1,
+        "plans": 100
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 2,
+      "seed": 1,
+      "goal": {
+        "x": 19,
+        "y": 12.015
+      },
+      "success": true,
+      "seconds": 9.116666666666667,
+      "closestDistance": 0.6958916977514342,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 3,
+        "attachments": 3,
+        "releases": 3,
+        "swings": 35,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 35
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 2,
+      "seed": 23,
+      "goal": {
+        "x": 19,
+        "y": 12.015
+      },
+      "success": true,
+      "seconds": 9.116666666666667,
+      "closestDistance": 0.6958916977514342,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 3,
+        "attachments": 3,
+        "releases": 3,
+        "swings": 35,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 35
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 2,
+      "seed": 123,
+      "goal": {
+        "x": 19,
+        "y": 12.015
+      },
+      "success": true,
+      "seconds": 9.116666666666667,
+      "closestDistance": 0.6958916977514342,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 3,
+        "attachments": 3,
+        "releases": 3,
+        "swings": 35,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 35
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 2,
+      "seed": 999,
+      "goal": {
+        "x": 19,
+        "y": 12.015
+      },
+      "success": true,
+      "seconds": 8.166666666666666,
+      "closestDistance": 0.7719076574270622,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 3,
+        "attachments": 3,
+        "releases": 3,
+        "swings": 26,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 34
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 2,
+      "seed": 7001,
+      "goal": {
+        "x": 19,
+        "y": 12.015
+      },
+      "success": true,
+      "seconds": 11.466666666666667,
+      "closestDistance": 0.7751575593566287,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 5,
+        "attachments": 5,
+        "releases": 4,
+        "swings": 35,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 45
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 3,
+      "seed": 1,
+      "goal": {
+        "x": 6.000000000000001,
+        "y": 7.915
+      },
+      "success": false,
+      "seconds": null,
+      "closestDistance": 2.611657816933679,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 4,
+        "charges": 4,
+        "shots": 13,
+        "attachments": 10,
+        "releases": 8,
+        "swings": 72,
+        "misses": 3,
+        "recoveries": 2,
+        "plans": 102
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 3,
+      "seed": 23,
+      "goal": {
+        "x": 6.000000000000001,
+        "y": 7.915
+      },
+      "success": false,
+      "seconds": null,
+      "closestDistance": 2.611657816933679,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 4,
+        "charges": 4,
+        "shots": 13,
+        "attachments": 10,
+        "releases": 8,
+        "swings": 72,
+        "misses": 3,
+        "recoveries": 2,
+        "plans": 102
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 3,
+      "seed": 123,
+      "goal": {
+        "x": 6.000000000000001,
+        "y": 7.915
+      },
+      "success": false,
+      "seconds": null,
+      "closestDistance": 2.611657816933679,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 3,
+        "charges": 3,
+        "shots": 13,
+        "attachments": 10,
+        "releases": 9,
+        "swings": 71,
+        "misses": 2,
+        "recoveries": 2,
+        "plans": 101
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 3,
+      "seed": 999,
+      "goal": {
+        "x": 6.000000000000001,
+        "y": 7.915
+      },
+      "success": false,
+      "seconds": null,
+      "closestDistance": 2.16544386293228,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 3,
+        "charges": 3,
+        "shots": 11,
+        "attachments": 10,
+        "releases": 8,
+        "swings": 71,
+        "misses": 1,
+        "recoveries": 2,
+        "plans": 105
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "level": 3,
+      "seed": 7001,
+      "goal": {
+        "x": 6.000000000000001,
+        "y": 7.915
+      },
+      "success": true,
+      "seconds": 17.05,
+      "closestDistance": 0.7314892586789203,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 7,
+        "attachments": 6,
+        "releases": 5,
+        "swings": 54,
+        "misses": 1,
+        "recoveries": 1,
+        "plans": 60
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 0,
+      "seed": 1,
+      "goal": {
+        "x": 33,
+        "y": 15.265
+      },
+      "success": true,
+      "seconds": 6.433333333333334,
+      "closestDistance": 0.8180565395673438,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 57
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 0,
+      "seed": 23,
+      "goal": {
+        "x": 33,
+        "y": 15.265
+      },
+      "success": true,
+      "seconds": 6.433333333333334,
+      "closestDistance": 0.8180565395673438,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 57
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 0,
+      "seed": 123,
+      "goal": {
+        "x": 33,
+        "y": 15.265
+      },
+      "success": true,
+      "seconds": 6.433333333333334,
+      "closestDistance": 0.8180565395673438,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 57
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 0,
+      "seed": 999,
+      "goal": {
+        "x": 33,
+        "y": 15.265
+      },
+      "success": true,
+      "seconds": 6.45,
+      "closestDistance": 0.8180565395673438,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 57
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 0,
+      "seed": 7001,
+      "goal": {
+        "x": 33,
+        "y": 15.265
+      },
+      "success": true,
+      "seconds": 6.466666666666667,
+      "closestDistance": 0.8180565395673438,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 57
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 1,
+      "seed": 1,
+      "goal": {
+        "x": 7.000000000000001,
+        "y": 15.265
+      },
+      "success": true,
+      "seconds": 2.55,
+      "closestDistance": 0.7561287942498351,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 18
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 1,
+      "seed": 23,
+      "goal": {
+        "x": 7.000000000000001,
+        "y": 15.265
+      },
+      "success": true,
+      "seconds": 2.55,
+      "closestDistance": 0.7561287942498351,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 18
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 1,
+      "seed": 123,
+      "goal": {
+        "x": 7.000000000000001,
+        "y": 15.265
+      },
+      "success": true,
+      "seconds": 2.55,
+      "closestDistance": 0.7561287942498351,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 18
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 1,
+      "seed": 999,
+      "goal": {
+        "x": 7.000000000000001,
+        "y": 15.265
+      },
+      "success": true,
+      "seconds": 2.566666666666667,
+      "closestDistance": 0.756128794246995,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 18
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 1,
+      "seed": 7001,
+      "goal": {
+        "x": 7.000000000000001,
+        "y": 15.265
+      },
+      "success": true,
+      "seconds": 2.5833333333333335,
+      "closestDistance": 0.7561287942447207,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 18
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 2,
+      "seed": 1,
+      "goal": {
+        "x": 28,
+        "y": 10.765
+      },
+      "success": true,
+      "seconds": 9.1,
+      "closestDistance": 0.7643620189079352,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 3,
+        "attachments": 3,
+        "releases": 2,
+        "swings": 8,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 57
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 2,
+      "seed": 23,
+      "goal": {
+        "x": 28,
+        "y": 10.765
+      },
+      "success": true,
+      "seconds": 9.1,
+      "closestDistance": 0.7643620189079352,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 3,
+        "attachments": 3,
+        "releases": 2,
+        "swings": 8,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 57
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 2,
+      "seed": 123,
+      "goal": {
+        "x": 28,
+        "y": 10.765
+      },
+      "success": true,
+      "seconds": 9.1,
+      "closestDistance": 0.7643620189079352,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 3,
+        "attachments": 3,
+        "releases": 2,
+        "swings": 8,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 57
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 2,
+      "seed": 999,
+      "goal": {
+        "x": 28,
+        "y": 10.765
+      },
+      "success": true,
+      "seconds": 6.95,
+      "closestDistance": 0.8476339841479635,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 1,
+        "attachments": 1,
+        "releases": 1,
+        "swings": 7,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 52
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 2,
+      "seed": 7001,
+      "goal": {
+        "x": 28,
+        "y": 10.765
+      },
+      "success": true,
+      "seconds": 6.983333333333333,
+      "closestDistance": 0.8129884855177315,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 1,
+        "attachments": 1,
+        "releases": 1,
+        "swings": 7,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 52
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 3,
+      "seed": 1,
+      "goal": {
+        "x": 12,
+        "y": 10.765
+      },
+      "success": true,
+      "seconds": 19.85,
+      "closestDistance": 0.8189476195710964,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 3,
+        "charges": 3,
+        "shots": 11,
+        "attachments": 7,
+        "releases": 7,
+        "swings": 39,
+        "misses": 2,
+        "recoveries": 2,
+        "plans": 91
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 3,
+      "seed": 23,
+      "goal": {
+        "x": 12,
+        "y": 10.765
+      },
+      "success": true,
+      "seconds": 19.85,
+      "closestDistance": 0.8189476195710964,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 3,
+        "charges": 3,
+        "shots": 11,
+        "attachments": 7,
+        "releases": 7,
+        "swings": 39,
+        "misses": 2,
+        "recoveries": 2,
+        "plans": 91
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 3,
+      "seed": 123,
+      "goal": {
+        "x": 12,
+        "y": 10.765
+      },
+      "success": true,
+      "seconds": 19.833333333333332,
+      "closestDistance": 0.818947619285401,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 3,
+        "charges": 3,
+        "shots": 11,
+        "attachments": 7,
+        "releases": 7,
+        "swings": 39,
+        "misses": 2,
+        "recoveries": 2,
+        "plans": 91
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 3,
+      "seed": 999,
+      "goal": {
+        "x": 12,
+        "y": 10.765
+      },
+      "success": true,
+      "seconds": 14.566666666666666,
+      "closestDistance": 0.805148002545225,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 3,
+        "charges": 3,
+        "shots": 5,
+        "attachments": 4,
+        "releases": 3,
+        "swings": 32,
+        "misses": 1,
+        "recoveries": 1,
+        "plans": 75
+      }
+    },
+    {
+      "arena": "canopy",
+      "level": 3,
+      "seed": 7001,
+      "goal": {
+        "x": 12,
+        "y": 10.765
+      },
+      "success": true,
+      "seconds": 14.55,
+      "closestDistance": 0.7318700034126245,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 3,
+        "charges": 3,
+        "shots": 5,
+        "attachments": 4,
+        "releases": 3,
+        "swings": 32,
+        "misses": 1,
+        "recoveries": 1,
+        "plans": 75
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 0,
+      "seed": 1,
+      "goal": {
+        "x": 7,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 2.5166666666666666,
+      "closestDistance": 0.7636636716049559,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 18
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 0,
+      "seed": 23,
+      "goal": {
+        "x": 7,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 2.5166666666666666,
+      "closestDistance": 0.7636636716049559,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 18
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 0,
+      "seed": 123,
+      "goal": {
+        "x": 7,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 2.5166666666666666,
+      "closestDistance": 0.7636636716049559,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 18
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 0,
+      "seed": 999,
+      "goal": {
+        "x": 7,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 2.466666666666667,
+      "closestDistance": 0.8413468980576433,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 17
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 0,
+      "seed": 7001,
+      "goal": {
+        "x": 7,
+        "y": 16.915
+      },
+      "success": true,
+      "seconds": 2.4833333333333334,
+      "closestDistance": 0.8413468980547935,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 17
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 1,
+      "seed": 1,
+      "goal": {
+        "x": 30,
+        "y": 16.165
+      },
+      "success": true,
+      "seconds": 5.816666666666666,
+      "closestDistance": 0.7859668575929504,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 49
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 1,
+      "seed": 23,
+      "goal": {
+        "x": 30,
+        "y": 16.165
+      },
+      "success": true,
+      "seconds": 5.816666666666666,
+      "closestDistance": 0.7859668575929504,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 49
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 1,
+      "seed": 123,
+      "goal": {
+        "x": 30,
+        "y": 16.165
+      },
+      "success": true,
+      "seconds": 5.816666666666666,
+      "closestDistance": 0.7859668575929504,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 49
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 1,
+      "seed": 999,
+      "goal": {
+        "x": 30,
+        "y": 16.165
+      },
+      "success": true,
+      "seconds": 5.833333333333333,
+      "closestDistance": 0.7859668575929504,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 49
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 1,
+      "seed": 7001,
+      "goal": {
+        "x": 30,
+        "y": 16.165
+      },
+      "success": true,
+      "seconds": 5.85,
+      "closestDistance": 0.7859668575929504,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 49
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 2,
+      "seed": 1,
+      "goal": {
+        "x": 15,
+        "y": 13.218136653761643
+      },
+      "success": true,
+      "seconds": 9.5,
+      "closestDistance": 0.8403990652630839,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 4,
+        "attachments": 3,
+        "releases": 3,
+        "swings": 36,
+        "misses": 1,
+        "recoveries": 0,
+        "plans": 41
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 2,
+      "seed": 23,
+      "goal": {
+        "x": 15,
+        "y": 13.218136653761643
+      },
+      "success": true,
+      "seconds": 9.5,
+      "closestDistance": 0.8403990652630839,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 4,
+        "attachments": 3,
+        "releases": 3,
+        "swings": 36,
+        "misses": 1,
+        "recoveries": 0,
+        "plans": 41
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 2,
+      "seed": 123,
+      "goal": {
+        "x": 15,
+        "y": 13.218136653761643
+      },
+      "success": true,
+      "seconds": 9.5,
+      "closestDistance": 0.8403990652630839,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 4,
+        "attachments": 3,
+        "releases": 3,
+        "swings": 36,
+        "misses": 1,
+        "recoveries": 0,
+        "plans": 41
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 2,
+      "seed": 999,
+      "goal": {
+        "x": 15,
+        "y": 13.218136653761643
+      },
+      "success": true,
+      "seconds": 13.716666666666667,
+      "closestDistance": 0.8040030829632907,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 4,
+        "attachments": 4,
+        "releases": 4,
+        "swings": 48,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 52
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 2,
+      "seed": 7001,
+      "goal": {
+        "x": 15,
+        "y": 13.218136653761643
+      },
+      "success": true,
+      "seconds": 10.033333333333333,
+      "closestDistance": 0.8426104396432068,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 3,
+        "attachments": 2,
+        "releases": 2,
+        "swings": 31,
+        "misses": 1,
+        "recoveries": 0,
+        "plans": 48
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 3,
+      "seed": 1,
+      "goal": {
+        "x": 35,
+        "y": 10.315000000000001
+      },
+      "success": false,
+      "seconds": null,
+      "closestDistance": 2.3585671782967115,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 11,
+        "attachments": 9,
+        "releases": 8,
+        "swings": 60,
+        "misses": 2,
+        "recoveries": 2,
+        "plans": 149
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 3,
+      "seed": 23,
+      "goal": {
+        "x": 35,
+        "y": 10.315000000000001
+      },
+      "success": false,
+      "seconds": null,
+      "closestDistance": 2.3585671782967115,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 11,
+        "attachments": 9,
+        "releases": 8,
+        "swings": 60,
+        "misses": 2,
+        "recoveries": 2,
+        "plans": 149
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 3,
+      "seed": 123,
+      "goal": {
+        "x": 35,
+        "y": 10.315000000000001
+      },
+      "success": false,
+      "seconds": null,
+      "closestDistance": 2.3585671782967115,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 11,
+        "attachments": 9,
+        "releases": 8,
+        "swings": 60,
+        "misses": 2,
+        "recoveries": 2,
+        "plans": 149
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 3,
+      "seed": 999,
+      "goal": {
+        "x": 35,
+        "y": 10.315000000000001
+      },
+      "success": true,
+      "seconds": 20.933333333333334,
+      "closestDistance": 0.8234301843542098,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 7,
+        "attachments": 7,
+        "releases": 6,
+        "swings": 44,
+        "misses": 0,
+        "recoveries": 1,
+        "plans": 94
+      }
+    },
+    {
+      "arena": "toyshop",
+      "level": 3,
+      "seed": 7001,
+      "goal": {
+        "x": 35,
+        "y": 10.315000000000001
+      },
+      "success": false,
+      "seconds": null,
+      "closestDistance": 2.522293715403796,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 3,
+        "charges": 3,
+        "shots": 13,
+        "attachments": 13,
+        "releases": 10,
+        "swings": 74,
+        "misses": 0,
+        "recoveries": 2,
+        "plans": 123
+      }
+    }
+  ],
+  "performanceResults": [
+    {
+      "arena": "sunny-pond",
+      "count": 1,
+      "ai": false,
+      "controllerMs": {
+        "mean": 0.00023666622807055367,
+        "p50": 0.00015000000007603376,
+        "p95": 0.0003600000000005821,
+        "p99": 0.00056100000006154,
+        "max": 0.03750600000000759
+      },
+      "tickMs": {
+        "mean": 0.009214968421052386,
+        "p50": 0.007581999999956679,
+        "p95": 0.017024999999989632,
+        "p99": 0.036995000000047185,
+        "max": 0.36548800000002757
+      },
+      "activity": [
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        }
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "count": 1,
+      "ai": true,
+      "controllerMs": {
+        "mean": 0.00593016359649196,
+        "p50": 0.001372000000060325,
+        "p95": 0.027940999999941596,
+        "p99": 0.05070499999999356,
+        "max": 0.4472179999999071
+      },
+      "tickMs": {
+        "mean": 0.013869066666665986,
+        "p50": 0.008532999999943058,
+        "p95": 0.039839000000029046,
+        "p99": 0.07476999999994405,
+        "max": 0.46437299999990955
+      },
+      "activity": [
+        {
+          "goals": 7,
+          "arrivals": 3,
+          "jumps": 5,
+          "charges": 4,
+          "shots": 11,
+          "attachments": 11,
+          "releases": 10,
+          "swings": 58,
+          "misses": 0,
+          "recoveries": 3,
+          "plans": 205
+        }
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "count": 8,
+      "ai": false,
+      "controllerMs": {
+        "mean": 0.0007186697368405448,
+        "p50": 0.0005400000000008731,
+        "p95": 0.0011509999999361753,
+        "p99": 0.001422000000047774,
+        "max": 0.04037999999991371
+      },
+      "tickMs": {
+        "mean": 0.05715805570175261,
+        "p50": 0.04652800000008028,
+        "p95": 0.08248200000002726,
+        "p99": 0.11271499999998014,
+        "max": 0.5636899999999514
+      },
+      "activity": [
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        }
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "count": 8,
+      "ai": true,
+      "controllerMs": {
+        "mean": 0.013631978070176793,
+        "p50": 0.006379000000151791,
+        "p95": 0.045547000000169646,
+        "p99": 0.07864599999993516,
+        "max": 0.34769200000005185
+      },
+      "tickMs": {
+        "mean": 0.06252939561403666,
+        "p50": 0.05106500000010783,
+        "p95": 0.13567999999986569,
+        "p99": 0.2069739999999456,
+        "max": 0.6429259999999886
+      },
+      "activity": [
+        {
+          "goals": 6,
+          "arrivals": 0,
+          "jumps": 5,
+          "charges": 5,
+          "shots": 13,
+          "attachments": 9,
+          "releases": 7,
+          "swings": 45,
+          "misses": 3,
+          "recoveries": 5,
+          "plans": 251
+        },
+        {
+          "goals": 6,
+          "arrivals": 3,
+          "jumps": 4,
+          "charges": 4,
+          "shots": 13,
+          "attachments": 11,
+          "releases": 10,
+          "swings": 65,
+          "misses": 2,
+          "recoveries": 2,
+          "plans": 216
+        },
+        {
+          "goals": 6,
+          "arrivals": 2,
+          "jumps": 6,
+          "charges": 6,
+          "shots": 8,
+          "attachments": 6,
+          "releases": 6,
+          "swings": 35,
+          "misses": 2,
+          "recoveries": 3,
+          "plans": 288
+        },
+        {
+          "goals": 5,
+          "arrivals": 3,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 20,
+          "attachments": 18,
+          "releases": 16,
+          "swings": 143,
+          "misses": 2,
+          "recoveries": 1,
+          "plans": 128
+        },
+        {
+          "goals": 5,
+          "arrivals": 1,
+          "jumps": 6,
+          "charges": 5,
+          "shots": 20,
+          "attachments": 13,
+          "releases": 11,
+          "swings": 91,
+          "misses": 7,
+          "recoveries": 3,
+          "plans": 191
+        },
+        {
+          "goals": 9,
+          "arrivals": 4,
+          "jumps": 6,
+          "charges": 5,
+          "shots": 13,
+          "attachments": 9,
+          "releases": 8,
+          "swings": 46,
+          "misses": 3,
+          "recoveries": 4,
+          "plans": 238
+        },
+        {
+          "goals": 7,
+          "arrivals": 2,
+          "jumps": 5,
+          "charges": 5,
+          "shots": 8,
+          "attachments": 8,
+          "releases": 7,
+          "swings": 43,
+          "misses": 0,
+          "recoveries": 4,
+          "plans": 246
+        },
+        {
+          "goals": 6,
+          "arrivals": 0,
+          "jumps": 5,
+          "charges": 5,
+          "shots": 14,
+          "attachments": 9,
+          "releases": 8,
+          "swings": 53,
+          "misses": 5,
+          "recoveries": 5,
+          "plans": 229
+        }
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "count": 1,
+      "ai": false,
+      "controllerMs": {
+        "mean": 0.00016487850877065842,
+        "p50": 0.00010999999994965037,
+        "p95": 0.000210000000151922,
+        "p99": 0.0003400000000510772,
+        "max": 0.0977139999999963
+      },
+      "tickMs": {
+        "mean": 0.008004948245613114,
+        "p50": 0.00705999999991036,
+        "p95": 0.00934400000005553,
+        "p99": 0.033739999999852444,
+        "max": 0.2865509999999176
+      },
+      "activity": [
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        }
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "count": 1,
+      "ai": true,
+      "controllerMs": {
+        "mean": 0.0033891570175444883,
+        "p50": 0.0005000000001018634,
+        "p95": 0.01952900000014779,
+        "p99": 0.028240999999979977,
+        "max": 0.05840499999999338
+      },
+      "tickMs": {
+        "mean": 0.010304731140349719,
+        "p50": 0.007180000000062137,
+        "p95": 0.027270000000044092,
+        "p99": 0.04732899999999063,
+        "max": 0.37506200000007084
+      },
+      "activity": [
+        {
+          "goals": 6,
+          "arrivals": 1,
+          "jumps": 6,
+          "charges": 6,
+          "shots": 16,
+          "attachments": 16,
+          "releases": 12,
+          "swings": 72,
+          "misses": 0,
+          "recoveries": 4,
+          "plans": 171
+        }
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "count": 8,
+      "ai": false,
+      "controllerMs": {
+        "mean": 0.0003978951754391889,
+        "p50": 0.0003410000001622393,
+        "p95": 0.0005909999999857973,
+        "p99": 0.0007810000001882145,
+        "max": 0.01471199999991768
+      },
+      "tickMs": {
+        "mean": 0.046562086403511026,
+        "p50": 0.04381499999999505,
+        "p95": 0.059847999999874446,
+        "p99": 0.08888099999990118,
+        "max": 0.5461440000001403
+      },
+      "activity": [
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        }
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "count": 8,
+      "ai": true,
+      "controllerMs": {
+        "mean": 0.0119267127192962,
+        "p50": 0.0057189999999991414,
+        "p95": 0.038206000000172935,
+        "p99": 0.06552699999997458,
+        "max": 0.2689050000001316
+      },
+      "tickMs": {
+        "mean": 0.05942023771929492,
+        "p50": 0.050884999999880165,
+        "p95": 0.11475900000004913,
+        "p99": 0.17015999999989617,
+        "max": 1.5638209999999617
+      },
+      "activity": [
+        {
+          "goals": 5,
+          "arrivals": 1,
+          "jumps": 6,
+          "charges": 6,
+          "shots": 10,
+          "attachments": 10,
+          "releases": 10,
+          "swings": 82,
+          "misses": 0,
+          "recoveries": 3,
+          "plans": 225
+        },
+        {
+          "goals": 4,
+          "arrivals": 0,
+          "jumps": 4,
+          "charges": 4,
+          "shots": 16,
+          "attachments": 16,
+          "releases": 13,
+          "swings": 111,
+          "misses": 0,
+          "recoveries": 3,
+          "plans": 153
+        },
+        {
+          "goals": 8,
+          "arrivals": 4,
+          "jumps": 7,
+          "charges": 5,
+          "shots": 11,
+          "attachments": 10,
+          "releases": 10,
+          "swings": 68,
+          "misses": 1,
+          "recoveries": 3,
+          "plans": 227
+        },
+        {
+          "goals": 5,
+          "arrivals": 2,
+          "jumps": 6,
+          "charges": 6,
+          "shots": 13,
+          "attachments": 11,
+          "releases": 9,
+          "swings": 87,
+          "misses": 2,
+          "recoveries": 2,
+          "plans": 208
+        },
+        {
+          "goals": 5,
+          "arrivals": 1,
+          "jumps": 5,
+          "charges": 5,
+          "shots": 15,
+          "attachments": 12,
+          "releases": 10,
+          "swings": 73,
+          "misses": 2,
+          "recoveries": 3,
+          "plans": 229
+        },
+        {
+          "goals": 5,
+          "arrivals": 2,
+          "jumps": 5,
+          "charges": 5,
+          "shots": 18,
+          "attachments": 11,
+          "releases": 9,
+          "swings": 92,
+          "misses": 6,
+          "recoveries": 2,
+          "plans": 178
+        },
+        {
+          "goals": 4,
+          "arrivals": 1,
+          "jumps": 2,
+          "charges": 2,
+          "shots": 19,
+          "attachments": 16,
+          "releases": 14,
+          "swings": 130,
+          "misses": 3,
+          "recoveries": 2,
+          "plans": 136
+        },
+        {
+          "goals": 5,
+          "arrivals": 0,
+          "jumps": 3,
+          "charges": 3,
+          "shots": 14,
+          "attachments": 12,
+          "releases": 10,
+          "swings": 92,
+          "misses": 2,
+          "recoveries": 4,
+          "plans": 207
+        }
+      ]
+    },
+    {
+      "arena": "canopy",
+      "count": 1,
+      "ai": false,
+      "controllerMs": {
+        "mean": 0.00017032368421091473,
+        "p50": 0.00011099999983343878,
+        "p95": 0.00026000000002568413,
+        "p99": 0.00039100000003600144,
+        "max": 0.023725000000013097
+      },
+      "tickMs": {
+        "mean": 0.009838624999999586,
+        "p50": 0.007260999999971318,
+        "p95": 0.01294899999993504,
+        "p99": 0.03008399999998801,
+        "max": 0.4316149999999652
+      },
+      "activity": [
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        }
+      ]
+    },
+    {
+      "arena": "canopy",
+      "count": 1,
+      "ai": true,
+      "controllerMs": {
+        "mean": 0.00261022105263195,
+        "p50": 0.0004210000001876324,
+        "p95": 0.01076599999987593,
+        "p99": 0.021451000000070053,
+        "max": 0.08563600000002225
+      },
+      "tickMs": {
+        "mean": 0.008186982456141665,
+        "p50": 0.006869999999935317,
+        "p95": 0.018195999999989,
+        "p99": 0.03702500000008513,
+        "max": 0.6907670000000508
+      },
+      "activity": [
+        {
+          "goals": 9,
+          "arrivals": 5,
+          "jumps": 10,
+          "charges": 8,
+          "shots": 10,
+          "attachments": 8,
+          "releases": 7,
+          "swings": 36,
+          "misses": 1,
+          "recoveries": 3,
+          "plans": 244
+        }
+      ]
+    },
+    {
+      "arena": "canopy",
+      "count": 8,
+      "ai": false,
+      "controllerMs": {
+        "mean": 0.0005855995613998992,
+        "p50": 0.0004799999999249849,
+        "p95": 0.0007809999999608408,
+        "p99": 0.0013019999998959975,
+        "max": 0.08982200000014018
+      },
+      "tickMs": {
+        "mean": 0.05058662850876971,
+        "p50": 0.04422500000009677,
+        "p95": 0.06169099999988248,
+        "p99": 0.1389240000000882,
+        "max": 2.1491530000000694
+      },
+      "activity": [
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        }
+      ]
+    },
+    {
+      "arena": "canopy",
+      "count": 8,
+      "ai": true,
+      "controllerMs": {
+        "mean": 0.01116954473684353,
+        "p50": 0.004846999999926993,
+        "p95": 0.03272900000001755,
+        "p99": 0.05575199999998404,
+        "max": 0.7778450000000703
+      },
+      "tickMs": {
+        "mean": 0.0641070039473671,
+        "p50": 0.056502999999793246,
+        "p95": 0.11457900000004884,
+        "p99": 0.16693499999996675,
+        "max": 0.8702009999999518
+      },
+      "activity": [
+        {
+          "goals": 5,
+          "arrivals": 0,
+          "jumps": 8,
+          "charges": 8,
+          "shots": 12,
+          "attachments": 9,
+          "releases": 7,
+          "swings": 50,
+          "misses": 3,
+          "recoveries": 4,
+          "plans": 242
+        },
+        {
+          "goals": 5,
+          "arrivals": 2,
+          "jumps": 7,
+          "charges": 7,
+          "shots": 12,
+          "attachments": 10,
+          "releases": 9,
+          "swings": 62,
+          "misses": 2,
+          "recoveries": 2,
+          "plans": 221
+        },
+        {
+          "goals": 6,
+          "arrivals": 2,
+          "jumps": 11,
+          "charges": 11,
+          "shots": 12,
+          "attachments": 10,
+          "releases": 9,
+          "swings": 54,
+          "misses": 1,
+          "recoveries": 3,
+          "plans": 217
+        },
+        {
+          "goals": 5,
+          "arrivals": 0,
+          "jumps": 7,
+          "charges": 7,
+          "shots": 18,
+          "attachments": 14,
+          "releases": 12,
+          "swings": 56,
+          "misses": 4,
+          "recoveries": 4,
+          "plans": 204
+        },
+        {
+          "goals": 5,
+          "arrivals": 1,
+          "jumps": 3,
+          "charges": 3,
+          "shots": 20,
+          "attachments": 17,
+          "releases": 16,
+          "swings": 105,
+          "misses": 3,
+          "recoveries": 3,
+          "plans": 146
+        },
+        {
+          "goals": 7,
+          "arrivals": 3,
+          "jumps": 7,
+          "charges": 6,
+          "shots": 14,
+          "attachments": 10,
+          "releases": 9,
+          "swings": 49,
+          "misses": 4,
+          "recoveries": 3,
+          "plans": 241
+        },
+        {
+          "goals": 6,
+          "arrivals": 2,
+          "jumps": 7,
+          "charges": 7,
+          "shots": 12,
+          "attachments": 10,
+          "releases": 9,
+          "swings": 66,
+          "misses": 2,
+          "recoveries": 3,
+          "plans": 278
+        },
+        {
+          "goals": 7,
+          "arrivals": 2,
+          "jumps": 8,
+          "charges": 7,
+          "shots": 14,
+          "attachments": 11,
+          "releases": 10,
+          "swings": 90,
+          "misses": 3,
+          "recoveries": 4,
+          "plans": 210
+        }
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "count": 1,
+      "ai": false,
+      "controllerMs": {
+        "mean": 0.00013754078947172594,
+        "p50": 0.0001199999999244028,
+        "p95": 0.000210000000151922,
+        "p99": 0.0003010000000358559,
+        "max": 0.027700999999979103
+      },
+      "tickMs": {
+        "mean": 0.0075806135964877576,
+        "p50": 0.007129999999961001,
+        "p95": 0.007991999999831023,
+        "p99": 0.021572000000105618,
+        "max": 0.3406319999999141
+      },
+      "activity": [
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        }
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "count": 1,
+      "ai": true,
+      "controllerMs": {
+        "mean": 0.003866471929823471,
+        "p50": 0.0003709999998591229,
+        "p95": 0.01513199999999415,
+        "p99": 0.026718999999957305,
+        "max": 0.5301099999999224
+      },
+      "tickMs": {
+        "mean": 0.009573601754385663,
+        "p50": 0.006819999999834181,
+        "p95": 0.023023999999850275,
+        "p99": 0.040750000000116415,
+        "max": 0.5581509999999525
+      },
+      "activity": [
+        {
+          "goals": 6,
+          "arrivals": 1,
+          "jumps": 4,
+          "charges": 4,
+          "shots": 14,
+          "attachments": 13,
+          "releases": 10,
+          "swings": 104,
+          "misses": 0,
+          "recoveries": 4,
+          "plans": 201
+        }
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "count": 8,
+      "ai": false,
+      "controllerMs": {
+        "mean": 0.0008313877193043944,
+        "p50": 0.00047099999983402085,
+        "p95": 0.0007310000000870787,
+        "p99": 0.0010720000000219443,
+        "max": 0.7139199999999164
+      },
+      "tickMs": {
+        "mean": 0.0465894771929879,
+        "p50": 0.044355999999879714,
+        "p95": 0.06006800000000112,
+        "p99": 0.07649300000002768,
+        "max": 0.7881889999998748
+      },
+      "activity": [
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 0
+        }
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "count": 8,
+      "ai": true,
+      "controllerMs": {
+        "mean": 0.01105950438596573,
+        "p50": 0.0029340000000956934,
+        "p95": 0.03436999999985346,
+        "p99": 0.05353900000000067,
+        "max": 0.7200790000001689
+      },
+      "tickMs": {
+        "mean": 0.05647462807017375,
+        "p50": 0.05001299999958064,
+        "p95": 0.10380200000008699,
+        "p99": 0.15939400000024762,
+        "max": 0.7828009999998358
+      },
+      "activity": [
+        {
+          "goals": 4,
+          "arrivals": 0,
+          "jumps": 7,
+          "charges": 7,
+          "shots": 15,
+          "attachments": 12,
+          "releases": 9,
+          "swings": 58,
+          "misses": 3,
+          "recoveries": 3,
+          "plans": 193
+        },
+        {
+          "goals": 5,
+          "arrivals": 2,
+          "jumps": 3,
+          "charges": 3,
+          "shots": 19,
+          "attachments": 17,
+          "releases": 16,
+          "swings": 145,
+          "misses": 2,
+          "recoveries": 2,
+          "plans": 158
+        },
+        {
+          "goals": 5,
+          "arrivals": 1,
+          "jumps": 6,
+          "charges": 6,
+          "shots": 13,
+          "attachments": 9,
+          "releases": 9,
+          "swings": 96,
+          "misses": 4,
+          "recoveries": 3,
+          "plans": 229
+        },
+        {
+          "goals": 5,
+          "arrivals": 1,
+          "jumps": 3,
+          "charges": 3,
+          "shots": 18,
+          "attachments": 16,
+          "releases": 13,
+          "swings": 93,
+          "misses": 2,
+          "recoveries": 3,
+          "plans": 149
+        },
+        {
+          "goals": 5,
+          "arrivals": 0,
+          "jumps": 2,
+          "charges": 2,
+          "shots": 15,
+          "attachments": 12,
+          "releases": 11,
+          "swings": 91,
+          "misses": 2,
+          "recoveries": 4,
+          "plans": 193
+        },
+        {
+          "goals": 6,
+          "arrivals": 1,
+          "jumps": 3,
+          "charges": 2,
+          "shots": 19,
+          "attachments": 17,
+          "releases": 15,
+          "swings": 107,
+          "misses": 1,
+          "recoveries": 4,
+          "plans": 181
+        },
+        {
+          "goals": 6,
+          "arrivals": 2,
+          "jumps": 5,
+          "charges": 5,
+          "shots": 14,
+          "attachments": 12,
+          "releases": 10,
+          "swings": 88,
+          "misses": 1,
+          "recoveries": 3,
+          "plans": 205
+        },
+        {
+          "goals": 5,
+          "arrivals": 2,
+          "jumps": 4,
+          "charges": 4,
+          "shots": 10,
+          "attachments": 8,
+          "releases": 8,
+          "swings": 59,
+          "misses": 1,
+          "recoveries": 2,
+          "plans": 243
+        }
+      ]
+    }
+  ],
+  "chaosCases": 80
+}
