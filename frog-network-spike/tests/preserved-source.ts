@@ -87,4 +87,7 @@ export function b2rPreservedSource(path:string){const source=b2sPreservedSource(
 export function b2sPreservedSource(path:string){const source=b2iPreservedSource(path),m=JSON.parse(readFileSync(new URL('../docs/bot-b2s-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
 
 /** Reverse the owner-authorized independent tactics refinement for historical checks. */
-export function b2iPreservedSource(path:string){const source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8'),m=JSON.parse(readFileSync(new URL('../docs/bot-b2i-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+export function b2iPreservedSource(path:string){const source=botCPreservedSource(path),m=JSON.parse(readFileSync(new URL('../docs/bot-b2i-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+
+/** C changes AI perception/execution only; historical B2 checks use its approved source. */
+export function botCPreservedSource(path:string){const source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8'),m=JSON.parse(readFileSync(new URL('../docs/bot-c-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}

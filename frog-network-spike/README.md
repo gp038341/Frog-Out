@@ -176,3 +176,7 @@ Chaos Voting D approved at233456c81a7b5bef8529c73617014326119d6ec4 (`checkpoint/
 All20 Chaos Voting modifiers are implemented and owner-approved, including Sticky Frogs. Flappy Frogs is retired. Approved gameplay revision: `e6f6cafec250d2713d02f61c1f1a05bf8e5c9183`; checkpoint `checkpoint/approved-all-20-chaos-modifiers`. See [approved systems, current catalog/rules/compatibility and outstanding items](docs/approved-chaos-system.md).
 
 This is not a feature freeze or submission phase. Further minor non-gameplay improvements will be directed individually. Preserve all approved systems; do not begin Milestone F or broad polish.
+
+## Bot Chaos intelligence candidate
+
+Bot B2 is approved at `bbf283ffe5bbc364fcd6cde7468b8352ce0f7d55`, checkpoint `checkpoint/approved-bot-b2-game-mode-intelligence`. [Bot Milestone C](docs/bot-milestone-c.md) extends the existing CPU navigation/tactics to all 20 approved modifiers and individual legal voting preferences. It is a playtest candidate, not owner-approved. No Bot D or difficulty changes. Current public service remains https://frog-out.onrender.com/.

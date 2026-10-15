@@ -34,7 +34,7 @@ export class OutbreakRoom extends PartyRoom {
 
  pauseChanged(elapsed:number){if(this.chaos.phase!=='idle')this.chaos.closesAt+=elapsed;for(const cpu of this.cpus.values())cpu.resume(elapsed);}
  private tacticsTick=-1;private tacticsView?:TacticalState;
- controlledInput(i:number){const id=this.matchRoster[i],cpu=this.cpus.get(id);if(!cpu)return undefined;try{if(this.outbreak&&this.tacticsTick!==this.sim.tick){this.tacticsTick=this.sim.tick;this.tacticsView=tacticalState(this.outbreak.view(this.sim.tick));}return cpu.input(this.sim.frogs[i],this.sim.tick,this.outbreak?.phase==='playing'&&this.chaos.phase==='idle'&&!this.paused,this.outbreak instanceof FreezeRules&&this.outbreak.frozen[i],this.sim.frogChaos.trapped(this.sim.frogs[i]),this.sim,this.tacticsView);}catch{return{x:0,y:0,held:false};}}
+ controlledInput(i:number){const id=this.matchRoster[i],cpu=this.cpus.get(id);if(!cpu)return undefined;try{if(this.outbreak&&this.tacticsTick!==this.sim.tick){this.tacticsTick=this.sim.tick;this.tacticsView=tacticalState(this.outbreak.view(this.sim.tick));}return cpu.input(this.sim.frogs[i],this.sim.tick,this.outbreak?.phase==='playing'&&this.chaos.phase==='idle'&&!this.paused,this.outbreak instanceof FreezeRules&&this.outbreak.frozen[i],this.sim.frogChaos.trapped(this.sim.frogs[i]),this.sim,this.tacticsView,this.chaos.active);}catch{return{x:0,y:0,held:false};}}
 
  onCreate(){
   super.onCreate();this.sim.frogChaos.deferContacts=true;const physicsStep=this.sim.step.bind(this.sim);

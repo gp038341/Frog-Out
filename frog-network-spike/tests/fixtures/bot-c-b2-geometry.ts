@@ -1,0 +1,34 @@
+// Approved B2 bbf283ffe5bbc364fcd6cde7468b8352ce0f7d55 comparison fixture; import paths only changed.
+import {Vec2,type Body,type PolygonShape} from 'planck';
+import type {Simulation,Frog} from '../../src/simulation/world';
+export type Point={x:number;y:number};
+export type Surface={id:string;body:Body;left:number;right:number;a:Point;b:Point;normal:Point;material?:string;minX:number;maxX:number};
+export type Link={from:Surface;to:Surface;launch:Point;land:Point;kind:'walk'|'drop'|'jump'|'charge'|'grapple';cost:number;speed:number};
+export const NAV={goalTicks:12,planTicks:6,arrival:.85,landingMargin:.22,stuckTicks:120,progress:.55,grappleCooldown:30,maxGrappleTicks:100,minGrappleTicks:15};
+const ids=new WeakMap<Body,number>();let nextId=0;const caches=new WeakMap<Simulation,{tick:number;key:string;surfaces:Surface[];links:Map<string,Link[]>}>();
+export function surfaceY(s:Surface,x:number){return s.a.y+(s.b.y-s.a.y)*(x-s.a.x)/(s.b.x-s.a.x||1);}
+export const clamp=(v:number,a:number,b:number)=>Math.max(a,Math.min(b,v));
+export function standing(s:Surface,x:number,r:number):Point{return{x,y:surfaceY(s,x)+s.normal.y*(r+.035)};}
+export function terrain(sim:Simulation,b:Body){const data=b.getUserData()as any;return b.isActive()&&(!b.isDynamic()||data?.chaosPlatform)&&!data?.chaosBallBoundary&&!data?.chaosBall&&!sim.frogs.some(f=>f.body===b);}
+/** One read-only graph per simulation. Static adjacency is reused; transformed polygons refresh at 10 Hz. */
+export function navigationGraph(sim:Simulation){const previous=caches.get(sim);if(previous&&sim.tick>=previous.tick&&sim.tick-previous.tick<NAV.planTicks)return previous;
+ const surfaces:Surface[]=[];let key=[sim.tuning.frogRadius,sim.tuning.gravity,sim.tuning.jumpImpulse,sim.tuning.chargedJumpImpulse,sim.tuning.groundSpeed,sim.tuning.tongueRange,sim.chaosGravityDirection].join(':');
+ for(let b=sim.world.getBodyList();b;b=b.getNext()){if(!terrain(sim,b))continue;if(!ids.has(b))ids.set(b,++nextId);key+=`|${ids.get(b)}:${b.getPosition().x.toFixed(3)},${b.getPosition().y.toFixed(3)},${b.getAngle().toFixed(3)}`;
+  let fi=0;for(let fixture=b.getFixtureList();fixture;fixture=fixture.getNext(),fi++){if(fixture.isSensor()||fixture.getShape().getType()!=='polygon')continue;const vertices=(fixture.getShape()as PolygonShape).m_vertices;const worldVertices=vertices.map(v=>b!.getWorldPoint(v)),minX=Math.min(...worldVertices.map(v=>v.x)),maxX=Math.max(...worldVertices.map(v=>v.x));
+   for(let j=0;j<vertices.length;j++){let a=b.getWorldPoint(vertices[j]),z=b.getWorldPoint(vertices[(j+1)%vertices.length]);const dx=z.x-a.x,dy=z.y-a.y,d=Math.hypot(dx,dy),normal={x:dy/d,y:-dx/d};if(normal.y*sim.chaosGravityDirection>-.45||Math.abs(dx)<sim.tuning.frogRadius*2+.15)continue;if(a.x>z.x)[a,z]=[z,a];const left=a.x+sim.tuning.frogRadius+.12,right=z.x-sim.tuning.frogRadius-.12;if(right<=left)continue;surfaces.push({id:`${ids.get(b)}:${fi}:${j}`,body:b,left,right,a:{x:a.x,y:a.y},b:{x:z.x,y:z.y},normal,minX,maxX,material:(b.getUserData()as any)?.surface});}
+  }
+ }
+ if(previous?.key===key){previous.tick=sim.tick;return previous;}
+ const graph={tick:sim.tick,key,surfaces,links:new Map<string,Link[]>()};for(const a of surfaces){const links:Link[]=[];for(const b of surfaces){if(a===b)continue;const link=connection(sim,a,b);if(link)links.push(link);}graph.links.set(a.id,links);}caches.set(sim,graph);return graph;
+}
+/** Cheap ballistic feasibility bounds, not a promise of clearance through intervening geometry.
+ * Execution, real contacts and bounded failed-edge cooldowns close that gap without AI-only physics. */
+export function connection(sim:Simulation,a:Surface,b:Surface):Link|undefined{const t=sim.tuning,r=t.frogRadius;let lx=clamp((b.left+b.right)/2,a.left,a.right),tx=clamp(lx,b.left,b.right);const rise=(surfaceY(a,lx)-surfaceY(b,tx))*sim.chaosGravityDirection;
+ // Approach a raised ledge from its outside edge, never jump straight through its underside.
+ if(rise>.45&&a.left<b.left-1&&a.right>b.left-1){const left=b.left-r-0.7,right=b.right+r+0.7;const choices=[left,right].filter(x=>x>=a.left&&x<=a.right);if(choices.length){lx=choices.sort((x,y)=>Math.abs(x-(a.left+a.right)/2)-Math.abs(y-(a.left+a.right)/2))[0];tx=clamp(lx,b.left+.12,b.right-.12);}}
+ const launch=standing(a,lx,r),land=standing(b,tx,r),gap=Math.abs(tx-lx),dy=(launch.y-land.y)*sim.chaosGravityDirection,g=Math.max(1,t.gravity),normal=t.jumpImpulse**2/(2*g),charged=t.chargedJumpImpulse**2/(2*g);let kind:Link['kind'],speed=t.jumpImpulse;
+ if(Math.abs(dy)<.3&&gap<.5)kind='walk';else if(dy<-.3&&gap<2.2)kind='drop';else if(dy<normal-.25&&gap<t.groundSpeed*(t.jumpImpulse+Math.sqrt(Math.max(0,t.jumpImpulse**2-2*g*dy)))/g*.9)kind='jump';else if(dy<charged-.12&&gap<t.groundSpeed*(t.chargedJumpImpulse+Math.sqrt(Math.max(0,t.chargedJumpImpulse**2-2*g*dy)))/g*.85){kind='charge';speed=Math.min(t.chargedJumpImpulse,Math.sqrt(Math.max(0,2*g*(Math.max(0,dy)+1.7))));speed=Math.max(speed,t.jumpImpulse+2);}else if(Math.hypot(gap,dy)<t.tongueRange+2&&dy<11.2){kind='grapple';speed=t.jumpImpulse;}else return;
+ return{from:a,to:b,launch,land,kind,speed,cost:Math.hypot(gap,dy)+(kind==='grapple'?5:kind==='charge'?2:0)+1};}
+export function nearestSurface(surfaces:Surface[],p:Point,sim:Simulation){let best:Surface|undefined,score=Infinity;for(const s of surfaces){const x=clamp(p.x,s.left,s.right),q=standing(s,x,sim.tuning.frogRadius),d=Math.hypot(p.x-x,(p.y-q.y)*1.4);if(d<score){score=d;best=s;}}return best;}
+export function route(sim:Simulation,from:Surface,to:Surface,blocked:Map<string,number>){const graph=navigationGraph(sim),dist=new Map([[from.id,0]]),first=new Map<string,Link>(),done=new Set<string>();for(let n=0;n<graph.surfaces.length;n++){const current=graph.surfaces.filter(s=>!done.has(s.id)&&dist.has(s.id)).sort((a,b)=>dist.get(a.id)!-dist.get(b.id)!)[0];if(!current)return;if(current===to)return first.get(to.id);done.add(current.id);for(const e of graph.links.get(current.id)??[]){if((blocked.get(e.from.id+'>'+e.to.id)??0)>sim.tick)continue;const cost=dist.get(current.id)!+e.cost;if(cost<(dist.get(e.to.id)??Infinity)){dist.set(e.to.id,cost);first.set(e.to.id,first.get(current.id)??e);}}}}
+export function ray(sim:Simulation,f:Frog,x:number,y:number){const p=f.body.getPosition(),m=Math.hypot(x,y),end=Vec2(p.x+x/m*sim.tuning.tongueRange,p.y+y/m*sim.tuning.tongueRange);let hit:{body:Body;point:Point;distance:number}|undefined;sim.world.rayCast(p,end,(fixture,point,_normal,fraction)=>{const b=fixture.getBody(),data=b.getUserData()as any;if(b===f.body||fixture.isSensor()||data?.frozenTag||data?.chaosBall||data?.chaosBallBoundary)return -1;hit={body:b,point:{x:point.x,y:point.y},distance:Math.hypot(point.x-p.x,point.y-p.y)};return fraction;});return hit;}

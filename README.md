@@ -61,3 +61,7 @@ Physical iPhone Safari reliability is currently a release blocker under diagnosi
 Original pond-percussion sound, restrained action feedback and short Outbreak/round celebrations. Current maps, physics, networking and scoring remain unchanged. Sound is opt-in; lobby help contains volume settings. Physical iPhone Safari remains a mandatory release gate; its input/viewport candidate stays frozen. See [M9 scope and acceptance checklist](frog-network-spike/docs/milestone-9.md).
 
 Chaos Voting is enabled by default (host can disable): vote between rounds on Moon Frogs, Mega Tongues, Butterfeet or Quick Licks. First round remains normal; up to three effects rotate. Milestone A is awaiting playtest approval.
+
+## Bot Chaos intelligence candidate
+
+Bot B2 is approved at `bbf283ffe5bbc364fcd6cde7468b8352ce0f7d55`, checkpoint `checkpoint/approved-bot-b2-game-mode-intelligence`. [Bot Milestone C](frog-network-spike/docs/bot-milestone-c.md) extends the existing CPU navigation/tactics to all 20 approved modifiers and individual legal voting preferences. It is a playtest candidate, not owner-approved. No Bot D or difficulty changes. Current public service remains https://frog-out.onrender.com/.

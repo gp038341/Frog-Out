@@ -1,3 +1,4 @@
+import {chaosContext,hazardCost,platformRisk} from '../chaos/perception';
 import type {Simulation} from '../../src/simulation/world';
 import {navigationGraph,nearestSurface,route,standing,clamp,type Point,type Surface} from '../navigation/geometry';
 import type {Navigator} from '../navigation/navigator';
@@ -10,7 +11,7 @@ const distance=(a:Point,b:Point)=>Math.hypot(a.x-b.x,a.y-b.y);
 /** Independent utility decisions over public state. Outputs destinations only; B1 owns every action. */
 export class Tactics{
  goal?:Point;target?:number;intent:'pursue'|'evade'|'rescue'|'reposition'|'wait'='reposition';
- readonly caution:number;readonly aggression:number;readonly preferences:Readonly<Preferences>;private random:()=>number;private activated=-1;private next=0;private signature='';private committedUntil=0;private goalSince=0;private lastRecovery=0;private failed=new Map<number,number>();private badGoals:{point:Point;until:number}[]=[];private visits=new Map<string,number>();private role='';private committedGoalTick=0;
+ readonly caution:number;readonly aggression:number;readonly preferences:Readonly<Preferences>;private random:()=>number;private activated=-1;private next=0;private signature='';private committedUntil=0;private goalSince=0;private lastRecovery=0;private failed=new Map<number,number>();private badGoals:{point:Point;until:number}[]=[];private visits=new Map<string,number>();private environment='';private role='';private committedGoalTick=0;
  stats={decisions:0,targetChanges:0,roleChanges:0,pursuits:0,evades:0,rescues:0,waits:0,fallbacks:0,goalCommits:0,goalDeferrals:0,arrivalAdvances:0};
  constructor(random:()=>number){
   // Dedicated tactical stream: no shared team plan or navigator/vote RNG coupling.
@@ -18,12 +19,13 @@ export class Tactics{
   this.caution=.85+r()*.3;this.aggression=.85+r()*.3;
   this.preferences=Object.freeze({vertical:.45+r()*1.2,grapple:.7+r()*.65,risk:.8+r()*.4,rescue:.8+r()*.4,side:r()*2-1,intercept:.7+r()*.6,commitTicks:48+Math.floor(r()*49),cadence:10+Math.floor(r()*7),phase:Math.floor(r()*13),salt:Math.floor(r()*4294967296)});
  }
- reset(){this.activated=-1;this.next=0;this.signature='';this.target=undefined;this.goal=undefined;this.committedUntil=0;this.goalSince=0;this.lastRecovery=0;this.failed.clear();this.badGoals=[];this.visits.clear();this.role='';this.committedGoalTick=0;this.intent='reposition';}
+ reset(){this.environment='';this.activated=-1;this.next=0;this.signature='';this.target=undefined;this.goal=undefined;this.committedUntil=0;this.goalSince=0;this.lastRecovery=0;this.failed.clear();this.badGoals=[];this.visits.clear();this.role='';this.committedGoalTick=0;this.intent='reposition';}
  suspend(){this.next=0;}
  update(sim:Simulation,index:number,state:TacticalState,nav:Navigator){
   if(state.phase!=='playing'||!state.players[index]?.present||state.players[index].frozen){this.suspend();return;}
   const tick=sim.tick;if(this.activated<0)this.activated=tick;const me=sim.frogs[index],p=me.body.getPosition(),record=state.players[index];
-  const signature=[state.mode,state.round,state.tagger,...state.players.map((s,i)=>`${+s.present}${+s.poisoned}${+s.infectious}${+s.frozen}${+(s.protectedUntil>tick||((sim.frogs[i]?.swapProtectedUntil??0)>tick))}`)].join(':');
+  const environment=[chaosContext(sim).signature,sim.chaosGravityDirection,me.swapTick??''].join(':'),environmentChanged=!!this.environment&&environment!==this.environment;this.environment=environment;if(environmentChanged){this.goal=undefined;this.committedUntil=0;}
+  const signature=[environment,state.mode,state.round,state.tagger,...state.players.map((s,i)=>`${+s.present}${+s.poisoned}${+s.infectious}${+s.frozen}${+(s.protectedUntil>tick||((sim.frogs[i]?.swapProtectedUntil??0)>tick))}`)].join(':');
   const role=state.mode+':'+state.round+':'+(state.mode==='poison'?record.poisoned:index===state.tagger),roleChanged=role!==this.role;this.role=role;const changed=signature!==this.signature;if(!changed&&tick<this.next)return;
   if(changed){this.signature=signature;if(roleChanged){this.committedUntil=0;this.stats.roleChanges++;this.failed.clear();}}
   const cadence=this.preferences.cadence;this.next=tick+1+((this.preferences.phase-tick-1)%cadence+cadence)%cadence;if(this.next-tick<5)this.next+=cadence;this.stats.decisions++;
@@ -38,15 +40,15 @@ export class Tactics{
     const bias=(mix(this.preferences.salt^Math.imul(slot+1,2654435761))/4294967296-.5)*2;
     const cost=travel(q)+(Math.abs(q.y-p.y)>2?.3/this.preferences.vertical:0)+congestion+bias+((this.failed.get(slot)??0)>tick?8:0);return Number.isFinite(cost)?[{slot,cost,point:{...q}}]:[];}).sort((a,b)=>a.cost-b.cost);
    const selected=this.choose(choices,tick);if(selected){const target=sim.frogs[selected.slot],v=target.body.getLinearVelocity(),near=distance(p,selected.point)<2.2,lead=near?0:Math.min(TACTICS.predictionSeconds,selected.cost*.12)*this.aggression*this.preferences.intercept*( .8+this.random()*.3);goal={x:clamp(selected.point.x+v.x*lead,sim.tuning.frogRadius+.1,40-sim.tuning.frogRadius-.1),y:clamp(selected.point.y+v.y*lead,.7,21)};this.intent='pursue';this.stats.pursuits++;}
-   else {this.target=undefined;const retry=targets.length>0&&targets.every(i=>(this.failed.get(i)??0)>tick);this.intent=retry?'reposition':'wait';if(retry){this.stats.fallbacks++;goal=this.escape(sim,p,[],travel,state.remainingMs,true);}else this.stats.waits++;if(!goal)goal=this.escape(sim,p,[],travel,state.remainingMs,roleChanged||recovered);}
+   else {this.target=undefined;const retry=targets.length>0&&targets.every(i=>(this.failed.get(i)??0)>tick);this.intent=retry?'reposition':'wait';if(retry){this.stats.fallbacks++;goal=this.escape(sim,p,[],travel,state.remainingMs,true);}else this.stats.waits++;if(!goal)goal=this.escape(sim,p,[],travel,state.remainingMs,roleChanged||recovered||environmentChanged);}
 
   }else{
    const freezer=state.mode==='freeze'?sim.frogs[state.tagger]:undefined;
    const rescue=state.mode==='freeze'&&threatDistance>TACTICS.dangerDistance*this.caution?active.filter(i=>state.players[i].frozen).map(slot=>{const q=sim.frogs[slot].body.getPosition(),enemy=freezer!.body.getPosition(),clear=distance(q,enemy),cost=travel(q),enemyTime=clear/Math.max(1,sim.tuning.groundSpeed);return{slot,cost,point:{...q},clear,enemyTime};}).filter(c=>Number.isFinite(c.cost)&&c.clear>TACTICS.rescueClearance*this.caution/this.preferences.rescue&&(c.cost<c.enemyTime*(.9+this.preferences.rescue*.2)||c.clear>9)).sort((a,b)=>a.cost-b.cost)[0]:undefined;
    if(rescue){this.select(rescue.slot,tick);this.intent='rescue';this.stats.rescues++;goal=rescue.point;}
-   else{this.target=undefined;this.intent='evade';this.stats.evades++;goal=this.escape(sim,p,threats,travel,state.remainingMs,roleChanged||recovered);}
+   else{this.target=undefined;this.intent='evade';this.stats.evades++;goal=this.escape(sim,p,threats,travel,state.remainingMs,roleChanged||recovered||environmentChanged);}
   }
-  if(goal){const previous=nav.goal,speed=Math.hypot(me.body.getLinearVelocity().x,me.body.getLinearVelocity().y),arriving=!!previous&&distance(p,previous)<Math.max(2.2,speed*.35),busy=!me.grounded||me.jumpPending||me.charging||me.tongue?.phase==='flying'||me.tongue?.phase==='attached',urgent=roleChanged||threatDistance<2.4||recovered,shift=previous?distance(previous,goal):Infinity;
+  if(goal){const previous=nav.goal,speed=Math.hypot(me.body.getLinearVelocity().x,me.body.getLinearVelocity().y),arriving=!!previous&&distance(p,previous)<Math.max(2.2,speed*.35),busy=!me.grounded||me.jumpPending||me.charging||me.tongue?.phase==='flying'||me.tongue?.phase==='attached',urgent=roleChanged||environmentChanged||threatDistance<2.4||recovered,shift=previous?distance(previous,goal):Infinity;
    // Keep B1's launch/shot/reel/release committed. A waypoint can advance before its braking radius.
    if(!previous||(shift>.7&&(!busy||urgent||arriving||this.intent==='pursue'&&shift>4))){nav.continueTo(goal);this.stats.goalCommits++;if(arriving)this.stats.arrivalAdvances++;this.committedGoalTick=tick;}else if(shift>.7)this.stats.goalDeferrals++;
    nav.chase(this.intent==='pursue'?this.target:undefined);this.goal={...(nav.goal??goal)};
@@ -65,7 +67,7 @@ export class Tactics{
    const traversal=destination&&destination!==current?5:0,vertical=Math.min(6,Math.abs(q.y-p.y))*.3+Math.min(10,Math.max(0,(p.y-q.y)*sim.chaosGravityDirection))*.3,occupied=sim.frogs.filter(f=>distance(f.body.getPosition(),q)<2.5).length*2;
    const directionBias=Math.sign(q.x-p.x)*this.preferences.side*.8+(mix(this.preferences.salt^Math.imul(Math.round(q.x*5)+101*Math.round(q.y*5),2654435761))/4294967296-.5)*3,routeTaste=vertical*(this.preferences.vertical-1)*1.5+(destination?.material==='lily'?this.preferences.risk-.9:0),congestion=sim.frogs.reduce((sum,f)=>{if(f.body.getPosition()===p)return sum;const a=f.body.getPosition();return sum+(distance(a,q)<4?Math.max(0,4-distance(a,q))*.35:0);},0);
    const recent=(this.visits.get(key(q))??-10000)>sim.tick-900?5:0,failed=this.badGoals.some(g=>g.until>sim.tick&&distance(g.point,q)<1.5)?8:0,corner=q.x<2||q.x>38?3:0;
-   return Math.min(nearest,24)*this.caution+Math.min(d,12)*.28+traversal+vertical+routeTaste+directionBias-cost*.3-crossing-routeRisk-occupied-congestion-recent-failed-corner;
+   return Math.min(nearest,24)*this.caution+Math.min(d,12)*.28+traversal+vertical+routeTaste+directionBias-cost*.3-crossing-routeRisk-occupied-congestion-recent-failed-corner-hazardCost(sim,q)-(destination?platformRisk(sim,destination.body):0);
   };
   const points:Point[]=[];for(const surface of graph.surfaces)for(const fraction of[.12+.09*this.preferences.side,.5+.15*this.preferences.side,.88+.09*this.preferences.side]){const q=standing(surface,surface.left+(surface.right-surface.left)*fraction,sim.tuning.frogRadius);if(q.x>.8&&q.x<39.2&&q.y>.6&&q.y<21.3&&distance(p,q)>3)points.push(q);}
   if(opening&&current)for(const dx of[-6,-4,4,6]){const q=standing(current,clamp(p.x+dx,current.left,current.right),sim.tuning.frogRadius);if(distance(p,q)>3)points.push(q);}
