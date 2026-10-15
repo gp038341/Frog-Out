@@ -99,3 +99,7 @@ Playtest with Chaos off first:
 7. Then enable Chaos for safety checks. Check normal desktop and physical two-thumb mobile play; those systems should feel unchanged.
 
 Stop after deployment and await B2 approval. Do not begin Bot C.
+
+## Focused pursuit/spring/bubble playtest candidate
+
+See [the focused B2 correction report](bot-b2-pursuit-spring-bubble.md). B2 remains pending personal approval.

@@ -1,0 +1,52 @@
+{
+  "scope": "B2 movement correction compiled local server, independent real WebSocket clients; accelerated test countdown/vote/2-second reservations. Not physical-device or Render capacity testing.",
+  "checks": [
+    "manual CPUs, stable seats/cosmetics, invalid cosmetics, no ready reset, full-with-CPU lookup and failed admission preservation",
+    "human replaces oldest CPU in its seat; nonhost add/remove/edit rejected",
+    "one human + seven CPUs replaced by seven humans, concurrent capacity and all-human full rejection",
+    "protected human reservation cannot be displaced",
+    "poison: solo start, same-body snapshots/no CPU ack, roster lock, roles/scoring, CPU vote, both rounds, standings and rematch",
+    "freeze: solo start, same-body snapshots/no CPU ack, roster lock, roles/scoring, CPU vote, both rounds, standings and rematch",
+    "classic: solo start, same-body snapshots/no CPU ack, roster lock, roles/scoring, CPU vote, both rounds, standings and rematch",
+    "mixed humans/CPU: ordinary disconnect reconnect retains frog, CPU remains present, host transfers only to human",
+    "last human disconnect pauses gameplay/CPU clock and reconnect restores same session and human host",
+    "last-human pause preserves voting time and CPU voting; KEEP stays eligible",
+    "reservation expires: orphan room and CPU controllers are disposed",
+    "explicit final-human leave closes CPU room immediately",
+    "eight total frogs and seven CPU controllers tested on all four arenas within local tick budget"
+  ],
+  "stress": [
+    {
+      "arena": "sunny-pond",
+      "p50": 0.8218769999984943,
+      "p95": 3.217650999999023,
+      "p99": 6.5586439999970025,
+      "max": 41.183391999999,
+      "overruns": 2
+    },
+    {
+      "arena": "bathhouse",
+      "p50": 0.565773000002082,
+      "p95": 2.0229830000025686,
+      "p99": 4.670942999997351,
+      "max": 26.08169799999814,
+      "overruns": 1
+    },
+    {
+      "arena": "canopy",
+      "p50": 0.5208439999987604,
+      "p95": 1.6296409999995376,
+      "p99": 2.4651149999990594,
+      "max": 3.5617780000029597,
+      "overruns": 0
+    },
+    {
+      "arena": "toyshop",
+      "p50": 0.4970679999969434,
+      "p95": 2.1804400000037276,
+      "p99": 3.3681440000000293,
+      "max": 4.130181000000448,
+      "overruns": 0
+    }
+  ]
+}

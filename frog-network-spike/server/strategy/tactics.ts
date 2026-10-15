@@ -25,7 +25,7 @@ export class Tactics{
   const active=state.players.flatMap((s,i)=>i!==index&&s.present&&sim.frogs[i]?.body.isActive()?[i]:[]),hunter=state.mode==='poison'?record.poisoned:index===state.tagger;
   const threats=active.filter(i=>state.mode==='poison'?state.players[i].poisoned:i===state.tagger),threatDistance=threats.length?Math.min(...threats.map(i=>distance(p,sim.frogs[i].body.getPosition()))):Infinity;
   let goal:Point|undefined;
-  if(hunter){const targets=active.filter(i=>state.mode==='poison'?!state.players[i].poisoned:state.mode==='freeze'?!state.players[i].frozen:i!==state.tagger);const choices:Choice[]=targets.flatMap(slot=>{const target=sim.frogs[slot],q=target.body.getPosition();if((this.failed.get(slot)??0)>tick||state.players[slot].protectedUntil>tick||(target.swapProtectedUntil??0)>tick||(me.swapProtectedUntil??0)>tick)return[];const cost=travel(q)+(Math.abs(q.y-p.y)>2?.3:0)+((this.failed.get(slot)??0)>tick?8:0);return Number.isFinite(cost)?[{slot,cost,point:{...q}}]:[];}).sort((a,b)=>a.cost-b.cost);
+  if(hunter){const targets=active.filter(i=>state.mode==='poison'?!state.players[i].poisoned:state.mode==='freeze'?!state.players[i].frozen:i!==state.tagger);const choices:Choice[]=targets.flatMap(slot=>{const target=sim.frogs[slot],q=target.body.getPosition();if(state.players[slot].protectedUntil>tick||(target.swapProtectedUntil??0)>tick||(me.swapProtectedUntil??0)>tick)return[];const cost=travel(q)+(Math.abs(q.y-p.y)>2?.3:0)+((this.failed.get(slot)??0)>tick?8:0);return Number.isFinite(cost)?[{slot,cost,point:{...q}}]:[];}).sort((a,b)=>a.cost-b.cost);
    const selected=this.choose(choices,tick);if(selected){const target=sim.frogs[selected.slot],v=target.body.getLinearVelocity(),near=distance(p,selected.point)<2.2,lead=near?0:Math.min(TACTICS.predictionSeconds,selected.cost*.12)*this.aggression*( .8+this.random()*.3);goal={x:clamp(selected.point.x+v.x*lead,sim.tuning.frogRadius+.1,40-sim.tuning.frogRadius-.1),y:clamp(selected.point.y+v.y*lead,.7,21)};this.intent='pursue';this.stats.pursuits++;}
    else {this.target=undefined;const retry=targets.length>0&&targets.every(i=>(this.failed.get(i)??0)>tick);this.intent=retry?'reposition':'wait';if(retry){this.stats.fallbacks++;goal=this.escape(sim,p,[],travel,state.remainingMs,true);}else this.stats.waits++;if(!goal)goal=this.escape(sim,p,[],travel,state.remainingMs,changed||recovered);}
 
@@ -37,8 +37,8 @@ export class Tactics{
   }
   if(goal){const previous=nav.goal,speed=Math.hypot(me.body.getLinearVelocity().x,me.body.getLinearVelocity().y),arriving=!!previous&&distance(p,previous)<Math.max(2.2,speed*.35),busy=!me.grounded||me.jumpPending||me.charging||me.tongue?.phase==='flying'||me.tongue?.phase==='attached',urgent=roleChanged||threatDistance<2.4||recovered,shift=previous?distance(previous,goal):Infinity;
    // Keep B1's launch/shot/reel/release committed. A waypoint can advance before its braking radius.
-   if(!previous||(shift>.7&&(!busy||urgent||arriving))){nav.continueTo(goal);this.stats.goalCommits++;if(arriving)this.stats.arrivalAdvances++;this.committedGoalTick=tick;}else if(shift>.7)this.stats.goalDeferrals++;
-   this.goal={...(nav.goal??goal)};
+   if(!previous||(shift>.7&&(!busy||urgent||arriving||this.intent==='pursue'&&shift>4))){nav.continueTo(goal);this.stats.goalCommits++;if(arriving)this.stats.arrivalAdvances++;this.committedGoalTick=tick;}else if(shift>.7)this.stats.goalDeferrals++;
+   nav.chase(this.intent==='pursue'?this.target:undefined);this.goal={...(nav.goal??goal)};
   }else this.stats.fallbacks++;
  }
  private select(slot:number,tick:number){if(this.target!==slot){this.stats.targetChanges++;this.target=slot;this.committedUntil=tick+TACTICS.commitTicks;}}
