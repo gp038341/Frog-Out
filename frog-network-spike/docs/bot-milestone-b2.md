@@ -1,5 +1,7 @@
 # Bot B2 — competitive game-mode intelligence playtest candidate
 
+The owner rejected the initial movement feel. See [the B2 movement correction](bot-b2-movement-correction.md) for diagnosis, comparative evidence and the revised candidate. B2 is not approved.
+
 ## Approval and scope
 
 The owner approved Bot B1 at `cab49c298b8f8ec33a55d330707040a26f8131b6`.

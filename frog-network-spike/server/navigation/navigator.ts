@@ -10,6 +10,8 @@ export class Navigator{
  reset(){this.goal=undefined;this.fixed=false;this.nextGoal=0;this.nextPlan=0;this.link=undefined;this.mode='move';this.until=0;this.launchTick=-1000;this.shotTick=-1000;this.attachTick=-1;this.failed.clear();this.badAim.clear();this.previous=undefined;this.progressTick=0;this.visits.clear();this.lastSwap=undefined;this.goalStarted=0;this.bestDistance=Infinity;this.windowBest=Infinity;this.noProgress=0;}
  interrupt(){this.mode='move';this.link=undefined;this.nextPlan=0;this.attachTick=-1;}
  setDestination(goal:Point){this.goal={...goal};this.fixed=true;this.link=undefined;this.nextPlan=0;this.mode='move';this.previous=undefined;this.bestDistance=Infinity;this.windowBest=Infinity;this.noProgress=0;}
+ /** Tactical waypoint handoff: reset goal-progress accounting, never the active maneuver or tongue. */
+ continueTo(goal:Point){this.goal={...goal};this.fixed=true;this.nextPlan=0;this.bestDistance=Infinity;this.windowBest=Infinity;this.noProgress=0;}
  private recover(sim:Simulation,f:Frog){this.stats.recoveries++;if(this.link)this.failed.set(this.link.from.id+'>'+this.link.to.id,sim.tick+240);this.mode='recover';this.until=sim.tick+24;this.recoveryX=f.body.getLinearVelocity().x>0?-1:1;this.link=undefined;this.progressTick=sim.tick;this.previous={...f.body.getPosition()};if(!this.fixed){this.goal=undefined;this.nextGoal=0;}}
  input(sim:Simulation,index:number):Input{const f=sim.frogs[index],p=f.body.getPosition(),v=f.body.getLinearVelocity(),tick=sim.tick,t=sim.tuning,gdir=sim.chaosGravityDirection,graph=navigationGraph(sim);
   if(this.lastSwap!==f.swapTick){if(this.lastSwap!==undefined){this.link=undefined;this.mode='move';this.nextPlan=0;}this.lastSwap=f.swapTick;}

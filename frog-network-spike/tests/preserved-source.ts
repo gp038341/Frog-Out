@@ -78,4 +78,7 @@ export function botPreservedSource(path:string){const source=b1PreservedSource(p
 export function b1PreservedSource(path:string){const source=b2PreservedSource(path),m=JSON.parse(readFileSync(new URL('../docs/bot-b1-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
 
 /** B2 only supplies tactical destinations to the approved B1 navigator. */
-export function b2PreservedSource(path:string){const source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8'),m=JSON.parse(readFileSync(new URL('../docs/bot-b2-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+export function b2PreservedSource(path:string){const source=b2rPreservedSource(path),m=JSON.parse(readFileSync(new URL('../docs/bot-b2-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+
+/** Reverse only the B2 movement coordination correction for historical checks. */
+export function b2rPreservedSource(path:string){const source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8'),m=JSON.parse(readFileSync(new URL('../docs/bot-b2r-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
