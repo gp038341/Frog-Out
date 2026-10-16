@@ -6,9 +6,6 @@ export class PlayerGuide {
  private phase='home';leaveAction?:()=>void;
  private pendingLeave?:()=>void;
  constructor(private clearInputs:()=>void){
-  const content=document.getElementById('guide-content')!.cloneNode(true) as HTMLElement;
-  content.removeAttribute('id');document.getElementById('help-content')!.append(content);
-  document.getElementById('home-help')!.onclick=()=>this.open(this.help);
   document.getElementById('help')!.onclick=()=>this.open(this.phase==='game'?this.menu:this.help);
   document.getElementById('menu-resume')!.onclick=()=>this.closeDialog(this.menu);
   document.getElementById('menu-help')!.onclick=()=>{this.closeDialog(this.menu);this.open(this.help);};
@@ -31,10 +28,6 @@ export class PlayerGuide {
   this.phase=phase;document.getElementById('help')!.textContent=phase==='game'?'Menu · Esc':'How to Play';
   const leaveButton=document.getElementById('leave')!,destinationLeave=document.querySelector(phase==='lobby'?'.lobby-primary':'#session-footer')!;
   if(leaveButton.parentElement!==destinationLeave)destinationLeave.append(leaveButton);
-  const quick=document.getElementById('quick-guide')!;
-  const destination=document.getElementById(phase==='lobby'?'lobby-guide':'home-guide')!;
-  if(quick.parentElement!==destination)destination.append(quick);
-  quick.hidden=phase==='game';
   document.getElementById('help-live-note')!.textContent=playing?'The round keeps running while help is open. Your frog stays in play.':'';
   if(phase!=='game'&&this.leave.open)this.closeDialog(this.leave);
   if(phase!=='game'&&this.menu.open)this.closeDialog(this.menu);

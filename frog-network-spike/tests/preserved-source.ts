@@ -90,4 +90,7 @@ export function b2sPreservedSource(path:string){const source=b2iPreservedSource(
 export function b2iPreservedSource(path:string){const source=botCPreservedSource(path),m=JSON.parse(readFileSync(new URL('../docs/bot-b2i-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
 
 /** C changes AI perception/execution only; historical B2 checks use its approved source. */
-export function botCPreservedSource(path:string){const source=readFileSync(new URL(`../${path}`,import.meta.url),'utf8'),m=JSON.parse(readFileSync(new URL('../docs/bot-c-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+export function botCPreservedSource(path:string){const source=rulesGuidePreservedSource(path),m=JSON.parse(readFileSync(new URL('../docs/bot-c-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+
+/** Reverse only the individually authorized rules/help presentation consolidation. */
+export function rulesGuidePreservedSource(path:string,raw=false){const location=new URL(`../${path}`,import.meta.url),source=raw?readFileSync(location):readFileSync(location,'utf8'),m=JSON.parse(readFileSync(new URL('../docs/rules-guide-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
