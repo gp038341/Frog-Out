@@ -6,6 +6,7 @@ Rollback checkpoint: `checkpoint/pre-lobby-connection-recovery`.
 ## Evidence and corrections
 
 - Ready was gated by the exact display string `status === 'connected'`. It now derives eligibility from an open current transport, no pending reconnect, lobby phase, and the local connected human membership. Server authority over Ready and the existing map/Chaos Ready reset remain unchanged. An authoritative lobby update restores the connected label.
+- A second baseline reproduction found a slow previous `leave()` completing after a new room attached: it overwrote the live status with `You left the room.`, disabling Ready despite an open new room. Cleanup/status now occur before awaiting the old transport, so its completion cannot modify the new session. A dedicated delayed-Leave regression test covers this exact sequence.
 - Most room-message handlers had no current-room/generation guard. Terminal closes and intentional departure did not clear the stored game/Chaos view and snapshots consistently. Baseline reproduction with a terminal close followed by an old callback left `outbreak` stored, restored an obsolete game view, and incorrectly reported `playing` true. New tests reject old callbacks, including queued delayed data, and clear all game state immediately when a session ends. Gameplay eligibility also requires the current open connection.
 - A remote connection end no longer claims the user intentionally left. Intentional Leave still says so. The 30-second temporary reconnect deadline and all server lifecycle/scoring behavior are unchanged.
 - Existing Diagnostics export now includes a capped 32-event connection lifecycle trace (attach, close/error code, Ready reset, session end). It records no reconnect tokens or credentials.
@@ -18,9 +19,9 @@ The exact public Ready lock reported by the user was not reproduced during the b
 
 ## Validation
 
-- Full automated suite: 358/358 passed.
+- Full automated suite: 359/359 passed.
 - Production TypeScript/Vite/server build passed (existing bundle-size advisory).
-- Focused lifecycle/departure tests: 16/16 passed.
+- Focused lifecycle/departure tests: 17/17 passed.
 - Independent client/server test: 12 alternating map/Chaos resets with two humans plus a CPU; both humans can re-ready; same-ID reconnect; countdown/start and authoritative snapshots; explicit departure clears stored game state without disconnecting the remaining peer.
 - Baseline failure reproduced separately from the preserved source; new tests cover terminal cleanup and stale callbacks after closing/joining another room.
 
