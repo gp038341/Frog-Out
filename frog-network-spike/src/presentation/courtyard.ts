@@ -1,3 +1,4 @@
+import {ChaosSounds} from './chaos-sounds';
 import {paintFrogChaos} from './frog-chaos-art';
 import type {ArenaChaosState} from '../chaos/arena-chaos';
 import {ARENA_CHAOS} from '../chaos/arena-chaos';
@@ -24,6 +25,7 @@ type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'cha
 type Before={stickyAttachTick?:number;stickyReleaseTick?:number;pogoTick?:number;gravityFlipTick?:number;gravityWarningSeconds?:number;balloonPopTick?:number;balloonBounceTick?:number;bubblePressTick?:number;bubbleId?:number;bumperTick?:number;balloonInflated?:boolean;swapTick?:number;bubbleEscapeTick?:number;surfaceBounceTick?:number;vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};
 /** Presentation consumes render positions only. It never writes a physics body or gameplay input. */
 export class Courtyard {
+ private chaosSounds:ChaosSounds;private soundArena?:ArenaChaosState;
  private tagPuffs:number[]=[];
  appearances:(Appearance|undefined)[]=[];
  reserved:boolean[]=[];
@@ -32,6 +34,7 @@ export class Courtyard {
  background:Phaser.GameObjects.Graphics;ink:Phaser.GameObjects.Graphics;effects:Phaser.GameObjects.Graphics;
  labels:Phaser.GameObjects.Text[]=[];previous:Before[]=[];pops:Pop[]=[];reactions=Array(8).fill(0);round=-1;labelSize=0;
  constructor(private scene:Phaser.Scene,private audio:GameAudio){
+  this.chaosSounds=new ChaosSounds(audio);
   this.background=scene.add.graphics().setDepth(0);this.ink=scene.add.graphics().setDepth(1);this.effects=scene.add.graphics().setDepth(2);
   for(let i=0;i<8;i++)this.labels.push(scene.add.text(0,0,'',{fontFamily:'Trebuchet MS, sans-serif',fontSize:'19px',fontStyle:'bold',color:'#fff8d9',stroke:'#142f35',strokeThickness:5,align:'center',lineSpacing:0}).setOrigin(.5,1).setDepth(4));
   this.chaosInk=scene.add.graphics().setDepth(1.5);
@@ -68,7 +71,7 @@ export class Courtyard {
    }
   });
  }
- renderChaos(state:ArenaChaosState|undefined){const g=this.chaosInk;g.clear();const layout=state?.platforms.length?this.arenaId+':'+(state.crumbling?'crumble':'tilt')+':'+state.platforms.map(p=>p.id).join(','):'';
+ renderChaos(state:ArenaChaosState|undefined){this.soundArena=state;const g=this.chaosInk;g.clear();const layout=state?.platforms.length?this.arenaId+':'+(state.crumbling?'crumble':'tilt')+':'+state.platforms.map(p=>p.id).join(','):'';
   if(layout!==this.chaosLayout){for(const ink of this.platformInk.values())ink.destroy();this.platformInk.clear();for(const bits of this.platformBits.values())for(const b of bits){b.ink.clearMask(true);b.ink.destroy();b.mask.destroy();}this.platformBits.clear();this.chaosLayout=layout;
    if(layout&&state){const covered=new Set(state.platforms.map(p=>p.source));this.paintArena(this.background,{filter:i=>!covered.has(i)});for(const p of state.platforms){const ink=this.scene.add.graphics().setDepth(1);const a=getArena(this.arenaId),solids=a.solids.map(r=>({...r,x:r.x-p.solid.x,y:r.y-p.solid.y}));solids[p.source]={...p.solid,x:0,y:0};this.paintArena(ink,{background:false,filter:i=>i===p.source},{...a,solids});this.platformInk.set(p.id,ink);if(state.crumbling){const bits=[];for(let j=0;j<4;j++){const part=this.scene.add.graphics().setDepth(1);this.paintArena(part,{background:false,filter:i=>i===p.source},{...a,solids});const mask=this.scene.add.graphics().setVisible(false);mask.fillStyle(0xffffff);mask.fillRect(-p.solid.w*S/2+j*p.solid.w*S/4,-p.solid.h*S/2-32,p.solid.w*S/4,p.solid.h*S+64);part.setMask(mask.createGeometryMask());bits.push({ink:part,mask});}this.platformBits.set(p.id,bits);}}}else this.paintArena();
   }
@@ -82,9 +85,10 @@ export class Courtyard {
   if(state?.ballWarning){g.lineStyle(3,0xffdc88);g.strokeCircle(state.ballWarning.x*S,42,24);g.lineBetween(state.ballWarning.x*S,14,state.ballWarning.x*S,38);g.lineBetween(state.ballWarning.x*S-6,31,state.ballWarning.x*S,38);g.lineBetween(state.ballWarning.x*S+6,31,state.ballWarning.x*S,38);}
   if(state?.wind.direction&&state.wind.stage!=='calm'){const d=state.wind.direction;g.lineStyle(state.wind.stage==='gust'?3:2,0xc4f4ff,state.wind.stage==='gust'?.65:.35);for(let i=0;i<8;i++){const x=90+i*140,y=55+(i%3)*16;g.lineBetween(x-d*25,y,x+d*25,y);g.lineBetween(x+d*25,y,x+d*14,y-5);g.lineBetween(x+d*25,y,x+d*14,y+5);}}
  }
- clear(){this.tagPuffs=[];this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}
+ clear(){this.chaosSounds.reset();this.tagPuffs=[];this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}
  pop(x:number,y:number,color:number,kind:Pop['kind'],strength=0){if(this.pops.length<64)this.pops.push({x:x*S,y:y*S,age:0,life:kind==='infect'?650:kind==='swap'?450:360,color,kind,strength});}
- render(states:FrogState[],positions:Point[],view:OutbreakView|undefined,connected:boolean[],names:string[],local:number,delta:number){
+ render(states:FrogState[],positions:Point[],view:OutbreakView|undefined,connected:boolean[],names:string[],local:number,delta:number,modifiers:readonly string[]=[]){
+  this.chaosSounds.update(states,this.soundArena,view,local,modifiers);
   if(view?.round!==this.round){this.round=view?.round??-1;this.previous=[];this.pops=[];}
   const g=this.ink;g.clear();this.effects.clear();const time=performance.now()/1000;
   const ratio=this.scene.scale.width/Math.max(1,this.scene.scale.displaySize.width);const labelSize=Math.ceil(Math.min(28,Math.max(18,10*ratio)));
@@ -101,21 +105,17 @@ export class Courtyard {
   states.forEach((f,i)=>{
    const p=positions[i];if(f.active===false&&!this.reserved[i]){this.labels[i]?.setVisible(false);this.previous[i]=undefined as any;return;}if(!p)return;const infection=view?.mode==='freeze'||view?.mode==='classic'?undefined:view?.players[i],before=this.previous[i],color=FROG_COLORS[i];const state=infection?.state;
    if(before){
-    if(view?.phase==='playing'&&f.stickyAttachTick!==undefined&&f.stickyAttachTick!==before.stickyAttachTick){this.pop(p.x,p.y,0xc3fbb4,'attach');if(i===local)this.audio.play('attach',.65);}
+    if(view?.phase==='playing'&&f.stickyAttachTick!==undefined&&f.stickyAttachTick!==before.stickyAttachTick){this.pop(p.x,p.y,0xc3fbb4,'attach');}
     if(view?.phase==='playing'&&f.stickyReleaseTick!==undefined&&f.stickyReleaseTick!==before.stickyReleaseTick){this.pop(p.x,p.y,0xc3fbb4,'jump');}
-    if(view?.phase==='playing'&&f.pogoTick!==undefined&&f.pogoTick!==before.pogoTick){this.pop(p.x,p.y+.3,0xffb9e3,'jump',.6);this.reactions[i]=140;if(i===local)this.audio.play('jump',1.1);}
-    if(view?.phase==='playing'&&f.gravityWarningSeconds!==undefined&&f.gravityWarningSeconds!==before.gravityWarningSeconds&&i===local)this.audio.play('count');
-    if(view?.phase==='playing'&&f.gravityFlipTick!==undefined&&f.gravityFlipTick!==before.gravityFlipTick){this.pop(p.x,p.y,0xd5c7ff,'swap');if(i===local)this.audio.play('go');}
-    if(f.balloonPopTick!==undefined&&f.balloonPopTick!==before.balloonPopTick){this.pop(p.x,p.y,0xffd4ed,'charge',1);this.reactions[i]=200;if(i===local)this.audio.play('charge',1.2);}
+    if(view?.phase==='playing'&&f.pogoTick!==undefined&&f.pogoTick!==before.pogoTick){this.pop(p.x,p.y+.3,0xffb9e3,'jump',.6);this.reactions[i]=140;}
+    if(view?.phase==='playing'&&f.gravityFlipTick!==undefined&&f.gravityFlipTick!==before.gravityFlipTick){this.pop(p.x,p.y,0xd5c7ff,'swap');}
+    if(f.balloonPopTick!==undefined&&f.balloonPopTick!==before.balloonPopTick){this.pop(p.x,p.y,0xffd4ed,'charge',1);this.reactions[i]=200;}
     if(f.balloonBounceTick!==undefined&&f.balloonBounceTick!==before.balloonBounceTick){this.pop(p.x,p.y+.3,0xffe49c,'charge',.6);this.reactions[i]=130;if(i===local)this.audio.play('charge');}
-    if(f.bubbleId!==undefined&&f.bubblePressTick!==undefined&&f.bubblePressTick!==before.bubblePressTick&&i===local)this.audio.play('ui');
-    if(f.bubbleId!==undefined&&before.bubbleId===undefined&&i===local)this.audio.play('attach');
-    if(f.bumperTick!==undefined&&f.bumperTick!==before.bumperTick){this.reactions[i]=150;this.pop(p.x,p.y,0xffd38f,'bump');if(i===local)this.audio.play('impact',1.2);}
+    if(f.bumperTick!==undefined&&f.bumperTick!==before.bumperTick){this.reactions[i]=150;this.pop(p.x,p.y,0xffd38f,'bump');}
     if(f.balloonInflated!==before.balloonInflated&&f.balloonPopTick===before.balloonPopTick&&i===local)this.audio.play(f.balloonInflated?'build':'miss');
-    if(f.swapTick!==undefined&&f.swapTick!==before.swapTick){this.pop(before.x,before.y,0xc5efff,'swap');this.pop(p.x,p.y,0xc5efff,'swap');if(i===local)this.audio.play('attach');}
-    if(f.bubbleEscapeTick!==undefined&&f.bubbleEscapeTick!==before.bubbleEscapeTick&&i===local)this.audio.play('miss');
+    if(f.swapTick!==undefined&&f.swapTick!==before.swapTick){this.pop(before.x,before.y,0xc5efff,'swap');this.pop(p.x,p.y,0xc5efff,'swap');}
     if(f.surfaceBounceTick!==undefined&&f.surfaceBounceTick!==before.surfaceBounceTick){const strength=f.surfaceBounceStrength??0;this.pop(p.x,p.y+.3,0xa2ee6e,'charge',strength);this.reactions[i]=100+strength*80;if(i===local)this.audio.play('charge',1+strength*.25);}
-    if(before.grounded&&!f.grounded&&f.vy< -5&&f.surfaceBounceTick===before.surfaceBounceTick){const charged=before.charging;this.pop(p.x,p.y+.3,charged?0xffe79b:color,charged?'charge':'jump');if(i===local)this.audio.play(charged?'charge':'jump');}
+    if(before.grounded&&!f.grounded&&f.vy< -5&&f.surfaceBounceTick===before.surfaceBounceTick){const charged=before.charging;this.pop(p.x,p.y+.3,charged?0xffe79b:color,charged?'charge':'jump');if(i===local&&f.pogoTick===before.pogoTick&&f.balloonPopTick===before.balloonPopTick&&f.bumperTick===before.bumperTick)this.audio.play(charged?'charge':'jump');}
     if(f.tongue?.phase==='flying'&&!before.tongue&&i===local)this.audio.play('fire');
     if(f.tongue?.phase==='attached'&&before.tongue!=='attached'){this.pop(f.tongue.tip.x,f.tongue.tip.y,0xffbbc9,'attach');if(i===local)this.audio.play('attach');}
     if(state==='transforming'&&before.state==='healthy'){this.pop(p.x,p.y,POISON_ACCENTS[i],'infect');this.reactions[i]=180;this.tagPuffs[i]=TAG_POOF_MS;}
@@ -128,7 +128,7 @@ export class Courtyard {
    this.reactions[i]=Math.max(0,this.reactions[i]-delta);this.frog(g,p.x*S,p.y*S,f,i,infection,connected[i]!==false,i===local,time);
    if(view?.mode==='classic'){const isIt=i===view.classic!.it;if(before?.state&&before.state!==(isIt?'it':'runner')&&isIt)this.tagPuffs[i]=TAG_POOF_MS;this.tagPuffs[i]=Math.max(0,(this.tagPuffs[i]??0)-delta);paintClassicState(g,p.x*S,p.y*S,i,view,this.tagPuffs[i]);}
    if(view?.mode!=='classic'&&view?.mode!=='freeze'){this.tagPuffs[i]=Math.max(0,(this.tagPuffs[i]??0)-delta);paintTagPoof(g,p.x*S,p.y*S,this.tagPuffs[i]);}
-   if(view?.mode==='freeze'){const frozen=view.freeze!.frozen[i];g.save();g.translateCanvas(p.x*S,p.y*S);g.scaleCanvas((f.radius??defaults.frogRadius)/defaults.frogRadius,(f.radius??defaults.frogRadius)/defaults.frogRadius);paintFreezeState(g,0,0,i,view);g.restore();if(before?.state&&before.state!==(frozen?'frozen':'runner')){this.pop(p.x,p.y,0xb3f0ff,'attach');if(i===local)this.audio.play(frozen?'infect':'transform');}}
+   if(view?.mode==='freeze'){const frozen=view.freeze!.frozen[i];g.save();g.translateCanvas(p.x*S,p.y*S);g.scaleCanvas((f.radius??defaults.frogRadius)/defaults.frogRadius,(f.radius??defaults.frogRadius)/defaults.frogRadius);paintFreezeState(g,0,0,i,view);g.restore();if(before?.state&&before.state!==(frozen?'frozen':'runner')){this.pop(p.x,p.y,0xb3f0ff,'attach');}}
    if(f.stickyMud){g.fillStyle(0x795343,.8);for(const dx of [-8,8])g.fillEllipse(p.x*S+dx,p.y*S+12,12,5);}
    const status=connected[i]===false?'OFFLINE':view?.mode==='classic'?(i===view.classic!.it?'▲ IT':'NOT IT'):view?.mode==='freeze'?(i===view.freeze!.freezer?'❄ FREEZER':view.freeze!.frozen[i]?'❄ FROZEN':view.freeze!.protectedUntil[i]>view.tick?'◇ PROTECTED':'RUNNER'):infection?.state==='transforming'?'CHANGING · 1s':infection?.state==='infectious'?(infection.patientZero?'◆ DART FROG':'◆ POISON FROG'):view?.phase==='playing'&&view.players.filter(v=>v.present!==false&&v.state==='healthy').length===1?'LAST SAFE':'SAFE';
    paintFrogChaos(g,p.x*S,p.y*S,f,view?.tick??0,i);

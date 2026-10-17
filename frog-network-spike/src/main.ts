@@ -95,7 +95,7 @@ class Spike extends Phaser.Scene {
   this.art.renderChaos(net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.arenaChaos.capture():latest.state.arenaChaos);
   this.art.appearances=states.map((_,i)=>(net.lobby?.players.find(p=>p.slot===i)??net.lobby?.roster?.find(p=>p.slot===i))?.appearance);
   this.art.reserved=states.map((_,i)=>!!net.lobby?.players.some(p=>p.slot===i&&!isCPU(p)&&!p.connected));
-  this.art.render(states,this.rendered,net.outbreak,latest.connected,states.map((_,i)=>playerName(i)),net.slot,delta);
+  this.art.render(states,this.rendered,net.outbreak,latest.connected,states.map((_,i)=>playerName(i)),net.slot,delta,net.chaos?.active??[]);
   if(now-lastStatus>100){lastStatus=now;const last=net.snapshots.at(-1)!;
    const corrections=[...net.predictor.corrections].sort((a,b)=>a-b),p95=corrections[Math.floor(corrections.length*.95)]??0;
    document.querySelector('#status')!.textContent=`${net.status}${net.stale?' · STATE STALE':''} · room ${net.room?.roomId??'?'} · P${net.slot+1}\nRTT ${net.rtt.toFixed(0)}ms · added RTT ${net.link.rtt}ms ± ${net.link.jitter}ms/leg · prediction ${net.prediction?'ON':'OFF'} · coupled ${coupled}\ntick ${last.state.tick} · ack ${last.ack[net.slot]??0}/${net.seq} · pending ${net.predictor.pending.length} · state age ${Math.max(0,nowServer-last.serverTime).toFixed(0)}ms\ncorrection last ${net.predictor.lastCorrection.toFixed(3)}m / p95 ${p95.toFixed(3)}m · large snaps ${net.predictor.snaps}\nserver tick p95 ${last.tickMs.p95.toFixed(3)}ms / p99 ${last.tickMs.p99.toFixed(3)}ms / max ${last.tickMs.max.toFixed(3)}ms · overruns ${last.overruns}`;

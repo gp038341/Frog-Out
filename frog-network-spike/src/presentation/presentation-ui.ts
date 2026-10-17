@@ -1,3 +1,4 @@
+import {isSoundClick} from './ui-sounds';
 import {GameAudio} from './audio';
 import {Moments} from './moments';
 import type {OutbreakView} from '../game/outbreak';
@@ -9,15 +10,16 @@ export class PresentationUI {
  constructor(private audio:GameAudio){
   this.toast=document.createElement('aside');this.toast.id='pond-moment';this.toast.setAttribute('aria-live','polite');this.toast.hidden=true;document.querySelector('#game')!.append(this.toast);
   try{const stored=localStorage.getItem('frog-out-volume');if(stored!==null&&Number.isFinite(Number(stored)))audio.setVolume(Number(stored));}catch{}
-  // Audio settings live in existing collapsible lobby help, never in the gameplay footer.
-  const settings=document.createElement('label');settings.className='pond-audio-settings';settings.textContent='Sound volume ';const volume=document.createElement('input');volume.type='range';volume.min='0';volume.max='100';volume.value=String(Math.round(audio.volume*100));volume.setAttribute('aria-label','Sound volume');settings.append(volume);const output=document.createElement('output');output.textContent=volume.value+'%';settings.append(output);volume.oninput=()=>{audio.setVolume(Number(volume.value)/100);output.textContent=volume.value+'%';};document.querySelector('#lobby-rules')?.append(settings);
+  // Volume stays in the one shared How to Play dialog, never in the gameplay footer.
+  const settings=document.createElement('label');settings.className='pond-audio-settings';settings.textContent='Sound volume ';const volume=document.createElement('input');volume.type='range';volume.min='0';volume.max='100';volume.value=String(Math.round(audio.volume*100));volume.setAttribute('aria-label','Sound volume');settings.append(volume);const output=document.createElement('output');output.textContent=volume.value+'%';settings.append(output);volume.oninput=()=>{audio.setVolume(Number(volume.value)/100);output.textContent=volume.value+'%';};document.querySelector('#help-content')?.append(settings);
   const card=document.createElement('p');card.className='pond-reveal-caption';card.textContent='TINY FROG. BIG DART ENERGY.';document.querySelector('#phase-overlay .reveal-card')?.append(card);
   const end=document.createElement('p');end.id='pond-results-caption';end.className='pond-results-caption';document.querySelector('#winner-message')?.after(end);
-  document.addEventListener('click',e=>{const b=(e.target as Element)?.closest?.('button');if(b&&!['sound','fullscreen','touch-toggle','touch-action','input-monitor-toggle','mobile-export'].includes(b.id))audio.play('ui');});
+  document.addEventListener('click',e=>{if(isSoundClick(e.target as Element))audio.play('ui');});
+  document.addEventListener('change',e=>{const target=e.target as Element;if(target?.matches?.('select,input[type=checkbox]'))audio.play('ui');});
   document.addEventListener('visibilitychange',()=>{if(document.hidden){audio.silence();this.toast.hidden=true;}});
  }
  update(view:OutbreakView|undefined,local:number){
-  for(const m of this.moments.update(view,local)){this.audio.play(m.cue);if(m.text){this.toast.textContent=m.text;this.toast.dataset.kind=m.cue;this.until=performance.now()+(m.cue==='last'||m.cue==='infect'||m.cue==='transform'?1300:650);}}
+  for(const m of this.moments.update(view,local)){this.audio.play(m.sound??m.cue);if(m.text){this.toast.textContent=m.text;this.toast.dataset.kind=m.cue;this.until=performance.now()+(m.cue==='last'||m.cue==='infect'||m.cue==='transform'?1300:650);}}
   this.toast.hidden=!view||view.phase!=='playing'||performance.now()>this.until||!!document.querySelector('dialog[open]');
   if(!view){this.key='';this.count=-1;document.body.classList.remove('pond-last','pond-victory');return;}
   const key=`${view.round}:${view.phase}`,overlay=document.querySelector('#phase-overlay')!;

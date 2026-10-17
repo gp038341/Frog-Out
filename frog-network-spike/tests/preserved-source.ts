@@ -93,4 +93,7 @@ export function b2iPreservedSource(path:string){const source=botCPreservedSource
 export function botCPreservedSource(path:string){const source=rulesGuidePreservedSource(path),m=JSON.parse(readFileSync(new URL('../docs/bot-c-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
 
 /** Reverse only the individually authorized rules/help presentation consolidation. */
-export function rulesGuidePreservedSource(path:string,raw=false){const location=new URL(`../${path}`,import.meta.url),source=raw?readFileSync(location):readFileSync(location,'utf8'),m=JSON.parse(readFileSync(new URL('../docs/rules-guide-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+export function rulesGuidePreservedSource(path:string,raw=false){const source=soundCoveragePreservedSource(path,raw),m=JSON.parse(readFileSync(new URL('../docs/rules-guide-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+
+/** Reverse only the owner-authorized sound coverage layer before historical checks. */
+export function soundCoveragePreservedSource(path:string,raw=false){const location=new URL(`../${path}`,import.meta.url),source=raw?readFileSync(location):readFileSync(location,'utf8'),m=JSON.parse(readFileSync(new URL('../docs/sound-coverage-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}

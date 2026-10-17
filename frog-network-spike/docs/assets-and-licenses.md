@@ -37,3 +37,6 @@ Bumper stars, balloon shell/core, swap rings and translucent bubbles are origina
 Gravity arrows/countdown, warning pulse and Pogo foot bursts are original code-native graphics. Reuse approved original count/go/jump audio cues; no new external assets, fonts, recordings, dependencies or paid resources.
 
 Lobby visual candidate: original code-drawn Chaos badge, frog-foot vote stamps and Frog-Out SVG/PNG favicon created in this repository. No external artwork, fonts or paid assets. Original hero frog and all approved arena/gameplay art retained.
+## Sound coverage refinement
+
+Countdown, poison poof, ice/rescue, magnet, gust, rubber boing, teleport, bubble, suction, crumble and ball-impact cues are original Web Audio synthesis in `src/presentation/audio.ts`. Short filtered-noise bursts use a locally generated seeded buffer, not an external recording. No downloaded samples, external assets, new dependencies or license obligations. Existing approved sounds remain in use.

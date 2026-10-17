@@ -1,6 +1,6 @@
 import type {OutbreakView} from '../game/outbreak';
 import type {Cue} from './audio';
-export type Moment={cue:Cue;text?:string};
+export type Moment={cue:Cue;sound?:Cue;text?:string};
 /** Server-view edges only. No rule writes, timers or gameplay commands. */
 export class Moments {
  private roundKey='';private phase='';private count=-1;private healthy=-1;private states:string[]=[];
@@ -20,10 +20,11 @@ export class Moments {
   if(view.phase==='playing'){
    if(!freeze&&!classic&&healthy===1&&this.healthy!==1)events.push({cue:'last',text:'LAST SAFE FROG!'});
    if(classic&&this.states.length&&this.states[view.classic!.it]!=='it')events.push({cue:'infect',...(view.classic!.it===local?{text:'YOU’RE IT!'}:{})});
-   if(freeze){const current=view.freeze!.frozen[local]?'frozen':'runner';if(this.states[local]==='runner'&&current==='frozen')events.push({cue:'infect',text:'YOU’RE FROZEN!'});if(this.states[local]==='frozen'&&current==='runner')events.push({cue:'transform',text:'RESCUED!'});}
+   if(freeze){const frozen=view.freeze!.frozen;if(frozen.some((value,i)=>value&&this.states[i]==='runner'))events.push({cue:'infect',sound:'freeze',...(this.states[local]==='runner'&&frozen[local]?{text:'YOU’RE FROZEN!'}:{})});if(frozen.some((value,i)=>!value&&this.states[i]==='frozen'))events.push({cue:'transform',sound:'rescue',...(this.states[local]==='frozen'&&!frozen[local]?{text:'RESCUED!'}:{})});}
    if(!freeze&&!classic&&view.players.some((p,i)=>!p.patientZero&&this.states[i]==='healthy'&&p.state!=='healthy'))events.push({cue:'infect',...(this.states[local]==='healthy'&&view.players[local]?.state!=='healthy'?{text:'YOU’RE POISONED!'}:{})});
    if(!freeze&&!classic&&this.states[local]==='transforming'&&view.players[local]?.state==='infectious')events.push({cue:'transform'});
   }
+  if(view.phase==='round-results'&&this.phase==='playing'){const tagged=freeze?view.freeze!.frozen.some((value,i)=>value&&this.states[i]==='runner'):classic?this.states[view.classic!.it]==='runner':view.players.some((p,i)=>!p.patientZero&&this.states[i]==='healthy'&&p.state!=='healthy');if(tagged)events.push({cue:'infect',...(freeze?{sound:'freeze' as Cue}:{})});}
   this.phase=view.phase;this.healthy=healthy;this.states=view.players.map(p=>classic?(p.slot===view.classic!.it?'it':'runner'):freeze?(view.freeze!.frozen[p.slot]?'frozen':'runner'):p.state);return events;
  }
 }
