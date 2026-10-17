@@ -25,27 +25,34 @@ export class Connection {
  error(e:unknown){const message=e instanceof Error?e.message:String(e);return /locked|full|maxClients/i.test(message)?'This room is full or has already started.':message;}
  private save(){if(this.room&&this.lobby)sessionStorage.setItem(cacheKey,JSON.stringify({token:this.room.reconnectionToken,phase:this.lobby.phase,code:this.lobby.code}));}
  private stop(){clearInterval(this.interval);clearInterval(this.ping);this.link.clear();this.input={x:0,y:0,held:false};this.predictor.pending=[];this.predictor.initialized=false;}
- private attach(room:Room){const generation=++this.generation;let kicked=false;this.room=room;this.chaos=undefined;this.outbreak=undefined;this.status='connected';this.snapshots=[];this.slot=-1;this.seq=0;this.lastReset=-1;this.lastReceive=0;this.predictor.initialized=false;this.predictor.pending=[];this.notice='';this.hostNoticeUntil=0;
-  room.onMessage('welcome',data=>{this.slot=data.slot;this.playerId=data.playerId;this.predictor.slot=data.slot;this.seq=Math.max(this.seq,data.seqBase??0);this.status='connected';});
-  room.onMessage('lobby',(state:LobbyState)=>{if(state.phase!==this.lobby?.phase){if(this.lobby?.phase==='lobby'&&state.phase==='game')this.seq=0;this.snapshots=[];this.predictor.initialized=false;this.predictor.pending=[];this.input={x:0,y:0,held:false};this.lastReceive=0;}this.lobby=state;this.notice=state.notice;this.save();});
-  room.onMessage('outbreak',(state:OutbreakView|null)=>this.link.schedule('receive',()=>{if(state?.phase!==this.outbreak?.phase||state?.round!==this.outbreak?.round){this.snapshots=[];this.predictor.initialized=false;this.predictor.pending=[];this.input={x:0,y:0,held:false};}this.outbreak=state??undefined;}));
-  room.onMessage('chaos',(state:ChaosView|null)=>this.link.schedule('receive',()=>{this.chaos=state??undefined;}));
-  room.onMessage('kicked',(message:string)=>{kicked=true;this.hostNoticeUntil=0;this.stop();this.room=undefined;this.lobby=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);this.status=message;this.notice=message;});
-  room.onMessage('notice',(message:string)=>this.notice=message);
-  room.onMessage('host-changed',()=>{this.hostNoticeUntil=Date.now()+8000;});
-  room.onMessage('pong',data=>this.link.schedule('receive',()=>{const now=Date.now();const sample=now-data.at;this.rtt=this.rtt?this.rtt*.8+sample*.2:sample;const measured=data.serverTime-(data.at+now)/2;this.offset=this.offset?this.offset*.8+measured*.2:measured;}));
-  room.onMessage('snapshot',(s:Snapshot)=>this.link.schedule('receive',()=>{
+ private attach(room:Room){const generation=++this.generation;const current=()=>generation===this.generation&&this.room===room;const listen=(type:string,handler:(data:any)=>void)=>room.onMessage(type,data=>{if(current())handler(data);});let kicked=false;this.room=room;this.chaos=undefined;this.outbreak=undefined;this.status='connected';this.snapshots=[];this.slot=-1;this.seq=0;this.lastReset=-1;this.lastReceive=0;this.predictor.initialized=false;this.predictor.pending=[];this.notice='';this.hostNoticeUntil=0;
+  listen('welcome',data=>{this.slot=data.slot;this.playerId=data.playerId;this.predictor.slot=data.slot;this.seq=Math.max(this.seq,data.seqBase??0);this.status='connected';});
+  listen('lobby',(state:LobbyState)=>{if(this.lobby?.players.find(p=>p.id===this.playerId)?.ready&&!state.players.find(p=>p.id===this.playerId)?.ready)this.lifecycle('ready-reset');if(state.phase!==this.lobby?.phase){if(this.lobby?.phase==='lobby'&&state.phase==='game')this.seq=0;this.snapshots=[];this.predictor.initialized=false;this.predictor.pending=[];this.input={x:0,y:0,held:false};this.lastReceive=0;}this.lobby=state;this.status='connected';this.notice=state.notice;this.save();});
+  listen('outbreak',(state:OutbreakView|null)=>this.link.schedule('receive',()=>{if(!current())return;if(state?.phase!==this.outbreak?.phase||state?.round!==this.outbreak?.round){this.snapshots=[];this.predictor.initialized=false;this.predictor.pending=[];this.input={x:0,y:0,held:false};}this.outbreak=state??undefined;}));
+  listen('chaos',(state:ChaosView|null)=>this.link.schedule('receive',()=>{if(!current())return;this.chaos=state??undefined;}));
+  listen('kicked',(message:string)=>{kicked=true;this.endSession(message);this.notice=message;});
+  listen('notice',(message:string)=>this.notice=message);
+  listen('host-changed',()=>{this.hostNoticeUntil=Date.now()+8000;});
+  listen('pong',data=>this.link.schedule('receive',()=>{if(!current())return;const now=Date.now();const sample=now-data.at;this.rtt=this.rtt?this.rtt*.8+sample*.2:sample;const measured=data.serverTime-(data.at+now)/2;this.offset=this.offset?this.offset*.8+measured*.2:measured;}));
+  listen('snapshot',(s:Snapshot)=>this.link.schedule('receive',()=>{if(!current())return;
    if(this.lobby?.phase!=='game'||s.state.tick<=(this.snapshots.at(-1)?.state.tick??-1))return;
    setSimulationArena(this.predictor.sim,s.arenaId??DEFAULT_ARENA);applyChaos(this.predictor.sim,s.chaos?.active??[]);this.bytesIn+=JSON.stringify(s).length;this.lastReceive=Date.now();this.inputTrace.snapshotAt=this.lastReceive;const ack=s.ack[this.slot]??0;if(ack!==this.inputTrace.ack){this.inputTrace.ack=ack;this.inputTrace.ackAt=this.lastReceive;}if(s.state.tick!==this.inputTrace.tick){this.inputTrace.tick=s.state.tick;this.inputTrace.tickAt=this.lastReceive;}if(!this.snapshots.length)this.offset=s.serverTime-Date.now()+this.link.rtt/2;
    if(this.lastReset!==s.resetId){this.predictor.initialized=false;this.lastReset=s.resetId;}
    this.snapshots.push(s);if(this.snapshots.length>90)this.snapshots.shift();if(this.prediction&&this.playing)this.predictor.reconcile(s,Date.now()+this.offset,this.offset);
   }));
-  room.onLeave(code=>{if(generation!==this.generation)return;if(kicked)code=4003;const playing=this.lobby?.phase==='game';const token=room.reconnectionToken;this.stop();this.room=undefined;this.hostNoticeUntil=0;this.status='Disconnected.';if(code!==4000&&code!==4003){const resumeUntil=Date.now()+30000;sessionStorage.setItem(cacheKey,JSON.stringify({token,phase:this.lobby?.phase,resumeUntil}));void this.resume(token,resumeUntil);}else{this.lobby=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);this.status=code===4003?'The host removed you from the lobby.':'You left the room. Create or join another room.';}});
-  room.onError((_code,message)=>this.notice=`Connection error: ${message}`);
-  room.send('hello');this.sendPing();this.ping=setInterval(()=>this.sendPing(),1000);this.interval=setInterval(()=>this.sendInput(),1000/NETWORK.inputHz);this.save();
+  room.onLeave(code=>{if(!current())return;const token=room.reconnectionToken;this.lifecycle('closed',code);++this.generation;this.stop();this.room=undefined;this.hostNoticeUntil=0;this.status='Disconnected.';if(code!==4000&&code!==4003&&!kicked){const resumeUntil=Date.now()+30000;sessionStorage.setItem(cacheKey,JSON.stringify({token,phase:this.lobby?.phase,resumeUntil}));void this.resume(token,resumeUntil);}else this.endSession(code===4003||kicked?'The host removed you from the lobby.':'This room connection ended. Create or join another room.');});
+  room.onError((code,message)=>{if(!current())return;this.lifecycle('error',code);this.notice=`Connection error: ${message}`;});
+  room.send('hello');this.sendPing();this.ping=setInterval(()=>this.sendPing(),1000);this.interval=setInterval(()=>this.sendInput(),1000/NETWORK.inputHz);this.save();this.lifecycle('attached');
  }
  private cancelResume(){if(!this.reconnecting)return;++this.reconnectAttempt;this.reconnecting=false;this.busy=false;this.stop();sessionStorage.removeItem(cacheKey);}
- private expiredResume(){this.hostNoticeUntil=0;this.lobby=undefined;this.room=undefined;this.slot=-1;this.outbreak=undefined;this.chaos=undefined;this.snapshots=[];sessionStorage.removeItem(cacheKey);this.notice='';this.status='Your previous session ended. Create or join a room.';}
+ /** Only the active room may change UI/session state. A closed room must not resurrect a frozen game. */
+ private endSession(message:string){++this.generation;++this.reconnectAttempt;this.stop();this.reconnecting=false;this.busy=false;this.hostNoticeUntil=0;this.room=undefined;this.lobby=undefined;this.outbreak=undefined;this.chaos=undefined;this.snapshots=[];this.slot=-1;this.playerId='';this.lastReceive=0;sessionStorage.removeItem(cacheKey);this.notice='';this.status=message;this.lifecycle('ended');}
+ private expiredResume(){this.endSession('Your previous session ended. Create or join a room.');}
+ readonly lifecycleTrace:{at:number;event:string;code?:number;phase?:string;open:boolean}[]=[];
+ private lifecycle(event:string,code?:number){this.lifecycleTrace.push({at:Date.now(),event,code,phase:this.lobby?.phase,open:!!this.room?.connection.isOpen});if(this.lifecycleTrace.length>32)this.lifecycleTrace.shift();}
+ get connected(){return !!this.room?.connection.isOpen&&!this.reconnecting;}
+ get canReady(){return this.connected&&this.lobby?.phase==='lobby'&&this.lobby.players.some(p=>p.id===this.playerId&&p.connected&&p.kind!=='cpu');}
+
  async resume(token:string,resumeUntil=Date.now()+30000){if(this.reconnecting)return;if(resumeUntil<=Date.now()){this.expiredResume();return;}this.reconnecting=true;this.busy=!!this.lobby;const attempt=++this.reconnectAttempt;this.stop();try{while(Date.now()<resumeUntil){if(attempt!==this.reconnectAttempt)return;this.status=`Reconnecting… ${Math.max(0,Math.ceil((resumeUntil-Date.now())/1000))}s remaining`;try{const room=await this.client.reconnect(token);if(attempt!==this.reconnectAttempt){await room.leave();return;}this.attach(room);return;}catch(e){if(attempt!==this.reconnectAttempt)return;const error=e as {code?:number;message?:string};if(error.code===4212||error.code===4214||/reconnection token.*(?:invalid|expired)|seat reservation expired|already consumed|room .*?(?:disposed|not found)/i.test(error.message??''))break;await new Promise(r=>setTimeout(r,1000));}}if(attempt===this.reconnectAttempt)this.expiredResume();}finally{if(attempt===this.reconnectAttempt){this.reconnecting=false;this.busy=false;}}}
 
  setAppearance(appearance:Appearance){if(this.status==='connected'&&this.lobby?.phase==='lobby')this.room?.send('appearance',appearance);}
@@ -55,13 +62,13 @@ export class Connection {
  kick(id:string){if(this.status==='connected'&&this.lobby?.phase==='lobby'&&this.lobby.hostId===this.playerId)this.room?.send('kick',id);}
  selectMode(mode:GameMode){if(this.status==='connected')this.room?.send('select-mode',mode);}
  selectArena(id:ArenaId){if(this.status==='connected')this.room?.send('select-arena',id);}
- ready(value:boolean){if(this.status==='connected')this.room?.send('ready',value);}
+ ready(value:boolean){if(this.canReady)this.room?.send('ready',value);}
  start(){if(this.status==='connected')this.room?.send('start');}
  nextRound(){if(this.status==='connected')this.room?.send('next-round');}
  returnLobby(){if(this.status==='connected')this.room?.send('return-lobby');}
- get playing(){return this.lobby?.phase==='game'&&this.outbreak?.phase==='playing'&&(!this.chaos||this.chaos.phase==='idle');}
+ get playing(){return this.connected&&this.lobby?.phase==='game'&&this.outbreak?.phase==='playing'&&(!this.chaos||this.chaos.phase==='idle');}
  get hostNotice(){return Date.now()<this.hostNoticeUntil?'You are now the host.':'';}
- async leave(){this.hostNoticeUntil=0;++this.generation;++this.reconnectAttempt;this.reconnecting=false;this.busy=false;this.stop();const room=this.room;this.room=undefined;this.lobby=undefined;this.slot=-1;sessionStorage.removeItem(cacheKey);if(room)await room.leave();this.status='You left the room.';}
+ async leave(){const room=this.room;this.endSession('You left the room.');if(room)await room.leave();}
  sendPing(){const at=Date.now();this.link.schedule('send',()=>this.room?.send('ping',at));}
  setInput(input:Input){if(input.x===this.input.x&&input.y===this.input.y&&input.held===this.input.held)return;this.input={...input};this.sendInput();}
  sendInput(){this.inputTrace.attemptAt=Date.now();this.inputTrace.transportOpen=!!this.room?.connection.isOpen;if(this.slot<0||this.status!=='connected'||!this.playing){this.inputTrace.skip=this.slot<0?'no-slot':this.status!=='connected'?'disconnected':'round-not-playing';return;}this.inputTrace.skip='';const command:Command={seq:++this.seq,at:Date.now(),input:{...this.input}};if(this.prediction)this.predictor.add(command);this.bytesOut+=JSON.stringify(command).length;this.link.schedule('send',()=>{if(this.room?.connection.isOpen){this.inputTrace.sentAt=Date.now();this.inputTrace.sentSeq=command.seq;this.room.send('input',command);}else this.inputTrace.skip='transport-closed';});}
