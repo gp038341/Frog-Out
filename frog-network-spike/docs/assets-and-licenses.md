@@ -40,3 +40,7 @@ Lobby visual candidate: original code-drawn Chaos badge, frog-foot vote stamps a
 ## Sound coverage refinement
 
 Countdown, poison poof, ice/rescue, magnet, gust, rubber boing, teleport, bubble, suction, crumble and ball-impact cues are original Web Audio synthesis in `src/presentation/audio.ts`. Short filtered-noise bursts use a locally generated seeded buffer, not an external recording. No downloaded samples, external assets, new dependencies or license obligations. Existing approved sounds remain in use.
+
+## Background music — Pondside Pandemonium
+
+Original Frog-Out composition and synthesis in `src/presentation/music-score.ts`, generated locally by `music-worker.ts`: 16 bars, 116 BPM, mallet melody, bass, chords and percussion. No external recordings, samples, melodies, assets, dependencies or music services. Source and generated audio are original project assets permitted for redistribution with the game. Existing approved sound effects remain unchanged. See `docs/background-music.md` for controls and validation.

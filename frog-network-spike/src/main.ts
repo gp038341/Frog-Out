@@ -1,3 +1,5 @@
+import './presentation/music.css';
+import {MusicUI} from './presentation/music-ui';
 import {isCPU,participating,readyParticipant} from './game/participants';
 import {decorateCPUSeat} from './ui/cpu-lobby';
 import {ChaosUI} from './ui/chaos-ui';
@@ -152,6 +154,7 @@ Object.assign(window,{spikeDebug:net});
 const el=(id:string)=>document.getElementById(id)!;
 const guide=new PlayerGuide(clear);
 const presentation=new PresentationUI(audio);
+new MusicUI();
 const modeUI=new ModeUI(mode=>net.selectMode(mode));
 const customization=new Customization(el('frog-customization'),appearance=>net.setAppearance(appearance));
 const arenaCards=arenaList.map(a=>{const b=document.createElement('button');b.type='button';b.className='arena-card';b.dataset.arena=a.id;b.innerHTML=arenaPreview(a);const title=document.createElement('strong');title.textContent=a.name;b.append(title);const desc=document.createElement('small');desc.textContent=a.id==='canopy'?'Balanced garden chases':a.id==='bathhouse'?'Sponge shortcuts & basin swings':a.id==='toyshop'?'Rubber launches & zigzag chases':a.id==='sunny-pond'?'Lily launches & muddy choices':'Vertical swings & launches';b.append(desc);b.onclick=()=>net.selectArena(a.id);el('arena-previews').append(b);return b;});
