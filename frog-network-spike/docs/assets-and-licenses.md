@@ -41,6 +41,6 @@ Lobby visual candidate: original code-drawn Chaos badge, frog-foot vote stamps a
 
 Countdown, poison poof, ice/rescue, magnet, gust, rubber boing, teleport, bubble, suction, crumble and ball-impact cues are original Web Audio synthesis in `src/presentation/audio.ts`. Short filtered-noise bursts use a locally generated seeded buffer, not an external recording. No downloaded samples, external assets, new dependencies or license obligations. Existing approved sounds remain in use.
 
-## Background music — Pondside Pandemonium
+## Background music — Reedwater
 
-Original Frog-Out composition and synthesis in `src/presentation/music-score.ts`, generated locally by `music-worker.ts`: 16 bars, 116 BPM, mallet melody, bass, chords and percussion. No external recordings, samples, melodies, assets, dependencies or music services. Source and generated audio are original project assets permitted for redistribution with the game. Existing approved sound effects remain unchanged. See `docs/background-music.md` for controls and validation.
+Reedwater is an original Frog-Out modal/minor theme in two synchronized arrangements (Chill and Adventure), replacing the previous Pondside Pandemonium candidate. Composition and string/reed/bass/percussion synthesis are project-native code in `src/presentation/music-score.ts`, rendered locally by `music-worker.ts`. No external melody, recording, sample, dependency, paid service or third-party licensing obligation. Source and generated audio are original project assets for redistribution with the game. Approved sound effects are unchanged. See `docs/background-music.md` for controls and validation.

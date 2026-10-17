@@ -1,33 +1,40 @@
-# Background music — listening candidate
+# Background music — Reedwater listening candidate
 
-Approved baseline: `a763df12f787835212451b92f9a237b7a313a1c1`.
-Preserved checkpoint: `checkpoint/approved-sound-rules-lobby-recovery`.
+Approved gameplay checkpoint: `checkpoint/approved-sound-rules-lobby-recovery` at `a763df12f787835212451b92f9a237b7a313a1c1`.
+Previous music candidate: `checkpoint/background-music-playtest` at `b37a21d40970bed0e7d4f760cf7f08c718f8e6b0`.
 
-## Soundtrack and rights
+## Composition and rights
 
-**Pondside Pandemonium** is an original Frog-Out instrumental composition, implemented entirely in project code (`music-score.ts`). C-major/A-minor, 116 BPM, 16 bars / approximately 33.10 seconds: syncopated mallet call-and-response, round bass, light offbeat chords and percussion. Note tails wrap through the loop boundary; there is no file-loading gap between loops. No external melody, recording, sample, music library, asset pack or paid service is used. The composition and synthesizer source are original project assets for redistribution with Frog-Out. Existing approved sound effects are unchanged.
+**Reedwater** replaces the earlier bright mallet composition. It is an original Frog-Out modal/minor theme, with warm plucked strings, a lower reed melody, sustained harmony, bass and restrained drums. No third-party composition, recording, sample, music service, dependency or paid asset is used. The composition and synthesis source (`music-score.ts`) are original project assets for redistribution with Frog-Out.
 
-## Controls and behavior
+Two arrangements share the exact 124-BPM, 16-bar clock (approximately 30.97 seconds):
 
-- Music defaults On at 30%; music and effects remain independent.
-- Music On/Off and Music Volume 0–100% are inside the existing Escape/Game menu. The same settings are accessible from How to Play on home/lobby screens. Both panels mirror the same player.
-- `frog-out-music-enabled` and `frog-out-music-volume` persist locally. Storage failures do not block gameplay.
-- One client-side AudioContext and one looping AudioBufferSourceNode persist across all game screens, rooms, rounds, voting and results. Menus do not restart the track. Mute/zero volume silence immediately and suspend playback; enabling resumes its position.
-- Browser permission is requested synchronously during a trusted pointer/touch/key/click gesture. Passive observers never prevent events or change control ownership. Muting on the first settings interaction cannot inadvertently unlock audible music.
-- Hidden tabs/page cache suspend the music; returning resumes the same source if enabled and previously unlocked. Blocked playback can retry on a subsequent gesture. Unsupported audio/worker APIs or failed generation produce an unobtrusive unavailable message; the game remains playable.
-- One short-lived Web Worker generates a 22,050 Hz mono buffer away from the render/input thread. The buffer is about 2.92 MB; temporary generation data is released afterward. The worker script is about 2.2 KB. No audio download, new dependency or server work.
+- **Chill:** half-time feel, sparse reed phrases, slower bass and soft percussion. Home, lobby, countdown, voting and results.
+- **Adventure:** driving string ostinato, active bass, full melody and tom/snare accents. Active gameplay in every game mode.
+
+Both loop gaplessly. A short smooth crossfade changes their balance; neither starts over at a phase transition. No playlist or per-arena soundtrack system.
+
+## Audio controls
+
+- Existing **Sound: On/Off** is the master switch for effects and music. Its existing initial Off behavior is preserved. Music will not play while Sound is Off, even after other page interactions.
+- Music On/Off and Music Volume 0–100% remain in the Escape/Menu and home/lobby How to Play dialogs. Default music volume remains 30%.
+- Music preferences persist in browser localStorage. Master Off does not erase the separate Music preference or volume. Sound On respects an explicitly saved Music Off setting.
+- Trusted gestures request browser permission; mute immediately silences both arrangements. Hidden tabs/page cache pause the same music clock. Returning, unmuting or changing game state does not create extra sources or restart the theme.
+- Generation runs in one short-lived worker, not the input/render thread. One music context contains two aligned looping sources and one music-volume output. Total audio-buffer storage is approximately 5.46 MB; no audio download or server work.
+- Blocked audio, generation failures and unavailable APIs remain isolated from gameplay. A small status line explains master mute or unavailable playback.
 
 ## Validation
 
-- 11 focused tests: deterministic score/duration/seam, one-source looping, default volume, gesture gating, mute/unmute, persistence, hidden/page-cache behavior, pending-resume and pending-generation races, blocked APIs, storage failures, both settings panels and source preservation.
-- Full suite: 370 tests. Production build checked.
-- Exact source hashes protect server, bots, physics, all modifiers, arenas, effects, cosmetics, Escape/menu implementation, networking and mobile/iPhone controls/viewport. `main.ts` only adds the music UI/CSS import and its singleton initialization.
-- Browser listening and physical-device audio acceptance are separate from automated state checks. Physical iPhone Safari/Android music playback is not claimed verified by this change; existing input/viewport implementations remain unchanged.
+16 focused audio tests cover composition bounds, different mood energy, identical timing, crossfade targets, no source duplication, shared Sound gating, saved Music Off, pending-generation mute races, gestures, volume, visibility, storage/API failures and exact source preservation. Full suite: 375 tests. Production build checked.
+
+All server, bots, physics, modes, arenas, modifiers, sound effects, cosmetics, Escape/menu logic and physical-iPhone input/viewport sources remain unchanged. `main.ts` only stores the music UI reference, forwards the existing Sound toggle result and reports active-play state to music.
+
+Physical iPhone/Android listening remains a test item for this audio revision; no new physical-device verification is claimed.
 
 ## Listening checklist
 
-1. Refresh, interact once, open How to Play and check Music On at 30%.
-2. Adjust volume, mute, refresh and confirm Off persists. Enable again and confirm music resumes.
-3. Create/join a room, start, open Escape/Menu and adjust music. Resume, vote, view results: no restart or overlapping tracks.
-4. Play longer than 33 seconds to hear the loop. Change tabs and return; ensure it pauses/resumes rather than doubling.
-5. On physical iPhone Safari/Android, use the existing touch menu to adjust/mute; verify two-thumb gameplay and sound effects remain unchanged.
+1. On home, Sound Off should silence everything. Enable Sound and hear the calmer arrangement.
+2. Start a match: Adventure should fade in at GO; results/voting should return to Chill without a restart.
+3. Toggle Sound Off during play: music and effects should stop. On should resume music in place.
+4. Set Music Off while Sound is On: effects should still work. Refresh and confirm Music stays Off.
+5. Try volume and Escape/Menu on desktop and physical mobile; listen through several loops and tab switches.

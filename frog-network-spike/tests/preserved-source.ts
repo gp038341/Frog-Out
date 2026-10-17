@@ -102,4 +102,7 @@ export function soundCoveragePreservedSource(path:string,raw=false){const source
 export function lobbyRecoveryPreservedSource(path:string,raw=false){const source=backgroundMusicPreservedSource(path,raw),m=JSON.parse(readFileSync(new URL('../docs/lobby-recovery-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
 
 /** Reverse only the owner-authorized background music integration for historical checks. */
-export function backgroundMusicPreservedSource(path:string,raw=false){const location=new URL(`../${path}`,import.meta.url),source=raw?readFileSync(location):readFileSync(location,'utf8'),m=JSON.parse(readFileSync(new URL('../docs/background-music-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+export function backgroundMusicPreservedSource(path:string,raw=false){const source=musicMoodPreservedSource(path,raw),m=JSON.parse(readFileSync(new URL('../docs/background-music-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+
+/** Reverse only the requested music mood/master-button refinement. */
+export function musicMoodPreservedSource(path:string,raw=false){const location=new URL(`../${path}`,import.meta.url),source=raw?readFileSync(location):readFileSync(location,'utf8'),m=JSON.parse(readFileSync(new URL('../docs/music-mood-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}

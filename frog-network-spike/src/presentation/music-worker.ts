@@ -1,3 +1,3 @@
-import {composePondMusic} from './music-score';
-const worker=self as unknown as {onmessage:((event:MessageEvent)=>void)|null;postMessage:(data:Float32Array,transfer:Transferable[])=>void};
-worker.onmessage=()=>{const samples=composePondMusic();worker.postMessage(samples,[samples.buffer as ArrayBuffer]);};
+import {composeSoundtrack,type MusicScore} from './music-score';
+const worker=self as unknown as {onmessage:((event:MessageEvent)=>void)|null;postMessage:(data:MusicScore,transfer:Transferable[])=>void};
+worker.onmessage=()=>{const score=composeSoundtrack();worker.postMessage(score,[score.lobby.buffer as ArrayBuffer,score.adventure.buffer as ArrayBuffer]);};

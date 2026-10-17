@@ -154,7 +154,7 @@ Object.assign(window,{spikeDebug:net});
 const el=(id:string)=>document.getElementById(id)!;
 const guide=new PlayerGuide(clear);
 const presentation=new PresentationUI(audio);
-new MusicUI();
+const musicUI=new MusicUI(undefined,audio.enabled);
 const modeUI=new ModeUI(mode=>net.selectMode(mode));
 const customization=new Customization(el('frog-customization'),appearance=>net.setAppearance(appearance));
 const arenaCards=arenaList.map(a=>{const b=document.createElement('button');b.type='button';b.className='arena-card';b.dataset.arena=a.id;b.innerHTML=arenaPreview(a);const title=document.createElement('strong');title.textContent=a.name;b.append(title);const desc=document.createElement('small');desc.textContent=a.id==='canopy'?'Balanced garden chases':a.id==='bathhouse'?'Sponge shortcuts & basin swings':a.id==='toyshop'?'Rubber launches & zigzag chases':a.id==='sunny-pond'?'Lily launches & muddy choices':'Vertical swings & launches';b.append(desc);b.onclick=()=>net.selectArena(a.id);el('arena-previews').append(b);return b;});
@@ -166,7 +166,7 @@ el('create').onclick=()=>{net.notice='';remember();void net.create(name.value);}
 el('ready').onclick=()=>{audio.play('ui');net.ready(!net.lobby?.players.find(p=>p.id===net.playerId)?.ready);};el('start').onclick=()=>net.start();const leaveRoom=()=>{guide.close();clear();net.notice='';void net.leave();};guide.leaveAction=leaveRoom;el('leave').onclick=()=>{if(net.lobby?.phase==='game')guide.confirmLeave(leaveRoom);else leaveRoom();};
 async function copy(text:string){try{await navigator.clipboard.writeText(text);net.notice='Copied.';}catch{net.notice=`Copy this: ${text}`;}}
 el('copy-code').onclick=()=>{if(net.lobby)void copy(net.lobby.code);};el('share-link').onclick=()=>{if(net.lobby){const u=new URL(location.href);u.search='';u.searchParams.set('code',net.lobby.code);void copy(u.href);}};
-el('sound').onclick=()=>{const enabled=audio.toggle();el('sound').textContent=enabled?'Sound: On':'Sound: Off';el('sound').setAttribute('aria-pressed',String(enabled));};
+el('sound').onclick=()=>{const enabled=audio.toggle();musicUI.setMasterEnabled(enabled);el('sound').textContent=enabled?'Sound: On':'Sound: Off';el('sound').setAttribute('aria-pressed',String(enabled));};
 el('next-round').onclick=()=>{audio.play('ui');net.nextRound();};el('return-lobby').onclick=()=>net.returnLobby();
 const diagnosticButton=document.createElement('button');diagnosticButton.id='input-monitor-toggle';diagnosticButton.textContent='Input monitor';diagnosticButton.setAttribute('aria-pressed','false');el('session-footer').append(diagnosticButton);
 const diagnosticPanel=document.createElement('pre');diagnosticPanel.id='input-monitor';diagnosticPanel.hidden=true;diagnosticPanel.setAttribute('aria-label','Input pipeline diagnostics');document.body.append(diagnosticPanel);
@@ -186,6 +186,7 @@ setInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase
  renderOutbreak();presentation.update(net.lobby?.phase==='game'?net.outbreak:undefined,net.slot);updateMonitor();
  const f=net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.frogs[net.slot]:net.snapshots.at(-1)?.state.frogs[net.slot];
  chaosUI.update();
+ musicUI.update(net.playing,audio.enabled);
  resizeGame();
  touch.update(net.playing&&net.status==='connected'&&!guide.blocking,phase==='game'&&!!net.outbreak&&['announcement','countdown','playing'].includes(net.outbreak.phase),f?.grounded??false,f?.charging??false,f?.tongue?.phase==='attached');
  const ready=lobby?.players.filter(participating).every(readyParticipant)&&lobby.players.filter(participating).length>=2;(el('start') as HTMLButtonElement).disabled=!ready||net.status!=='connected';(el('ready') as HTMLButtonElement).disabled=!net.canReady;
