@@ -29,7 +29,7 @@ export class SpikeRoom extends Room {
   this.onMessage('hello',(client:Client)=>client.send('welcome',{slot:this.slots.get(client.sessionId),network:NETWORK}));
   this.onMessage('input',(client:Client,raw:Command)=>{
    const i=this.slots.get(client.sessionId);if(i===undefined||!raw||!Number.isSafeInteger(raw.seq)||raw.seq<=this.received[i]||raw.seq>this.received[i]+10000)return;
-   const input=raw.input;if(!input||![input.x,input.y].every(x=>Number.isInteger(x)&&Math.abs(x)<=1)||typeof input.held!=='boolean')return;
+   const input=raw.input;if(!input||![input.x,input.y].every(x=>Number.isFinite(x)&&Math.abs(x)<=1)||typeof input.held!=='boolean')return;
    if(this.queues[i].length>=120){this.drops++;return;}
    this.received[i]=raw.seq;this.lastInput[i]=Date.now();
    this.queues[i].push({seq:raw.seq,at:0,input:{x:input.x,y:input.y,held:input.held}});

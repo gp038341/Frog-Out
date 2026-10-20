@@ -1,3 +1,4 @@
+import './input/joystick.css';
 import './presentation/music.css';
 import {MusicUI} from './presentation/music-ui';
 import {isCPU,participating,readyParticipant} from './game/participants';

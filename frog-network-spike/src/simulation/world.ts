@@ -201,7 +201,7 @@ export class Simulation {
       }
       if(this.stickyFrogs.move(f))continue;
       const x = f.input.x;
-      if (x) f.facing = x;
+      if (x) f.facing = Math.sign(x);
       // Moon resistance affects free flight only; neither end of a live grapple is damped.
       if(this.chaosMoon && !f.grounded && f.tongue?.phase !== 'attached' && !coupled.has(f.body)){
         const velocity=f.body.getLinearVelocity();

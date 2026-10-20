@@ -1,0 +1,4 @@
+/* Input-only overlay: retain the approved viewport grid and action-button lane. */
+.touch-game #movement-area{position:absolute;left:0;top:0;bottom:0;width:28%;z-index:5;touch-action:none}
+.touch-game #direction-pad{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
+.touch-game #movement-area:has(#direction-pad[aria-disabled=true]){pointer-events:none}

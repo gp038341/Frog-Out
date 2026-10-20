@@ -111,4 +111,7 @@ export function musicMoodPreservedSource(path:string,raw=false){const source=glo
 export function globalSettingsPreservedSource(path:string,raw=false){const source=soundSettingsPreservedSource(path,raw),m=JSON.parse(readFileSync(new URL('../docs/global-settings-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
 
 /** Reverse only the approved audio-settings relocation for historical assertions. */
-export function soundSettingsPreservedSource(path:string,raw=false){const location=new URL(`../${path}`,import.meta.url),source=raw?readFileSync(location):readFileSync(location,'utf8'),m=JSON.parse(readFileSync(new URL('../docs/sound-settings-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+export function soundSettingsPreservedSource(path:string,raw=false){const source=joystickPreservedSource(path,raw),m=JSON.parse(readFileSync(new URL('../docs/sound-settings-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+
+/** Reverse only authorized analog/floating joystick adapters for historical checks. */
+export function joystickPreservedSource(path:string,raw=false){const location=new URL(`../${path}`,import.meta.url),source=raw?readFileSync(location):readFileSync(location,'utf8'),m=JSON.parse(readFileSync(new URL('../docs/joystick-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}

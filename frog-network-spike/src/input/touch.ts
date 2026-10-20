@@ -1,9 +1,10 @@
 import type {Input} from '../simulation/world';
-/** Eight equal angular sectors with a small centre dead zone. Screen-down is +y. */
+/** Circular analog axes with a radial dead zone; screen-down is +y. */
 export function direction(dx:number,dy:number,radius:number):Pick<Input,'x'|'y'>{
- if(Math.hypot(dx,dy)<radius*.2)return {x:0,y:0};
- const sector=Math.round(Math.atan2(dy,dx)/(Math.PI/4));
- return {x:Math.round(Math.cos(sector*Math.PI/4)),y:Math.round(Math.sin(sector*Math.PI/4))};
+ const length=Math.hypot(dx,dy),travel=radius*.65,dead=travel*.15;
+ if(!Number.isFinite(length)||radius<=0||length<=dead)return{x:0,y:0};
+ const strength=Math.min(1,(length-dead)/(travel-dead));
+ return{x:dx/length*strength,y:dy/length*strength};
 }
 export class TouchControls {
  input:Input={x:0,y:0,held:false};enabled:boolean;active=false;
@@ -18,6 +19,7 @@ export class TouchControls {
  private directionId:number|null=null;private actionId:number|null=null;
  private pad=document.getElementById('direction-pad')!;private action=document.getElementById('touch-action') as HTMLButtonElement;
  private knob=document.getElementById('direction-knob')!;
+ private region=document.getElementById('movement-area')!;private origin:{x:number;y:number}|null=null;
  constructor(private changed:()=>void,private switched:()=>void,private canPlay?:()=>boolean){
   const preference=new URLSearchParams(location.search).get('touch');
   this.enabled=preference==='1'||preference!=='0'&&(matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0&&innerWidth<=1100);
@@ -37,13 +39,13 @@ export class TouchControls {
   },{capture:true,passive:true});
   for(const type of ['gesturestart','gesturechange','gestureend'])document.addEventListener(type,e=>{this.lastBrowserEvent=`${type} cancelable=${e.cancelable} prevented=${e.defaultPrevented}`;this.record('browser-gesture',null,this.lastBrowserEvent);},{capture:true,passive:true});
   // A fresh down reclaims an orphaned owner; old end events cannot clear the new owner.
-  this.pad.addEventListener('pointerdown',e=>{if(this.nativeTouch&&e.pointerType==='touch')return;this.directionSource='pointer';this.record('direction-down',e.pointerId);if(!this.acceptFreshTouch())return;e.preventDefault();this.releaseDirection(false);this.directionId=e.pointerId;this.capture(this.pad,e.pointerId);this.move(e);});
+  this.region.addEventListener('pointerdown',e=>{if(this.nativeTouch&&e.pointerType==='touch')return;this.directionSource='pointer';this.record('direction-down',e.pointerId);if(!this.acceptFreshTouch())return;e.preventDefault();if(this.directionId!==null)return;this.directionId=e.pointerId;this.capture(this.region,e.pointerId);this.begin(e);this.move(e);});
   this.action.addEventListener('pointerdown',e=>{if(this.nativeTouch&&e.pointerType==='touch')return;this.actionSource='pointer';this.record('action-down',e.pointerId);if(!this.acceptFreshTouch())return;e.preventDefault();this.releaseAction(false);this.actionId=e.pointerId;this.capture(this.action,e.pointerId);this.input.held=true;this.action.classList.add('pressed');this.changed();});
   // Document capture is also a fallback if native pointer capture is unavailable/throws.
   document.addEventListener('pointermove',e=>{if(this.directionSource==='pointer'&&e.pointerId===this.directionId){e.preventDefault();this.move(e);}}, {capture:true,passive:false});
   for(const type of ['pointerup','pointercancel','lostpointercapture'])document.addEventListener(type,e=>{
    const id=(e as PointerEvent).pointerId;
-   if(this.directionSource==='pointer'&&id===this.directionId){if(type==='lostpointercapture'&&this.pad.hasPointerCapture(id))return;this.record(type,id,'direction');this.releaseDirection();}
+   if(this.directionSource==='pointer'&&id===this.directionId){if(type==='lostpointercapture'&&this.region.hasPointerCapture(id))return;this.record(type,id,'direction');this.releaseDirection();}
    if(this.actionSource==='pointer'&&id===this.actionId){if(type==='lostpointercapture'&&this.action.hasPointerCapture(id))return;this.record(type,id,'action');this.releaseAction();}
   },true);
   // One input stream owns fingers. Native Touch identifiers are stable across capture/gesture interruptions.
@@ -52,7 +54,7 @@ export class TouchControls {
    this.nativeIds=Array.from(e.touches,t=>t.identifier);this.record('native-start',null,this.nativeDetail(e));
    if(!this.nativeTouch||!this.acceptFreshTouch())return;
    for(const t of Array.from(e.changedTouches)){const target=t.target as Node;
-    if(this.pad.contains(target)){e.preventDefault();this.releaseDirection(false);this.directionSource='touch';this.directionId=t.identifier;this.move(t);}
+    if(this.region.contains(target)){e.preventDefault();if(this.directionId!==null&&Array.from(e.touches).some(t=>t.identifier===this.directionId))continue;this.releaseDirection(false);this.directionSource='touch';this.directionId=t.identifier;this.begin(t);this.move(t);}
     else if(this.action.contains(target)){e.preventDefault();this.releaseAction(false);this.actionSource='touch';this.actionId=t.identifier;this.input.held=true;this.action.classList.add('pressed');this.changed();}
    }
   },{capture:true,passive:false});
@@ -72,7 +74,7 @@ export class TouchControls {
    if(changed)this.changed();
   },true);
   window.addEventListener('game-viewport-change',()=>this.reset(true,'viewport-layout-change'));
-  for(const target of [this.pad,this.action])target.addEventListener('contextmenu',e=>e.preventDefault());
+  for(const target of [this.region,this.action])target.addEventListener('contextmenu',e=>e.preventDefault());
   window.addEventListener('resize',()=>{if(innerHeight>innerWidth)this.reset(true,'portrait-resize');this.update(...this.lastUpdate);this.layout();});
   window.addEventListener('pagehide',()=>this.reset(true,'pagehide'));
   window.addEventListener('orientationchange',()=>this.reset(true,'orientation'));
@@ -80,11 +82,16 @@ export class TouchControls {
  }
  private nativeDetail(e:TouchEvent){return `active=${Array.from(e.touches,t=>t.identifier).join(',')} changed=${Array.from(e.changedTouches,t=>`${t.identifier}@${(t.target as HTMLElement)?.id||'child'}`).join(',')} cancelable=${e.cancelable}`;}
  private acceptFreshTouch(){const active=(this.canPlay?.()??this.lastUpdate[0])&&this.enabled&&innerWidth>=innerHeight;this.active=active;this.action.disabled=!active;this.pad.setAttribute('aria-disabled',String(!active));return active;}
- private move(e:{clientX:number;clientY:number;pointerId?:number;identifier?:number}){this.lastPoint={x:e.clientX,y:e.clientY,at:Date.now()};const r=this.pad.getBoundingClientRect(),radius=r.width/2,dx=e.clientX-r.left-radius,dy=e.clientY-r.top-r.height/2;
+ private begin(e:{clientX:number;clientY:number}){
+  this.origin={x:e.clientX,y:e.clientY};const area=this.region.getBoundingClientRect(),radius=this.pad.getBoundingClientRect().width/2;
+  const clamp=(v:number,size:number)=>Math.max(Math.min(radius,size/2),Math.min(size-Math.min(radius,size/2),v));
+  this.pad.style.left=clamp(e.clientX-area.left,area.width)+'px';this.pad.style.top=clamp(e.clientY-area.top,area.height)+'px';
+ }
+ private move(e:{clientX:number;clientY:number;pointerId?:number;identifier?:number}){this.lastPoint={x:e.clientX,y:e.clientY,at:Date.now()};const r=this.pad.getBoundingClientRect(),radius=r.width/2,dx=e.clientX-(this.origin?.x??r.left+radius),dy=e.clientY-(this.origin?.y??r.top+r.height/2);
   const q=Math.min(1,radius*.65/(Math.hypot(dx,dy)||1));this.knob.style.transform=`translate(${dx*q}px,${dy*q}px)`;
   const next=direction(dx,dy,radius);if(next.x!==this.input.x||next.y!==this.input.y)this.record('direction-change',e.pointerId??e.identifier??null,`${next.x},${next.y}`);Object.assign(this.input,next);this.changed();
  }
- private releaseDirection(notify=true){const id=this.directionId;this.directionId=null;this.input.x=0;this.input.y=0;this.knob.style.transform='';if(this.directionSource==='pointer')this.uncapture(this.pad,id);if(notify)this.changed();}
+ private releaseDirection(notify=true){const id=this.directionId;this.directionId=null;this.origin=null;this.pad.style.left='';this.pad.style.top='';this.input.x=0;this.input.y=0;this.knob.style.transform='';if(this.directionSource==='pointer')this.uncapture(this.region,id);if(notify)this.changed();}
  private releaseAction(notify=true){const id=this.actionId;this.actionId=null;this.input.held=false;this.action.classList.remove('pressed');if(this.actionSource==='pointer')this.uncapture(this.action,id);if(notify)this.changed();}
  reset(notify=true,reason='explicit'){this.record('reset',null,reason);this.releaseDirection(false);this.releaseAction(false);if(notify)this.changed();}
  update(active:boolean,session:boolean,grounded:boolean,charging:boolean,attached:boolean){
