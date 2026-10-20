@@ -2,3 +2,7 @@
 .touch-game #movement-area{position:absolute;left:0;top:0;bottom:0;width:28%;z-index:5;touch-action:none}
 .touch-game #direction-pad{position:absolute;left:clamp(44px,7vw,60px);top:50%;transform:translate(-50%,-50%);pointer-events:none}
 .touch-game #movement-area:has(#direction-pad[aria-disabled=true]){pointer-events:none}
+
+.touch-game #action-area{position:absolute;right:0;top:0;bottom:0;width:28%;z-index:5;touch-action:none}
+.touch-game #touch-action{position:absolute;left:calc(100% - clamp(44px,7vw,60px));top:50%;transform:translate(-50%,-50%);pointer-events:none}
+.touch-game #action-area:has(#touch-action:disabled){pointer-events:none}

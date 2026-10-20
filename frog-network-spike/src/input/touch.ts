@@ -19,7 +19,7 @@ export class TouchControls {
  private directionId:number|null=null;private actionId:number|null=null;
  private pad=document.getElementById('direction-pad')!;private action=document.getElementById('touch-action') as HTMLButtonElement;
  private knob=document.getElementById('direction-knob')!;
- private region=document.getElementById('movement-area')!;private origin:{x:number;y:number}|null=null;
+ private actionRegion=document.getElementById('action-area')!;private region=document.getElementById('movement-area')!;private origin:{x:number;y:number}|null=null;
  constructor(private changed:()=>void,private switched:()=>void,private canPlay?:()=>boolean){
   const preference=new URLSearchParams(location.search).get('touch');
   this.enabled=preference==='1'||preference!=='0'&&(matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0&&innerWidth<=1100);
@@ -40,13 +40,13 @@ export class TouchControls {
   for(const type of ['gesturestart','gesturechange','gestureend'])document.addEventListener(type,e=>{this.lastBrowserEvent=`${type} cancelable=${e.cancelable} prevented=${e.defaultPrevented}`;this.record('browser-gesture',null,this.lastBrowserEvent);},{capture:true,passive:true});
   // A fresh down reclaims an orphaned owner; old end events cannot clear the new owner.
   this.region.addEventListener('pointerdown',e=>{if(this.nativeTouch&&e.pointerType==='touch')return;this.directionSource='pointer';this.record('direction-down',e.pointerId);if(!this.acceptFreshTouch())return;e.preventDefault();if(this.directionId!==null)return;this.directionId=e.pointerId;this.capture(this.region,e.pointerId);this.begin(e);this.move(e);});
-  this.action.addEventListener('pointerdown',e=>{if(this.nativeTouch&&e.pointerType==='touch')return;this.actionSource='pointer';this.record('action-down',e.pointerId);if(!this.acceptFreshTouch())return;e.preventDefault();this.releaseAction(false);this.actionId=e.pointerId;this.capture(this.action,e.pointerId);this.input.held=true;this.action.classList.add('pressed');this.changed();});
+  this.actionRegion.addEventListener('pointerdown',e=>{if(this.nativeTouch&&e.pointerType==='touch')return;this.actionSource='pointer';this.record('action-down',e.pointerId);if(!this.acceptFreshTouch())return;e.preventDefault();if(this.actionId!==null)return;this.actionId=e.pointerId;this.capture(this.actionRegion,e.pointerId);this.moveAction(e);this.input.held=true;this.action.classList.add('pressed');this.changed();});
   // Document capture is also a fallback if native pointer capture is unavailable/throws.
-  document.addEventListener('pointermove',e=>{if(this.directionSource==='pointer'&&e.pointerId===this.directionId){e.preventDefault();this.move(e);}}, {capture:true,passive:false});
+  document.addEventListener('pointermove',e=>{if(this.directionSource==='pointer'&&e.pointerId===this.directionId){e.preventDefault();this.move(e);}if(this.actionSource==='pointer'&&e.pointerId===this.actionId){e.preventDefault();this.moveAction(e);}}, {capture:true,passive:false});
   for(const type of ['pointerup','pointercancel','lostpointercapture'])document.addEventListener(type,e=>{
    const id=(e as PointerEvent).pointerId;
    if(this.directionSource==='pointer'&&id===this.directionId){if(type==='lostpointercapture'&&this.region.hasPointerCapture(id))return;this.record(type,id,'direction');this.releaseDirection();}
-   if(this.actionSource==='pointer'&&id===this.actionId){if(type==='lostpointercapture'&&this.action.hasPointerCapture(id))return;this.record(type,id,'action');this.releaseAction();}
+   if(this.actionSource==='pointer'&&id===this.actionId){if(type==='lostpointercapture'&&this.actionRegion.hasPointerCapture(id))return;this.record(type,id,'action');this.releaseAction();}
   },true);
   // One input stream owns fingers. Native Touch identifiers are stable across capture/gesture interruptions.
   // Pointer events remain the mouse/pen fallback; never double-publish a native finger.
@@ -55,12 +55,12 @@ export class TouchControls {
    if(!this.nativeTouch||!this.acceptFreshTouch())return;
    for(const t of Array.from(e.changedTouches)){const target=t.target as Node;
     if(this.region.contains(target)){e.preventDefault();if(this.directionId!==null&&Array.from(e.touches).some(t=>t.identifier===this.directionId))continue;this.releaseDirection(false);this.directionSource='touch';this.directionId=t.identifier;this.begin(t);this.move(t);}
-    else if(this.action.contains(target)){e.preventDefault();this.releaseAction(false);this.actionSource='touch';this.actionId=t.identifier;this.input.held=true;this.action.classList.add('pressed');this.changed();}
+    else if(this.actionRegion.contains(target)){e.preventDefault();if(this.actionId!==null&&Array.from(e.touches).some(t=>t.identifier===this.actionId))continue;this.releaseAction(false);this.actionSource='touch';this.actionId=t.identifier;this.moveAction(t);this.input.held=true;this.action.classList.add('pressed');this.changed();}
    }
   },{capture:true,passive:false});
   document.addEventListener('touchmove',e=>{
    this.lastNativeAt=Date.now();this.nativeIds=Array.from(e.touches,t=>t.identifier);if(!this.nativeTouch)return;
-   for(const t of Array.from(e.changedTouches)){if(this.directionSource==='touch'&&t.identifier===this.directionId){e.preventDefault();this.move(t);}if(this.actionSource==='touch'&&t.identifier===this.actionId)e.preventDefault();}
+   for(const t of Array.from(e.changedTouches)){if(this.directionSource==='touch'&&t.identifier===this.directionId){e.preventDefault();this.move(t);}if(this.actionSource==='touch'&&t.identifier===this.actionId){e.preventDefault();this.moveAction(t);}}
   },{capture:true,passive:false});
   // End/cancel belongs to changed identifiers, not every owner on the page.
   // A cancellation of one thumb must never erase the other thumb's held input.
@@ -74,7 +74,7 @@ export class TouchControls {
    if(changed)this.changed();
   },true);
   window.addEventListener('game-viewport-change',()=>this.reset(true,'viewport-layout-change'));
-  for(const target of [this.region,this.action])target.addEventListener('contextmenu',e=>e.preventDefault());
+  for(const target of [this.region,this.actionRegion])target.addEventListener('contextmenu',e=>e.preventDefault());
   window.addEventListener('resize',()=>{if(innerHeight>innerWidth)this.reset(true,'portrait-resize');this.update(...this.lastUpdate);this.layout();});
   window.addEventListener('pagehide',()=>this.reset(true,'pagehide'));
   window.addEventListener('orientationchange',()=>this.reset(true,'orientation'));
@@ -92,7 +92,12 @@ export class TouchControls {
   const next=direction(dx,dy,radius);if(next.x!==this.input.x||next.y!==this.input.y)this.record('direction-change',e.pointerId??e.identifier??null,`${next.x},${next.y}`);Object.assign(this.input,next);this.changed();
  }
  private releaseDirection(notify=true){const id=this.directionId;this.directionId=null;this.origin=null;this.pad.style.left='';this.pad.style.top='';this.input.x=0;this.input.y=0;this.knob.style.transform='';if(this.directionSource==='pointer')this.uncapture(this.region,id);if(notify)this.changed();}
- private releaseAction(notify=true){const id=this.actionId;this.actionId=null;this.input.held=false;this.action.classList.remove('pressed');if(this.actionSource==='pointer')this.uncapture(this.action,id);if(notify)this.changed();}
+ private moveAction(e:{clientX:number;clientY:number}){
+  const area=this.actionRegion.getBoundingClientRect(),radius=this.action.getBoundingClientRect().width/2;
+  const clamp=(v:number,size:number)=>Math.max(Math.min(radius,size/2),Math.min(size-Math.min(radius,size/2),v));
+  this.action.style.left=clamp(e.clientX-area.left,area.width)+'px';this.action.style.top=clamp(e.clientY-area.top,area.height)+'px';
+ }
+ private releaseAction(notify=true){const id=this.actionId;this.actionId=null;this.action.style.left='';this.action.style.top='';this.input.held=false;this.action.classList.remove('pressed');if(this.actionSource==='pointer')this.uncapture(this.actionRegion,id);if(notify)this.changed();}
  reset(notify=true,reason='explicit'){this.record('reset',null,reason);this.releaseDirection(false);this.releaseAction(false);if(notify)this.changed();}
  update(active:boolean,session:boolean,grounded:boolean,charging:boolean,attached:boolean){
   this.lastUpdate=[active,session,grounded,charging,attached];
