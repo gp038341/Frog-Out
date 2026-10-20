@@ -105,4 +105,7 @@ export function lobbyRecoveryPreservedSource(path:string,raw=false){const source
 export function backgroundMusicPreservedSource(path:string,raw=false){const source=musicMoodPreservedSource(path,raw),m=JSON.parse(readFileSync(new URL('../docs/background-music-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
 
 /** Reverse only the requested music mood/master-button refinement. */
-export function musicMoodPreservedSource(path:string,raw=false){const location=new URL(`../${path}`,import.meta.url),source=raw?readFileSync(location):readFileSync(location,'utf8'),m=JSON.parse(readFileSync(new URL('../docs/music-mood-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+export function musicMoodPreservedSource(path:string,raw=false){const source=globalSettingsPreservedSource(path,raw),m=JSON.parse(readFileSync(new URL('../docs/music-mood-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+
+/** Reverse only the authorized global settings access layer for historical checks. */
+export function globalSettingsPreservedSource(path:string,raw=false){const location=new URL(`../${path}`,import.meta.url),source=raw?readFileSync(location):readFileSync(location,'utf8'),m=JSON.parse(readFileSync(new URL('../docs/global-settings-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}

@@ -11,3 +11,7 @@
 
 /* One shared rules dialog; Chaos leads without changing the game viewport. */
 .chaos-guide{background:#284f58;border:2px solid #ffe29c;border-radius:12px;padding:14px;margin:0 0 18px}.chaos-guide h3{color:#ffe29c;font-size:20px;margin:0 0 8px}.chaos-guide p{margin:8px 0}.chaos-guide ul{padding-left:20px;font-size:14px;line-height:1.6;margin:8px 0}.chaos-guide strong{color:#fff0ba}.guide-modes details{margin:8px 0}.guide-modes summary{cursor:pointer;font-weight:bold}.guide-modes p{font-size:13px;line-height:1.5}#help-content{min-width:0}#help-content h3{letter-spacing:0}@media(max-width:600px){.chaos-guide{padding:10px}.chaos-guide h3{font-size:18px}.chaos-guide ul{font-size:13px}.guide-grid{grid-template-columns:1fr}.guide-grid h3{font-size:16px}}
+
+/* Keep the existing gameplay toolbar untouched. Reserve room for mobile access on longer pages. */
+.touch-enabled:not(.game-active) main{padding-bottom:64px}
+.touch-enabled:not(.game-active) #help{position:fixed;right:max(10px,env(safe-area-inset-right));bottom:max(10px,env(safe-area-inset-bottom));z-index:12;min-height:44px;margin:0;box-shadow:0 3px 10px #102e3455}
