@@ -1,10 +1,10 @@
 import {BackgroundMusic,MUSIC} from './music';
-/** One persistent music player; mirrored settings live in separate, existing dialogs. */
+/** One persistent music player; settings live only in the shared Settings dialog. */
 export class MusicUI {
  readonly music:BackgroundMusic;
  constructor(music=new BackgroundMusic(),masterEnabled=true){
   this.music=music;void music.setMasterEnabled(masterEnabled);
-  for(const [root,id]of [['#game-menu','menu'],['#help-dialog','help']]){
+  for(const [root,id]of [['#game-menu','menu']]){
    const panel=document.createElement('fieldset');panel.className='music-settings';panel.dataset.musicControls='';panel.innerHTML=`<legend>Music</legend><div class="music-controls"><button type="button" id="music-${id}-toggle"></button><label for="music-${id}-volume">Music Volume <span class="music-volume-row"><input id="music-${id}-volume" type="range" min="0" max="100" step="1" aria-label="Music Volume"><output></output></span></label></div><small role="status"></small>`;
    const button=panel.querySelector('button')!,slider=panel.querySelector('input')!,output=panel.querySelector('output')!,status=panel.querySelector('small')!;
    button.onclick=()=>{void music.setEnabled(!music.enabled);};slider.oninput=()=>{void music.setVolume(Number(slider.value)/100);};
