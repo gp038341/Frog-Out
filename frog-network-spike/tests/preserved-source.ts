@@ -137,4 +137,7 @@ export function resultsPreservedSource(path:string,raw=false){const m=JSON.parse
 export function resultsRefinementPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/results-refinement-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??spaciousnessPreservedSource(path,raw);}
 
 /** Reverse only the authorized spawn/layout experiment for historical assertions. */
-export function spaciousnessPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/spaciousness-a-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function spaciousnessPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/spaciousness-a-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??locatorPreservedSource(path,raw);}
+
+/** Reverse only the requested local-frog countdown/swap pointer. */
+export function locatorPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/local-locator-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

@@ -1,3 +1,4 @@
+import {LocalLocator} from './local-locator';
 import {ChaosSounds} from './chaos-sounds';
 import {paintFrogChaos} from './frog-chaos-art';
 import type {ArenaChaosState} from '../chaos/arena-chaos';
@@ -27,6 +28,7 @@ type Before={stickyAttachTick?:number;stickyReleaseTick?:number;pogoTick?:number
 export class Courtyard {
  private chaosSounds:ChaosSounds;private soundArena?:ArenaChaosState;
  private tagPuffs:number[]=[];
+ private locator:LocalLocator;
  appearances:(Appearance|undefined)[]=[];
  reserved:boolean[]=[];
  feel:Feel;
@@ -34,7 +36,7 @@ export class Courtyard {
  background:Phaser.GameObjects.Graphics;ink:Phaser.GameObjects.Graphics;effects:Phaser.GameObjects.Graphics;
  labels:Phaser.GameObjects.Text[]=[];previous:Before[]=[];pops:Pop[]=[];reactions=Array(8).fill(0);round=-1;labelSize=0;
  constructor(private scene:Phaser.Scene,private audio:GameAudio){
-  this.chaosSounds=new ChaosSounds(audio);
+  this.chaosSounds=new ChaosSounds(audio);this.locator=new LocalLocator(scene);
   this.background=scene.add.graphics().setDepth(0);this.ink=scene.add.graphics().setDepth(1);this.effects=scene.add.graphics().setDepth(2);
   for(let i=0;i<8;i++)this.labels.push(scene.add.text(0,0,'',{fontFamily:'Trebuchet MS, sans-serif',fontSize:'19px',fontStyle:'bold',color:'#fff8d9',stroke:'#142f35',strokeThickness:5,align:'center',lineSpacing:0}).setOrigin(.5,1).setDepth(4));
   this.chaosInk=scene.add.graphics().setDepth(1.5);
@@ -91,7 +93,7 @@ export class Courtyard {
    else for(let i=0;i<8;i++){const x=90+i*140,y=55+(i%3)*16;g.lineBetween(x-d*25,y,x+d*25,y);g.lineBetween(x+d*25,y,x+d*14,y-5);g.lineBetween(x+d*25,y,x+d*14,y+5);}
   }
  }
- clear(){this.windLabel.setVisible(false);this.chaosSounds.reset();this.tagPuffs=[];this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}
+ clear(){this.locator.clear();this.windLabel.setVisible(false);this.chaosSounds.reset();this.tagPuffs=[];this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}
  pop(x:number,y:number,color:number,kind:Pop['kind'],strength=0){if(this.pops.length<64)this.pops.push({x:x*S,y:y*S,age:0,life:kind==='infect'?650:kind==='swap'?450:360,color,kind,strength});}
  render(states:FrogState[],positions:Point[],view:OutbreakView|undefined,connected:boolean[],names:string[],local:number,delta:number,modifiers:readonly string[]=[]){
   this.chaosSounds.update(states,this.soundArena,view,local,modifiers);
@@ -145,6 +147,7 @@ export class Courtyard {
   });
   this.labels.forEach((l,i)=>{if(i>=states.length)l.setVisible(false);});
   this.feel.render(states,positions,view?.mode==='freeze'||view?.mode==='classic'?undefined:view,local,delta);
+  this.locator.render(states[local],positions[local],view,connected[local]!==false,ratio);
   this.pops=this.pops.filter(p=>{p.age+=Math.min(delta,50);if(p.age>=p.life)return false;const q=p.age/p.life,e=this.effects;if(p.kind==='swap'){for(let j=0;j<7;j++){const a=j*Math.PI*2/7,spread=7+q*30;e.fillStyle(p.color,.55*(1-q));e.fillCircle(p.x+Math.cos(a)*spread,p.y+Math.sin(a)*spread,Math.max(1,11*(1-q)));}return true;}e.lineStyle(2,p.color,1-q);const radius=((p.kind==='infect'?18:8)+q*(p.kind==='infect'?36:22))*(1+(p.strength??0)*.35);e.strokeCircle(p.x,p.y,radius);for(let j=0;j<6;j++){const a=j*Math.PI/3;e.fillStyle(p.color,1-q);e.fillCircle(p.x+Math.cos(a)*radius,p.y+Math.sin(a)*radius,2.5*(1-q)+.5);}return true;});
  }
  frog(g:Phaser.GameObjects.Graphics,x:number,y:number,f:FrogState,slot:number,infection:OutbreakPlayer|undefined,online:boolean,local:boolean,time:number){

@@ -1,0 +1,304 @@
+{
+  "baseline": "d50133739cf0692cf22f33a57e7356024652af35",
+  "tests": {
+    "passed": 446,
+    "failed": 0
+  },
+  "productionBuild": "passed; existing large Phaser bundle warning",
+  "browser": {
+    "scope": "Real Phaser Courtyard renderer, two viewport sizes, all four arenas, all three modes, 2/8 frogs. Chromium emulation, not physical-device testing.",
+    "cases": 48,
+    "checks": [
+      {
+        "name": "desktop",
+        "arena": "sunny-pond",
+        "mode": "poison",
+        "count": 2
+      },
+      {
+        "name": "desktop",
+        "arena": "sunny-pond",
+        "mode": "poison",
+        "count": 8
+      },
+      {
+        "name": "desktop",
+        "arena": "sunny-pond",
+        "mode": "freeze",
+        "count": 2
+      },
+      {
+        "name": "desktop",
+        "arena": "sunny-pond",
+        "mode": "freeze",
+        "count": 8
+      },
+      {
+        "name": "desktop",
+        "arena": "sunny-pond",
+        "mode": "classic",
+        "count": 2
+      },
+      {
+        "name": "desktop",
+        "arena": "sunny-pond",
+        "mode": "classic",
+        "count": 8
+      },
+      {
+        "name": "desktop",
+        "arena": "bathhouse",
+        "mode": "poison",
+        "count": 2
+      },
+      {
+        "name": "desktop",
+        "arena": "bathhouse",
+        "mode": "poison",
+        "count": 8
+      },
+      {
+        "name": "desktop",
+        "arena": "bathhouse",
+        "mode": "freeze",
+        "count": 2
+      },
+      {
+        "name": "desktop",
+        "arena": "bathhouse",
+        "mode": "freeze",
+        "count": 8
+      },
+      {
+        "name": "desktop",
+        "arena": "bathhouse",
+        "mode": "classic",
+        "count": 2
+      },
+      {
+        "name": "desktop",
+        "arena": "bathhouse",
+        "mode": "classic",
+        "count": 8
+      },
+      {
+        "name": "desktop",
+        "arena": "canopy",
+        "mode": "poison",
+        "count": 2
+      },
+      {
+        "name": "desktop",
+        "arena": "canopy",
+        "mode": "poison",
+        "count": 8
+      },
+      {
+        "name": "desktop",
+        "arena": "canopy",
+        "mode": "freeze",
+        "count": 2
+      },
+      {
+        "name": "desktop",
+        "arena": "canopy",
+        "mode": "freeze",
+        "count": 8
+      },
+      {
+        "name": "desktop",
+        "arena": "canopy",
+        "mode": "classic",
+        "count": 2
+      },
+      {
+        "name": "desktop",
+        "arena": "canopy",
+        "mode": "classic",
+        "count": 8
+      },
+      {
+        "name": "desktop",
+        "arena": "toyshop",
+        "mode": "poison",
+        "count": 2
+      },
+      {
+        "name": "desktop",
+        "arena": "toyshop",
+        "mode": "poison",
+        "count": 8
+      },
+      {
+        "name": "desktop",
+        "arena": "toyshop",
+        "mode": "freeze",
+        "count": 2
+      },
+      {
+        "name": "desktop",
+        "arena": "toyshop",
+        "mode": "freeze",
+        "count": 8
+      },
+      {
+        "name": "desktop",
+        "arena": "toyshop",
+        "mode": "classic",
+        "count": 2
+      },
+      {
+        "name": "desktop",
+        "arena": "toyshop",
+        "mode": "classic",
+        "count": 8
+      },
+      {
+        "name": "phone",
+        "arena": "sunny-pond",
+        "mode": "poison",
+        "count": 2
+      },
+      {
+        "name": "phone",
+        "arena": "sunny-pond",
+        "mode": "poison",
+        "count": 8
+      },
+      {
+        "name": "phone",
+        "arena": "sunny-pond",
+        "mode": "freeze",
+        "count": 2
+      },
+      {
+        "name": "phone",
+        "arena": "sunny-pond",
+        "mode": "freeze",
+        "count": 8
+      },
+      {
+        "name": "phone",
+        "arena": "sunny-pond",
+        "mode": "classic",
+        "count": 2
+      },
+      {
+        "name": "phone",
+        "arena": "sunny-pond",
+        "mode": "classic",
+        "count": 8
+      },
+      {
+        "name": "phone",
+        "arena": "bathhouse",
+        "mode": "poison",
+        "count": 2
+      },
+      {
+        "name": "phone",
+        "arena": "bathhouse",
+        "mode": "poison",
+        "count": 8
+      },
+      {
+        "name": "phone",
+        "arena": "bathhouse",
+        "mode": "freeze",
+        "count": 2
+      },
+      {
+        "name": "phone",
+        "arena": "bathhouse",
+        "mode": "freeze",
+        "count": 8
+      },
+      {
+        "name": "phone",
+        "arena": "bathhouse",
+        "mode": "classic",
+        "count": 2
+      },
+      {
+        "name": "phone",
+        "arena": "bathhouse",
+        "mode": "classic",
+        "count": 8
+      },
+      {
+        "name": "phone",
+        "arena": "canopy",
+        "mode": "poison",
+        "count": 2
+      },
+      {
+        "name": "phone",
+        "arena": "canopy",
+        "mode": "poison",
+        "count": 8
+      },
+      {
+        "name": "phone",
+        "arena": "canopy",
+        "mode": "freeze",
+        "count": 2
+      },
+      {
+        "name": "phone",
+        "arena": "canopy",
+        "mode": "freeze",
+        "count": 8
+      },
+      {
+        "name": "phone",
+        "arena": "canopy",
+        "mode": "classic",
+        "count": 2
+      },
+      {
+        "name": "phone",
+        "arena": "canopy",
+        "mode": "classic",
+        "count": 8
+      },
+      {
+        "name": "phone",
+        "arena": "toyshop",
+        "mode": "poison",
+        "count": 2
+      },
+      {
+        "name": "phone",
+        "arena": "toyshop",
+        "mode": "poison",
+        "count": 8
+      },
+      {
+        "name": "phone",
+        "arena": "toyshop",
+        "mode": "freeze",
+        "count": 2
+      },
+      {
+        "name": "phone",
+        "arena": "toyshop",
+        "mode": "freeze",
+        "count": 8
+      },
+      {
+        "name": "phone",
+        "arena": "toyshop",
+        "mode": "classic",
+        "count": 2
+      },
+      {
+        "name": "phone",
+        "arena": "toyshop",
+        "mode": "classic",
+        "count": 8
+      }
+    ],
+    "errors": []
+  },
+  "physicalDeviceTested": false
+}
