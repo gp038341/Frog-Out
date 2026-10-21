@@ -1,0 +1,12 @@
+/* Removed from player-facing UI; keep the approved touch adapter's optional layout binding intact. */
+#developer-controls{display:none!important}
+#game-menu #menu-session-context{margin:10px 0;padding:10px 12px;background:#183f48;border:1px solid #46746c;border-radius:10px;box-shadow:none}
+#menu-session-context h3{font-size:14px;margin:0 0 4px;color:#ffe29c}
+#game-menu #session-code,#game-menu #outbreak-heading{position:static;display:block;max-width:none;max-height:none;margin:0;white-space:normal;overflow:visible;line-height:1.5;font-size:14px;color:#d9eadf}
+/* Match metadata now lives in Settings. Reclaim its row and the unused second toolbar row. */
+.game-active.touch-game main{grid-template-rows:22px minmax(0,1fr) 36px}
+.game-active.touch-game #game-stage{inset:22px 0 0}
+.game-active.touch-game #phase-message{top:0;max-width:38%}
+.game-active.touch-game #healthy-count{top:0;left:39%;max-width:20%}
+.game-active.touch-game #live-score{top:0;left:60%;right:80px;max-width:calc(40% - 84px)}
+.game-active.touch-game #session-footer{height:36px;flex-wrap:nowrap;align-items:center}
