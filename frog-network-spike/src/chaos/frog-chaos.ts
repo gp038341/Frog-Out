@@ -1,7 +1,7 @@
 import {Circle,Vec2,testOverlap,type Contact} from 'planck';
 import type {Simulation,Frog} from '../simulation/world';
 import {DT,defaults,WIDTH,HEIGHT} from '../simulation/config';
-export const FROG_CHAOS={bumperRestitution:.45,bumperSeparationSpeed:24,bumperMinimumSpeed:24,bumperVelocityBudget:24,bumperLiftSpeed:8,balloonPeriod:480,balloonWarning:45,balloonDuration:360,balloonPopSpeed:18,balloonScale:1.2,balloonGravity:.65,gravityFloor:.25,balloonRestitution:.2,swapPeriod:720,swapWarning:90,swapProtection:21,swapSpeedCap:24,bubbleMaximum:4,bubbleRadius:.65,bubblePeriod:48,bubbleLife:480,bubbleTrap:360,bubbleEscapePresses:5,bubbleRise:2.5,bubbleSteer:.5,bubbleRecapture:60};
+export const FROG_CHAOS={bumperRestitution:.45,bumperSeparationSpeed:24,bumperMinimumSpeed:24,bumperVelocityBudget:24,bumperLiftSpeed:8,balloonPeriod:480,balloonWarning:45,balloonDuration:360,balloonPopSpeed:18,balloonScale:1.2,balloonGravity:.65,gravityFloor:.25,balloonRestitution:.2,swapPeriod:720,swapWarning:90,swapProtection:45,swapSpeedCap:24,bubbleMaximum:4,bubbleRadius:.65,bubblePeriod:48,bubbleLife:480,bubbleTrap:360,bubbleEscapePresses:5,bubbleRise:2.5,bubbleSteer:.5,bubbleRecapture:60};
 export type Bubble={id:number;x:number;y:number;born:number;slot?:number;captured?:number;presses?:number};
 export type FrogChaosState={start:number;seed:number;swapCycle:number;swapPairs:[number,number][];oddCursor:number;protectedUntil:number[];recaptureUntil:number[];bubbleCycle:number;nextBubble:number;bubbles:Bubble[];connected:number[];episodes:string[]};
 type Hit={a:number;b:number;nx:number;ny:number;approach:number};
