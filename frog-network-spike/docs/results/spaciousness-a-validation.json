@@ -1,0 +1,7231 @@
+{
+  "scope": "Local real Planck physics, current approved CPU input/controller and actual mode rules; 20-second maximum samples, same seeds before/after. Not human playtesting or hosted capacity proof. Route success means entering the existing 0.85m goal radius, not guaranteed sustained landing.",
+  "spawns": [
+    {
+      "arena": "sunny-pond",
+      "count": 2,
+      "baselineMinimum": 8,
+      "newMinimum": 20.71382388647736,
+      "newMeanMinimum": 29.269080981928948,
+      "meanElevated": 0.75,
+      "distinctConfigurations": 17
+    },
+    {
+      "arena": "sunny-pond",
+      "count": 4,
+      "baselineMinimum": 12,
+      "newMinimum": 12.5,
+      "newMeanMinimum": 15.527354611723245,
+      "meanElevated": 1.7916666666666667,
+      "distinctConfigurations": 24
+    },
+    {
+      "arena": "sunny-pond",
+      "count": 8,
+      "baselineMinimum": 5.142857142857139,
+      "newMinimum": 6.378087487640792,
+      "newMeanMinimum": 6.484760935955101,
+      "meanElevated": 4.25,
+      "distinctConfigurations": 24
+    },
+    {
+      "arena": "bathhouse",
+      "count": 2,
+      "baselineMinimum": 8,
+      "newMinimum": 21.02379604162864,
+      "newMeanMinimum": 28.964756330541217,
+      "meanElevated": 0.6666666666666666,
+      "distinctConfigurations": 16
+    },
+    {
+      "arena": "bathhouse",
+      "count": 4,
+      "baselineMinimum": 12,
+      "newMinimum": 13.697079980784228,
+      "newMeanMinimum": 15.309719576961294,
+      "meanElevated": 1.5416666666666667,
+      "distinctConfigurations": 24
+    },
+    {
+      "arena": "bathhouse",
+      "count": 8,
+      "baselineMinimum": 5.142857142857139,
+      "newMinimum": 5.142857142857143,
+      "newMeanMinimum": 8.277534349371289,
+      "meanElevated": 4.25,
+      "distinctConfigurations": 24
+    },
+    {
+      "arena": "canopy",
+      "count": 2,
+      "baselineMinimum": 8,
+      "newMinimum": 22.86989041851976,
+      "newMeanMinimum": 29.293844692455895,
+      "meanElevated": 0.75,
+      "distinctConfigurations": 14
+    },
+    {
+      "arena": "canopy",
+      "count": 4,
+      "baselineMinimum": 12,
+      "newMinimum": 14.724727571022028,
+      "newMeanMinimum": 16.139275050271383,
+      "meanElevated": 1.625,
+      "distinctConfigurations": 23
+    },
+    {
+      "arena": "canopy",
+      "count": 8,
+      "baselineMinimum": 5.142857142857139,
+      "newMinimum": 7.810331331653226,
+      "newMeanMinimum": 8.168086533280437,
+      "meanElevated": 4.166666666666667,
+      "distinctConfigurations": 24
+    },
+    {
+      "arena": "toyshop",
+      "count": 2,
+      "baselineMinimum": 8,
+      "newMinimum": 20.7163003946365,
+      "newMeanMinimum": 30.189575205628515,
+      "meanElevated": 0.7083333333333334,
+      "distinctConfigurations": 15
+    },
+    {
+      "arena": "toyshop",
+      "count": 4,
+      "baselineMinimum": 12,
+      "newMinimum": 12.153852165012522,
+      "newMeanMinimum": 15.038338395245406,
+      "meanElevated": 1.5833333333333333,
+      "distinctConfigurations": 21
+    },
+    {
+      "arena": "toyshop",
+      "count": 8,
+      "baselineMinimum": 5.142857142857139,
+      "newMinimum": 7.472616676907765,
+      "newMeanMinimum": 8.141085435309753,
+      "meanElevated": 4.125,
+      "distinctConfigurations": 24
+    }
+  ],
+  "matches": [
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "count": 2,
+      "seed": 23,
+      "seconds": 9.583333333333334,
+      "ended": true,
+      "bins": 8,
+      "verticalBands": 3,
+      "activeInput": 0.7626086956521739,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 3,
+      "charges": 3,
+      "grappleAttachments": 0,
+      "aiErrors": 0,
+      "p99": 1.6595559999999523
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "count": 2,
+      "seed": 239,
+      "seconds": 7.7,
+      "ended": true,
+      "bins": 9,
+      "verticalBands": 3,
+      "activeInput": 0.9415584415584416,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 3,
+      "charges": 3,
+      "grappleAttachments": 0,
+      "aiErrors": 0,
+      "p99": 0.6215080000000626
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "count": 4,
+      "seed": 23,
+      "seconds": 14.95,
+      "ended": true,
+      "bins": 30,
+      "verticalBands": 6,
+      "activeInput": 0.9136008918617614,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 10,
+      "charges": 9,
+      "grappleAttachments": 15,
+      "aiErrors": 0,
+      "p99": 1.0306070000000318
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 30,
+      "verticalBands": 6,
+      "activeInput": 0.9552083333333333,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 11,
+      "charges": 7,
+      "grappleAttachments": 16,
+      "aiErrors": 0,
+      "p99": 0.5563300000000027
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "count": 8,
+      "seed": 23,
+      "seconds": 15.133333333333333,
+      "ended": true,
+      "bins": 32,
+      "verticalBands": 6,
+      "activeInput": 0.9545704845814978,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 10,
+      "charges": 10,
+      "grappleAttachments": 35,
+      "aiErrors": 0,
+      "p99": 1.2808039999999892
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 33,
+      "verticalBands": 6,
+      "activeInput": 0.9576041666666667,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 21,
+      "charges": 21,
+      "grappleAttachments": 31,
+      "aiErrors": 0,
+      "p99": 0.6228499999999713
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 23,
+      "seconds": 9.583333333333334,
+      "ended": true,
+      "bins": 8,
+      "verticalBands": 3,
+      "activeInput": 0.762402088772846,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 3,
+      "charges": 3,
+      "grappleAttachments": 0,
+      "aiErrors": 0,
+      "p99": 0.23903999999993175
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 239,
+      "seconds": 7.7,
+      "ended": true,
+      "bins": 9,
+      "verticalBands": 3,
+      "activeInput": 0.9414951245937161,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 3,
+      "charges": 3,
+      "grappleAttachments": 0,
+      "aiErrors": 0,
+      "p99": 0.2673330000000078
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 31,
+      "verticalBands": 6,
+      "activeInput": 0.8973941368078175,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 8,
+      "charges": 8,
+      "grappleAttachments": 11,
+      "aiErrors": 0,
+      "p99": 0.34799599999996644
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 30,
+      "verticalBands": 5,
+      "activeInput": 0.8819875776397516,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 11,
+      "charges": 10,
+      "grappleAttachments": 15,
+      "aiErrors": 0,
+      "p99": 0.5309120000001712
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 37,
+      "verticalBands": 6,
+      "activeInput": 0.9458839715661546,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 16,
+      "charges": 16,
+      "grappleAttachments": 33,
+      "aiErrors": 0,
+      "p99": 0.657703999999967
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 37,
+      "verticalBands": 6,
+      "activeInput": 0.856046687560791,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 18,
+      "charges": 17,
+      "grappleAttachments": 28,
+      "aiErrors": 0,
+      "p99": 0.9572050000001582
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "count": 2,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 12,
+      "verticalBands": 4,
+      "activeInput": 0.79875,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 5,
+      "charges": 5,
+      "grappleAttachments": 2,
+      "aiErrors": 0,
+      "p99": 0.28273699999999735
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "count": 2,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 21,
+      "verticalBands": 4,
+      "activeInput": 0.94875,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 6,
+      "charges": 6,
+      "grappleAttachments": 5,
+      "aiErrors": 0,
+      "p99": 0.18677200000001903
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 33,
+      "verticalBands": 6,
+      "activeInput": 0.8897916666666666,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 9,
+      "charges": 9,
+      "grappleAttachments": 19,
+      "aiErrors": 0,
+      "p99": 0.40490100000033635
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 36,
+      "verticalBands": 6,
+      "activeInput": 0.985625,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 8,
+      "charges": 7,
+      "grappleAttachments": 19,
+      "aiErrors": 0,
+      "p99": 0.32390799999984665
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 36,
+      "verticalBands": 6,
+      "activeInput": 0.9533333333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 18,
+      "charges": 18,
+      "grappleAttachments": 37,
+      "aiErrors": 0,
+      "p99": 0.7065659999998388
+    },
+    {
+      "variant": "baseline",
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 35,
+      "verticalBands": 6,
+      "activeInput": 0.9064583333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 24,
+      "charges": 23,
+      "grappleAttachments": 30,
+      "aiErrors": 0,
+      "p99": 0.9149309999997968
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "poison",
+      "count": 2,
+      "seed": 23,
+      "seconds": 4.133333333333334,
+      "ended": true,
+      "bins": 6,
+      "verticalBands": 3,
+      "activeInput": 0.9314516129032258,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 2,
+      "charges": 2,
+      "grappleAttachments": 0,
+      "aiErrors": 0,
+      "p99": 0.22736299999996845
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "poison",
+      "count": 2,
+      "seed": 239,
+      "seconds": 4.15,
+      "ended": true,
+      "bins": 6,
+      "verticalBands": 3,
+      "activeInput": 0.9317269076305221,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 2,
+      "charges": 2,
+      "grappleAttachments": 0,
+      "aiErrors": 0,
+      "p99": 0.30152499999985594
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "poison",
+      "count": 4,
+      "seed": 23,
+      "seconds": 10.783333333333333,
+      "ended": true,
+      "bins": 16,
+      "verticalBands": 4,
+      "activeInput": 0.981839258114374,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 6,
+      "charges": 6,
+      "grappleAttachments": 6,
+      "aiErrors": 0,
+      "p99": 0.3552060000001802
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "poison",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 31,
+      "verticalBands": 6,
+      "activeInput": 0.9483333333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 9,
+      "charges": 8,
+      "grappleAttachments": 16,
+      "aiErrors": 0,
+      "p99": 0.3312190000001465
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "poison",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 32,
+      "verticalBands": 6,
+      "activeInput": 0.9773958333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 18,
+      "charges": 18,
+      "grappleAttachments": 40,
+      "aiErrors": 0,
+      "p99": 0.4293980000002193
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "poison",
+      "count": 8,
+      "seed": 239,
+      "seconds": 11.8,
+      "ended": true,
+      "bins": 27,
+      "verticalBands": 6,
+      "activeInput": 0.9784604519774012,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 11,
+      "charges": 11,
+      "grappleAttachments": 20,
+      "aiErrors": 0,
+      "p99": 0.522548999999799
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 23,
+      "seconds": 4.133333333333334,
+      "ended": true,
+      "bins": 6,
+      "verticalBands": 3,
+      "activeInput": 0.9313131313131313,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 2,
+      "charges": 2,
+      "grappleAttachments": 0,
+      "aiErrors": 0,
+      "p99": 0.2869430000000648
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 239,
+      "seconds": 4.15,
+      "ended": true,
+      "bins": 6,
+      "verticalBands": 3,
+      "activeInput": 0.93158953722334,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 2,
+      "charges": 2,
+      "grappleAttachments": 0,
+      "aiErrors": 0,
+      "p99": 0.20322699999996985
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 22,
+      "verticalBands": 5,
+      "activeInput": 0.9838570193139233,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 11,
+      "charges": 11,
+      "grappleAttachments": 13,
+      "aiErrors": 0,
+      "p99": 0.22302700000000186
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 37,
+      "verticalBands": 6,
+      "activeInput": 0.9720764224228428,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 8,
+      "charges": 8,
+      "grappleAttachments": 18,
+      "aiErrors": 0,
+      "p99": 0.42101499999989755
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 28,
+      "verticalBands": 5,
+      "activeInput": 0.9598867970960995,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 11,
+      "charges": 11,
+      "grappleAttachments": 27,
+      "aiErrors": 0,
+      "p99": 0.5971210000002429
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 35,
+      "verticalBands": 6,
+      "activeInput": 0.9785013829519739,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 13,
+      "charges": 13,
+      "grappleAttachments": 36,
+      "aiErrors": 0,
+      "p99": 0.6797250000004169
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "classic",
+      "count": 2,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 23,
+      "verticalBands": 5,
+      "activeInput": 0.9420833333333334,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 3,
+      "charges": 3,
+      "grappleAttachments": 9,
+      "aiErrors": 0,
+      "p99": 0.14296500000000378
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "classic",
+      "count": 2,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 24,
+      "verticalBands": 6,
+      "activeInput": 0.9470833333333334,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 4,
+      "charges": 4,
+      "grappleAttachments": 7,
+      "aiErrors": 0,
+      "p99": 0.1417340000002696
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "classic",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 30,
+      "verticalBands": 6,
+      "activeInput": 0.9770833333333333,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 9,
+      "charges": 9,
+      "grappleAttachments": 15,
+      "aiErrors": 0,
+      "p99": 0.32363899999973
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "classic",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 28,
+      "verticalBands": 6,
+      "activeInput": 0.9479166666666666,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 11,
+      "charges": 11,
+      "grappleAttachments": 18,
+      "aiErrors": 0,
+      "p99": 0.3190409999997428
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "classic",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 35,
+      "verticalBands": 6,
+      "activeInput": 0.9695833333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 14,
+      "charges": 13,
+      "grappleAttachments": 42,
+      "aiErrors": 0,
+      "p99": 0.5798750000003565
+    },
+    {
+      "variant": "baseline",
+      "arena": "bathhouse",
+      "mode": "classic",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 31,
+      "verticalBands": 6,
+      "activeInput": 0.9614583333333333,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 13,
+      "charges": 13,
+      "grappleAttachments": 33,
+      "aiErrors": 0,
+      "p99": 0.503439999999955
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "poison",
+      "count": 2,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 26,
+      "verticalBands": 6,
+      "activeInput": 0.875,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 8,
+      "charges": 7,
+      "grappleAttachments": 8,
+      "aiErrors": 0,
+      "p99": 0.16886500000055094
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "poison",
+      "count": 2,
+      "seed": 239,
+      "seconds": 4.583333333333333,
+      "ended": true,
+      "bins": 7,
+      "verticalBands": 3,
+      "activeInput": 0.9254545454545454,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 2,
+      "charges": 2,
+      "grappleAttachments": 0,
+      "aiErrors": 0,
+      "p99": 0.1639470000000074
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "poison",
+      "count": 4,
+      "seed": 23,
+      "seconds": 6.583333333333333,
+      "ended": true,
+      "bins": 16,
+      "verticalBands": 3,
+      "activeInput": 0.9607594936708861,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 7,
+      "charges": 7,
+      "grappleAttachments": 6,
+      "aiErrors": 0,
+      "p99": 0.24147500000071886
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "poison",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 30,
+      "verticalBands": 6,
+      "activeInput": 0.9160416666666666,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 15,
+      "charges": 15,
+      "grappleAttachments": 24,
+      "aiErrors": 0,
+      "p99": 0.2650199999998222
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "poison",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 38,
+      "verticalBands": 6,
+      "activeInput": 0.9520833333333333,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 28,
+      "charges": 27,
+      "grappleAttachments": 50,
+      "aiErrors": 0,
+      "p99": 0.44603300000017043
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "poison",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 37,
+      "verticalBands": 6,
+      "activeInput": 0.9348958333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 26,
+      "charges": 26,
+      "grappleAttachments": 43,
+      "aiErrors": 0,
+      "p99": 0.4880960000000414
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 23,
+      "seconds": 13.05,
+      "ended": true,
+      "bins": 17,
+      "verticalBands": 6,
+      "activeInput": 0.8613418530351438,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 8,
+      "charges": 8,
+      "grappleAttachments": 3,
+      "aiErrors": 0,
+      "p99": 0.17982100000062928
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 239,
+      "seconds": 4.583333333333333,
+      "ended": true,
+      "bins": 7,
+      "verticalBands": 3,
+      "activeInput": 0.9271402550091075,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 2,
+      "charges": 2,
+      "grappleAttachments": 0,
+      "aiErrors": 0,
+      "p99": 0.24291600000015023
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 19,
+      "verticalBands": 4,
+      "activeInput": 0.8797240551889622,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 8,
+      "charges": 8,
+      "grappleAttachments": 12,
+      "aiErrors": 0,
+      "p99": 0.22027200000047742
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 28,
+      "verticalBands": 5,
+      "activeInput": 0.9762269938650306,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 12,
+      "charges": 11,
+      "grappleAttachments": 21,
+      "aiErrors": 0,
+      "p99": 0.19578499999988708
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 35,
+      "verticalBands": 6,
+      "activeInput": 0.8930371049015117,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 32,
+      "charges": 31,
+      "grappleAttachments": 33,
+      "aiErrors": 0,
+      "p99": 0.4357579999996233
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 32,
+      "verticalBands": 6,
+      "activeInput": 0.9093937375083277,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 20,
+      "charges": 20,
+      "grappleAttachments": 28,
+      "aiErrors": 0,
+      "p99": 0.5309909999996307
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "classic",
+      "count": 2,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 23,
+      "verticalBands": 6,
+      "activeInput": 0.86125,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 8,
+      "charges": 8,
+      "grappleAttachments": 8,
+      "aiErrors": 0,
+      "p99": 0.16473800000039773
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "classic",
+      "count": 2,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 24,
+      "verticalBands": 5,
+      "activeInput": 0.8004166666666667,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 9,
+      "charges": 8,
+      "grappleAttachments": 5,
+      "aiErrors": 0,
+      "p99": 0.1607319999993706
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "classic",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 34,
+      "verticalBands": 6,
+      "activeInput": 0.9079166666666667,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 12,
+      "charges": 12,
+      "grappleAttachments": 19,
+      "aiErrors": 0,
+      "p99": 0.27510499999971216
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "classic",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 34,
+      "verticalBands": 6,
+      "activeInput": 0.9683333333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 15,
+      "charges": 13,
+      "grappleAttachments": 22,
+      "aiErrors": 0,
+      "p99": 0.2213739999997415
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "classic",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 39,
+      "verticalBands": 6,
+      "activeInput": 0.9633333333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 34,
+      "charges": 33,
+      "grappleAttachments": 46,
+      "aiErrors": 0,
+      "p99": 0.5650020000002769
+    },
+    {
+      "variant": "baseline",
+      "arena": "canopy",
+      "mode": "classic",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 35,
+      "verticalBands": 6,
+      "activeInput": 0.9472916666666666,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 19,
+      "charges": 19,
+      "grappleAttachments": 44,
+      "aiErrors": 0,
+      "p99": 0.5494290000006004
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "poison",
+      "count": 2,
+      "seed": 23,
+      "seconds": 9.1,
+      "ended": true,
+      "bins": 12,
+      "verticalBands": 4,
+      "activeInput": 0.9935897435897436,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 2,
+      "charges": 2,
+      "grappleAttachments": 7,
+      "aiErrors": 0,
+      "p99": 0.19641599999977188
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "poison",
+      "count": 2,
+      "seed": 239,
+      "seconds": 10.483333333333333,
+      "ended": true,
+      "bins": 15,
+      "verticalBands": 4,
+      "activeInput": 0.9610492845786963,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 3,
+      "charges": 3,
+      "grappleAttachments": 2,
+      "aiErrors": 0,
+      "p99": 0.2182089999996606
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "poison",
+      "count": 4,
+      "seed": 23,
+      "seconds": 14.1,
+      "ended": true,
+      "bins": 22,
+      "verticalBands": 5,
+      "activeInput": 0.9648345153664303,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 6,
+      "charges": 6,
+      "grappleAttachments": 14,
+      "aiErrors": 0,
+      "p99": 0.34912700000040786
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "poison",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 26,
+      "verticalBands": 6,
+      "activeInput": 0.9185416666666667,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 10,
+      "charges": 10,
+      "grappleAttachments": 23,
+      "aiErrors": 0,
+      "p99": 0.33706899999924644
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "poison",
+      "count": 8,
+      "seed": 23,
+      "seconds": 15.716666666666667,
+      "ended": true,
+      "bins": 27,
+      "verticalBands": 6,
+      "activeInput": 0.9644750795334041,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 14,
+      "charges": 14,
+      "grappleAttachments": 42,
+      "aiErrors": 0,
+      "p99": 0.5417179999994914
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "poison",
+      "count": 8,
+      "seed": 239,
+      "seconds": 13.5,
+      "ended": true,
+      "bins": 21,
+      "verticalBands": 4,
+      "activeInput": 0.979320987654321,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 12,
+      "charges": 12,
+      "grappleAttachments": 33,
+      "aiErrors": 0,
+      "p99": 0.5822790000001987
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 20,
+      "verticalBands": 6,
+      "activeInput": 0.93375,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 5,
+      "charges": 5,
+      "grappleAttachments": 13,
+      "aiErrors": 0,
+      "p99": 0.21005700000023353
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 239,
+      "seconds": 10.483333333333333,
+      "ended": true,
+      "bins": 15,
+      "verticalBands": 4,
+      "activeInput": 0.9610182975338106,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 3,
+      "charges": 3,
+      "grappleAttachments": 2,
+      "aiErrors": 0,
+      "p99": 0.20332700000017212
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 23,
+      "seconds": 17.916666666666668,
+      "ended": true,
+      "bins": 20,
+      "verticalBands": 4,
+      "activeInput": 0.9848024316109423,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 4,
+      "charges": 4,
+      "grappleAttachments": 16,
+      "aiErrors": 0,
+      "p99": 0.3834790000000794
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 27,
+      "verticalBands": 6,
+      "activeInput": 0.9264583333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 8,
+      "charges": 8,
+      "grappleAttachments": 23,
+      "aiErrors": 0,
+      "p99": 0.32044300000052317
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 30,
+      "verticalBands": 6,
+      "activeInput": 0.9368580387068872,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 19,
+      "charges": 18,
+      "grappleAttachments": 48,
+      "aiErrors": 0,
+      "p99": 0.579464000000371
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 26,
+      "verticalBands": 6,
+      "activeInput": 0.9687010954616588,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 13,
+      "charges": 12,
+      "grappleAttachments": 50,
+      "aiErrors": 0,
+      "p99": 0.538101999999526
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "classic",
+      "count": 2,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 20,
+      "verticalBands": 6,
+      "activeInput": 0.93375,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 5,
+      "charges": 5,
+      "grappleAttachments": 13,
+      "aiErrors": 0,
+      "p99": 0.3140430000003107
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "classic",
+      "count": 2,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 18,
+      "verticalBands": 4,
+      "activeInput": 0.9745833333333334,
+      "initial": [
+        {
+          "x": 12,
+          "y": 20.5
+        },
+        {
+          "x": 20,
+          "y": 20.5
+        }
+      ],
+      "jumps": 4,
+      "charges": 4,
+      "grappleAttachments": 9,
+      "aiErrors": 0,
+      "p99": 0.2911000000003696
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "classic",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 26,
+      "verticalBands": 6,
+      "activeInput": 0.9222916666666666,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 8,
+      "charges": 8,
+      "grappleAttachments": 20,
+      "aiErrors": 0,
+      "p99": 0.354033999999956
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "classic",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 27,
+      "verticalBands": 6,
+      "activeInput": 0.9264583333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 14,
+          "y": 20.5
+        },
+        {
+          "x": 26,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 8,
+      "charges": 8,
+      "grappleAttachments": 23,
+      "aiErrors": 0,
+      "p99": 0.2857210000001942
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "classic",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 36,
+      "verticalBands": 6,
+      "activeInput": 0.971875,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 17,
+      "charges": 16,
+      "grappleAttachments": 53,
+      "aiErrors": 0,
+      "p99": 0.6668070000005173
+    },
+    {
+      "variant": "baseline",
+      "arena": "toyshop",
+      "mode": "classic",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 33,
+      "verticalBands": 6,
+      "activeInput": 0.9870833333333333,
+      "initial": [
+        {
+          "x": 2,
+          "y": 20.5
+        },
+        {
+          "x": 7.142857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 20.5
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 20.5
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 20.5
+        },
+        {
+          "x": 32.85714285714286,
+          "y": 20.5
+        },
+        {
+          "x": 38,
+          "y": 20.5
+        }
+      ],
+      "jumps": 20,
+      "charges": 16,
+      "grappleAttachments": 53,
+      "aiErrors": 0,
+      "p99": 0.7904530000005252
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "count": 2,
+      "seed": 23,
+      "seconds": 16.05,
+      "ended": true,
+      "bins": 27,
+      "verticalBands": 6,
+      "activeInput": 0.9257528556593977,
+      "initial": [
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 3.8,
+          "y": 12.060000000000002
+        }
+      ],
+      "jumps": 5,
+      "charges": 5,
+      "grappleAttachments": 7,
+      "aiErrors": 0,
+      "p99": 0.20280600000023696
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "count": 2,
+      "seed": 239,
+      "seconds": 7.75,
+      "ended": true,
+      "bins": 15,
+      "verticalBands": 6,
+      "activeInput": 0.9849462365591398,
+      "initial": [
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 20,
+          "y": 4.26
+        }
+      ],
+      "jumps": 2,
+      "charges": 2,
+      "grappleAttachments": 4,
+      "aiErrors": 0,
+      "p99": 0.2949450000005527
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 32,
+      "verticalBands": 6,
+      "activeInput": 0.70625,
+      "initial": [
+        {
+          "x": 20,
+          "y": 4.26
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 3.8,
+          "y": 12.060000000000002
+        },
+        {
+          "x": 36.2,
+          "y": 11.46
+        }
+      ],
+      "jumps": 11,
+      "charges": 10,
+      "grappleAttachments": 15,
+      "aiErrors": 0,
+      "p99": 0.37588700000014796
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 29,
+      "verticalBands": 6,
+      "activeInput": 0.95375,
+      "initial": [
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 20,
+          "y": 4.26
+        }
+      ],
+      "jumps": 16,
+      "charges": 16,
+      "grappleAttachments": 28,
+      "aiErrors": 0,
+      "p99": 0.4297740000001795
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "count": 8,
+      "seed": 23,
+      "seconds": 15.75,
+      "ended": true,
+      "bins": 35,
+      "verticalBands": 6,
+      "activeInput": 0.9085978835978836,
+      "initial": [
+        {
+          "x": 32.85714285714286,
+          "y": 21.01
+        },
+        {
+          "x": 36.2,
+          "y": 11.46
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 21.01
+        },
+        {
+          "x": 3.8,
+          "y": 12.060000000000002
+        },
+        {
+          "x": 20,
+          "y": 10.760000000000002
+        },
+        {
+          "x": 20,
+          "y": 4.26
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        }
+      ],
+      "jumps": 21,
+      "charges": 21,
+      "grappleAttachments": 40,
+      "aiErrors": 0,
+      "p99": 0.6168410000000222
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 32,
+      "verticalBands": 6,
+      "activeInput": 0.8757291666666667,
+      "initial": [
+        {
+          "x": 32,
+          "y": 7.26
+        },
+        {
+          "x": 8,
+          "y": 7.26
+        },
+        {
+          "x": 20,
+          "y": 10.760000000000002
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 21.01
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 20,
+          "y": 4.26
+        }
+      ],
+      "jumps": 26,
+      "charges": 24,
+      "grappleAttachments": 36,
+      "aiErrors": 0,
+      "p99": 0.578614000000016
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 23,
+      "seconds": 16.3,
+      "ended": true,
+      "bins": 27,
+      "verticalBands": 6,
+      "activeInput": 0.919693094629156,
+      "initial": [
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 3.8,
+          "y": 12.060000000000002
+        }
+      ],
+      "jumps": 5,
+      "charges": 5,
+      "grappleAttachments": 7,
+      "aiErrors": 0,
+      "p99": 0.24426900000071328
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 239,
+      "seconds": 7.75,
+      "ended": true,
+      "bins": 15,
+      "verticalBands": 6,
+      "activeInput": 0.984930032292788,
+      "initial": [
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 20,
+          "y": 4.26
+        }
+      ],
+      "jumps": 2,
+      "charges": 2,
+      "grappleAttachments": 4,
+      "aiErrors": 0,
+      "p99": 0.3973200000000361
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 38,
+      "verticalBands": 6,
+      "activeInput": 0.7845833333333333,
+      "initial": [
+        {
+          "x": 20,
+          "y": 4.26
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 3.8,
+          "y": 12.060000000000002
+        },
+        {
+          "x": 36.2,
+          "y": 11.46
+        }
+      ],
+      "jumps": 11,
+      "charges": 10,
+      "grappleAttachments": 14,
+      "aiErrors": 0,
+      "p99": 0.33634799999981624
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 26,
+      "verticalBands": 6,
+      "activeInput": 0.8418167580266249,
+      "initial": [
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 20,
+          "y": 4.26
+        }
+      ],
+      "jumps": 10,
+      "charges": 9,
+      "grappleAttachments": 13,
+      "aiErrors": 0,
+      "p99": 0.31486499999937223
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 34,
+      "verticalBands": 6,
+      "activeInput": 0.8832861886606813,
+      "initial": [
+        {
+          "x": 32.85714285714286,
+          "y": 21.01
+        },
+        {
+          "x": 36.2,
+          "y": 11.46
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 21.01
+        },
+        {
+          "x": 3.8,
+          "y": 12.060000000000002
+        },
+        {
+          "x": 20,
+          "y": 10.760000000000002
+        },
+        {
+          "x": 20,
+          "y": 4.26
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        }
+      ],
+      "jumps": 20,
+      "charges": 20,
+      "grappleAttachments": 35,
+      "aiErrors": 0,
+      "p99": 0.5731249999998909
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 29,
+      "verticalBands": 6,
+      "activeInput": 0.8593078245915735,
+      "initial": [
+        {
+          "x": 32,
+          "y": 7.26
+        },
+        {
+          "x": 8,
+          "y": 7.26
+        },
+        {
+          "x": 20,
+          "y": 10.760000000000002
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 21.01
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 20,
+          "y": 4.26
+        }
+      ],
+      "jumps": 23,
+      "charges": 21,
+      "grappleAttachments": 35,
+      "aiErrors": 0,
+      "p99": 0.7035009999999602
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "count": 2,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 29,
+      "verticalBands": 6,
+      "activeInput": 0.8625,
+      "initial": [
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 3.8,
+          "y": 12.060000000000002
+        }
+      ],
+      "jumps": 6,
+      "charges": 6,
+      "grappleAttachments": 7,
+      "aiErrors": 0,
+      "p99": 0.23486500000035448
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "count": 2,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 21,
+      "verticalBands": 6,
+      "activeInput": 0.9570833333333333,
+      "initial": [
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 20,
+          "y": 4.26
+        }
+      ],
+      "jumps": 6,
+      "charges": 6,
+      "grappleAttachments": 6,
+      "aiErrors": 0,
+      "p99": 0.2320899999995163
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 38,
+      "verticalBands": 6,
+      "activeInput": 0.7845833333333333,
+      "initial": [
+        {
+          "x": 20,
+          "y": 4.26
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 3.8,
+          "y": 12.060000000000002
+        },
+        {
+          "x": 36.2,
+          "y": 11.46
+        }
+      ],
+      "jumps": 11,
+      "charges": 10,
+      "grappleAttachments": 14,
+      "aiErrors": 0,
+      "p99": 0.33208100000047125
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 30,
+      "verticalBands": 6,
+      "activeInput": 0.9147916666666667,
+      "initial": [
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 20,
+          "y": 4.26
+        }
+      ],
+      "jumps": 11,
+      "charges": 11,
+      "grappleAttachments": 19,
+      "aiErrors": 0,
+      "p99": 0.29017799999928684
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 35,
+      "verticalBands": 6,
+      "activeInput": 0.8746875,
+      "initial": [
+        {
+          "x": 32.85714285714286,
+          "y": 21.01
+        },
+        {
+          "x": 36.2,
+          "y": 11.46
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 21.01
+        },
+        {
+          "x": 3.8,
+          "y": 12.060000000000002
+        },
+        {
+          "x": 20,
+          "y": 10.760000000000002
+        },
+        {
+          "x": 20,
+          "y": 4.26
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        }
+      ],
+      "jumps": 24,
+      "charges": 24,
+      "grappleAttachments": 39,
+      "aiErrors": 0,
+      "p99": 0.754519000000073
+    },
+    {
+      "variant": "experiment",
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 33,
+      "verticalBands": 6,
+      "activeInput": 0.8667708333333334,
+      "initial": [
+        {
+          "x": 32,
+          "y": 7.26
+        },
+        {
+          "x": 8,
+          "y": 7.26
+        },
+        {
+          "x": 20,
+          "y": 10.760000000000002
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 21.01
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 20,
+          "y": 4.26
+        }
+      ],
+      "jumps": 24,
+      "charges": 22,
+      "grappleAttachments": 35,
+      "aiErrors": 0,
+      "p99": 0.7652149999994435
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "poison",
+      "count": 2,
+      "seed": 23,
+      "seconds": 10.333333333333334,
+      "ended": true,
+      "bins": 14,
+      "verticalBands": 6,
+      "activeInput": 0.9008064516129032,
+      "initial": [
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        }
+      ],
+      "jumps": 5,
+      "charges": 5,
+      "grappleAttachments": 4,
+      "aiErrors": 0,
+      "p99": 0.24827499999992142
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "poison",
+      "count": 2,
+      "seed": 239,
+      "seconds": 11.45,
+      "ended": true,
+      "bins": 17,
+      "verticalBands": 6,
+      "activeInput": 0.9883551673944687,
+      "initial": [
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        }
+      ],
+      "jumps": 5,
+      "charges": 4,
+      "grappleAttachments": 7,
+      "aiErrors": 0,
+      "p99": 0.22470900000007532
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "poison",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 31,
+      "verticalBands": 6,
+      "activeInput": 0.7977083333333334,
+      "initial": [
+        {
+          "x": 6,
+          "y": 7.91
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        }
+      ],
+      "jumps": 6,
+      "charges": 4,
+      "grappleAttachments": 19,
+      "aiErrors": 0,
+      "p99": 0.2648799999988114
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "poison",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 33,
+      "verticalBands": 6,
+      "activeInput": 0.9691666666666666,
+      "initial": [
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        }
+      ],
+      "jumps": 17,
+      "charges": 17,
+      "grappleAttachments": 24,
+      "aiErrors": 0,
+      "p99": 0.26803499999914493
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "poison",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 34,
+      "verticalBands": 6,
+      "activeInput": 0.9330208333333333,
+      "initial": [
+        {
+          "x": 27.714285714285715,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        },
+        {
+          "x": 26,
+          "y": 2.8099999999999996
+        },
+        {
+          "x": 6,
+          "y": 7.91
+        },
+        {
+          "x": 19,
+          "y": 12.010000000000002
+        }
+      ],
+      "jumps": 29,
+      "charges": 26,
+      "grappleAttachments": 41,
+      "aiErrors": 0,
+      "p99": 0.521537000000535
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "poison",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 39,
+      "verticalBands": 6,
+      "activeInput": 0.9677083333333333,
+      "initial": [
+        {
+          "x": 12.285714285714286,
+          "y": 21.01
+        },
+        {
+          "x": 6,
+          "y": 7.91
+        },
+        {
+          "x": 26,
+          "y": 2.8099999999999996
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 19,
+          "y": 12.010000000000002
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        }
+      ],
+      "jumps": 18,
+      "charges": 16,
+      "grappleAttachments": 57,
+      "aiErrors": 0,
+      "p99": 0.39393399999971734
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 28,
+      "verticalBands": 6,
+      "activeInput": 0.9754166666666667,
+      "initial": [
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        }
+      ],
+      "jumps": 7,
+      "charges": 7,
+      "grappleAttachments": 14,
+      "aiErrors": 0,
+      "p99": 0.1500770000002376
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 26,
+      "verticalBands": 6,
+      "activeInput": 0.8845833333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        }
+      ],
+      "jumps": 6,
+      "charges": 5,
+      "grappleAttachments": 13,
+      "aiErrors": 0,
+      "p99": 0.1650389999995241
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 30,
+      "verticalBands": 6,
+      "activeInput": 0.780625,
+      "initial": [
+        {
+          "x": 6,
+          "y": 7.91
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        }
+      ],
+      "jumps": 8,
+      "charges": 7,
+      "grappleAttachments": 16,
+      "aiErrors": 0,
+      "p99": 0.3211439999995491
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 27,
+      "verticalBands": 6,
+      "activeInput": 0.9597701149425287,
+      "initial": [
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        }
+      ],
+      "jumps": 14,
+      "charges": 13,
+      "grappleAttachments": 12,
+      "aiErrors": 0,
+      "p99": 0.26667300000008254
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 34,
+      "verticalBands": 6,
+      "activeInput": 0.9242356616826601,
+      "initial": [
+        {
+          "x": 27.714285714285715,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        },
+        {
+          "x": 26,
+          "y": 2.8099999999999996
+        },
+        {
+          "x": 6,
+          "y": 7.91
+        },
+        {
+          "x": 19,
+          "y": 12.010000000000002
+        }
+      ],
+      "jumps": 26,
+      "charges": 24,
+      "grappleAttachments": 37,
+      "aiErrors": 0,
+      "p99": 0.6232999999992899
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 39,
+      "verticalBands": 6,
+      "activeInput": 0.9484348798211292,
+      "initial": [
+        {
+          "x": 12.285714285714286,
+          "y": 21.01
+        },
+        {
+          "x": 6,
+          "y": 7.91
+        },
+        {
+          "x": 26,
+          "y": 2.8099999999999996
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 19,
+          "y": 12.010000000000002
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        }
+      ],
+      "jumps": 11,
+      "charges": 10,
+      "grappleAttachments": 38,
+      "aiErrors": 0,
+      "p99": 0.4106999999985419
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "classic",
+      "count": 2,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 28,
+      "verticalBands": 6,
+      "activeInput": 0.9754166666666667,
+      "initial": [
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        }
+      ],
+      "jumps": 7,
+      "charges": 7,
+      "grappleAttachments": 14,
+      "aiErrors": 0,
+      "p99": 0.17722700000012992
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "classic",
+      "count": 2,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 26,
+      "verticalBands": 6,
+      "activeInput": 0.8845833333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        }
+      ],
+      "jumps": 6,
+      "charges": 5,
+      "grappleAttachments": 13,
+      "aiErrors": 0,
+      "p99": 0.1271919999999227
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "classic",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 30,
+      "verticalBands": 6,
+      "activeInput": 0.780625,
+      "initial": [
+        {
+          "x": 6,
+          "y": 7.91
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        }
+      ],
+      "jumps": 8,
+      "charges": 7,
+      "grappleAttachments": 16,
+      "aiErrors": 0,
+      "p99": 0.2462120000000141
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "classic",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 30,
+      "verticalBands": 6,
+      "activeInput": 0.9679166666666666,
+      "initial": [
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        }
+      ],
+      "jumps": 15,
+      "charges": 15,
+      "grappleAttachments": 25,
+      "aiErrors": 0,
+      "p99": 0.23200999999971827
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "classic",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 34,
+      "verticalBands": 6,
+      "activeInput": 0.9063541666666667,
+      "initial": [
+        {
+          "x": 27.714285714285715,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        },
+        {
+          "x": 26,
+          "y": 2.8099999999999996
+        },
+        {
+          "x": 6,
+          "y": 7.91
+        },
+        {
+          "x": 19,
+          "y": 12.010000000000002
+        }
+      ],
+      "jumps": 27,
+      "charges": 26,
+      "grappleAttachments": 38,
+      "aiErrors": 0,
+      "p99": 0.4754979999997886
+    },
+    {
+      "variant": "experiment",
+      "arena": "bathhouse",
+      "mode": "classic",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 39,
+      "verticalBands": 6,
+      "activeInput": 0.9570833333333333,
+      "initial": [
+        {
+          "x": 12.285714285714286,
+          "y": 21.01
+        },
+        {
+          "x": 6,
+          "y": 7.91
+        },
+        {
+          "x": 26,
+          "y": 2.8099999999999996
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 19,
+          "y": 12.010000000000002
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 34,
+          "y": 7.06
+        }
+      ],
+      "jumps": 26,
+      "charges": 24,
+      "grappleAttachments": 48,
+      "aiErrors": 0,
+      "p99": 0.6876279999996768
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "poison",
+      "count": 2,
+      "seed": 23,
+      "seconds": 5.6,
+      "ended": true,
+      "bins": 13,
+      "verticalBands": 5,
+      "activeInput": 0.7767857142857143,
+      "initial": [
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        }
+      ],
+      "jumps": 2,
+      "charges": 2,
+      "grappleAttachments": 1,
+      "aiErrors": 0,
+      "p99": 0.19401299999844923
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "poison",
+      "count": 2,
+      "seed": 239,
+      "seconds": 6.783333333333333,
+      "ended": true,
+      "bins": 13,
+      "verticalBands": 5,
+      "activeInput": 0.7162162162162162,
+      "initial": [
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        }
+      ],
+      "jumps": 1,
+      "charges": 1,
+      "grappleAttachments": 0,
+      "aiErrors": 0,
+      "p99": 0.1206320000001142
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "poison",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 31,
+      "verticalBands": 6,
+      "activeInput": 0.8083333333333333,
+      "initial": [
+        {
+          "x": 33,
+          "y": 4.26
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        }
+      ],
+      "jumps": 8,
+      "charges": 8,
+      "grappleAttachments": 23,
+      "aiErrors": 0,
+      "p99": 0.2201920000006794
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "poison",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 30,
+      "verticalBands": 6,
+      "activeInput": 0.8352083333333333,
+      "initial": [
+        {
+          "x": 33,
+          "y": 4.26
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        }
+      ],
+      "jumps": 14,
+      "charges": 14,
+      "grappleAttachments": 24,
+      "aiErrors": 0,
+      "p99": 0.21058799999991606
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "poison",
+      "count": 8,
+      "seed": 23,
+      "seconds": 16.15,
+      "ended": true,
+      "bins": 38,
+      "verticalBands": 6,
+      "activeInput": 0.929437564499484,
+      "initial": [
+        {
+          "x": 20,
+          "y": 6.26
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        },
+        {
+          "x": 12,
+          "y": 10.760000000000002
+        },
+        {
+          "x": 33,
+          "y": 4.26
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 21.01
+        }
+      ],
+      "jumps": 12,
+      "charges": 11,
+      "grappleAttachments": 27,
+      "aiErrors": 0,
+      "p99": 0.4479360000004817
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "poison",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 37,
+      "verticalBands": 6,
+      "activeInput": 0.8705208333333333,
+      "initial": [
+        {
+          "x": 20,
+          "y": 6.26
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 12,
+          "y": 10.760000000000002
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 21.01
+        },
+        {
+          "x": 33,
+          "y": 4.26
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        }
+      ],
+      "jumps": 28,
+      "charges": 26,
+      "grappleAttachments": 36,
+      "aiErrors": 0,
+      "p99": 0.3795030000001134
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 23,
+      "seconds": 5.6,
+      "ended": true,
+      "bins": 13,
+      "verticalBands": 5,
+      "activeInput": 0.7764530551415797,
+      "initial": [
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        }
+      ],
+      "jumps": 2,
+      "charges": 2,
+      "grappleAttachments": 1,
+      "aiErrors": 0,
+      "p99": 0.16574000000036904
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 239,
+      "seconds": 6.783333333333333,
+      "ended": true,
+      "bins": 13,
+      "verticalBands": 5,
+      "activeInput": 0.7170971709717097,
+      "initial": [
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        }
+      ],
+      "jumps": 1,
+      "charges": 1,
+      "grappleAttachments": 0,
+      "aiErrors": 0,
+      "p99": 0.12671100000079605
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 20,
+      "verticalBands": 6,
+      "activeInput": 0.8402083333333333,
+      "initial": [
+        {
+          "x": 33,
+          "y": 4.26
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        }
+      ],
+      "jumps": 16,
+      "charges": 16,
+      "grappleAttachments": 25,
+      "aiErrors": 0,
+      "p99": 0.23712800000066636
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 28,
+      "verticalBands": 6,
+      "activeInput": 0.8672916666666667,
+      "initial": [
+        {
+          "x": 33,
+          "y": 4.26
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        }
+      ],
+      "jumps": 12,
+      "charges": 12,
+      "grappleAttachments": 24,
+      "aiErrors": 0,
+      "p99": 0.19905000000107975
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 40,
+      "verticalBands": 6,
+      "activeInput": 0.8548206278026906,
+      "initial": [
+        {
+          "x": 20,
+          "y": 6.26
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        },
+        {
+          "x": 12,
+          "y": 10.760000000000002
+        },
+        {
+          "x": 33,
+          "y": 4.26
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 21.01
+        }
+      ],
+      "jumps": 23,
+      "charges": 22,
+      "grappleAttachments": 24,
+      "aiErrors": 0,
+      "p99": 0.37901199999942037
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 39,
+      "verticalBands": 6,
+      "activeInput": 0.9231792886523107,
+      "initial": [
+        {
+          "x": 20,
+          "y": 6.26
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 12,
+          "y": 10.760000000000002
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 21.01
+        },
+        {
+          "x": 33,
+          "y": 4.26
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        }
+      ],
+      "jumps": 20,
+      "charges": 18,
+      "grappleAttachments": 39,
+      "aiErrors": 0,
+      "p99": 0.3446199999998498
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "classic",
+      "count": 2,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 27,
+      "verticalBands": 6,
+      "activeInput": 0.82875,
+      "initial": [
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        }
+      ],
+      "jumps": 9,
+      "charges": 7,
+      "grappleAttachments": 4,
+      "aiErrors": 0,
+      "p99": 0.16019199999936973
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "classic",
+      "count": 2,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 27,
+      "verticalBands": 6,
+      "activeInput": 0.8554166666666667,
+      "initial": [
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        }
+      ],
+      "jumps": 4,
+      "charges": 4,
+      "grappleAttachments": 8,
+      "aiErrors": 0,
+      "p99": 0.1734919999998965
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "classic",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 20,
+      "verticalBands": 6,
+      "activeInput": 0.8402083333333333,
+      "initial": [
+        {
+          "x": 33,
+          "y": 4.26
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        }
+      ],
+      "jumps": 16,
+      "charges": 16,
+      "grappleAttachments": 25,
+      "aiErrors": 0,
+      "p99": 0.3370890000005602
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "classic",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 28,
+      "verticalBands": 6,
+      "activeInput": 0.8672916666666667,
+      "initial": [
+        {
+          "x": 33,
+          "y": 4.26
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        }
+      ],
+      "jumps": 12,
+      "charges": 12,
+      "grappleAttachments": 24,
+      "aiErrors": 0,
+      "p99": 0.25183000000106404
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "classic",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 39,
+      "verticalBands": 6,
+      "activeInput": 0.9144791666666666,
+      "initial": [
+        {
+          "x": 20,
+          "y": 6.26
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        },
+        {
+          "x": 12,
+          "y": 10.760000000000002
+        },
+        {
+          "x": 33,
+          "y": 4.26
+        },
+        {
+          "x": 12.285714285714286,
+          "y": 21.01
+        }
+      ],
+      "jumps": 20,
+      "charges": 18,
+      "grappleAttachments": 22,
+      "aiErrors": 0,
+      "p99": 0.5133850000001985
+    },
+    {
+      "variant": "experiment",
+      "arena": "canopy",
+      "mode": "classic",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 39,
+      "verticalBands": 6,
+      "activeInput": 0.8758333333333334,
+      "initial": [
+        {
+          "x": 20,
+          "y": 6.26
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 12,
+          "y": 10.760000000000002
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 21.01
+        },
+        {
+          "x": 33,
+          "y": 4.26
+        },
+        {
+          "x": 7,
+          "y": 4.26
+        }
+      ],
+      "jumps": 28,
+      "charges": 25,
+      "grappleAttachments": 34,
+      "aiErrors": 0,
+      "p99": 0.6024589999997261
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "poison",
+      "count": 2,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 29,
+      "verticalBands": 6,
+      "activeInput": 0.8929166666666667,
+      "initial": [
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 33,
+          "y": 3.11
+        }
+      ],
+      "jumps": 4,
+      "charges": 4,
+      "grappleAttachments": 12,
+      "aiErrors": 0,
+      "p99": 0.26164500000049884
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "poison",
+      "count": 2,
+      "seed": 239,
+      "seconds": 10.083333333333334,
+      "ended": true,
+      "bins": 20,
+      "verticalBands": 5,
+      "activeInput": 0.8520661157024794,
+      "initial": [
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 24,
+          "y": 7.509999999999999
+        }
+      ],
+      "jumps": 3,
+      "charges": 2,
+      "grappleAttachments": 6,
+      "aiErrors": 0,
+      "p99": 0.2735929999998916
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "poison",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 37,
+      "verticalBands": 6,
+      "activeInput": 0.9122916666666666,
+      "initial": [
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 33,
+          "y": 3.11
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        }
+      ],
+      "jumps": 12,
+      "charges": 12,
+      "grappleAttachments": 19,
+      "aiErrors": 0,
+      "p99": 0.4594340000003285
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "poison",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 27,
+      "verticalBands": 6,
+      "activeInput": 0.8772916666666667,
+      "initial": [
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 24,
+          "y": 7.509999999999999
+        }
+      ],
+      "jumps": 11,
+      "charges": 11,
+      "grappleAttachments": 23,
+      "aiErrors": 0,
+      "p99": 0.36965799999961746
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "poison",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 40,
+      "verticalBands": 6,
+      "activeInput": 0.940625,
+      "initial": [
+        {
+          "x": 12.285714285714286,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 6,
+          "y": 8.910000000000002
+        },
+        {
+          "x": 33,
+          "y": 3.11
+        },
+        {
+          "x": 15,
+          "y": 13.21
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 24,
+          "y": 7.509999999999999
+        }
+      ],
+      "jumps": 21,
+      "charges": 15,
+      "grappleAttachments": 56,
+      "aiErrors": 0,
+      "p99": 0.5655729999998584
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "poison",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 33,
+      "verticalBands": 6,
+      "activeInput": 0.8446875,
+      "initial": [
+        {
+          "x": 35,
+          "y": 10.310000000000002
+        },
+        {
+          "x": 6,
+          "y": 8.910000000000002
+        },
+        {
+          "x": 15,
+          "y": 13.21
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 21.01
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 24,
+          "y": 7.509999999999999
+        }
+      ],
+      "jumps": 22,
+      "charges": 21,
+      "grappleAttachments": 37,
+      "aiErrors": 0,
+      "p99": 0.6596950000002835
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 23,
+      "seconds": 7.683333333333334,
+      "ended": true,
+      "bins": 13,
+      "verticalBands": 6,
+      "activeInput": 0.7665580890336591,
+      "initial": [
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 33,
+          "y": 3.11
+        }
+      ],
+      "jumps": 1,
+      "charges": 1,
+      "grappleAttachments": 5,
+      "aiErrors": 0,
+      "p99": 0.30337800000052084
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "freeze",
+      "count": 2,
+      "seed": 239,
+      "seconds": 14,
+      "ended": true,
+      "bins": 21,
+      "verticalBands": 5,
+      "activeInput": 0.8796902918403812,
+      "initial": [
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 24,
+          "y": 7.509999999999999
+        }
+      ],
+      "jumps": 3,
+      "charges": 2,
+      "grappleAttachments": 8,
+      "aiErrors": 0,
+      "p99": 0.22063299999899755
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 37,
+      "verticalBands": 6,
+      "activeInput": 0.8852083333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 33,
+          "y": 3.11
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        }
+      ],
+      "jumps": 10,
+      "charges": 10,
+      "grappleAttachments": 20,
+      "aiErrors": 0,
+      "p99": 0.3811660000010306
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "freeze",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 27,
+      "verticalBands": 6,
+      "activeInput": 0.7493930401942271,
+      "initial": [
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 24,
+          "y": 7.509999999999999
+        }
+      ],
+      "jumps": 4,
+      "charges": 4,
+      "grappleAttachments": 15,
+      "aiErrors": 0,
+      "p99": 0.33796000000074855
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 39,
+      "verticalBands": 6,
+      "activeInput": 0.8748967307919273,
+      "initial": [
+        {
+          "x": 12.285714285714286,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 6,
+          "y": 8.910000000000002
+        },
+        {
+          "x": 33,
+          "y": 3.11
+        },
+        {
+          "x": 15,
+          "y": 13.21
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 24,
+          "y": 7.509999999999999
+        }
+      ],
+      "jumps": 10,
+      "charges": 9,
+      "grappleAttachments": 23,
+      "aiErrors": 0,
+      "p99": 0.71552900000097
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "freeze",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 33,
+      "verticalBands": 6,
+      "activeInput": 0.8334375,
+      "initial": [
+        {
+          "x": 35,
+          "y": 10.310000000000002
+        },
+        {
+          "x": 6,
+          "y": 8.910000000000002
+        },
+        {
+          "x": 15,
+          "y": 13.21
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 21.01
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 24,
+          "y": 7.509999999999999
+        }
+      ],
+      "jumps": 21,
+      "charges": 20,
+      "grappleAttachments": 33,
+      "aiErrors": 0,
+      "p99": 0.5368199999993521
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "classic",
+      "count": 2,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 23,
+      "verticalBands": 6,
+      "activeInput": 0.8625,
+      "initial": [
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 33,
+          "y": 3.11
+        }
+      ],
+      "jumps": 10,
+      "charges": 4,
+      "grappleAttachments": 7,
+      "aiErrors": 0,
+      "p99": 0.2093960000001971
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "classic",
+      "count": 2,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 22,
+      "verticalBands": 5,
+      "activeInput": 0.91375,
+      "initial": [
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 24,
+          "y": 7.509999999999999
+        }
+      ],
+      "jumps": 4,
+      "charges": 3,
+      "grappleAttachments": 14,
+      "aiErrors": 0,
+      "p99": 0.199441000000661
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "classic",
+      "count": 4,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 37,
+      "verticalBands": 6,
+      "activeInput": 0.8852083333333334,
+      "initial": [
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 33,
+          "y": 3.11
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        }
+      ],
+      "jumps": 10,
+      "charges": 10,
+      "grappleAttachments": 20,
+      "aiErrors": 0,
+      "p99": 0.474395999999615
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "classic",
+      "count": 4,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 34,
+      "verticalBands": 6,
+      "activeInput": 0.87875,
+      "initial": [
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 24,
+          "y": 7.509999999999999
+        }
+      ],
+      "jumps": 8,
+      "charges": 6,
+      "grappleAttachments": 21,
+      "aiErrors": 0,
+      "p99": 0.42722499999945285
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "classic",
+      "count": 8,
+      "seed": 23,
+      "seconds": 20,
+      "ended": false,
+      "bins": 40,
+      "verticalBands": 6,
+      "activeInput": 0.9278125,
+      "initial": [
+        {
+          "x": 12.285714285714286,
+          "y": 21.01
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 22.571428571428573,
+          "y": 21.01
+        },
+        {
+          "x": 6,
+          "y": 8.910000000000002
+        },
+        {
+          "x": 33,
+          "y": 3.11
+        },
+        {
+          "x": 15,
+          "y": 13.21
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 24,
+          "y": 7.509999999999999
+        }
+      ],
+      "jumps": 20,
+      "charges": 18,
+      "grappleAttachments": 50,
+      "aiErrors": 0,
+      "p99": 0.9863979999990988
+    },
+    {
+      "variant": "experiment",
+      "arena": "toyshop",
+      "mode": "classic",
+      "count": 8,
+      "seed": 239,
+      "seconds": 20,
+      "ended": false,
+      "bins": 33,
+      "verticalBands": 6,
+      "activeInput": 0.8334375,
+      "initial": [
+        {
+          "x": 35,
+          "y": 10.310000000000002
+        },
+        {
+          "x": 6,
+          "y": 8.910000000000002
+        },
+        {
+          "x": 15,
+          "y": 13.21
+        },
+        {
+          "x": 38,
+          "y": 21.01
+        },
+        {
+          "x": 2,
+          "y": 21.01
+        },
+        {
+          "x": 27.714285714285715,
+          "y": 21.01
+        },
+        {
+          "x": 17.42857142857143,
+          "y": 21.01
+        },
+        {
+          "x": 24,
+          "y": 7.509999999999999
+        }
+      ],
+      "jumps": 21,
+      "charges": 20,
+      "grappleAttachments": 33,
+      "aiErrors": 0,
+      "p99": 0.8362520000009681
+    }
+  ],
+  "routes": [
+    {
+      "side": "left",
+      "leg": "inbound",
+      "seed": 1,
+      "success": true,
+      "seconds": 2.15,
+      "closestDistance": 0.7763115141061454,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "left",
+      "leg": "inbound",
+      "seed": 23,
+      "success": true,
+      "seconds": 2.15,
+      "closestDistance": 0.7763115141061454,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "left",
+      "leg": "inbound",
+      "seed": 123,
+      "success": true,
+      "seconds": 2.15,
+      "closestDistance": 0.7763115141061454,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "left",
+      "leg": "inbound",
+      "seed": 999,
+      "success": true,
+      "seconds": 2.1666666666666665,
+      "closestDistance": 0.7763115141055295,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "left",
+      "leg": "inbound",
+      "seed": 7001,
+      "success": true,
+      "seconds": 2.183333333333333,
+      "closestDistance": 0.776311514105038,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "left",
+      "leg": "outbound",
+      "seed": 1,
+      "success": true,
+      "seconds": 2.1166666666666667,
+      "closestDistance": 0.7940608320066208,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "left",
+      "leg": "outbound",
+      "seed": 23,
+      "success": true,
+      "seconds": 2.1166666666666667,
+      "closestDistance": 0.7940608320066208,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "left",
+      "leg": "outbound",
+      "seed": 123,
+      "success": true,
+      "seconds": 2.1166666666666667,
+      "closestDistance": 0.7940608320066208,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "left",
+      "leg": "outbound",
+      "seed": 999,
+      "success": true,
+      "seconds": 2.1333333333333333,
+      "closestDistance": 0.794060832008035,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "left",
+      "leg": "outbound",
+      "seed": 7001,
+      "success": true,
+      "seconds": 2.15,
+      "closestDistance": 0.7940608320091657,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "left",
+      "leg": "ground-approach",
+      "seed": 1,
+      "success": true,
+      "seconds": 10.316666666666666,
+      "closestDistance": 0.8376788255440557,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 6,
+        "attachments": 5,
+        "releases": 5,
+        "swings": 28,
+        "misses": 1,
+        "recoveries": 0,
+        "plans": 48
+      }
+    },
+    {
+      "side": "left",
+      "leg": "ground-approach",
+      "seed": 23,
+      "success": true,
+      "seconds": 10.316666666666666,
+      "closestDistance": 0.8376788255440557,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 6,
+        "attachments": 5,
+        "releases": 5,
+        "swings": 28,
+        "misses": 1,
+        "recoveries": 0,
+        "plans": 48
+      }
+    },
+    {
+      "side": "left",
+      "leg": "ground-approach",
+      "seed": 123,
+      "success": true,
+      "seconds": 10.316666666666666,
+      "closestDistance": 0.8376788255440557,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 6,
+        "attachments": 5,
+        "releases": 5,
+        "swings": 28,
+        "misses": 1,
+        "recoveries": 0,
+        "plans": 48
+      }
+    },
+    {
+      "side": "left",
+      "leg": "ground-approach",
+      "seed": 999,
+      "success": true,
+      "seconds": 23.05,
+      "closestDistance": 0.7817255450108528,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 6,
+        "charges": 6,
+        "shots": 9,
+        "attachments": 8,
+        "releases": 6,
+        "swings": 38,
+        "misses": 1,
+        "recoveries": 2,
+        "plans": 114
+      }
+    },
+    {
+      "side": "left",
+      "leg": "ground-approach",
+      "seed": 7001,
+      "success": true,
+      "seconds": 21.216666666666665,
+      "closestDistance": 0.8377443545384539,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 4,
+        "charges": 4,
+        "shots": 10,
+        "attachments": 8,
+        "releases": 8,
+        "swings": 37,
+        "misses": 2,
+        "recoveries": 1,
+        "plans": 100
+      }
+    },
+    {
+      "side": "right",
+      "leg": "inbound",
+      "seed": 1,
+      "success": true,
+      "seconds": 2.216666666666667,
+      "closestDistance": 0.7956636677989468,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 14
+      }
+    },
+    {
+      "side": "right",
+      "leg": "inbound",
+      "seed": 23,
+      "success": true,
+      "seconds": 2.216666666666667,
+      "closestDistance": 0.7956636677989468,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 14
+      }
+    },
+    {
+      "side": "right",
+      "leg": "inbound",
+      "seed": 123,
+      "success": true,
+      "seconds": 2.216666666666667,
+      "closestDistance": 0.7956636677989468,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 14
+      }
+    },
+    {
+      "side": "right",
+      "leg": "inbound",
+      "seed": 999,
+      "success": true,
+      "seconds": 2.2333333333333334,
+      "closestDistance": 0.795663667796257,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 14
+      }
+    },
+    {
+      "side": "right",
+      "leg": "inbound",
+      "seed": 7001,
+      "success": true,
+      "seconds": 2.25,
+      "closestDistance": 0.7956636677940826,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 14
+      }
+    },
+    {
+      "side": "right",
+      "leg": "outbound",
+      "seed": 1,
+      "success": true,
+      "seconds": 2.15,
+      "closestDistance": 0.8427266226204332,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "right",
+      "leg": "outbound",
+      "seed": 23,
+      "success": true,
+      "seconds": 2.15,
+      "closestDistance": 0.8427266226204332,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "right",
+      "leg": "outbound",
+      "seed": 123,
+      "success": true,
+      "seconds": 2.15,
+      "closestDistance": 0.8427266226204332,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "right",
+      "leg": "outbound",
+      "seed": 999,
+      "success": true,
+      "seconds": 2.1666666666666665,
+      "closestDistance": 0.8427266226228763,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "right",
+      "leg": "outbound",
+      "seed": 7001,
+      "success": true,
+      "seconds": 2.183333333333333,
+      "closestDistance": 0.8427266226248294,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 13
+      }
+    },
+    {
+      "side": "right",
+      "leg": "ground-approach",
+      "seed": 1,
+      "success": true,
+      "seconds": 12.1,
+      "closestDistance": 0.8201151991544849,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 6,
+        "attachments": 5,
+        "releases": 5,
+        "swings": 27,
+        "misses": 1,
+        "recoveries": 0,
+        "plans": 60
+      }
+    },
+    {
+      "side": "right",
+      "leg": "ground-approach",
+      "seed": 23,
+      "success": true,
+      "seconds": 12.1,
+      "closestDistance": 0.8201151991544849,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 6,
+        "attachments": 5,
+        "releases": 5,
+        "swings": 27,
+        "misses": 1,
+        "recoveries": 0,
+        "plans": 60
+      }
+    },
+    {
+      "side": "right",
+      "leg": "ground-approach",
+      "seed": 123,
+      "success": true,
+      "seconds": 12.1,
+      "closestDistance": 0.8201151991544849,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 6,
+        "attachments": 5,
+        "releases": 5,
+        "swings": 27,
+        "misses": 1,
+        "recoveries": 0,
+        "plans": 60
+      }
+    },
+    {
+      "side": "right",
+      "leg": "ground-approach",
+      "seed": 999,
+      "success": true,
+      "seconds": 14.166666666666666,
+      "closestDistance": 0.8400878915436704,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 3,
+        "charges": 3,
+        "shots": 7,
+        "attachments": 6,
+        "releases": 5,
+        "swings": 33,
+        "misses": 1,
+        "recoveries": 1,
+        "plans": 62
+      }
+    },
+    {
+      "side": "right",
+      "leg": "ground-approach",
+      "seed": 7001,
+      "success": true,
+      "seconds": 14.066666666666666,
+      "closestDistance": 0.8307421994428439,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 9,
+        "attachments": 6,
+        "releases": 6,
+        "swings": 37,
+        "misses": 3,
+        "recoveries": 0,
+        "plans": 67
+      }
+    }
+  ],
+  "chaos": [
+    {
+      "ids": [
+        "moon_frogs"
+      ],
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6080,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "moon_frogs"
+      ],
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5177,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "moon_frogs"
+      ],
+      "arena": "canopy",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 5553,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "moon_frogs"
+      ],
+      "arena": "toyshop",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 4849,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "mega_tongues"
+      ],
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6104,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "mega_tongues"
+      ],
+      "arena": "bathhouse",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6156,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "mega_tongues"
+      ],
+      "arena": "canopy",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6940,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "mega_tongues"
+      ],
+      "arena": "toyshop",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5552,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "butterfeet"
+      ],
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6555,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "butterfeet"
+      ],
+      "arena": "bathhouse",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6937,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "butterfeet"
+      ],
+      "arena": "canopy",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6578,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "butterfeet"
+      ],
+      "arena": "toyshop",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6886,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "quick_licks"
+      ],
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 5859,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "quick_licks"
+      ],
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6193,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "quick_licks"
+      ],
+      "arena": "canopy",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6152,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "quick_licks"
+      ],
+      "arena": "toyshop",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6408,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "turbo_toads"
+      ],
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5975,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "turbo_toads"
+      ],
+      "arena": "bathhouse",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6089,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "turbo_toads"
+      ],
+      "arena": "canopy",
+      "mode": "poison",
+      "ticks": 796,
+      "activeInputs": 5914,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "turbo_toads"
+      ],
+      "arena": "toyshop",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6359,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "tiny_trouble"
+      ],
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 5510,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "tiny_trouble"
+      ],
+      "arena": "bathhouse",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6041,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "tiny_trouble"
+      ],
+      "arena": "canopy",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5341,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "tiny_trouble"
+      ],
+      "arena": "toyshop",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6190,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "mega_frogs"
+      ],
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6324,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "mega_frogs"
+      ],
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5369,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "mega_frogs"
+      ],
+      "arena": "canopy",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6673,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "mega_frogs"
+      ],
+      "arena": "toyshop",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6742,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "super_suckers"
+      ],
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5706,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "super_suckers"
+      ],
+      "arena": "bathhouse",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6692,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "super_suckers"
+      ],
+      "arena": "canopy",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6563,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "super_suckers"
+      ],
+      "arena": "toyshop",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5493,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "magnet_mouths"
+      ],
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6842,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "magnet_mouths"
+      ],
+      "arena": "bathhouse",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6221,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "magnet_mouths"
+      ],
+      "arena": "canopy",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5597,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "magnet_mouths"
+      ],
+      "arena": "toyshop",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6538,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "windy_weather"
+      ],
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6711,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "windy_weather"
+      ],
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6253,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "windy_weather"
+      ],
+      "arena": "canopy",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6784,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "windy_weather"
+      ],
+      "arena": "toyshop",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6934,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bouncy_bombardment"
+      ],
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6175,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bouncy_bombardment"
+      ],
+      "arena": "bathhouse",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 5997,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bouncy_bombardment"
+      ],
+      "arena": "canopy",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6738,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bouncy_bombardment"
+      ],
+      "arena": "toyshop",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5055,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "crumble_time"
+      ],
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6962,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "crumble_time"
+      ],
+      "arena": "bathhouse",
+      "mode": "poison",
+      "ticks": 722,
+      "activeInputs": 5619,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "crumble_time"
+      ],
+      "arena": "canopy",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6240,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "crumble_time"
+      ],
+      "arena": "toyshop",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6912,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "tilt_a_frog"
+      ],
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "ticks": 501,
+      "activeInputs": 3949,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "tilt_a_frog"
+      ],
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5706,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "tilt_a_frog"
+      ],
+      "arena": "canopy",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 7073,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "tilt_a_frog"
+      ],
+      "arena": "toyshop",
+      "mode": "poison",
+      "ticks": 523,
+      "activeInputs": 3995,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bumper_frogs"
+      ],
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5718,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bumper_frogs"
+      ],
+      "arena": "bathhouse",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6956,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bumper_frogs"
+      ],
+      "arena": "canopy",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6369,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bumper_frogs"
+      ],
+      "arena": "toyshop",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6287,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "balloon_bellies"
+      ],
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6188,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "balloon_bellies"
+      ],
+      "arena": "bathhouse",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 5853,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "balloon_bellies"
+      ],
+      "arena": "canopy",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6107,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "balloon_bellies"
+      ],
+      "arena": "toyshop",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6765,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "swap_hop"
+      ],
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6401,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "swap_hop"
+      ],
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 4837,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "swap_hop"
+      ],
+      "arena": "canopy",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6346,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "swap_hop"
+      ],
+      "arena": "toyshop",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6665,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "gravity_flip"
+      ],
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5327,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "gravity_flip"
+      ],
+      "arena": "bathhouse",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6658,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "gravity_flip"
+      ],
+      "arena": "canopy",
+      "mode": "poison",
+      "ticks": 818,
+      "activeInputs": 5811,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "gravity_flip"
+      ],
+      "arena": "toyshop",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6136,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "pogo_panic"
+      ],
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6364,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "pogo_panic"
+      ],
+      "arena": "bathhouse",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6877,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "pogo_panic"
+      ],
+      "arena": "canopy",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6373,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "pogo_panic"
+      ],
+      "arena": "toyshop",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6899,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bubble_trouble"
+      ],
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 5855,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bubble_trouble"
+      ],
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5762,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bubble_trouble"
+      ],
+      "arena": "canopy",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6424,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bubble_trouble"
+      ],
+      "arena": "toyshop",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6215,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "sticky_frogs"
+      ],
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6301,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "sticky_frogs"
+      ],
+      "arena": "bathhouse",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6749,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "sticky_frogs"
+      ],
+      "arena": "canopy",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6337,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "sticky_frogs"
+      ],
+      "arena": "toyshop",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5718,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "gravity_flip",
+        "sticky_frogs",
+        "mega_tongues"
+      ],
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6281,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "gravity_flip",
+        "sticky_frogs",
+        "mega_tongues"
+      ],
+      "arena": "bathhouse",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6053,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "gravity_flip",
+        "sticky_frogs",
+        "mega_tongues"
+      ],
+      "arena": "canopy",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5305,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "gravity_flip",
+        "sticky_frogs",
+        "mega_tongues"
+      ],
+      "arena": "toyshop",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6411,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "crumble_time",
+        "tiny_trouble",
+        "pogo_panic"
+      ],
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6961,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "crumble_time",
+        "tiny_trouble",
+        "pogo_panic"
+      ],
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6074,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "crumble_time",
+        "tiny_trouble",
+        "pogo_panic"
+      ],
+      "arena": "canopy",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 7097,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "crumble_time",
+        "tiny_trouble",
+        "pogo_panic"
+      ],
+      "arena": "toyshop",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 7102,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "tilt_a_frog",
+        "sticky_frogs",
+        "super_suckers"
+      ],
+      "arena": "sunny-pond",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5817,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "tilt_a_frog",
+        "sticky_frogs",
+        "super_suckers"
+      ],
+      "arena": "bathhouse",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6994,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "tilt_a_frog",
+        "sticky_frogs",
+        "super_suckers"
+      ],
+      "arena": "canopy",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 7058,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "tilt_a_frog",
+        "sticky_frogs",
+        "super_suckers"
+      ],
+      "arena": "toyshop",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6260,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bubble_trouble",
+        "bouncy_bombardment",
+        "mega_frogs"
+      ],
+      "arena": "sunny-pond",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6564,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bubble_trouble",
+        "bouncy_bombardment",
+        "mega_frogs"
+      ],
+      "arena": "bathhouse",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 5704,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bubble_trouble",
+        "bouncy_bombardment",
+        "mega_frogs"
+      ],
+      "arena": "canopy",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 5305,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "bubble_trouble",
+        "bouncy_bombardment",
+        "mega_frogs"
+      ],
+      "arena": "toyshop",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6474,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "moon_frogs",
+        "windy_weather",
+        "butterfeet"
+      ],
+      "arena": "sunny-pond",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6917,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "moon_frogs",
+        "windy_weather",
+        "butterfeet"
+      ],
+      "arena": "bathhouse",
+      "mode": "freeze",
+      "ticks": 900,
+      "activeInputs": 6867,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "moon_frogs",
+        "windy_weather",
+        "butterfeet"
+      ],
+      "arena": "canopy",
+      "mode": "classic",
+      "ticks": 900,
+      "activeInputs": 6793,
+      "aiErrors": 0
+    },
+    {
+      "ids": [
+        "moon_frogs",
+        "windy_weather",
+        "butterfeet"
+      ],
+      "arena": "toyshop",
+      "mode": "poison",
+      "ticks": 900,
+      "activeInputs": 6742,
+      "aiErrors": 0
+    }
+  ],
+  "summary": {
+    "baseline": {
+      "matches": 72,
+      "meanAreaBins": 24.88888888888889,
+      "meanActiveInput": 0.9329693143640445,
+      "ended": 23,
+      "maxP99": 1.6595559999999523,
+      "aiErrors": 0
+    },
+    "experiment": {
+      "matches": 72,
+      "meanAreaBins": 29.22222222222222,
+      "meanActiveInput": 0.87637392899912,
+      "ended": 15,
+      "maxP99": 0.9863979999990988,
+      "aiErrors": 0
+    }
+  }
+}

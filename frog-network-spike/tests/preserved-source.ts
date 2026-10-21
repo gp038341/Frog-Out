@@ -134,4 +134,7 @@ export function poisonHudPreservedSource(path:string,raw=false){const m=JSON.par
 /** Reverse only the cartoon results adapter for historical baseline checks. */
 export function resultsPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/cartoon-results-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??resultsRefinementPreservedSource(path,raw);}
 
-export function resultsRefinementPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/results-refinement-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function resultsRefinementPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/results-refinement-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??spaciousnessPreservedSource(path,raw);}
+
+/** Reverse only the authorized spawn/layout experiment for historical assertions. */
+export function spaciousnessPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/spaciousness-a-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

@@ -1,3 +1,4 @@
+import {placeRoundSpawns,type Spawn} from './arena-spawns';
 import {CPUController} from './cpu';
 import {SKINS,EYES,HATS} from '../src/presentation/cosmetics';
 import {isCPU,connectedHuman,participating,readyParticipant,admissionSeat} from '../src/game/participants';
@@ -17,6 +18,9 @@ const alphabet='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 function makeCode(){let code:string;do{code=Array.from({length:6},()=>alphabet[randomInt(alphabet.length)]).join('');}while(partyRooms.has(code));return code;}
 function displayName(raw:unknown){if(typeof raw!=='string')throw new ServerError(4200,'Enter a display name.');const name=raw.replace(/[\u0000-\u001f\u007f-\u009f]/g,'').replace(/\s+/g,' ').trim().slice(0,24);if(!name)throw new ServerError(4200,'Enter a display name.');return name;}
 export class PartyRoom extends SpikeRoom {
+ private previousSpawns?:Spawn[];
+ private spawnSeed=randomInt(0x100000000);
+ protected spawnRound(){this.previousSpawns=placeRoundSpawns(this.sim,this.arenaId,this.spawnSeed++,this.previousSpawns);}
  mode:GameMode='poison';
  arenaId:ArenaId=DEFAULT_ARENA;
  chaosEnabled=true;
@@ -49,7 +53,7 @@ export class PartyRoom extends SpikeRoom {
  }
  welcome(client:Client){const p=this.players.get(client.sessionId);if(p)client.send('welcome',{slot:p.slot,seqBase:p.slot>=0?this.received[p.slot]:0,playerId:p.id});}
  lobby(){const state:LobbyState={paused:this.paused,chaosEnabled:this.chaosEnabled,mode:this.mode,arenaId:this.arenaId,code:this.code,phase:this.phase,hostId:this.hostId,players:[...this.players.values()].filter(p=>this.phase==='game'||participating(p)).map(p=>({...p})),reserved:this.phase==='lobby'?[...this.players.values()].filter(p=>!isCPU(p)&&!p.connected&&(p.reconnectUntil??0)>Date.now()).map(p=>({...p})):[],...(this.phase==='game'?{roster:this.rosterInfo.map(p=>({...p,connected:this.players.get(p.id)?.connected??false}))}:{}),notice:this.notice,reconnectSeconds:30};this.broadcast('lobby',state);}
- startSession(roster:PlayerInfo[]){setSimulationArena(this.sim,this.arenaId);this.phase='game';this.matchRoster=roster.map(p=>p.id);this.rosterInfo=roster.map((p,i)=>({...p,slot:i}));this.slots.clear();sizeSimulation(this.sim,roster.length);for(const f of this.sim.frogs)f.body.setActive(true);this.sim.reset();this.ack=Array(roster.length).fill(0);this.received=Array(roster.length).fill(0);this.lastInput=Array(roster.length).fill(Date.now());this.queues=Array.from({length:roster.length},()=>[]);roster.forEach((p,i)=>{p.slot=i;if(!isCPU(p))this.slots.set(p.id,i);this.cpus.get(p.id)?.reset();});this.resetId++;this.accumulator=0;this.lastClock=performance.now();void this.lock();this.notice='Placeholder session — Outbreak rules are not implemented.';this.lobby();for(const client of this.clients)this.welcome(client);this.publish();}
+ startSession(roster:PlayerInfo[]){setSimulationArena(this.sim,this.arenaId);this.phase='game';this.matchRoster=roster.map(p=>p.id);this.rosterInfo=roster.map((p,i)=>({...p,slot:i}));this.slots.clear();sizeSimulation(this.sim,roster.length);for(const f of this.sim.frogs)f.body.setActive(true);this.sim.reset();this.spawnRound();this.ack=Array(roster.length).fill(0);this.received=Array(roster.length).fill(0);this.lastInput=Array(roster.length).fill(Date.now());this.queues=Array.from({length:roster.length},()=>[]);roster.forEach((p,i)=>{p.slot=i;if(!isCPU(p))this.slots.set(p.id,i);this.cpus.get(p.id)?.reset();});this.resetId++;this.accumulator=0;this.lastClock=performance.now();void this.lock();this.notice='Placeholder session — Outbreak rules are not implemented.';this.lobby();for(const client of this.clients)this.welcome(client);this.publish();}
  announce(message:string){this.notice=message;this.lobby();this.clock.setTimeout(()=>{if(this.notice===message){this.notice='';this.lobby();}},6000);}
  unavailable(_p:PlayerInfo){}
  resumed(_p:PlayerInfo){}

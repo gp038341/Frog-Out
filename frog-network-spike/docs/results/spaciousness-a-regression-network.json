@@ -1,0 +1,183 @@
+{
+  "scope": "Bot C compiled local server, independent real WebSocket clients; accelerated test countdown/vote/2-second reservations. Not physical-device or Render capacity testing.",
+  "checks": [
+    "manual CPUs, stable seats/cosmetics, invalid cosmetics, no ready reset, full-with-CPU lookup and failed admission preservation",
+    "human replaces oldest CPU in its seat; nonhost add/remove/edit rejected",
+    "one human + seven CPUs replaced by seven humans, concurrent capacity and all-human full rejection",
+    "protected human reservation cannot be displaced",
+    "poison: solo start, same-body snapshots/no CPU ack, roster lock, roles/scoring, CPU vote, both rounds, standings and rematch",
+    "freeze: solo start, same-body snapshots/no CPU ack, roster lock, roles/scoring, CPU vote, both rounds, standings and rematch",
+    "classic: solo start, same-body snapshots/no CPU ack, roster lock, roles/scoring, CPU vote, both rounds, standings and rematch",
+    "mixed humans/CPU: ordinary disconnect reconnect retains frog, CPU remains present, host transfers only to human",
+    "last human disconnect pauses gameplay/CPU clock and reconnect restores same session and human host",
+    "last-human pause preserves voting time and CPU voting; KEEP stays eligible",
+    "reservation expires: orphan room and CPU controllers are disposed",
+    "explicit final-human leave closes CPU room immediately",
+    "eight mixed human/CPU Chaos combinations synchronized across independent clients, all modes/arenas, ordinary human input acknowledgments",
+    "eight total frogs and seven CPU controllers tested on all four arenas within local tick budget"
+  ],
+  "chaos": [
+    {
+      "mode": "poison",
+      "arena": "sunny-pond",
+      "ids": [
+        "moon_frogs",
+        "turbo_toads",
+        "tiny_trouble"
+      ],
+      "tickMs": {
+        "p50": 0.565532999997231,
+        "p95": 1.8040409999994154,
+        "p99": 4.386889000001247,
+        "max": 5.350307000000612
+      },
+      "overruns": 0
+    },
+    {
+      "mode": "freeze",
+      "arena": "bathhouse",
+      "ids": [
+        "mega_tongues",
+        "super_suckers",
+        "magnet_mouths"
+      ],
+      "tickMs": {
+        "p50": 0.5263939999967988,
+        "p95": 1.1587179999987711,
+        "p99": 2.4323309999999765,
+        "max": 4.306809000001522
+      },
+      "overruns": 0
+    },
+    {
+      "mode": "classic",
+      "arena": "canopy",
+      "ids": [
+        "butterfeet",
+        "windy_weather",
+        "balloon_bellies"
+      ],
+      "tickMs": {
+        "p50": 0.5530340000004799,
+        "p95": 1.1517779999994673,
+        "p99": 9.151627999999619,
+        "max": 37.2582459999976
+      },
+      "overruns": 1
+    },
+    {
+      "mode": "poison",
+      "arena": "toyshop",
+      "ids": [
+        "crumble_time",
+        "pogo_panic",
+        "quick_licks"
+      ],
+      "tickMs": {
+        "p50": 0.5594639999981155,
+        "p95": 1.268062999999529,
+        "p99": 2.58120499999859,
+        "max": 3.6883249999991676
+      },
+      "overruns": 0
+    },
+    {
+      "mode": "freeze",
+      "arena": "sunny-pond",
+      "ids": [
+        "gravity_flip",
+        "sticky_frogs",
+        "mega_tongues"
+      ],
+      "tickMs": {
+        "p50": 0.7275980000013078,
+        "p95": 1.7751490000009653,
+        "p99": 2.9307320000007167,
+        "max": 3.006226000001334
+      },
+      "overruns": 0
+    },
+    {
+      "mode": "classic",
+      "arena": "bathhouse",
+      "ids": [
+        "bubble_trouble",
+        "bouncy_bombardment",
+        "mega_frogs"
+      ],
+      "tickMs": {
+        "p50": 0.5667649999995774,
+        "p95": 0.9834840000003169,
+        "p99": 1.184547000000748,
+        "max": 1.83502800000133
+      },
+      "overruns": 0
+    },
+    {
+      "mode": "poison",
+      "arena": "canopy",
+      "ids": [
+        "tilt_a_frog",
+        "sticky_frogs",
+        "super_suckers"
+      ],
+      "tickMs": {
+        "p50": 0.7120839999988675,
+        "p95": 1.393832999998267,
+        "p99": 1.836551000000327,
+        "max": 3.104488000000856
+      },
+      "overruns": 0
+    },
+    {
+      "mode": "freeze",
+      "arena": "toyshop",
+      "ids": [
+        "swap_hop",
+        "bumper_frogs",
+        "tiny_trouble"
+      ],
+      "tickMs": {
+        "p50": 0.49145199999475153,
+        "p95": 1.1763449999998556,
+        "p99": 2.691932000001543,
+        "max": 3.269473000000289
+      },
+      "overruns": 0
+    }
+  ],
+  "stress": [
+    {
+      "arena": "sunny-pond",
+      "p50": 0.5422579999940353,
+      "p95": 1.5327830000023823,
+      "p99": 2.4553650000016205,
+      "max": 3.8158869999970193,
+      "overruns": 0
+    },
+    {
+      "arena": "bathhouse",
+      "p50": 0.46708500000386266,
+      "p95": 1.0368949999974575,
+      "p99": 2.6037770000039018,
+      "max": 3.821856000002299,
+      "overruns": 0
+    },
+    {
+      "arena": "canopy",
+      "p50": 0.5492590000067139,
+      "p95": 1.4373779999950784,
+      "p99": 3.4468510000006063,
+      "max": 4.955427000000782,
+      "overruns": 0
+    },
+    {
+      "arena": "toyshop",
+      "p50": 0.44544199999654666,
+      "p95": 0.995441999999457,
+      "p99": 1.6221369999984745,
+      "max": 3.3931679999950575,
+      "overruns": 0
+    }
+  ]
+}

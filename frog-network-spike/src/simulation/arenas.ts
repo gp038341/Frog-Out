@@ -24,6 +24,9 @@ export const ARENAS:Record<ArenaId,ArenaDefinition>={
   {x:20,y:11.5,w:8,h:1,object:'branch',outline:[[-4,-.25],[2.8,-.25],[4,-.05],[3.7,.45],[-3.5,.5],[-4,.1]]},
   {x:8,y:8,w:5,h:.8,object:'branch',outline:[[-2.5,-.25],[1.8,-.25],[2.5,0],[2.15,.4],[-2.2,.4],[-2.5,.1]]},{x:32,y:8,w:5,h:.8,object:'branch',outline:[[-2.5,0],[-1.8,-.25],[2.5,-.25],[2.5,.1],[2.2,.4],[-2.15,.4]]},
   {x:20,y:5,w:5,h:.9,object:'rock',outline:[[-1.8,-.25],[1.8,-.25],[2.5,.1],[2,.5],[-2,.5],[-2.5,.1]]},
+  // Spaciousness A: two outer-middle stepping branches; central swing lanes stay open.
+  {x:3.8,y:12.8,w:4,h:.7,object:'branch',outline:[[-2,-.25],[1.4,-.25],[2,0],[1.7,.35],[-1.7,.35],[-2,.1]]},
+  {x:36.2,y:12.2,w:4,h:.7,object:'branch',outline:[[-2,0],[-1.4,-.25],[2,-.25],[2,.1],[1.7,.35],[-1.7,.35]]},
  ]},
  'toyshop':{id:'toyshop',name:'Croakwork Toyshop',description:'Toy workshop · rubber cushions bounce; sticky paint slows. Zigzag, swing and intercept.',width:WIDTH,height:HEIGHT,geometryPreview:false,solids:[
   ...arena.slice(0,4),

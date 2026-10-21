@@ -1,0 +1,92 @@
+{
+  "scope": "Compiled local server, real Phaser and WebSockets; Chromium landscape emulation, not physical iPhone/Android validation.",
+  "checks": [
+    "sunny-pond: two real browsers, six CPUs, host selection, previews/start and desktop/mobile static framing",
+    "bathhouse: two real browsers, six CPUs, host selection, previews/start and desktop/mobile static framing",
+    "canopy: two real browsers, six CPUs, host selection, previews/start and desktop/mobile static framing",
+    "toyshop: two real browsers, six CPUs, host selection, previews/start and desktop/mobile static framing"
+  ],
+  "layouts": [
+    {
+      "arena": "sunny-pond",
+      "name": "desktop",
+      "canvas": {
+        "x": 14,
+        "y": 57,
+        "width": 1251.546875,
+        "height": 704
+      }
+    },
+    {
+      "arena": "sunny-pond",
+      "name": "mobile",
+      "canvas": {
+        "x": 156.15625,
+        "y": 50,
+        "width": 529.765625,
+        "height": 298
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "name": "desktop",
+      "canvas": {
+        "x": 14,
+        "y": 57,
+        "width": 1251.546875,
+        "height": 704
+      }
+    },
+    {
+      "arena": "bathhouse",
+      "name": "mobile",
+      "canvas": {
+        "x": 156.15625,
+        "y": 50,
+        "width": 529.765625,
+        "height": 298
+      }
+    },
+    {
+      "arena": "canopy",
+      "name": "desktop",
+      "canvas": {
+        "x": 14,
+        "y": 57,
+        "width": 1251.546875,
+        "height": 704
+      }
+    },
+    {
+      "arena": "canopy",
+      "name": "mobile",
+      "canvas": {
+        "x": 156.15625,
+        "y": 50,
+        "width": 529.765625,
+        "height": 298
+      }
+    },
+    {
+      "arena": "toyshop",
+      "name": "desktop",
+      "canvas": {
+        "x": 14,
+        "y": 57,
+        "width": 1251.546875,
+        "height": 704
+      }
+    },
+    {
+      "arena": "toyshop",
+      "name": "mobile",
+      "canvas": {
+        "x": 156.15625,
+        "y": 50,
+        "width": 529.765625,
+        "height": 298
+      }
+    }
+  ],
+  "errors": []
+}
