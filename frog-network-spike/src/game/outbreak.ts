@@ -2,7 +2,7 @@ import {RoundPresence} from './round-presence';
 import type {ClassicDetails} from './classic-tag';
 import type {FreezeDetails} from './freeze-tag';
 import {DT} from '../simulation/config';
-export const SCORING={pointsPerSecond:1,lastSurvivorBonus:2};
+export const SCORING={pointsPerSecond:1,lastSurvivorBonus:10};
 export const OUTBREAK={announcementTicks:60,countdownTicks:180,graceTicks:60};
 export type OutbreakPhase='announcement'|'countdown'|'playing'|'round-results'|'match-results';
 export type InfectionState='healthy'|'transforming'|'infectious';

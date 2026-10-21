@@ -120,4 +120,7 @@ export function joystickPreservedSource(path:string,raw=false){const source=floa
 export function floatingActionPreservedSource(path:string,raw=false){const source=modifierTweaksPreservedSource(path,raw),m=JSON.parse(readFileSync(new URL('../docs/floating-action-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
 
 /** Reverse only owner-directed wind/Pogo/bubble refinements for historical assertions. */
-export function modifierTweaksPreservedSource(path:string,raw=false){const location=new URL(`../${path}`,import.meta.url),source=raw?readFileSync(location):readFileSync(location,'utf8'),m=JSON.parse(readFileSync(new URL('../docs/modifier-tweaks-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+export function modifierTweaksPreservedSource(path:string,raw=false){const source=scoringPreservedSource(path,raw),m=JSON.parse(readFileSync(new URL('../docs/modifier-tweaks-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+
+/** Recover the approved pre-scoring source for historical preservation assertions. */
+export function scoringPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/scoring-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
