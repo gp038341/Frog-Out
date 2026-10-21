@@ -217,7 +217,8 @@ function renderOutbreak(){
  el('outbreak-heading').textContent=`Round ${state.round}/${state.roundCount}`;
  el('phase-message').textContent=state.phase==='announcement'?`POISON DART FROG — ${playerName(state.patientZero)}`:state.phase==='countdown'?`POISON DART FROG — ${playerName(state.patientZero)} · ${Math.max(1,Math.ceil(state.remainingMs/1000))}…`:state.phase==='playing'?'POISON TAG — Body contact spreads poison':'';
  el('round-timer').textContent=clock(state.elapsedMs);
- const me=state.players[net.slot];el('live-score').textContent=me?(me.state==='healthy'?`SURVIVING · ${points(me.survivalPoints)} pts`:me.state==='transforming'?'TRANSFORMING · NO TAG YET':`POISON FROG · ${points(me.roundPoints??0)} pts locked`):'';el('infection-feedback').textContent=me?.roundPoints!==null&&me?.roundPoints!==undefined?`${me.patientZero?'POISON DART FROG':`${ordinal(me.infectionPlace!)} POISONED`}${state.players.filter(p=>p.infectionPlace===me.infectionPlace).length>1?' (TIED)':''} · +${points(me.roundPoints)} (${points(me.survivalPoints)} survival + ${points(me.placementBonus)} bonus)`:'';
+ // Scores belong on the results screen; poison identity remains on the frogs.
+ el('live-score').textContent='';el('infection-feedback').textContent='';
  if(!results)return;
  const key=JSON.stringify([state.phase,state.round,state.players.map(p=>[p.infectionPlace,p.roundPoints,p.totalPoints,p.present]),state.roundWinners,state.matchWinners,net.lobby?.players.map(p=>[p.id,p.name,p.connected]),net.playerId]);
  if(key!==resultsSignature){resultsSignature=key;const final=state.phase==='match-results';el('results-context').textContent=final?`${state.roundCount} roster rounds · Starting roles rotated; absent turns are skipped`:`Round ${state.round} of ${state.roundCount}`;el('results-title').textContent=final?'MATCH COMPLETE':'POISON TAG COMPLETE!';

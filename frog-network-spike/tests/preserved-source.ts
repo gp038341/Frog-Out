@@ -126,4 +126,7 @@ export function modifierTweaksPreservedSource(path:string,raw=false){const sourc
 export function scoringPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/scoring-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??matchChromePreservedSource(path,raw);}
 
 /** Reverse only the approved match-chrome relocation for historical assertions. */
-export function matchChromePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/match-chrome-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function matchChromePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/match-chrome-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??poisonHudPreservedSource(path,raw);}
+
+/** Reverse only the requested removal of redundant Poison Tag score readouts. */
+export function poisonHudPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/poison-hud-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

@@ -10,3 +10,6 @@
 .game-active.touch-game #healthy-count{top:0;left:39%;max-width:20%}
 .game-active.touch-game #live-score{top:0;left:60%;right:80px;max-width:calc(40% - 84px)}
 .game-active.touch-game #session-footer{height:36px;flex-wrap:nowrap;align-items:center}
+
+/* Empty HUD messages must not leave a reserved text row or margin. */
+.game-active #live-score:empty,.game-active #infection-feedback:empty{display:none!important}
