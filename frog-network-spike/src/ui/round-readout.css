@@ -1,0 +1,7 @@
+/* Overlay only: preserve the approved canvas parent and toolbar dimensions. */
+#game-stage{position:relative}
+#match-round-readout{position:absolute;top:8px;left:8px;z-index:5;padding:3px 7px;border:1px solid #91c9bc;border-radius:7px;background:#183f48e8;color:#e5f4d8;font-size:12px;font-weight:bold;line-height:1.2;pointer-events:none;white-space:nowrap}
+#match-round-readout[hidden]{display:none}
+.results-celebration #results #results-context{font-size:14px;font-weight:bold;color:#d5eee1}
+#chaos-voting #vote-round-readout{margin:0 0 5px;font-size:13px;font-weight:bold;color:#c9eadf}
+@media(max-height:540px) and (orientation:landscape){#match-round-readout{font-size:11px;top:5px;left:max(5px,env(safe-area-inset-left));padding:2px 6px}.results-celebration #results #results-context{font-size:11px}#chaos-voting #vote-round-readout{font-size:11px;margin-bottom:3px}}

@@ -143,4 +143,7 @@ export function spaciousnessPreservedSource(path:string,raw=false){const m=JSON.
 export function locatorPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/local-locator-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??swapProtectionPreservedSource(path,raw);}
 
 /** Reverse only the requested Swap Hop protection duration increase. */
-export function swapProtectionPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/swap-protection-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function swapProtectionPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/swap-protection-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??roundReadoutPreservedSource(path,raw);}
+
+/** Reverse only the requested round-number readouts. */
+export function roundReadoutPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/round-readout-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

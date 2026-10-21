@@ -1,3 +1,4 @@
+import {RoundReadout} from './ui/round-readout';
 import {ResultsUI} from './ui/results-ui';
 import {MatchChrome} from './ui/match-chrome';
 import './input/joystick.css';
@@ -34,6 +35,7 @@ import {capture,type FrogState} from './simulation/state';
 import {arena,WIDTH,HEIGHT,defaults} from './simulation/config';
 import './ui/match-chrome.css';
 import './ui/results.css';
+import './ui/round-readout.css';
 const audio=new GameAudio();
 const net=new Connection();void net.boot();
 const chaosUI=new ChaosUI(net);
@@ -177,6 +179,7 @@ const diagnosticButton=document.createElement('button');diagnosticButton.id='inp
 const diagnosticPanel=document.createElement('pre');diagnosticPanel.id='input-monitor';diagnosticPanel.hidden=true;diagnosticPanel.setAttribute('aria-label','Input pipeline diagnostics');document.body.append(diagnosticPanel);
 const matchChrome=new MatchChrome();
 const resultsUI=new ResultsUI();
+const roundReadout=new RoundReadout();
 let monitor=new URLSearchParams(location.search).get('diagnostics')==='1';
 diagnosticButton.onclick=()=>{monitor=!monitor;diagnosticButton.setAttribute('aria-pressed',String(monitor));diagnosticPanel.hidden=!monitor;};
 function updateMonitor(){diagnosticPanel.hidden=!monitor||el('session').hidden;diagnosticButton.hidden=el('session').hidden;if(!monitor)return;const v=window.visualViewport,t=touch.diagnostics(),s=net.snapshots.at(-1),f=s?.state.frogs[net.slot],trace=net.inputTrace,age=(at:number)=>at?`${Date.now()-at}ms`:'never';
@@ -194,6 +197,7 @@ setInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase
  const f=net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.frogs[net.slot]:net.snapshots.at(-1)?.state.frogs[net.slot];
  chaosUI.update();
  resultsUI.update(phase==='game'?net.outbreak:undefined,lobby,net.playerId,!!net.chaos&&net.chaos.phase!=='idle');
+ roundReadout.update(phase==='game'?net.outbreak:undefined,!!net.chaos&&net.chaos.phase!=='idle');
  musicUI.update(net.playing,audio.enabled);
  resizeGame();
  touch.update(net.playing&&net.status==='connected'&&!guide.blocking,phase==='game'&&!!net.outbreak&&['announcement','countdown','playing'].includes(net.outbreak.phase),f?.grounded??false,f?.charging??false,f?.tongue?.phase==='attached');
