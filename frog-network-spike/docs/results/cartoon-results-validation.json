@@ -1,0 +1,374 @@
+{
+  "baseline": "bb6a00518f79a4741b59fc00a023cd95fef3feb4",
+  "automatedTests": {
+    "tests": 420,
+    "passed": 420,
+    "failed": 0
+  },
+  "productionBuild": "passed; existing large Phaser chunk warning",
+  "browser": {
+    "checks": "20 desktop/laptop/mobile component cases; every customized frog; authoritative ranks and ties; exact animation endpoints; reduced motion and final-only confetti; host controls and no automatic advance; full real Poison/Freeze/Classic two-client matches and rematch",
+    "metrics": [
+      {
+        "name": "desktop",
+        "n": 8,
+        "final": false,
+        "mode": "freeze",
+        "layout": {
+          "w": 1280,
+          "h": 800,
+          "scrollW": 1280,
+          "scrollH": 802,
+          "board": {
+            "x": 95,
+            "y": 412.921875,
+            "width": 1090,
+            "height": 166.1875,
+            "top": 412.921875,
+            "right": 1185,
+            "bottom": 579.109375,
+            "left": 95
+          }
+        }
+      },
+      {
+        "name": "desktop",
+        "n": 8,
+        "final": true,
+        "mode": "classic",
+        "layout": {
+          "w": 1280,
+          "h": 800,
+          "scrollW": 1280,
+          "scrollH": 800,
+          "board": {
+            "x": 95,
+            "y": 412.921875,
+            "width": 1090,
+            "height": 160,
+            "top": 412.921875,
+            "right": 1185,
+            "bottom": 572.921875,
+            "left": 95
+          }
+        }
+      },
+      {
+        "name": "laptop",
+        "n": 8,
+        "final": false,
+        "mode": "freeze",
+        "layout": {
+          "w": 1024,
+          "h": 650,
+          "scrollW": 1024,
+          "scrollH": 650,
+          "board": {
+            "x": 431.625,
+            "y": 166.75,
+            "width": 561.375,
+            "height": 282.4375,
+            "top": 166.75,
+            "right": 993,
+            "bottom": 449.1875,
+            "left": 431.625
+          }
+        }
+      },
+      {
+        "name": "laptop",
+        "n": 8,
+        "final": true,
+        "mode": "classic",
+        "layout": {
+          "w": 1024,
+          "h": 650,
+          "scrollW": 1024,
+          "scrollH": 650,
+          "board": {
+            "x": 431.625,
+            "y": 166.75,
+            "width": 561.375,
+            "height": 274,
+            "top": 166.75,
+            "right": 993,
+            "bottom": 440.75,
+            "left": 431.625
+          }
+        }
+      },
+      {
+        "name": "phone",
+        "n": 8,
+        "final": false,
+        "mode": "freeze",
+        "layout": {
+          "w": 844,
+          "h": 390,
+          "scrollW": 844,
+          "scrollH": 390,
+          "board": {
+            "x": 328.21875,
+            "y": 110.640625,
+            "width": 497.765625,
+            "height": 152.359375,
+            "top": 110.640625,
+            "right": 825.984375,
+            "bottom": 263,
+            "left": 328.21875
+          }
+        }
+      },
+      {
+        "name": "phone",
+        "n": 8,
+        "final": true,
+        "mode": "classic",
+        "layout": {
+          "w": 844,
+          "h": 390,
+          "scrollW": 844,
+          "scrollH": 390,
+          "board": {
+            "x": 328.21875,
+            "y": 110.640625,
+            "width": 497.765625,
+            "height": 152.359375,
+            "top": 110.640625,
+            "right": 825.984375,
+            "bottom": 263,
+            "left": 328.21875
+          }
+        }
+      },
+      {
+        "name": "small-phone",
+        "n": 8,
+        "final": false,
+        "mode": "freeze",
+        "layout": {
+          "w": 568,
+          "h": 320,
+          "scrollW": 568,
+          "scrollH": 320,
+          "board": {
+            "x": 223.953125,
+            "y": 110.640625,
+            "width": 326.046875,
+            "height": 93.34375,
+            "top": 110.640625,
+            "right": 550,
+            "bottom": 203.984375,
+            "left": 223.953125
+          }
+        }
+      },
+      {
+        "name": "small-phone",
+        "n": 8,
+        "final": true,
+        "mode": "classic",
+        "layout": {
+          "w": 568,
+          "h": 320,
+          "scrollW": 568,
+          "scrollH": 320,
+          "board": {
+            "x": 223.953125,
+            "y": 110.640625,
+            "width": 326.046875,
+            "height": 93.34375,
+            "top": 110.640625,
+            "right": 550,
+            "bottom": 203.984375,
+            "left": 223.953125
+          }
+        }
+      }
+    ]
+  },
+  "multiplayer": {
+    "scope": "Bot C compiled local server, independent real WebSocket clients; accelerated test countdown/vote/2-second reservations. Not physical-device or Render capacity testing.",
+    "checks": [
+      "manual CPUs, stable seats/cosmetics, invalid cosmetics, no ready reset, full-with-CPU lookup and failed admission preservation",
+      "human replaces oldest CPU in its seat; nonhost add/remove/edit rejected",
+      "one human + seven CPUs replaced by seven humans, concurrent capacity and all-human full rejection",
+      "protected human reservation cannot be displaced",
+      "poison: solo start, same-body snapshots/no CPU ack, roster lock, roles/scoring, CPU vote, both rounds, standings and rematch",
+      "freeze: solo start, same-body snapshots/no CPU ack, roster lock, roles/scoring, CPU vote, both rounds, standings and rematch",
+      "classic: solo start, same-body snapshots/no CPU ack, roster lock, roles/scoring, CPU vote, both rounds, standings and rematch",
+      "mixed humans/CPU: ordinary disconnect reconnect retains frog, CPU remains present, host transfers only to human",
+      "last human disconnect pauses gameplay/CPU clock and reconnect restores same session and human host",
+      "last-human pause preserves voting time and CPU voting; KEEP stays eligible",
+      "reservation expires: orphan room and CPU controllers are disposed",
+      "explicit final-human leave closes CPU room immediately",
+      "eight mixed human/CPU Chaos combinations synchronized across independent clients, all modes/arenas, ordinary human input acknowledgments",
+      "eight total frogs and seven CPU controllers tested on all four arenas within local tick budget"
+    ],
+    "chaos": [
+      {
+        "mode": "poison",
+        "arena": "sunny-pond",
+        "ids": [
+          "moon_frogs",
+          "turbo_toads",
+          "tiny_trouble"
+        ],
+        "tickMs": {
+          "p50": 0.6323359999987588,
+          "p95": 1.4490890000015497,
+          "p99": 2.2880049999985204,
+          "max": 3.463153999997303
+        },
+        "overruns": 0
+      },
+      {
+        "mode": "freeze",
+        "arena": "bathhouse",
+        "ids": [
+          "mega_tongues",
+          "super_suckers",
+          "magnet_mouths"
+        ],
+        "tickMs": {
+          "p50": 0.6315050000011979,
+          "p95": 1.2173519999996643,
+          "p99": 2.27334300000075,
+          "max": 2.7156249999970896
+        },
+        "overruns": 0
+      },
+      {
+        "mode": "classic",
+        "arena": "canopy",
+        "ids": [
+          "butterfeet",
+          "windy_weather",
+          "balloon_bellies"
+        ],
+        "tickMs": {
+          "p50": 0.701069999999163,
+          "p95": 1.2672370000000228,
+          "p99": 1.5754280000001017,
+          "max": 3.0099149999987276
+        },
+        "overruns": 0
+      },
+      {
+        "mode": "poison",
+        "arena": "toyshop",
+        "ids": [
+          "crumble_time",
+          "pogo_panic",
+          "quick_licks"
+        ],
+        "tickMs": {
+          "p50": 0.658715999998094,
+          "p95": 1.5323439999992843,
+          "p99": 2.7076520000009623,
+          "max": 3.341541000001598
+        },
+        "overruns": 0
+      },
+      {
+        "mode": "freeze",
+        "arena": "sunny-pond",
+        "ids": [
+          "gravity_flip",
+          "sticky_frogs",
+          "mega_tongues"
+        ],
+        "tickMs": {
+          "p50": 0.7099119999984396,
+          "p95": 1.288007999999536,
+          "p99": 1.416921000000002,
+          "max": 4.363660999999411
+        },
+        "overruns": 0
+      },
+      {
+        "mode": "classic",
+        "arena": "bathhouse",
+        "ids": [
+          "bubble_trouble",
+          "bouncy_bombardment",
+          "mega_frogs"
+        ],
+        "tickMs": {
+          "p50": 0.5280000000020664,
+          "p95": 1.2647030000007362,
+          "p99": 1.8197839999993448,
+          "max": 1.8603650000004563
+        },
+        "overruns": 0
+      },
+      {
+        "mode": "poison",
+        "arena": "canopy",
+        "ids": [
+          "tilt_a_frog",
+          "sticky_frogs",
+          "super_suckers"
+        ],
+        "tickMs": {
+          "p50": 0.6922159999994619,
+          "p95": 1.2350079999996524,
+          "p99": 2.1498479999972915,
+          "max": 3.453269999998156
+        },
+        "overruns": 0
+      },
+      {
+        "mode": "freeze",
+        "arena": "toyshop",
+        "ids": [
+          "swap_hop",
+          "bumper_frogs",
+          "tiny_trouble"
+        ],
+        "tickMs": {
+          "p50": 0.48199100000056205,
+          "p95": 1.2458349999942584,
+          "p99": 2.2215050000013434,
+          "max": 3.3317880000031437
+        },
+        "overruns": 0
+      }
+    ],
+    "stress": [
+      {
+        "arena": "sunny-pond",
+        "p50": 0.40631800000119256,
+        "p95": 0.9074580000014976,
+        "p99": 1.708426999997755,
+        "max": 2.566170999998576,
+        "overruns": 0
+      },
+      {
+        "arena": "bathhouse",
+        "p50": 0.407759999994596,
+        "p95": 0.8348889999979292,
+        "p99": 1.2770119999986491,
+        "max": 3.321611999999732,
+        "overruns": 0
+      },
+      {
+        "arena": "canopy",
+        "p50": 0.34298300000227755,
+        "p95": 0.6834430000017164,
+        "p99": 1.4530960000047344,
+        "max": 2.7620239999960177,
+        "overruns": 0
+      },
+      {
+        "arena": "toyshop",
+        "p50": 0.34425500000361353,
+        "p95": 0.6696319999973639,
+        "p99": 1.4755939999959082,
+        "max": 30.175128000002587,
+        "overruns": 1
+      }
+    ]
+  },
+  "physicalDeviceTesting": "Not performed; Chromium emulation only for this results UI candidate"
+}

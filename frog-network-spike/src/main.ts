@@ -1,3 +1,4 @@
+import {ResultsUI} from './ui/results-ui';
 import {MatchChrome} from './ui/match-chrome';
 import './input/joystick.css';
 import './presentation/music.css';
@@ -32,6 +33,7 @@ import {NETWORK,type Snapshot} from './network/protocol';
 import {capture,type FrogState} from './simulation/state';
 import {arena,WIDTH,HEIGHT,defaults} from './simulation/config';
 import './ui/match-chrome.css';
+import './ui/results.css';
 const audio=new GameAudio();
 const net=new Connection();void net.boot();
 const chaosUI=new ChaosUI(net);
@@ -174,6 +176,7 @@ el('next-round').onclick=()=>{audio.play('ui');net.nextRound();};el('return-lobb
 const diagnosticButton=document.createElement('button');diagnosticButton.id='input-monitor-toggle';diagnosticButton.textContent='Input monitor';diagnosticButton.setAttribute('aria-pressed','false');el('session-footer').append(diagnosticButton);
 const diagnosticPanel=document.createElement('pre');diagnosticPanel.id='input-monitor';diagnosticPanel.hidden=true;diagnosticPanel.setAttribute('aria-label','Input pipeline diagnostics');document.body.append(diagnosticPanel);
 const matchChrome=new MatchChrome();
+const resultsUI=new ResultsUI();
 let monitor=new URLSearchParams(location.search).get('diagnostics')==='1';
 diagnosticButton.onclick=()=>{monitor=!monitor;diagnosticButton.setAttribute('aria-pressed',String(monitor));diagnosticPanel.hidden=!monitor;};
 function updateMonitor(){diagnosticPanel.hidden=!monitor||el('session').hidden;diagnosticButton.hidden=el('session').hidden;if(!monitor)return;const v=window.visualViewport,t=touch.diagnostics(),s=net.snapshots.at(-1),f=s?.state.frogs[net.slot],trace=net.inputTrace,age=(at:number)=>at?`${Date.now()-at}ms`:'never';
@@ -190,6 +193,7 @@ setInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase
  renderOutbreak();presentation.update(net.lobby?.phase==='game'?net.outbreak:undefined,net.slot);updateMonitor();
  const f=net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.frogs[net.slot]:net.snapshots.at(-1)?.state.frogs[net.slot];
  chaosUI.update();
+ resultsUI.update(phase==='game'?net.outbreak:undefined,lobby,net.playerId,!!net.chaos&&net.chaos.phase!=='idle');
  musicUI.update(net.playing,audio.enabled);
  resizeGame();
  touch.update(net.playing&&net.status==='connected'&&!guide.blocking,phase==='game'&&!!net.outbreak&&['announcement','countdown','playing'].includes(net.outbreak.phase),f?.grounded??false,f?.charging??false,f?.tongue?.phase==='attached');

@@ -1,0 +1,47 @@
+import type {OutbreakView} from '../game/outbreak';
+import type {LobbyState} from '../network/protocol';
+import {appearancePreview} from '../presentation/cosmetic-art';
+import {skinFor} from '../presentation/cosmetics';
+import {resultsModel,countedScore,scoreText,rankText,SCORE_COUNT_MS,type ResultsFrog} from './results-model';
+type ScoreTarget={element:HTMLElement;from:number;to:number};
+const make=<K extends keyof HTMLElementTagNameMap>(tag:K,className:string,text?:string)=>{const node=document.createElement(tag);node.className=className;if(text!==undefined)node.textContent=text;return node;};
+/** Client-only results presentation. Existing tables and host buttons remain owned by their mode renderers. */
+export class ResultsUI {
+ private root=make('div','frog-awards');private stage=make('div','awards-stage');private signature='';private seen=new Set<string>();private scope='';private frame=0;private confettiTimer?:ReturnType<typeof setTimeout>;private targets:ScoreTarget[]=[];
+ private motion=matchMedia('(prefers-reduced-motion: reduce)');
+ constructor(){
+  this.root.id='frog-awards';this.root.hidden=true;this.root.append(this.stage);
+  const details=make('details','score-breakdown');details.id='score-breakdown';details.append(make('summary','','Score breakdown'));
+  const table=document.getElementById('standings')!;table.before(this.root,details);details.append(table);
+  const rail=make('div','awards-actions');for(const id of['results-help','next-round','return-lobby'])rail.append(document.getElementById(id)!);document.getElementById('results')!.append(rail);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){this.settle();this.clearConfetti();}});this.motion.addEventListener('change',()=>{if(this.motion.matches){this.settle();this.clearConfetti();}});
+ }
+ private portrait(f:ResultsFrog){const portrait=make('div','awards-frog');portrait.innerHTML=appearancePreview(f.appearance);return portrait;}
+ private score(f:ResultsFrog,animate:boolean){const element=make('strong','awards-score',scoreText(animate?f.previous:f.total));element.dataset.total=String(f.total);element.setAttribute('aria-label',`${scoreText(f.total)} points`);if(animate)this.targets.push({element,from:f.previous,to:f.total});return element;}
+ private identity(f:ResultsFrog){const label=make('div','awards-identity'),name=make('strong','awards-name',f.name);name.title=f.name;label.append(name);if(f.local)label.append(make('small','awards-you','YOU'));if(f.status)label.append(make('small','awards-status',f.status));return label;}
+ update(view:OutbreakView|undefined,lobby:LobbyState|undefined,localId:string,voting=false){
+  const inMatch=lobby?.phase==='game';const scope=inMatch?`${lobby.code}:${(lobby.roster??lobby.players).map(p=>p.id).join('|')}`:'';
+  if(scope!==this.scope){this.scope=scope;this.seen.clear();this.signature='';}
+  const visible=!!view&&inMatch&&!voting&&['round-results','match-results'].includes(view.phase);
+  document.body.classList.toggle('results-celebration',visible);this.root.hidden=!visible;
+  if(!visible){this.settle();this.clearConfetti();this.signature='';return;}
+  const model=resultsModel(view!,lobby!,localId);this.root.dataset.final=String(model.final);this.root.dataset.wideTie=String(model.groups.some(g=>g.frogs.length>3));
+  document.getElementById('results-title')!.textContent=model.final?(view!.matchWinners.length>1?'FROG-OUT CHAMPIONS!':'FROG-OUT CHAMPION!'):'ROUND COMPLETE!';
+  const scoreKey=JSON.stringify([scope,view!.mode,view!.phase,view!.round,model.frogs.map(f=>[f.slot,f.total,f.delta])]);
+  const signature=JSON.stringify([scoreKey,model.frogs]);if(signature===this.signature)return;
+  this.settle();this.clearConfetti();this.signature=signature;const animate=!this.seen.has(scoreKey)&&!this.motion.matches;const firstVisit=!this.seen.has(scoreKey);this.seen.add(scoreKey);this.targets=[];
+  this.stage.replaceChildren();
+  const podium=make('div','frog-podium');podium.setAttribute('aria-label',model.final?'Final match podium':'Match standings after this round');podium.dataset.tied=String(model.tiedPodium);podium.dataset.groups=String(model.groups.length);
+  for(const group of model.groups){const tier=make('div','podium-tier');tier.dataset.rank=String(group.rank);tier.dataset.count=String(group.frogs.length);const frogs=make('div','podium-frogs');for(const f of group.frogs){const frog=make('div',`podium-contender${f.champion?' champion':''}`);frog.dataset.player=f.id;frog.append(this.portrait(f),this.identity(f),this.score(f,animate));frogs.append(frog);}const base=make('div','podium-base');base.append(make('strong','podium-rank',rankText(group.rank,group.frogs.length>1)));tier.append(frogs,base);podium.append(tier);}
+  const standings=make('div','frog-standings'),heading=make('h3','awards-board-heading',model.final?'EVERY FROG. EVERY POINT.':'MATCH TOTALS · GAINS THIS ROUND');const board=make('div','awards-board');board.setAttribute('role','list');board.tabIndex=0;board.setAttribute('aria-label','All player standings; scroll to see more frogs when needed');heading.append(make('small','standings-scroll-hint',' · SCROLL ↕')); 
+  for(const f of model.frogs){const card=make('article',`awards-player${f.delta>0?' gained':''}${f.champion?' champion':''}`);card.setAttribute('role','listitem');card.dataset.player=f.id;card.dataset.slot=String(f.slot);card.dataset.local=String(f.local);card.style.setProperty('--player-color','#'+skinFor(f.appearance).color.toString(16).padStart(6,'0'));const rank=make('span','awards-rank',rankText(f.rank,f.tied));const info=make('div','awards-player-info');info.append(this.identity(f));const numbers=make('div','awards-numbers');numbers.append(this.score(f,animate));if(!model.final){const gain=make('span','awards-gain',`+${scoreText(f.delta)}`);gain.setAttribute('aria-label',`${scoreText(f.delta)} points gained this round`);gain.append(make('span','gain-caption',' this round'));numbers.append(gain);}info.append(numbers);if(!model.final&&f.roundWinner)info.append(make('small','awards-round-winner','Round winner'));card.append(rank,this.portrait(f),info);board.append(card);}
+  standings.append(heading,board);this.stage.append(podium,standings);this.root.dataset.count=String(model.frogs.length);
+  this.root.setAttribute('aria-label',model.final?'Final standings':'Round standings');
+  if(animate)this.animate();else this.root.classList.add('scores-settled');
+  if(model.final&&firstVisit&&!this.motion.matches)this.confetti();
+ }
+ private animate(){this.root.classList.remove('scores-settled');const start=performance.now();const frame=(now:number)=>{const elapsed=now-start;for(const t of this.targets)t.element.textContent=scoreText(countedScore(t.from,t.to,elapsed));if(elapsed<SCORE_COUNT_MS)this.frame=requestAnimationFrame(frame);else this.settle();};this.frame=requestAnimationFrame(frame);}
+ private settle(){if(this.frame)cancelAnimationFrame(this.frame);this.frame=0;for(const t of this.targets)t.element.textContent=scoreText(t.to);this.root.classList.add('scores-settled');}
+ private confetti(){const burst=make('div','awards-confetti');burst.setAttribute('aria-hidden','true');for(let i=0;i<24;i++){const piece=make('i','confetti-piece');piece.style.setProperty('--i',String(i));piece.style.left=`${(i*37)%100}%`;piece.style.background=['#ffdf83','#a9e7ad','#93dcec','#f4a5be','#c9b3f5'][i%5];burst.append(piece);}this.root.prepend(burst);this.confettiTimer=setTimeout(()=>this.clearConfetti(),2600);}
+ private clearConfetti(){clearTimeout(this.confettiTimer);this.confettiTimer=undefined;this.root.querySelector('.awards-confetti')?.remove();}
+}
