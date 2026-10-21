@@ -132,4 +132,6 @@ export function matchChromePreservedSource(path:string,raw=false){const m=JSON.p
 export function poisonHudPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/poison-hud-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??resultsPreservedSource(path,raw);}
 
 /** Reverse only the cartoon results adapter for historical baseline checks. */
-export function resultsPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/cartoon-results-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function resultsPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/cartoon-results-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??resultsRefinementPreservedSource(path,raw);}
+
+export function resultsRefinementPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/results-refinement-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

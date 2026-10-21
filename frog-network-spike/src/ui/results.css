@@ -46,3 +46,14 @@
 @media(min-width:740px) and (max-height:540px) and (orientation:landscape){.awards-board{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-height:540px) and (orientation:landscape){.podium-base{min-height:20px}}
 @media(max-height:360px) and (orientation:landscape){.podium-contender .awards-frog,.frog-podium[data-tied=true] .awards-frog{height:36px}.podium-contender .awards-status,.podium-contender .awards-you{display:none}.podium-tier[data-rank="1"]{--step:34px}.podium-tier[data-rank="2"]{--step:27px}.podium-tier[data-rank="3"]{--step:20px}.podium-rank{font-size:13px}}
+
+/* Slower score storytelling, explicit rank movement, and a distinct final curtain. */
+.awards-movement{display:block;font-size:10px;font-weight:bold;line-height:1.3;color:#c8d8dc}.awards-movement[data-direction=up]{color:#b9ecac}.awards-movement[data-direction=down]{color:#ffb9b0}
+.champion-reveal{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:12px;background:radial-gradient(ellipse at center,#527f73,#173e48);border:2px dashed #ffdf83;border-radius:20px;color:#ffe497;font-size:clamp(16px,3vw,30px);font-weight:bold;pointer-events:none;animation:reveal-breathe .9s ease-in-out infinite alternate}.champion-reveal small{font-size:12px;color:#d0ecdf;font-weight:normal}
+.reveal-pending .awards-stage{visibility:hidden}.results-celebration:has(.reveal-pending) #winner-message{visibility:hidden}
+.frog-awards[data-final=true]:not(.reveal-pending) .podium-contender.champion{animation:champion-spotlight .75s cubic-bezier(.15,.8,.3,1.2) both}
+@keyframes reveal-breathe{from{box-shadow:inset 0 0 25px #ffdf8310}to{box-shadow:inset 0 0 65px #ffdf8338}}@keyframes champion-spotlight{from{opacity:0;transform:translateY(22px) scale(.75)}to{opacity:1;transform:none}}
+@media(max-height:540px) and (orientation:landscape){.awards-movement{font-size:9px}.awards-player{min-height:60px}.champion-reveal small{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.frog-awards *{animation:none!important}}
+@media(min-width:900px) and (min-height:741px){.results-celebration main{padding-top:8px;padding-bottom:8px}.results-celebration #results{padding-top:10px;padding-bottom:10px}}
+@media(min-width:900px) and (min-height:541px) and (max-height:740px){.awards-stage{max-height:calc(100dvh - 370px);min-height:160px;overflow:auto}.frog-standings{display:flex;flex-direction:column;min-height:0;max-height:100%}.awards-board{min-height:0;overflow:auto;max-height:calc(100dvh - 390px)}.standings-scroll-hint{display:inline;font-size:8px}}
