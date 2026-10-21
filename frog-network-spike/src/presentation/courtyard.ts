@@ -38,10 +38,11 @@ export class Courtyard {
   this.background=scene.add.graphics().setDepth(0);this.ink=scene.add.graphics().setDepth(1);this.effects=scene.add.graphics().setDepth(2);
   for(let i=0;i<8;i++)this.labels.push(scene.add.text(0,0,'',{fontFamily:'Trebuchet MS, sans-serif',fontSize:'19px',fontStyle:'bold',color:'#fff8d9',stroke:'#142f35',strokeThickness:5,align:'center',lineSpacing:0}).setOrigin(.5,1).setDepth(4));
   this.chaosInk=scene.add.graphics().setDepth(1.5);
+  this.windLabel=scene.add.text(WIDTH*S/2,14,'',{fontFamily:'Trebuchet MS, sans-serif',fontSize:'16px',fontStyle:'bold',color:'#d9faff',stroke:'#142f35',strokeThickness:4}).setOrigin(.5,0).setDepth(4).setVisible(false);
   this.feel=new Feel(scene,audio);
   this.paintArena();
  }
- chaosInk:Phaser.GameObjects.Graphics;platformInk=new Map<number,Phaser.GameObjects.Graphics>();platformBits=new Map<number,{ink:Phaser.GameObjects.Graphics;mask:Phaser.GameObjects.Graphics}[]>();private chaosLayout='';
+ private windLabel:Phaser.GameObjects.Text;chaosInk:Phaser.GameObjects.Graphics;platformInk=new Map<number,Phaser.GameObjects.Graphics>();platformBits=new Map<number,{ink:Phaser.GameObjects.Graphics;mask:Phaser.GameObjects.Graphics}[]>();private chaosLayout='';
  setArena(id:ArenaId){if(this.arenaId!==id){this.arenaId=id;this.paintArena();this.clear();}}
  paintArena(g:Phaser.GameObjects.Graphics=this.background,options:{background?:boolean;filter?:(index:number)=>boolean}={},definition=getArena(this.arenaId)){if(this.arenaId==='bathhouse'){paintBathhouse(g,definition,options);return;}if(this.arenaId==='toyshop'){paintToyshop(g,definition,options);return;}if(this.arenaId==='sunny-pond'){paintSunnyPond(g,definition,options);return;}g.clear();const glass=this.arenaId==='swingworks';
   if(options.background!==false){g.fillStyle(glass?0x233c5b:0x214d46);g.fillRect(0,0,WIDTH*S,HEIGHT*S);
@@ -83,9 +84,14 @@ export class Courtyard {
   }
   for(const b of state?.balls??[]){const r=ARENA_CHAOS.ballRadius*S;g.fillStyle(0xef9b87);g.fillCircle(b.x*S,b.y*S,r);g.lineStyle(3,INK);g.strokeCircle(b.x*S,b.y*S,r);g.lineStyle(3,0xffedd0);g.strokeCircle(b.x*S,b.y*S,r*.65);}
   if(state?.ballWarning){g.lineStyle(3,0xffdc88);g.strokeCircle(state.ballWarning.x*S,42,24);g.lineBetween(state.ballWarning.x*S,14,state.ballWarning.x*S,38);g.lineBetween(state.ballWarning.x*S-6,31,state.ballWarning.x*S,38);g.lineBetween(state.ballWarning.x*S+6,31,state.ballWarning.x*S,38);}
-  if(state?.wind.direction&&state.wind.stage!=='calm'){const d=state.wind.direction;g.lineStyle(state.wind.stage==='gust'?3:2,0xc4f4ff,state.wind.stage==='gust'?.65:.35);for(let i=0;i<8;i++){const x=90+i*140,y=55+(i%3)*16;g.lineBetween(x-d*25,y,x+d*25,y);g.lineBetween(x+d*25,y,x+d*14,y-5);g.lineBetween(x+d*25,y,x+d*14,y+5);}}
+  const wind=state?.wind,visible=!!wind?.direction&&wind.stage!=='calm';this.windLabel.setVisible(visible);
+  if(visible&&wind){const d=wind.direction,gusting=wind.stage==='gust',arrow=d>0?'→':'←';this.windLabel.setText(gusting?`GUSTING ${d>0?'RIGHT':'LEFT'} ${arrow} · ${Math.ceil(wind.remaining/60)}s`:`WIND ${arrow} IN ${Math.ceil(wind.remaining/60)}s`);
+   g.lineStyle(gusting?2.5:2,0xd9faff,gusting?.38:.45);
+   if(gusting){const width=WIDTH*S,height=HEIGHT*S,time=this.scene.time.now*.32;for(let i=0;i<28;i++){const x=((i*113+d*time)%width+width)%width,y=80+(i*83)%(height-150),length=32+i%4*9;g.lineBetween(x-d*length,y,x,y);g.lineBetween(x,y,x+d*14,y-4);g.lineBetween(x+d*14,y-4,x+d*24,y-2);}}
+   else for(let i=0;i<8;i++){const x=90+i*140,y=55+(i%3)*16;g.lineBetween(x-d*25,y,x+d*25,y);g.lineBetween(x+d*25,y,x+d*14,y-5);g.lineBetween(x+d*25,y,x+d*14,y+5);}
+  }
  }
- clear(){this.chaosSounds.reset();this.tagPuffs=[];this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}
+ clear(){this.windLabel.setVisible(false);this.chaosSounds.reset();this.tagPuffs=[];this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}
  pop(x:number,y:number,color:number,kind:Pop['kind'],strength=0){if(this.pops.length<64)this.pops.push({x:x*S,y:y*S,age:0,life:kind==='infect'?650:kind==='swap'?450:360,color,kind,strength});}
  render(states:FrogState[],positions:Point[],view:OutbreakView|undefined,connected:boolean[],names:string[],local:number,delta:number,modifiers:readonly string[]=[]){
   this.chaosSounds.update(states,this.soundArena,view,local,modifiers);

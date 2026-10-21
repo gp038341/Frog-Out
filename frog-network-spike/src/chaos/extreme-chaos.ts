@@ -3,7 +3,7 @@ import type {Simulation,Frog} from '../simulation/world';
 import {platformContact} from '../simulation/platform-contact';
 import {defaults} from '../simulation/config';
 /** Provisional E tuning. Only frogs reverse; balls/platforms keep their approved gravity. */
-export const EXTREME_CHAOS={downTicks:480,upTicks:240,warningTicks:60,pogoSpeed:14.25,pogoMaxDelta:24,pogoCooldownTicks:12,pogoSeparationTicks:4};
+export const EXTREME_CHAOS={downTicks:480,upTicks:240,warningTicks:60,pogoSpeed:15.25,pogoMaxDelta:24,pogoCooldownTicks:12,pogoSeparationTicks:4};
 export type ExtremeChaosState={paused:boolean;start:number;direction:1|-1;flipTick?:number;armed:boolean[];separated:number[]};
 export function gravityClock(tick:number,start:number){const C=EXTREME_CHAOS,phase=Math.max(0,tick-start)%(C.downTicks+C.upTicks),up=phase>=C.downTicks,remaining=(up?C.downTicks+C.upTicks:C.downTicks)-phase;return {direction:(up?-1:1)as 1|-1,remaining,warning:remaining<=C.warningTicks,seconds:Math.ceil(remaining/60)};}
 export class ExtremeChaos{

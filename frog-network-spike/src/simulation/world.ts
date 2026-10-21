@@ -214,7 +214,7 @@ export class Simulation {
         // Do not let a neutral ground controller erase reciprocal grapple momentum.
         dv = x * Math.max(0, Math.min(t.groundAcceleration * DT, t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1) - x * v.x));
       } else if (f.grounded && !f.tongue) {
-        const target = x * t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1);
+        const target = x * t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1) * this.arenaChaos.runningScale(x);
         const soap = f.slipperySoap ? (x ? SURFACES.soapAccelerationMultiplier : SURFACES.soapBrakeMultiplier) : 1;
         const a = this.chaosButterfeet ? (x ? defaults.groundAcceleration : defaults.groundBrake) * Math.min(x ? t.groundAcceleration / defaults.groundAcceleration : t.groundBrake / defaults.groundBrake, soap) : (x ? t.groundAcceleration : t.groundBrake) * soap;
         dv = Math.max(-a * DT, Math.min(a * DT, target - v.x));

@@ -117,4 +117,7 @@ export function soundSettingsPreservedSource(path:string,raw=false){const source
 export function joystickPreservedSource(path:string,raw=false){const source=floatingActionPreservedSource(path,raw),m=JSON.parse(readFileSync(new URL('../docs/joystick-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
 
 /** Reverse only the right floating action area for historical assertions. */
-export function floatingActionPreservedSource(path:string,raw=false){const location=new URL(`../${path}`,import.meta.url),source=raw?readFileSync(location):readFileSync(location,'utf8'),m=JSON.parse(readFileSync(new URL('../docs/floating-action-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+export function floatingActionPreservedSource(path:string,raw=false){const source=modifierTweaksPreservedSource(path,raw),m=JSON.parse(readFileSync(new URL('../docs/floating-action-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
+
+/** Reverse only owner-directed wind/Pogo/bubble refinements for historical assertions. */
+export function modifierTweaksPreservedSource(path:string,raw=false){const location=new URL(`../${path}`,import.meta.url),source=raw?readFileSync(location):readFileSync(location,'utf8'),m=JSON.parse(readFileSync(new URL('../docs/modifier-tweaks-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??source;}
