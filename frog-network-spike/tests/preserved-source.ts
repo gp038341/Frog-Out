@@ -149,4 +149,7 @@ export function swapProtectionPreservedSource(path:string,raw=false){const m=JSO
 export function roundReadoutPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/round-readout-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??botCompetitivenessPreservedSource(path,raw);}
 
 /** Reverse only authorized CPU planning/execution changes for historical guards. */
-export function botCompetitivenessPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/bot-competitiveness-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function botCompetitivenessPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/bot-competitiveness-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??finalPodiumPreservedSource(path,raw);}
+
+/** Reverse only final-standings presentation for earlier approval guards. */
+export function finalPodiumPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/final-podium-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

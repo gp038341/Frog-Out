@@ -1,3 +1,4 @@
+import {isFinalRoundResult} from '../presentation/final-results';
 import {applyChaos} from '../chaos/registry';
 import type {ChaosView} from '../chaos/voting';
 import type {GameMode} from '../game/modes';
@@ -65,7 +66,7 @@ export class Connection {
  ready(value:boolean){if(this.canReady)this.room?.send('ready',value);}
  start(){if(this.status==='connected')this.room?.send('start');}
  nextRound(){if(this.status==='connected')this.room?.send('next-round');}
- returnLobby(){if(this.status==='connected')this.room?.send('return-lobby');}
+ returnLobby(){if(this.status!=='connected')return;const state=this.outbreak;if(isFinalRoundResult(state))this.room?.send('next-round');this.room?.send('return-lobby');}
  get playing(){return this.connected&&this.lobby?.phase==='game'&&this.outbreak?.phase==='playing'&&(!this.chaos||this.chaos.phase==='idle');}
  get hostNotice(){return Date.now()<this.hostNoticeUntil?'You are now the host.':'';}
  async leave(){const room=this.room;this.endSession('You left the room.');if(room)await room.leave();}

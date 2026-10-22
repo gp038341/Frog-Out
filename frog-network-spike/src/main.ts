@@ -1,3 +1,4 @@
+import {finalResultsView} from './presentation/final-results';
 import {RoundReadout} from './ui/round-readout';
 import {ResultsUI} from './ui/results-ui';
 import {MatchChrome} from './ui/match-chrome';
@@ -196,8 +197,8 @@ setInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase
  renderOutbreak();presentation.update(net.lobby?.phase==='game'?net.outbreak:undefined,net.slot);updateMonitor();
  const f=net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.frogs[net.slot]:net.snapshots.at(-1)?.state.frogs[net.slot];
  chaosUI.update();
- resultsUI.update(phase==='game'?net.outbreak:undefined,lobby,net.playerId,!!net.chaos&&net.chaos.phase!=='idle');
- roundReadout.update(phase==='game'?net.outbreak:undefined,!!net.chaos&&net.chaos.phase!=='idle');
+ resultsUI.update(phase==='game'?finalResultsView(net.outbreak):undefined,lobby,net.playerId,!!net.chaos&&net.chaos.phase!=='idle');
+ roundReadout.update(phase==='game'?finalResultsView(net.outbreak):undefined,!!net.chaos&&net.chaos.phase!=='idle');
  musicUI.update(net.playing,audio.enabled);
  resizeGame();
  touch.update(net.playing&&net.status==='connected'&&!guide.blocking,phase==='game'&&!!net.outbreak&&['announcement','countdown','playing'].includes(net.outbreak.phase),f?.grounded??false,f?.charging??false,f?.tongue?.phase==='attached');
@@ -210,7 +211,7 @@ function ordinal(n:number){const mod=n%100;return `${n}${mod>=11&&mod<=13?'th':n
 function clock(ms:number){const cs=Math.floor(ms/10);return `${String(Math.floor(cs/6000)).padStart(2,'0')}:${String(Math.floor(cs/100)%60).padStart(2,'0')}.${String(cs%100).padStart(2,'0')}`;}
 let resultsSignature='';let lastCue='';let previousResult='';
 function renderOutbreak(){
- const state=net.lobby?.phase==='game'?net.outbreak:undefined;
+ const state=net.lobby?.phase==='game'?finalResultsView(net.outbreak):undefined;
  const signature=state?`${state.round}:${state.phase}`:'';if(signature!==previousGamePhase){clear();previousGamePhase=signature;if(state&&['announcement','countdown','playing'].includes(state.phase))requestAnimationFrame(()=>{game.scale.getParentBounds();game.scale.refresh();});}
  const results=state?.phase==='round-results'||state?.phase==='match-results';el('results').hidden=!results;
  if(!state){el('phase-overlay').hidden=true;return;}
