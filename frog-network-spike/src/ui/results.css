@@ -62,3 +62,13 @@
 .frog-awards.podium-revealing .frog-standings,.results-celebration:has(.podium-revealing) #winner-message{visibility:hidden}
 .frog-awards.podium-revealing .podium-contender.podium-waiting{visibility:hidden;animation:none}
 .frog-awards[data-final=true] .podium-contender.podium-entering{animation:champion-spotlight .6s cubic-bezier(.15,.8,.3,1.2) both}
+
+/* Windowed results fill the browser viewport, even when only two frogs played. */
+body.results-celebration{min-height:100vh;min-height:100dvh;background-repeat:no-repeat}
+@media(min-height:541px){
+ .results-celebration main{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+ .results-celebration #brand,.results-celebration #session-footer{flex-shrink:0}
+ .results-celebration #results{flex:1;display:flex;flex-direction:column;width:100%}
+ .results-celebration #frog-awards{flex:1;display:flex;flex-direction:column;justify-content:center}
+ .results-celebration .score-breakdown,.results-celebration .awards-actions{flex-shrink:0}
+}
