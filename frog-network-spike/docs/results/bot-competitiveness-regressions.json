@@ -1,0 +1,210 @@
+{
+  "deadlocks": [
+    {
+      "before": true,
+      "pass": null,
+      "idleSeconds": 9.983333333333333,
+      "maxDeadlockSeconds": 9.916666666666666,
+      "stats": [
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 4,
+          "plans": 85
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 4,
+          "plans": 85
+        }
+      ]
+    },
+    {
+      "before": false,
+      "pass": 2.066666666666667,
+      "idleSeconds": 1.6166666666666667,
+      "maxDeadlockSeconds": 1.1,
+      "stats": [
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 1,
+          "attachments": 1,
+          "releases": 1,
+          "swings": 1,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 35,
+          "obstructions": 1,
+          "unproductiveGrapples": 0
+        },
+        {
+          "goals": 0,
+          "arrivals": 0,
+          "jumps": 0,
+          "charges": 0,
+          "shots": 0,
+          "attachments": 0,
+          "releases": 0,
+          "swings": 0,
+          "misses": 0,
+          "recoveries": 0,
+          "plans": 27,
+          "obstructions": 2,
+          "unproductiveGrapples": 0
+        }
+      ]
+    }
+  ],
+  "pogo": [
+    {
+      "before": true,
+      "seed": 1,
+      "maxGrappleSeconds": 4,
+      "attachments": 3,
+      "bounces": 38,
+      "meters": 217.19367162546214,
+      "stats": {
+        "goals": 0,
+        "arrivals": 28,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 2,
+        "attachments": 22,
+        "releases": 2,
+        "swings": 20,
+        "misses": 0,
+        "recoveries": 4,
+        "plans": 208
+      }
+    },
+    {
+      "before": false,
+      "seed": 1,
+      "maxGrappleSeconds": 0.6833333333333333,
+      "attachments": 2,
+      "bounces": 27,
+      "meters": 221.4280828035034,
+      "stats": {
+        "goals": 0,
+        "arrivals": 35,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 1,
+        "attachments": 5,
+        "releases": 2,
+        "swings": 5,
+        "misses": 0,
+        "recoveries": 4,
+        "plans": 247,
+        "obstructions": 0,
+        "unproductiveGrapples": 0
+      }
+    },
+    {
+      "before": true,
+      "seed": 23,
+      "maxGrappleSeconds": 4,
+      "attachments": 3,
+      "bounces": 38,
+      "meters": 217.19367162546214,
+      "stats": {
+        "goals": 0,
+        "arrivals": 28,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 2,
+        "attachments": 22,
+        "releases": 2,
+        "swings": 20,
+        "misses": 0,
+        "recoveries": 4,
+        "plans": 208
+      }
+    },
+    {
+      "before": false,
+      "seed": 23,
+      "maxGrappleSeconds": 0.6833333333333333,
+      "attachments": 2,
+      "bounces": 27,
+      "meters": 221.4280828035034,
+      "stats": {
+        "goals": 0,
+        "arrivals": 35,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 1,
+        "attachments": 5,
+        "releases": 2,
+        "swings": 5,
+        "misses": 0,
+        "recoveries": 4,
+        "plans": 247,
+        "obstructions": 0,
+        "unproductiveGrapples": 0
+      }
+    },
+    {
+      "before": true,
+      "seed": 123,
+      "maxGrappleSeconds": 4,
+      "attachments": 3,
+      "bounces": 38,
+      "meters": 217.19367162546214,
+      "stats": {
+        "goals": 0,
+        "arrivals": 28,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 2,
+        "attachments": 22,
+        "releases": 2,
+        "swings": 20,
+        "misses": 0,
+        "recoveries": 4,
+        "plans": 208
+      }
+    },
+    {
+      "before": false,
+      "seed": 123,
+      "maxGrappleSeconds": 0.6833333333333333,
+      "attachments": 2,
+      "bounces": 27,
+      "meters": 221.4280828035034,
+      "stats": {
+        "goals": 0,
+        "arrivals": 35,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 1,
+        "attachments": 5,
+        "releases": 2,
+        "swings": 5,
+        "misses": 0,
+        "recoveries": 4,
+        "plans": 247,
+        "obstructions": 0,
+        "unproductiveGrapples": 0
+      }
+    }
+  ]
+}

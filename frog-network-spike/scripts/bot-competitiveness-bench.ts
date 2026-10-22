@@ -1,0 +1,19 @@
+import {writeFileSync} from 'node:fs';
+import {performance} from 'node:perf_hooks';
+import {Navigator} from '../server/navigation/navigator';
+import {Navigator as BeforeNavigator} from '../tests/fixtures/pre-competitiveness/server/navigation/navigator';
+import {CPUController} from '../server/cpu';
+import {CPUController as BeforeCPU} from '../tests/fixtures/pre-competitiveness/server/cpu';
+import {makeCourse,seeded} from './bot-b1-harness';
+import {Simulation} from '../src/simulation/world';
+import {setSimulationArena} from '../src/simulation/arena-adapter';
+import {navigationGraph,standing} from '../server/navigation/geometry';
+import {session} from './bot-b2-harness';
+import {placeRoundSpawns} from '../server/arena-spawns';
+import {applyChaos} from '../src/chaos/registry';
+import {setChaosContext} from '../server/chaos/perception';
+import {Vec2} from 'planck';
+export const arenas=['sunny-pond','bathhouse','canopy','toyshop'] as const;
+export function climbs(before=false){const rows:any[]=[];for(const arena of arenas)for(const seed of[1,23,123]){const sim=new Simulation();setSimulationArena(sim,arena);sim.frogs[1].body.setActive(false);sim.frogs[0].body.setTransform(Vec2(4,20.9),0);for(let i=0;i<10;i++)sim.step();const surfaces=navigationGraph(sim).surfaces.filter(s=>s.a.y>2&&s.a.y<17).sort((a,b)=>a.a.y-b.a.y);for(const s of surfaces.filter((_,i)=>i===0||i===Math.floor(surfaces.length/2)||i===surfaces.length-1)){sim.frogs[0].body.setTransform(Vec2(4,20.9),0);sim.frogs[0].body.setLinearVelocity(Vec2());sim.cancelAction(sim.frogs[0]);for(let i=0;i<10;i++)sim.step();const nav=new (before?BeforeNavigator:Navigator)(seeded(seed)),goal=standing(s,(s.left+s.right)/2,sim.tuning.frogRadius);nav.setDestination(goal);let best=Infinity,arrival:number|null=null,stuck=0;for(let i=0;i<1800;i++){const f=sim.frogs[0],input=nav.input(sim,0);sim.setInput(0,input);sim.step();const p=f.body.getPosition(),v=f.body.getLinearVelocity();best=Math.min(best,Math.hypot(p.x-goal.x,p.y-goal.y));if(Math.hypot(v.x,v.y)<.3)stuck++;if(best<.85){arrival=(i+1)/60;break;}}rows.push({arena,seed,goal,success:arrival!==null,seconds:arrival,best,stuckSeconds:stuck/60,...nav.stats});}}return rows;}
+export function matches(before=false){const rows:any[]=[];for(const arena of arenas)for(const mode of ['poison','freeze','classic'] as const)for(const count of[2,8]){const s=session(mode,count,arena,23);if(before)(s as any).cs.splice(0,count,...Array.from({length:count},(_,i)=>new BeforeCPU(23+i*239)));placeRoundSpawns(s.sim,arena,23);let distance=0,idle=0,frames=0,highest=22,grapple=0,contacts=0;const last=s.sim.frogs.map(f=>({...f.body.getPosition()}));const start=performance.now();for(let tick=0;tick<1200&&s.rules.phase==='playing';tick++){contacts+=s.step().length;frames++;s.sim.frogs.forEach((f,i)=>{const p=f.body.getPosition(),v=f.body.getLinearVelocity();distance+=Math.hypot(p.x-last[i].x,p.y-last[i].y);last[i]={...p};highest=Math.min(highest,p.y);if(Math.hypot(v.x,v.y)<.3)idle++;if(f.tongue?.phase==='attached')grapple++;});}rows.push({arena,mode,count,seconds:frames/60,distancePerFrogMinute:distance/count/(frames/3600),idleFraction:idle/Math.max(1,frames*count),highest,contacts,grappleSeconds:grapple/60,ms:performance.now()-start,stats:s.cs.map(c=>({...c.navigation.stats})),errors:s.cs.reduce((n,c)=>n+c.diagnostics.errors,0)});}return rows;}
+if(process.argv[1]?.endsWith('bot-competitiveness-bench.ts')){const before=process.argv.includes('--before'),report={baseline:'c0915a01076c44b2e5c035609f97382f06d04afe',before,climbs:climbs(before),matches:matches(before)};writeFileSync(`docs/results/bot-competitiveness-${before?'before':'after'}.json`,JSON.stringify(report,null,2));console.log(JSON.stringify({before,climbs:report.climbs.length,success:report.climbs.filter(r=>r.success).length,matches:report.matches.length,meanDistance:report.matches.reduce((n,r)=>n+r.distancePerFrogMinute,0)/report.matches.length}));}
