@@ -30,9 +30,10 @@ export class SpikeRoom extends Room {
   this.onMessage('input',(client:Client,raw:Command)=>{
    const i=this.slots.get(client.sessionId);if(i===undefined||!raw||!Number.isSafeInteger(raw.seq)||raw.seq<=this.received[i]||raw.seq>this.received[i]+10000)return;
    const input=raw.input;if(!input||![input.x,input.y].every(x=>Number.isFinite(x)&&Math.abs(x)<=1)||typeof input.held!=='boolean')return;
+   const mouseAim=input.aimX!==undefined||input.aimY!==undefined;if(mouseAim&&(![input.aimX,input.aimY].every(x=>typeof x==='number'&&Number.isFinite(x)&&Math.abs(x)<=1)||Math.hypot(input.aimX!,input.aimY!)<1e-6))return;
    if(this.queues[i].length>=120){this.drops++;return;}
    this.received[i]=raw.seq;this.lastInput[i]=Date.now();
-   this.queues[i].push({seq:raw.seq,at:0,input:{x:input.x,y:input.y,held:input.held}});
+   this.queues[i].push({seq:raw.seq,at:0,input:{x:input.x,y:input.y,held:input.held,...(mouseAim?{aimX:input.aimX,aimY:input.aimY}:{})}});
   });
   this.onMessage('ping',(client:Client,at:number)=>{if(Number.isFinite(at))client.send('pong',{at,serverTime:Date.now()});});
   this.setPatchRate(null);

@@ -155,4 +155,7 @@ export function botCompetitivenessPreservedSource(path:string,raw=false){const m
 export function finalPodiumPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/final-podium-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??resultsWindowPreservedSource(path,raw);}
 
 /** Reverse only results-window sizing for historical approval checks. */
-export function resultsWindowPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/results-window-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function resultsWindowPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/results-window-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??desktopMousePreservedSource(path,raw);}
+
+/** Reverse only optional desktop mouse input adapters for earlier approval guards. */
+export function desktopMousePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/desktop-mouse-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

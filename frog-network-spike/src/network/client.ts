@@ -71,7 +71,7 @@ export class Connection {
  get hostNotice(){return Date.now()<this.hostNoticeUntil?'You are now the host.':'';}
  async leave(){const room=this.room;this.endSession('You left the room.');if(room)await room.leave();}
  sendPing(){const at=Date.now();this.link.schedule('send',()=>this.room?.send('ping',at));}
- setInput(input:Input){if(input.x===this.input.x&&input.y===this.input.y&&input.held===this.input.held)return;this.input={...input};this.sendInput();}
+ setInput(input:Input,immediate=true){if(input.x===this.input.x&&input.y===this.input.y&&input.held===this.input.held&&input.aimX===this.input.aimX&&input.aimY===this.input.aimY)return;this.input={...input};if(immediate)this.sendInput();}
  sendInput(){this.inputTrace.attemptAt=Date.now();this.inputTrace.transportOpen=!!this.room?.connection.isOpen;if(this.slot<0||this.status!=='connected'||!this.playing){this.inputTrace.skip=this.slot<0?'no-slot':this.status!=='connected'?'disconnected':'round-not-playing';return;}this.inputTrace.skip='';const command:Command={seq:++this.seq,at:Date.now(),input:{...this.input}};if(this.prediction)this.predictor.add(command);this.bytesOut+=JSON.stringify(command).length;this.link.schedule('send',()=>{if(this.room?.connection.isOpen){this.inputTrace.sentAt=Date.now();this.inputTrace.sentSeq=command.seq;this.room.send('input',command);}else this.inputTrace.skip='transport-closed';});}
  get stale(){return !this.lastReceive||Date.now()-this.lastReceive>250;}
 }

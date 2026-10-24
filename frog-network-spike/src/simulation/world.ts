@@ -8,7 +8,7 @@ import { World, Vec2, Box, Circle, RopeJoint, Body } from 'planck';
 import {prepareSurfaces,resolveSurfaces,SURFACES,bindSurfaceImpacts} from './surfaces';
 import {POISON_BALANCE} from '../game/poison-balance';
 import { defaults, DT, arena, WIDTH, HEIGHT, type Tuning } from './config';
-export type Input = { x: number; y: number; held: boolean };
+export type Input = { x: number; y: number; held: boolean; aimX?:number; aimY?:number };
 export type Tongue = {
   phase: 'flying' | 'attached' | 'retracting';
   direction: { x: number; y: number }; tip: { x: number; y: number };
@@ -132,11 +132,12 @@ export class Simulation {
   }
   fire(f: Frog, input: Input) {
     this.detach(f);
-    let x = input.x, y = input.y;
+    const mouseAim=input.aimX!==undefined&&input.aimY!==undefined;
+    let x = mouseAim?input.aimX!:input.x, y = mouseAim?input.aimY!:input.y;
     const m = Math.hypot(x, y);
     if (!m) { x = f.facing; y = 0; } else { x /= m; y /= m; }
     const p = f.body.getPosition();
-    if(this.chaosAimDegrees>0){const aim=assistedDirection(this,f,{x,y},this.chaosAimDegrees,this.chaosAimLeadSeconds);x=aim.x;y=aim.y;f.aimAssistTarget=aim.target;f.aimAssistTick=aim.target===undefined?undefined:this.tick;}else{f.aimAssistTarget=undefined;f.aimAssistTick=undefined;}
+    if(this.chaosAimDegrees>0&&(!mouseAim||this.chaosAimDegrees>GRAPPLE_AIM.defaultDegrees)){const aim=assistedDirection(this,f,{x,y},this.chaosAimDegrees,this.chaosAimLeadSeconds);x=aim.x;y=aim.y;f.aimAssistTarget=aim.target;f.aimAssistTick=aim.target===undefined?undefined:this.tick;}else{f.aimAssistTarget=undefined;f.aimAssistTick=undefined;}
     f.tongue = { phase: 'flying', direction: { x, y }, tip: { x: p.x, y: p.y }, distance: 0, length: 0 };
   }
   step() {

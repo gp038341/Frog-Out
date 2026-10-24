@@ -1,0 +1,53 @@
+{
+  "scope": "Compiled local server, real pointer/keyboard events and two independent browser clients. Not physical-device testing. Results interruption directly exercised in Poison/Freeze, not timed in the 60-second Classic browser case.",
+  "checks": [
+    {
+      "mode": "poison",
+      "mouseFire": true,
+      "authoritativeAim": true,
+      "independentMovement": true,
+      "combinedHolds": true,
+      "keyboardFallback": true,
+      "resizeAndStationaryCursor": true,
+      "terrainReel": true,
+      "outsideRelease": true,
+      "chargeJump": true,
+      "menuBlurRapidClicks": true,
+      "visibilityInterruption": true,
+      "fullscreen": true,
+      "roundEndExercised": true
+    },
+    {
+      "mode": "freeze",
+      "mouseFire": true,
+      "authoritativeAim": true,
+      "independentMovement": true,
+      "combinedHolds": true,
+      "keyboardFallback": true,
+      "resizeAndStationaryCursor": true,
+      "terrainReel": true,
+      "outsideRelease": true,
+      "chargeJump": true,
+      "menuBlurRapidClicks": true,
+      "visibilityInterruption": true,
+      "fullscreen": true,
+      "roundEndExercised": true
+    },
+    {
+      "mode": "classic",
+      "mouseFire": true,
+      "authoritativeAim": true,
+      "independentMovement": true,
+      "combinedHolds": true,
+      "keyboardFallback": true,
+      "resizeAndStationaryCursor": true,
+      "terrainReel": true,
+      "outsideRelease": true,
+      "chargeJump": true,
+      "menuBlurRapidClicks": true,
+      "visibilityInterruption": true,
+      "fullscreen": true,
+      "roundEndExercised": false
+    }
+  ]
+}

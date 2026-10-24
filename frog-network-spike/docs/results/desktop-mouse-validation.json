@@ -1,0 +1,22 @@
+{
+  "baseline": "770861b5dbdc94915514e622a83533d029759c67",
+  "tests": 475,
+  "passed": 475,
+  "build": "TypeScript, Vite and server build passed; existing Phaser chunk warning",
+  "rawInputValidation": "PASS: optional mouse aim preserved in both snapshots, malformed/missing/non-finite/zero aim rejected without consuming sequence; two independent real WebSocket clients, fractional axes, held press/release, legacy diagonals, invalid rejection, shared authoritative snapshots and live round.",
+  "normalEightFrogP99Ms": [
+    3.542990000001737,
+    4.74105899999995,
+    3.026567000000796,
+    2.66294100000232
+  ],
+  "normalEightFrogOverruns": 0,
+  "chaosMaxP99Ms": 20.723659999999654,
+  "chaosOverruns": 3,
+  "initialConcurrentStressFailure": {
+    "arena": "canopy",
+    "p99Ms": 8.36317,
+    "unchangedThresholdMs": 8
+  },
+  "manualMousePolicy": "Normal assistance bypassed; approved Magnet Mouths assistance retained"
+}

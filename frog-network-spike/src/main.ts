@@ -1,3 +1,4 @@
+import {MouseControls,mouseWorld} from './input/mouse';
 import {finalResultsView} from './presentation/final-results';
 import {RoundReadout} from './ui/round-readout';
 import {ResultsUI} from './ui/results-ui';
@@ -41,6 +42,7 @@ const audio=new GameAudio();
 const net=new Connection();void net.boot();
 const chaosUI=new ChaosUI(net);
 const down=new Set<string>();
+let mouse:MouseControls|undefined;let inputScene:Spike|undefined;
 const inputSwitches:{at:number;touch:boolean;phase:string;status:string}[]=[];
 const touch=new TouchControls(sample,switchControls,()=>net.playing&&net.status==='connected'&&!document.querySelector('dialog[open]'));
 const mobileControls=mobileControlDevice(navigator.userAgent,navigator.platform,navigator.maxTouchPoints);
@@ -48,10 +50,11 @@ touch.enabled=mobileControls&&new URLSearchParams(location.search).get('touch')!
 document.getElementById('touch-toggle')!.hidden=!mobileControls;
 function switchControls(){clear();inputSwitches.push({at:Date.now(),touch:touch.enabled,phase:net.outbreak?.phase??'none',status:net.status});if(inputSwitches.length>50)inputSwitches.shift();}
 const keys=new Set(['KeyA','KeyD','KeyW','KeyS','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space']);
-function sample(){if(!net.playing||document.activeElement instanceof HTMLInputElement)return;const x=Number(down.has('KeyD')||down.has('ArrowRight'))-Number(down.has('KeyA')||down.has('ArrowLeft')),y=Number(down.has('KeyS')||down.has('ArrowDown'))-Number(down.has('KeyW')||down.has('ArrowUp'));net.setInput({x:x||touch.input.x,y:y||touch.input.y,held:down.has('Space')||touch.input.held});}
-window.addEventListener('keydown',e=>{if(keys.has(e.code)&&net.playing&&!(document.activeElement instanceof HTMLInputElement)){e.preventDefault();if(e.repeat&&!down.has(e.code))return;down.add(e.code);sample();}});
+function canControl(){return net.playing&&net.status==='connected'&&!document.querySelector('dialog[open]')&&!(document.activeElement instanceof HTMLInputElement);}
+function sample(immediate=true){if(!canControl())return;const x=Number(down.has('KeyD')||down.has('ArrowRight'))-Number(down.has('KeyA')||down.has('ArrowLeft')),y=Number(down.has('KeyS')||down.has('ArrowDown'))-Number(down.has('KeyW')||down.has('ArrowUp'));const base={x:x||touch.input.x,y:y||touch.input.y,held:down.has('Space')||touch.input.held};net.setInput(mouse?.compose(base)??base,immediate);}
+window.addEventListener('keydown',e=>{if(keys.has(e.code)&&canControl()){e.preventDefault();if(e.repeat&&!down.has(e.code))return;down.add(e.code);sample();}});
 window.addEventListener('keyup',e=>{if(keys.has(e.code)){e.preventDefault();down.delete(e.code);sample();}});
-function clear(){down.clear();touch.reset(false);net.setInput({x:0,y:0,held:false});}
+function clear(){down.clear();touch.reset(false);mouse?.reset();net.setInput({x:0,y:0,held:false});}
 window.addEventListener('blur',clear);document.addEventListener('visibilitychange',()=>{if(document.hidden)clear();});
 function interpolate(snapshots:Snapshot[],time:number):FrogState[]{
  if(!snapshots.length)return [];
@@ -73,7 +76,7 @@ let lastStatus=0;
 class Spike extends Phaser.Scene {
  art!:Courtyard;
  rendered:{x:number;y:number}[]=[];
- create(){this.art=new Courtyard(this,audio);}
+ create(){inputScene=this;this.art=new Courtyard(this,audio);}
 
  update(_time:number,delta:number){
   if(net.lobby?.phase!=='game'){this.art.clear();return;}
@@ -100,6 +103,7 @@ class Spike extends Phaser.Scene {
    if(isPredicted){x+=offset.x;y+=offset.y;}
    this.rendered[i]={x,y};
   });
+  if(mouse?.active)sample(false);
   const latest=net.snapshots.at(-1)!;
   this.art.setArena(net.snapshots.at(-1)?.arenaId??net.lobby?.arenaId??DEFAULT_ARENA);
   this.art.renderChaos(net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.arenaChaos.capture():latest.state.arenaChaos);
@@ -114,6 +118,8 @@ class Spike extends Phaser.Scene {
  }
 }
 const game=new Phaser.Game({type:Phaser.AUTO,parent:'game',width:WIDTH*30,height:HEIGHT*30,backgroundColor:'#183f48',audio:{noAudio:true},fps:{smoothStep:false},scale:{expandParent:false,mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},scene:Spike});
+const bindMouse=()=>{if(!mouse&&game.canvas)mouse=new MouseControls(game.canvas,()=>!mobileControls&&canControl(),point=>{const camera=inputScene?.cameras.main;if(!camera)return;return mouseWorld(point,game.canvas.getBoundingClientRect(),game.scale.gameSize,(x,y)=>camera.getWorldPoint(x,y));},()=>inputScene?.rendered[net.slot],()=>sample());};
+if(game.canvas)bindMouse();else game.events.once(Phaser.Core.Events.READY,bindMouse);
 let lastCanvasBounds='',viewportFrame=0,lastUsableViewport='';
 function resizeGame(){
  const stage=document.getElementById('game-stage')!,session=document.getElementById('session')!,main=document.querySelector('main')!;
@@ -157,7 +163,7 @@ fullscreenButton.onclick=async()=>{try{if(fullscreenActive()){if(document.fullsc
 
 window.addEventListener('resize',()=>viewportChanged('window-resize'));window.addEventListener('touch-layout',resizeGame);touch.initialize();
 // Deliberately exposed only for automated spike diagnostics.
-Object.assign(window,{spikeDebug:net});
+Object.assign(window,{spikeDebug:net});Object.defineProperty(net,'mouseControls',{get:()=>mouse?.diagnostics()});
 
 const el=(id:string)=>document.getElementById(id)!;
 const guide=new PlayerGuide(clear);
