@@ -44,7 +44,7 @@ export class Tactics{
 
   }else{
    const freezer=state.mode==='freeze'?sim.frogs[state.tagger]:undefined;
-   const rescue=state.mode==='freeze'&&threatDistance>TACTICS.dangerDistance*this.caution?active.filter(i=>state.players[i].frozen).map(slot=>{const q=sim.frogs[slot].body.getPosition(),enemy=freezer!.body.getPosition(),clear=distance(q,enemy),cost=travel(q),enemyTime=clear/Math.max(1,sim.tuning.groundSpeed);return{slot,cost,point:{...q},clear,enemyTime};}).filter(c=>Number.isFinite(c.cost)&&c.clear>TACTICS.rescueClearance*this.caution/this.preferences.rescue&&(c.cost<c.enemyTime*(.9+this.preferences.rescue*.2)||c.clear>9)).sort((a,b)=>a.cost-b.cost)[0]:undefined;
+   const rescue=state.mode==='freeze'&&threatDistance>TACTICS.dangerDistance*this.caution?active.filter(i=>state.players[i].frozen&&(this.failed.get(i)??0)<=tick).map(slot=>{const q=sim.frogs[slot].body.getPosition(),enemy=freezer!.body.getPosition(),clear=distance(q,enemy),cost=travel(q),support=active.filter(i=>i!==slot&&!state.players[i].frozen&&i!==state.tagger).reduce((n,i)=>{const other=sim.frogs[i],at=other.body.getPosition(),v=other.body.getLinearVelocity(),closer=distance(at,q)+1<distance(p,q),approaching=(q.x-at.x)*v.x+(q.y-at.y)*v.y>0;return n+(closer&&approaching?1.5:0);},0),enemyTime=clear/Math.max(1,sim.tuning.groundSpeed);return{slot,cost,point:{...q},clear,enemyTime,utility:cost+support+(mix(this.preferences.salt^Math.imul(slot+1,2654435761))/4294967296)*.8};}).filter(c=>Number.isFinite(c.cost)&&c.clear>TACTICS.rescueClearance*this.caution/this.preferences.rescue&&(c.cost<c.enemyTime*(.9+this.preferences.rescue*.2)||c.clear>9)).sort((a,b)=>a.utility-b.utility)[0]:undefined;
    if(rescue){this.select(rescue.slot,tick);this.intent='rescue';this.stats.rescues++;goal=rescue.point;}
    else{this.target=undefined;this.intent='evade';this.stats.evades++;goal=this.escape(sim,p,threats,travel,state.remainingMs,roleChanged||recovered||environmentChanged);}
   }
@@ -73,7 +73,7 @@ export class Tactics{
   if(opening&&current)for(const dx of[-6,-4,4,6]){const q=standing(current,clamp(p.x+dx,current.left,current.right),sim.tuning.frogRadius);if(distance(p,q)>3)points.push(q);}
   const ranked=points.map(point=>({point,score:score(point)})).filter(c=>Number.isFinite(c.score)).sort((a,b)=>b.score-a.score);if(!ranked.length)return;
   const approaching=this.goal&&distance(p,this.goal)<Math.max(arrival,4),threatNear=threats.some(i=>distance(p,sim.frogs[i].body.getPosition())<3.1*this.caution);
-  if(this.goal&&!changed&&!approaching&&sim.tick-this.goalSince<600&&(!threatNear||score(this.goal)>ranked[0].score-3))return this.goal;
+  if(this.goal&&!changed&&!approaching&&sim.tick-this.goalSince<(this.role.startsWith('freeze:')?240:600)&&(!threatNear||score(this.goal)>ranked[0].score-3))return this.goal;
   const pool=ranked.filter(c=>c.score>=ranked[0].score-4).slice(0,5),chosen=pool[Math.floor(this.random()*pool.length)];this.visits.set(key(chosen.point),sim.tick);this.goalSince=sim.tick;return chosen.point;
  }
 }

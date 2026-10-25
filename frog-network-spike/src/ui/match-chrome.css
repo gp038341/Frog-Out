@@ -13,3 +13,7 @@
 
 /* Empty HUD messages must not leave a reserved text row or margin. */
 .game-active #live-score:empty,.game-active #infection-feedback:empty{display:none!important}
+
+/* Transient tag/protection feedback is an overlay, never a canvas-sizing row. */
+.game-active #infection-feedback{position:absolute;top:38px;left:20%;right:20%;z-index:6;margin:0;pointer-events:none;text-align:center;max-height:32px;overflow:hidden}
+.game-active:not(.touch-game) #healthy-count{max-width:28vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}

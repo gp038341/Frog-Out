@@ -158,4 +158,7 @@ export function finalPodiumPreservedSource(path:string,raw=false){const m=JSON.p
 export function resultsWindowPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/results-window-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??desktopMousePreservedSource(path,raw);}
 
 /** Reverse only optional desktop mouse input adapters for earlier approval guards. */
-export function desktopMousePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/desktop-mouse-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function desktopMousePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/desktop-mouse-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??mouseFreezePreservedSource(path,raw);}
+
+/** Reverse only the requested mouse-action, transient HUD and Freeze AI corrections. */
+export function mouseFreezePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/mouse-classic-freeze-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
