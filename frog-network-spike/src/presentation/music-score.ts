@@ -6,8 +6,9 @@ export const MUSIC={title:'Reedwater',bpm:124,bars:16,sampleRate:22050,defaultVo
 export function composePondMusic(mood:MusicMood='lobby'){
  const rate=MUSIC.sampleRate,beat=60/MUSIC.bpm,length=Math.round(MUSIC.bars*4*beat*rate),data=new Float32Array(length),busy=mood==='adventure';let seed=59287;
  const noise=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/2147483648-1;};
- const note=(midi:number,start:number,duration:number,level:number,kind:'reed'|'string'|'bass'|'pad')=>{const hz=440*2**((midi-69)/12),count=Math.ceil(duration*rate),offset=Math.round(start*rate);for(let i=0;i<count;i++){const t=i/rate,phase=2*Math.PI*hz*t,attack=Math.min(1,t/(kind==='pad'?.18:kind==='reed'?.025:.006)),release=Math.max(0,Math.min(1,(duration-t)/(kind==='pad'?.28:.08)));let wave:number,envelope:number;
+ const note=(midi:number,start:number,duration:number,level:number,kind:'reed'|'string'|'bass'|'pad'|'brass')=>{const hz=440*2**((midi-69)/12),count=Math.ceil(duration*rate),offset=Math.round(start*rate);for(let i=0;i<count;i++){const t=i/rate,phase=2*Math.PI*hz*t,attack=Math.min(1,t/(kind==='pad'?.18:kind==='reed'?.025:.006)),release=Math.max(0,Math.min(1,(duration-t)/(kind==='pad'?.28:.08)));let wave:number,envelope:number;
   if(kind==='string'){wave=Math.sin(phase)+.3*Math.sin(phase*2.001)*Math.exp(-t*6)+.15*Math.sin(phase*3.997)*Math.exp(-t*12);envelope=Math.exp(-t*5);}
+  else if(kind==='brass'){wave=Math.sin(phase)+.42*Math.sin(phase*2)+.23*Math.sin(phase*3)+.10*Math.sin(phase*4);envelope=(.65+.35*Math.exp(-t*9))*Math.min(1,t/.035);}
   else if(kind==='reed'){const vibrato=phase+.045*Math.sin(t*2*Math.PI*4.6);wave=Math.sin(vibrato)+.19*Math.sin(vibrato*3)+.055*Math.sin(vibrato*5);envelope=.7+.3*Math.exp(-t*4);}
   else if(kind==='bass'){wave=Math.sin(phase)+.22*Math.sin(phase*2)*Math.exp(-t*4);envelope=Math.exp(-t*3.8);}
   else{wave=Math.sin(phase)+.35*Math.sin(phase*1.002)+.12*Math.sin(phase*2);envelope=1;}
@@ -20,11 +21,11 @@ export function composePondMusic(mood:MusicMood='lobby'){
  for(let bar=0;bar<MUSIC.bars;bar++){const c=chords[bar],base=bar*4*beat;
   for(const n of c.slice(1,4))note(n,base,4.3*beat,busy?.008:.021,'pad');
   const pattern=busy?[0,2,1,3,0,2,1,3]:[0,-1,2,-1,1,-1,3,-1];
-  for(let step=0;step<8;step++){const at=base+step*.5*beat,index=pattern[step];if(index>=0)note(c[1+index],at,.45,busy?.061:.053,'string');const m=melody[bar][step];if(busy&&m>=0)note(m,at,(step===0?.7:.46)*beat,.091,'reed');
-   if(busy){drum(at,'hat',step%2?.012:.018);if(step===0||step===3||step===4||step===7)drum(at,'kick',step===3||step===7?.055:.105);if(step===2||step===6)drum(at,'snare',.058);if(bar%4===3&&step>=6)drum(at,'tom',.048);}
+  for(let step=0;step<8;step++){const at=base+step*.5*beat,index=pattern[step];if(index>=0)note(c[1+index],at,.45,busy?.074:.053,'string');const m=melody[bar][step];if(busy&&m>=0)note(m,at,(step===0?.7:.46)*beat,.105,'brass');
+   if(busy){note(c[1+(step+1)%3]+12,at+.25*beat,.18*beat,.035,'string');if(step===0||step===3||step===6)for(const n of c.slice(1,4))note(n,at,.25*beat,.032,'brass');drum(at,'hat',step%2?.018:.025);if(step===0||step===3||step===4||step===7)drum(at,'kick',step===3||step===7?.075:.14);if(step===2||step===6)drum(at,'snare',.088);if(bar%4===3&&step>=6)drum(at,'tom',.08);}
    else{if(step===0)drum(at,'kick',.045);if(step===4)drum(at,'snare',.018);if(step%2===1)drum(at,'hat',.008);}
   }
-  for(const step of busy?[0,1.5,2,3.5]:[0,2])note(c[0]+(step===1.5||step===3.5?7:0),base+step*beat,(busy?.7:1.3)*beat,busy?.16:.10,'bass');
+  for(const step of busy?[0,1.5,2,3.5]:[0,2])note(c[0]+(step===1.5||step===3.5?7:0),base+step*beat,(busy?.7:1.3)*beat,busy?.18:.10,'bass');
   if(!busy){note(melody[bar][0]-12,base+.5*beat,1.5*beat,.044,'reed');const answer=[...melody[bar]].reverse().find(n=>n>=0)!;note(answer-12,base+2.5*beat,1.2*beat,.037,'reed');}
  }
  // Tails wrap at the seam; both arrangements share an exact bar clock.

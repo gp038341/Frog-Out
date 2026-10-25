@@ -17,7 +17,7 @@ export const SOUNDS:Record<Cue,{cooldown:number;important?:boolean;ambience?:boo
  go:{cooldown:700,important:true,type:'triangle',notes:[[180,600,.12],[420,110,.20,.09]]},
  last:{cooldown:900,important:true,type:'sine',notes:[[280,140,.15],[420,180,.20,.16]]},
  round:{cooldown:800,important:true,type:'sine',notes:[[220,330,.13],[330,440,.14,.11],[440,220,.21,.23]]},
- win:{cooldown:1000,important:true,type:'triangle',notes:[[240,360,.13],[360,540,.14,.13],[540,270,.25,.27]]},
+ win:{cooldown:1800,important:true,type:'triangle',notes:[[523.25,523.25,.16],[659.25,659.25,.16,.17],[783.99,783.99,.18,.34],[1046.5,1046.5,.70,.53],[523.25,523.25,.65,.53],[659.25,659.25,.65,.53],[783.99,783.99,.65,.53]]},
  freeze:{cooldown:200,important:true,type:'sine',notes:[[1350,2300,.12],[1850,700,.17,.05]]},
  rescue:{cooldown:240,important:true,type:'sine',notes:[[700,1450,.13],[1000,2100,.12,.06]]},
  magnet:{cooldown:250,type:'sine',notes:[[310,1300,.13],[1250,650,.10,.07]]},

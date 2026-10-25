@@ -180,7 +180,7 @@ export class Courtyard {
   if(mark===5)g.strokePoints([{x,y:y-7},{x:x+3,y:y-4},{x,y:y-1},{x:x-3,y:y-4}],true);
   if(mark===6)g.lineBetween(x-r*.78,y-3,x+r*.78,y-3);
   if(mark===7){g.lineBetween(x-3,y-5,x+3,y-1);g.lineBetween(x+3,y-5,x-3,y-1);}
-  paintHat(g,x,y-r-5,r,layers.hat,time);
+  paintHat(g,x,y-r*.86,r,layers.hat,time);
   if(infection?.patientZero){g.fillStyle(0xffe487);g.lineStyle(2,INK);const points=[{x:x-7,y:y-r-7},{x:x-7,y:y-r-14},{x:x-3,y:y-r-10},{x,y:y-r-16},{x:x+3,y:y-r-10},{x:x+7,y:y-r-14},{x:x+7,y:y-r-7}];g.fillPoints(points,true);g.strokePoints(points,true);}
   if(charging){g.lineStyle(3,INK);g.strokeCircle(x,y,r+9);g.lineStyle(3,0xffe29c);g.beginPath();g.arc(x,y,r+9,-Math.PI/2,-Math.PI/2+Math.PI*2*Math.max(.03,q));g.strokePath();}
   g.restore();

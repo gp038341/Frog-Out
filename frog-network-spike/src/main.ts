@@ -185,7 +185,7 @@ el('next-round').onclick=()=>{audio.play('ui');net.nextRound();};el('return-lobb
 const diagnosticButton=document.createElement('button');diagnosticButton.id='input-monitor-toggle';diagnosticButton.textContent='Input monitor';diagnosticButton.setAttribute('aria-pressed','false');el('session-footer').append(diagnosticButton);
 const diagnosticPanel=document.createElement('pre');diagnosticPanel.id='input-monitor';diagnosticPanel.hidden=true;diagnosticPanel.setAttribute('aria-label','Input pipeline diagnostics');document.body.append(diagnosticPanel);
 const matchChrome=new MatchChrome();
-const resultsUI=new ResultsUI();
+const resultsUI=new ResultsUI(()=>audio.play('win'));
 const roundReadout=new RoundReadout();
 let monitor=new URLSearchParams(location.search).get('diagnostics')==='1';
 diagnosticButton.onclick=()=>{monitor=!monitor;diagnosticButton.setAttribute('aria-pressed',String(monitor));diagnosticPanel.hidden=!monitor;};

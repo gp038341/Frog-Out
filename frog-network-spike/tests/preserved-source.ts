@@ -161,4 +161,7 @@ export function resultsWindowPreservedSource(path:string,raw=false){const m=JSON
 export function desktopMousePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/desktop-mouse-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??mouseFreezePreservedSource(path,raw);}
 
 /** Reverse only the requested mouse-action, transient HUD and Freeze AI corrections. */
-export function mouseFreezePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/mouse-classic-freeze-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function mouseFreezePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/mouse-classic-freeze-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??soundHatsPreservedSource(path,raw);}
+
+/** Reverse only requested soundtrack, victory cue and cosmetic rendering refinements. */
+export function soundHatsPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/sound-hats-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

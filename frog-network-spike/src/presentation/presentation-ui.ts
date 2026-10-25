@@ -20,7 +20,7 @@ export class PresentationUI {
  }
  update(view:OutbreakView|undefined,local:number){
   this.syncSound();
-  for(const m of this.moments.update(view,local)){this.audio.play(m.sound??m.cue);if(m.text){this.toast.textContent=m.text;this.toast.dataset.kind=m.cue;this.until=performance.now()+(m.cue==='last'||m.cue==='infect'||m.cue==='transform'?1300:650);}}
+  for(const m of this.moments.update(view,local)){if(m.cue!=='win')this.audio.play(m.sound??m.cue);/* Victory is timed by the final podium reveal. */if(m.text){this.toast.textContent=m.text;this.toast.dataset.kind=m.cue;this.until=performance.now()+(m.cue==='last'||m.cue==='infect'||m.cue==='transform'?1300:650);}}
   this.toast.hidden=!view||view.phase!=='playing'||performance.now()>this.until||!!document.querySelector('dialog[open]');
   if(!view){this.key='';this.count=-1;document.body.classList.remove('pond-last','pond-victory');return;}
   const key=`${view.round}:${view.phase}`,overlay=document.querySelector('#phase-overlay')!;
