@@ -164,4 +164,7 @@ export function desktopMousePreservedSource(path:string,raw=false){const m=JSON.
 export function mouseFreezePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/mouse-classic-freeze-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??soundHatsPreservedSource(path,raw);}
 
 /** Reverse only requested soundtrack, victory cue and cosmetic rendering refinements. */
-export function soundHatsPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/sound-hats-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function soundHatsPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/sound-hats-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??audioHatRevisionPreservedSource(path,raw);}
+
+/** Reverse only owner-directed hat seating, original eyelid fill, music reassignment and applause. */
+export function audioHatRevisionPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/audio-hat-revision-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

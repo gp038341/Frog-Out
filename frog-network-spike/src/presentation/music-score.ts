@@ -1,9 +1,10 @@
+import {composeChaseMusic} from './chase-score';
 /** Reedwater — original Frog-Out theme, in two synchronized arrangements.
  * Modal/minor adventure, warm strings/reeds, restrained percussion; no external samples. */
 export type MusicMood='lobby'|'adventure';
 export type MusicScore=Record<MusicMood,Float32Array>;
 export const MUSIC={title:'Reedwater',bpm:124,bars:16,sampleRate:22050,defaultVolume:.30} as const;
-export function composePondMusic(mood:MusicMood='lobby'){
+function composeReedwater(mood:MusicMood='lobby'){
  const rate=MUSIC.sampleRate,beat=60/MUSIC.bpm,length=Math.round(MUSIC.bars*4*beat*rate),data=new Float32Array(length),busy=mood==='adventure';let seed=59287;
  const noise=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/2147483648-1;};
  const note=(midi:number,start:number,duration:number,level:number,kind:'reed'|'string'|'bass'|'pad'|'brass')=>{const hz=440*2**((midi-69)/12),count=Math.ceil(duration*rate),offset=Math.round(start*rate);for(let i=0;i<count;i++){const t=i/rate,phase=2*Math.PI*hz*t,attack=Math.min(1,t/(kind==='pad'?.18:kind==='reed'?.025:.006)),release=Math.max(0,Math.min(1,(duration-t)/(kind==='pad'?.28:.08)));let wave:number,envelope:number;
@@ -32,4 +33,5 @@ export function composePondMusic(mood:MusicMood='lobby'){
  for(let i=0;i<data.length;i++)data[i]=Math.tanh(data[i]*1.05)*.85;
  return data;
 }
+export function composePondMusic(mood:MusicMood='lobby'){return mood==='lobby'?composeReedwater('adventure'):composeChaseMusic(MUSIC.sampleRate,Math.round(MUSIC.bars*4*60/MUSIC.bpm*MUSIC.sampleRate));}
 export function composeSoundtrack():MusicScore{return{lobby:composePondMusic('lobby'),adventure:composePondMusic('adventure')};}

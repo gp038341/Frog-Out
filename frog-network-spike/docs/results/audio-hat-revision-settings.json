@@ -1,0 +1,21 @@
+{
+  "checks": [
+    {
+      "mobile": false,
+      "actualEditorAllThreeHats": true,
+      "closedEyesInEditorAndHero": true,
+      "lobbyPreview": true,
+      "masterSound": true,
+      "musicPersistence": true
+    },
+    {
+      "mobile": true,
+      "actualEditorAllThreeHats": true,
+      "closedEyesInEditorAndHero": true,
+      "lobbyPreview": true,
+      "masterSound": true,
+      "musicPersistence": true
+    }
+  ],
+  "physicalDeviceTesting": false
+}
