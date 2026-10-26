@@ -170,4 +170,7 @@ export function soundHatsPreservedSource(path:string,raw=false){const m=JSON.par
 export function audioHatRevisionPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/audio-hat-revision-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??recordedAudioPreservedSource(path,raw);}
 
 /** Reverse only recorded round audio and its countdown activation for older approval guards. */
-export function recordedAudioPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/recorded-round-audio-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function recordedAudioPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/recorded-round-audio-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??chaseMusicPreservedSource(path,raw);}
+
+/** Reverse only the owner-requested gameplay track replacement and attribution. */
+export function chaseMusicPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/chase-music-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

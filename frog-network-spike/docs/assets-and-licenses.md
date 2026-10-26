@@ -1,8 +1,8 @@
 # Current audio additions
 
-The round-audio revision introduces two self-hosted CC0 recordings. Earlier milestone asset inventories below remain historical descriptions.
+The current round-audio revision uses two self-hosted recordings with verified redistribution licenses. Earlier milestone asset inventories below remain historical descriptions.
 
-- `public/audio/pond-adventure.mp3`: **Youthful Elf Seeking Adventure**, by **Ragnar Random**, [Orchestral and World Music Pack](https://opengameart.org/content/orchestral-and-world-music-pack). Author-published CC0. Edited to a 54.857-second loop excerpt; mono MP3, loudness managed and endpoint fades.
+- `public/audio/pond-chase.mp3`: **Run Amok**, by **Kevin MacLeod** ([Incompetech](https://incompetech.com/)), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Edited and looped for Frog-Out: 32-bar, 148 BPM excerpt with an 80ms cyclic seam crossfade; loudness-managed mono MP3. Permanent linked attribution appears in Settings.
 - `public/audio/audience-applause.mp3`: **Small applause**, by **Breviceps**, [Freesound 462362](https://freesound.org/people/Breviceps/sounds/462362/). Author-published CC0; real applause from roughly 30 people. Edited to 4.4 seconds, lowered loudness and gentle endpoint fades.
 
 See `public/audio/credits.json` for direct sources, licenses, exact edits and checksums. No runtime third-party requests, accounts or paid services. The generated lobby composition remains unchanged. Prior synthetic gameplay/applause candidates are not used by the live playback path.
@@ -53,3 +53,7 @@ Countdown, poison poof, ice/rescue, magnet, gust, rubber boing, teleport, bubble
 ## Background music — Reedwater
 
 Reedwater is an original Frog-Out modal/minor theme in two synchronized arrangements (Chill and Adventure), replacing the previous Pondside Pandemonium candidate. Composition and string/reed/bass/percussion synthesis are project-native code in `src/presentation/music-score.ts`, rendered locally by `music-worker.ts`. No external melody, recording, sample, dependency, paid service or third-party licensing obligation. Source and generated audio are original project assets for redistribution with the game. Approved sound effects are unchanged. See `docs/background-music.md` for controls and validation.
+
+## Current gameplay music replacement (2026-10-26)
+
+“Run Amok” by Kevin MacLeod (https://incompetech.com/), licensed under Creative Commons Attribution 4.0 (https://creativecommons.org/licenses/by/4.0/). Official catalog: https://incompetech.com/music/royalty-free/pieces.json, ISRC USUAN1400024. Original 148 BPM, strings/brass/woodwinds/percussion, described by its composer as comic action. Edited to a 32-bar cyclic excerpt, normalized and encoded locally. Attribution and edit notice are visible in Settings at all times. Provenance and checksums: `public/audio/credits.json`. This replaces Youthful Elf Seeking Adventure only; lobby music and recorded audience applause remain unchanged. Historical sections below/above describe earlier candidates, not the active gameplay recording.

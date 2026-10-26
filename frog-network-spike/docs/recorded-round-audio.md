@@ -1,4 +1,6 @@
-# Recorded round music and audience applause — playtest candidate
+# Recorded round music and audience applause — historical candidate
+
+The gameplay track below has been superseded by `chase-music-replacement.md`. Countdown timing and recorded applause remain current.
 
 Previous candidate: `7ca8c4b2a2e5e1e8243819528cde7b036dd12bad`.
 Checkpoint: `checkpoint/pre-recorded-round-audio`. Earlier approval checkpoints remain intact.

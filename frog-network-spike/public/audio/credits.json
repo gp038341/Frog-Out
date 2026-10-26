@@ -1,18 +1,18 @@
 {
-  "license_verified": "2026-10-25",
+  "license_verified": "2026-10-26",
   "assets": [
     {
-      "file": "pond-adventure.mp3",
-      "title": "Youthful Elf Seeking Adventure",
-      "author": "Ragnar Random",
-      "source": "https://opengameart.org/content/orchestral-and-world-music-pack",
-      "download": "https://opengameart.org/sites/default/files/04_-_youthful_elf_seeking_adventure.ogg",
-      "license": "CC0 1.0",
-      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
-      "source_sha256": "62533e488e77d6f58053bd6e67669bd6ed591a059363a9d3e651c77bbbd14475",
-      "edits": "54.857-second excerpt; mono 22.05 kHz MP3 at 80kbps; -22 LUFS target, -5dBTP cap; 15ms in/200ms out fades.",
-      "sha256": "244397cc66c81e23d434860b404ada658355e2cf18d4523ddb3e1f9ee9234afc",
-      "bytes": 549400
+      "file": "pond-chase.mp3",
+      "title": "Run Amok",
+      "author": "Kevin MacLeod",
+      "source": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400024&Search=Search",
+      "download": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Run%20Amok.mp3",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_sha256": "12ee736658e7aab114f57a8edb034e8dafce37e01bdacd788b486377c4bd4d24",
+      "edits": "First 32 bars at original 148 BPM (51.891892 seconds), 80ms cyclic seam crossfade, mono 22.05kHz MP3 at 80kbps, normalized -22 LUFS / -5dBTP. No tempo/pitch change.",
+      "sha256": "e90f4a9513950bfac8079ea46ab09fd41d49fa80ff15a8118bf8ac0490f6db25",
+      "bytes": 519098
     },
     {
       "file": "audience-applause.mp3",

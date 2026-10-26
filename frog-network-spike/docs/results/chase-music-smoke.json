@@ -1,0 +1,19 @@
+{
+  "revision": "local-chase-candidate",
+  "recordedMusicBeforeGo": true,
+  "recordedApplauseDecoded": true,
+  "twoMusicSources": true,
+  "publicEditor": true,
+  "allThreeHats": true,
+  "closedLids": true,
+  "publicCreateJoin": true,
+  "websocketGameStart": true,
+  "chillToAdventure": true,
+  "settingsMute": true,
+  "errors": [],
+  "tests": {
+    "passed": 496,
+    "failed": 0,
+    "productionBuild": "passed"
+  }
+}
