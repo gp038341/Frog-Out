@@ -37,3 +37,7 @@ An unruly pond club, screen-printed by hand: plum ink, cream paper, chartreuse a
 All protected gameplay/physics/AI/audio/network/input bytes match the original. The renderers use the exact authoritative geometry, including local filtered geometry for tilted/crumbling platforms. Added art is small original vector code; the only third-party visual asset is a 29,948-byte self-hosted OFL display font with license/source included. No production dependency or hosting-cost change.
 
 Physical iPhone/Android acceptance remains for the owner. Automated Linux WebKit and Chromium touch emulation are reported separately from physical tests. Subjective art acceptance is not inferred from tests. Long names/editor controls and large tied result groups keep their existing scrolling. The current presentation can be restored exactly from the permanent checkpoint; no rollback is performed unless requested.
+
+## Owner approval and production promotion
+
+The owner has approved the creative direction and authorized promotion after four scoped adjustments and isolated preview validation. See [approved-adjustments.md](approved-adjustments.md) for scope, preservation, verification and checkpoint details. This newer authorization supersedes the original preview-only boundary above.

@@ -11,11 +11,11 @@
 
 The checkpoint is never updated, merged into, deleted or force-pushed. A local full-tree archive was also made before edits. Earlier checkpoints remain intact. The only pre-existing tracked local difference was a generated historical bot timing report, preserved separately and excluded. Historical untracked QA files are retained and excluded.
 
-## Isolated playtest deployment (current authorization)
+## Owner-approved promotion
 
-Development and publication are restricted to `experiment/frog-out-creative-identity`. The owner authorized ONE separate temporary Free-plan Render web service using only this branch. The existing production service and main branch must remain at the protected original. There is no production rollback needed for this isolated test, because production is not changed. No service rename, plan upgrade, default-branch update or merge is authorized.
+The owner approved the experimental visual identity and explicitly authorized production promotion after the four requested adjustments pass on the existing isolated Free preview. See `approved-adjustments.md`. Promote the exact tested experiment commit by fast-forwarding `main`, without force or history rewriting; preserve both service configurations and the original checkpoint. The temporary service remains available until the owner requests its removal.
 
-The exact-SHA rollback procedure below is retained for possible future owner-approved production promotion. Do not execute it during this isolated preview task.
+The original remains recoverable using the procedure below. Do not execute a rollback unless the owner requests it.
 
 ## Restore the exact deployed original SHA
 

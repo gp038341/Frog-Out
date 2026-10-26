@@ -34,7 +34,7 @@ body.results-celebration{background:#292431!important;background-image:radial-gr
 /* Shared dialogs are field notices, not a second application theme. */
 .player-dialog{color:#292431!important;background:#fff1ce!important;border:3px solid #292431!important;border-radius:3px!important;box-shadow:7px 7px 0 #17151f!important}.player-dialog::backdrop{background:#292431db}.player-dialog h2{color:#292431}.player-dialog p,.player-dialog label,.player-dialog h3,.player-dialog summary{color:#514650}.player-dialog .guide-note{color:#7a5e67}.player-dialog .music-settings,.player-dialog #menu-session-context{background:#f1e2c0!important;border:1px solid #aa957e!important;border-radius:2px!important;color:#292431}.player-dialog .music-settings legend,.player-dialog .music-settings small,.player-dialog .music-settings label,.player-dialog #menu-session-context h3,.player-dialog #session-code,.player-dialog #outbreak-heading{color:#514650!important}.player-dialog input[type=range]{accent-color:#6e8538}.player-dialog .chaos-guide{background:#e3d5a3;border-color:#9a8878;border-radius:2px}.player-dialog .chaos-guide h3,.player-dialog .guide-grid h3,.player-dialog .guide-grid strong,.player-dialog .guide-note{color:#514650}.player-dialog kbd{background:#292431;color:#fff1ce!important;border-radius:2px}.player-dialog details{border-color:#baa78d}.player-dialog #frog-customization .cosmetic-choices label{color:#514650}
 /* Paint-only game treatment; accepted viewport grids, dimensions and hit regions remain untouched. */
-body.game-active{background:#292431}.game-active #brand h1,.game-active #brand h1 span{color:#fff1ce}.game-active #connection,.game-active #outbreak-heading,.game-active #phase-message{color:#e5d7be}.game-active #game{background:#292431;border-radius:0}.game-active #session-footer button{background:#292431;color:#fff1ce;border-color:#a49694;box-shadow:none}.game-active #round-timer{color:#fff1ce}#phase-overlay{background:#29243155}.reveal-card{background:#fff1cef5;border:3px solid #292431;border-radius:2px;box-shadow:5px 5px #292431;color:#292431}.reveal-card .eyebrow,.reveal-card small{color:#725566}.reveal-card strong{font-family:'Pond Press Display',Impact,'Arial Black',sans-serif}#countdown-number{color:#292431;font-family:'Pond Press Display',Impact,'Arial Black',sans-serif}#pond-moment{background:#fff1ce;color:#292431;border:2px solid #292431;border-radius:2px;box-shadow:3px 3px #292431;font-family:'Pond Press Display',Impact,'Arial Black',sans-serif;letter-spacing:1px}.pond-reveal-caption{color:#715460}#match-round-readout{border-radius:2px;background:#292431;color:#fff1ce;border-color:#b5a490}#chaos-active{border-radius:1px;background:#292431e8;color:#fff1ce}#chaos-swap-clock,#chaos-gravity-clock{border-radius:2px;background:#292431ec;box-shadow:2px 2px #17151f}
+body.game-active{background:#292431}.game-active #brand h1,.game-active #brand h1 span{color:#fff1ce}.game-active #connection,.game-active #outbreak-heading,.game-active #phase-message{color:#e5d7be}.game-active #game{background:#292431;border-radius:0}.game-active #session-footer button{background:#292431;color:#fff1ce;border-color:#a49694;box-shadow:none}.game-active #round-timer{color:#fff1ce}#phase-overlay{background:#29243155}.reveal-card{background:#fff1cef5;border:3px solid #292431;border-radius:2px;box-shadow:5px 5px #292431;color:#292431}.reveal-card .eyebrow,.reveal-card small{color:#725566}.reveal-card strong{font-family:'Pond Press Display',Impact,'Arial Black',sans-serif}#countdown-number{color:#fff7b0;-webkit-text-stroke:2px #292431;text-shadow:3px 3px 0 #292431,0 0 12px #ffd86a88;font-family:'Pond Press Display',Impact,'Arial Black',sans-serif}#pond-moment{background:#fff1ce;color:#292431;border:2px solid #292431;border-radius:2px;box-shadow:3px 3px #292431;font-family:'Pond Press Display',Impact,'Arial Black',sans-serif;letter-spacing:1px}.pond-reveal-caption{color:#715460}#match-round-readout{border-radius:2px;background:#292431;color:#fff1ce;border-color:#b5a490}#chaos-active{border-radius:1px;background:#292431e8;color:#fff1ce}#chaos-swap-clock,#chaos-gravity-clock{border-radius:2px;background:#292431ec;box-shadow:2px 2px #17151f}
 @media(max-width:900px){body:not(.game-active):not(.results-celebration) main{padding:14px}#home .home-intro{min-height:465px;padding:23px 22px 180px}body:not(.game-active):not(.results-celebration) #home h2{font-size:54px}#home .hero-frog{width:250px;right:-4px;bottom:10px}body:not(.game-active):not(.results-celebration) .home-actions{padding:25px 20px}.home-actions:before{font-size:21px}#players{grid-template-columns:repeat(2,minmax(0,1fr))}#lobby h2{font-size:34px}}
 @media(max-height:540px) and (orientation:landscape){body:not(.game-active):not(.results-celebration) main{padding:8px 12px}body:not(.game-active):not(.results-celebration) #brand{min-height:37px;margin-bottom:4px}body:not(.game-active):not(.results-celebration) #brand h1,body:not(.game-active):not(.results-celebration) #brand h1 span{font-size:30px}body:not(.game-active):not(.results-celebration) #brand h1 small{font-size:7px;margin-top:4px;letter-spacing:1.8px}body:not(.game-active):not(.results-celebration) #connection{font-size:9px}body:not(.game-active):not(.results-celebration) #home{grid-template-columns:1.1fr 1fr;margin:8px 0}#home .home-intro{min-height:350px;padding:18px 20px 125px}body:not(.game-active):not(.results-celebration) #home h2{font-size:47px;margin:18px 0 10px}#home .home-intro .eyebrow{font-size:7px;letter-spacing:.8px;padding:5px 7px}#home .home-intro p{font-size:11px;max-width:190px}#home .hero-frog{width:210px;right:-3px;bottom:4px}#home-edit-frog{left:16px;bottom:15px;min-height:35px;font-size:10px;padding:6px 8px;width:auto}body:not(.game-active):not(.results-celebration) .home-actions{padding:17px 18px;gap:0}.home-actions:before{font-size:19px;margin-bottom:5px}.home-actions label{font-size:10px;margin:6px 0}.home-actions input{min-height:38px;padding:8px 10px;margin-top:4px}.home-actions #create,.home-actions #join{min-height:37px;font-size:13px;margin:3px 0 5px}.home-actions .helper{font-size:10px;line-height:1.4;margin:5px 0}.home-actions:after{font-size:7px;margin-top:7px}body:not(.game-active):not(.results-celebration) #lobby{padding:14px 18px}#lobby h2{font-size:30px}#players{grid-template-columns:repeat(4,minmax(0,1fr))}#players .player-name{font-size:10px}#players .player-portrait svg{width:44px;height:40px}#players .cpu-seat{grid-template-columns:44px minmax(0,1fr)}#players .player-portrait{flex-basis:44px}#chaos-voting h2{font-size:28px}#chaos-voting .chaos-card strong{font-size:21px}#chaos-voting .chaos-card>span{font-size:11px}.chaos-cards{gap:11px;padding:4px 2px 8px}.results-celebration #results-title{font-size:25px}.podium-rank{font-size:20px}.results-celebration #results{box-shadow:none}.player-dialog h2{font-size:25px}}
 @media(max-width:600px) and (orientation:portrait){body:not(.game-active):not(.results-celebration) #home{grid-template-columns:1fr}#home .home-intro{min-height:460px}body:not(.game-active):not(.results-celebration) #home h2{font-size:58px}body:not(.game-active):not(.results-celebration) .home-actions{border-left:0;border-top:2px dashed #9f8b78}#home .hero-frog{width:280px}#home-edit-frog{left:20px;right:auto}#lobby h2{font-size:31px}.customization-body{gap:12px}.frog-preview{flex-basis:100px}.cosmetic-choices{grid-template-columns:1fr}}
@@ -69,3 +69,43 @@ body:not(.game-active):not(.results-celebration) #lobby .arena-choice{background
 .player-dialog #help-live-note{color:#80503f}
 #chaos-voting #vote-round-readout{color:#7a5f66}
 .results-celebration th{color:#66535b}.results-celebration td{background:#eedfbd;color:#292431;border-color:#b7a183}.results-celebration .winner-row td{background:#d5daa2}.results-celebration .winner-row td:nth-child(2){color:#476039}
+
+/* Owner-approved voting fit: content sizes together instead of competing minimum heights. */
+body:not(.game-active):not(.results-celebration) #chaos-voting{
+ top:50%;margin:0;max-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 16px);
+ width:min(1120px,calc(100% - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px) - 24px));
+ display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:20px;
+}
+#chaos-voting[hidden]{display:none!important}
+#chaos-voting>*{grid-column:1/-1;min-width:0}
+#chaos-voting #vote-round-readout{grid-row:1;margin:0;font-size:12px}
+#chaos-voting h2{grid-row:2;grid-column:1;text-align:left;margin:0;font-size:clamp(24px,3vw,38px);align-self:center}
+#chaos-voting #chaos-timer{grid-row:2;grid-column:2;margin:0;align-self:center;font-size:21px}
+#chaos-voting>p{margin:0;line-height:1.3}
+#chaos-voting .chaos-expiring{padding:0 0 5px}
+#chaos-voting .chaos-cards{padding:5px 3px 7px;gap:14px}
+#chaos-voting .chaos-card{min-height:0;padding:16px;gap:9px}
+#chaos-voting .chaos-print-icon{width:76px;height:65px;margin:0 auto}
+#chaos-voting .vote-stamps{margin-top:auto;flex-shrink:0}
+@media(max-height:600px) and (orientation:landscape){
+ body:not(.game-active):not(.results-celebration) #chaos-voting{padding:9px 12px;gap:3px 8px}
+ #chaos-voting #vote-round-readout{font-size:10px;margin:0}
+ #chaos-voting h2{font-size:21px}#chaos-voting #chaos-timer{font-size:16px;padding:3px 8px}
+ #chaos-voting>p{font-size:10px;line-height:1.2}
+ #chaos-voting .chaos-expiring{padding-bottom:3px}
+ #chaos-voting .chaos-cards{gap:9px;padding:3px 2px 6px}
+ #chaos-voting .chaos-card{padding:8px;gap:4px}
+ #chaos-voting .chaos-card strong{font-size:16px;line-height:1.1;min-height:34px;padding-right:28px}
+ #chaos-voting .chaos-card>span{font-size:11px;line-height:1.2}
+ #chaos-voting .chaos-print-icon{position:absolute;right:4px;top:6px;width:30px;height:28px;margin:0}
+ #chaos-voting .vote-stamps{min-height:22px;gap:3px;padding-top:4px}
+ #chaos-voting .voter-stamp{width:22px;height:22px;flex-basis:22px;padding:2px}
+ #chaos-voting .vote-priority,#chaos-voting .no-votes{font-size:9px;line-height:1.1}
+}
+@media(max-height:360px) and (orientation:landscape){
+ #chaos-voting .chaos-card{padding:6px;gap:3px}
+ #chaos-voting .chaos-card strong{font-size:15px;min-height:32px}
+ #chaos-voting .chaos-card>span{font-size:10.5px}
+ #chaos-voting .voter-stamp{width:18px;height:18px;flex-basis:18px;padding:1px}
+ #chaos-voting .vote-stamps{min-height:20px;gap:2px;padding-top:3px}
+}

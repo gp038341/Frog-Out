@@ -7,3 +7,12 @@ for(const a of arenaList)test(`printed ${a.name} draws every exact collision sil
 test('all cosmetic combinations keep accessible identities, eyes, hats and an open-mouth home variant',()=>{for(const skin of SKINS)for(const eyes of EYES)for(const hat of HATS){const a={skin:skin.id,eyes:eyes.id,hat:hat.id},svg=appearancePreview(a);assert.match(svg,/viewBox="0 0 120 100"/);assert.ok(svg.includes(skin.name));assert.ok(svg.includes(eyes.id));assert.match(svg,/role="img"/);assert.ok(!svg.includes('undefined'));assert.ok(appearancePreview(a,true).includes('M46 62Q60 67'));}});
 test('every approved modifier gets original fixed, noninteractive print art',()=>{const art=new Set<string>();for(const {id} of MODIFIERS){const svg=chaosPrint(id as any);assert.match(svg,/aria-hidden="true"/);assert.ok(!svg.includes('undefined'));art.add(svg);}assert.equal(art.size,20);});
 test('new artwork has no external runtime requests; font license and reduced motion are shipped',()=>{const css=readFileSync('src/presentation/creative.css','utf8');assert.doesNotMatch(css,/https?:\/\//);assert.match(css,/prefers-reduced-motion:reduce/);assert.match(css,/font-display:swap/);assert.match(readFileSync('public/fonts/OFL-BowlbyOneSC.txt','utf8'),/SIL OPEN FONT LICENSE/);assert.ok(readFileSync('public/fonts/pond-press-display.woff').length<40000);assert.doesNotMatch(css,/#movement-area|#action-area|#direction-pad|#direction-knob/);});
+
+test('owner adjustments retain lobby palettes and exact restored original icon assets',()=>{
+ assert.equal(hash(readFileSync('public/frog-out-icon.svg')),'d74fa8e69c70d19048f8d0481c828bbd141e403d6762ab5a33045b9598726c8a');
+ assert.equal(hash(readFileSync('public/frog-out-icon.png')),'da09516c12a2441272a9fabe5c0a526a98f950f13efa3066d0b2b30c7e99ed44');
+ const html=readFileSync('index.html','utf8');assert.match(html,/frog-out-icon.svg\?v=restored-playful-3/);assert.doesNotMatch(html,/href="\/pond-press-icon/);
+ const preview=readFileSync('src/ui/arena-preview.ts','utf8');assert.match(preview,/PRINT_PALETTES/);assert.doesNotMatch(preview,/GAME_PALETTES/);
+ const css=readFileSync('src/presentation/creative.css','utf8');assert.match(css,/#countdown-number\{color:#fff7b0;-webkit-text-stroke:2px #292431;text-shadow:/);
+ const frog=readFileSync('src/presentation/courtyard.ts','utf8');assert.match(frog,/bodyColor=layers.skin.color/);assert.match(frog,/fillStyle\(0xffffff,.28\)/);
+});

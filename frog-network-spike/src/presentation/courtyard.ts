@@ -140,8 +140,8 @@ export class Courtyard {
   const feet=charging?0:Math.sin(time*16)*Math.min(3,Math.abs(f.vx)*.6);g.fillStyle(INK);g.fillEllipse(x-r*.78,y+r*.68,r*1.12,10);g.fillEllipse(x+r*.78,y+r*.68,r*1.12,10);g.fillStyle(bodyColor);g.fillEllipse(x-r*.78,y+r*.65+feet,r*.88,6);g.fillEllipse(x+r*.78,y+r*.65-feet,r*.88,6);
   const bean=[[-.77,-.63],[-.34,-.89],[.35,-.87],[.8,-.6],[1,.02],[.9,.51],[.49,.84],[-.43,.84],[-.91,.53],[-1,.06]].map(([dx,dy])=>({x:x+dx*r*sx,y:y+dy*r*sy}));
   g.fillStyle(online?bodyColor:0x8caaa3);g.fillPoints(bean,true);g.lineStyle(2.5,INK);g.strokePoints(bean,true);
-  g.fillStyle(0xfff1ce,.66);g.fillEllipse(x,y+r*.43*sy,r*1.26,r*.63*sy);
-  g.lineStyle(1,0xfff1ce,.65);g.lineBetween(x-r*.84*sx,y+r*.08,x-r*.72*sx,y-r*.25);
+  g.fillStyle(0xffffff,.28);g.fillEllipse(x,y+r*.43*sy,r*1.26,r*.63*sy);
+  g.lineStyle(1,0xffffff,.85);g.lineBetween(x-r*.84*sx,y+r*.08,x-r*.72*sx,y-r*.25);
   // Three splayed suction toes, a common silhouette in portraits and gameplay.
   for(const side of[-1,1])for(let toe=0;toe<3;toe++){g.fillStyle(INK);g.fillCircle(x+side*(r*.62+toe*2.8),y+r*.78+(toe%2)*1.5,2.6);g.fillStyle(bodyColor);g.fillCircle(x+side*(r*.62+toe*2.8),y+r*.78+(toe%2)*1.5,1.4);}
   if(layers.showPattern)paintPattern(g,x,y,r,layers.appearance);
