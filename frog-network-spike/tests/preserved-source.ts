@@ -173,4 +173,7 @@ export function audioHatRevisionPreservedSource(path:string,raw=false){const m=J
 export function recordedAudioPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/recorded-round-audio-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??chaseMusicPreservedSource(path,raw);}
 
 /** Reverse only the owner-requested gameplay track replacement and attribution. */
-export function chaseMusicPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/chase-music-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function chaseMusicPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/chase-music-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??heroicMusicPreservedSource(path,raw);}
+
+/** Reverse only the owner-selected Heroic Age gameplay recording and credit. */
+export function heroicMusicPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/heroic-age-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

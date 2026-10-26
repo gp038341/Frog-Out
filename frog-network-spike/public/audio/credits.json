@@ -2,17 +2,17 @@
   "license_verified": "2026-10-26",
   "assets": [
     {
-      "file": "pond-chase.mp3",
-      "title": "Run Amok",
+      "file": "heroic-age.mp3",
+      "title": "Heroic Age",
       "author": "Kevin MacLeod",
-      "source": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400024&Search=Search",
-      "download": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Run%20Amok.mp3",
+      "source": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100848&Search=Search",
+      "download": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Heroic%20Age.mp3",
       "license": "CC BY 4.0",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
-      "source_sha256": "12ee736658e7aab114f57a8edb034e8dafce37e01bdacd788b486377c4bd4d24",
-      "edits": "First 32 bars at original 148 BPM (51.891892 seconds), 80ms cyclic seam crossfade, mono 22.05kHz MP3 at 80kbps, normalized -22 LUFS / -5dBTP. No tempo/pitch change.",
-      "sha256": "e90f4a9513950bfac8079ea46ab09fd41d49fa80ff15a8118bf8ac0490f6db25",
-      "bytes": 519098
+      "source_sha256": "d0bbd367ab8c6d744e18f317df12de67e1b40f8b5d1c3812d7025eec9e9a0e7b",
+      "edits": "First 32 bars at original 129 BPM (59.534884 seconds), 80ms cyclic seam crossfade, mono 22.05kHz MP3 at 64kbps, normalized -22 LUFS / -5dBTP. No tempo/pitch change.",
+      "sha256": "aed0fe2d265b3283461d9a4040e78686e759272de0bad1f5969db06a9000f982",
+      "bytes": 476517
     },
     {
       "file": "audience-applause.mp3",

@@ -2,7 +2,7 @@
 
 The current round-audio revision uses two self-hosted recordings with verified redistribution licenses. Earlier milestone asset inventories below remain historical descriptions.
 
-- `public/audio/pond-chase.mp3`: **Run Amok**, by **Kevin MacLeod** ([Incompetech](https://incompetech.com/)), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Edited and looped for Frog-Out: 32-bar, 148 BPM excerpt with an 80ms cyclic seam crossfade; loudness-managed mono MP3. Permanent linked attribution appears in Settings.
+- `public/audio/heroic-age.mp3`: **Heroic Age**, by **Kevin MacLeod** ([Incompetech](https://incompetech.com/)), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Edited and looped for Frog-Out: 32-bar, 129 BPM excerpt with an 80ms cyclic seam crossfade; loudness-managed mono MP3. Permanent linked attribution appears in Settings.
 - `public/audio/audience-applause.mp3`: **Small applause**, by **Breviceps**, [Freesound 462362](https://freesound.org/people/Breviceps/sounds/462362/). Author-published CC0; real applause from roughly 30 people. Edited to 4.4 seconds, lowered loudness and gentle endpoint fades.
 
 See `public/audio/credits.json` for direct sources, licenses, exact edits and checksums. No runtime third-party requests, accounts or paid services. The generated lobby composition remains unchanged. Prior synthetic gameplay/applause candidates are not used by the live playback path.
@@ -57,3 +57,7 @@ Reedwater is an original Frog-Out modal/minor theme in two synchronized arrangem
 ## Current gameplay music replacement (2026-10-26)
 
 “Run Amok” by Kevin MacLeod (https://incompetech.com/), licensed under Creative Commons Attribution 4.0 (https://creativecommons.org/licenses/by/4.0/). Official catalog: https://incompetech.com/music/royalty-free/pieces.json, ISRC USUAN1400024. Original 148 BPM, strings/brass/woodwinds/percussion, described by its composer as comic action. Edited to a 32-bar cyclic excerpt, normalized and encoded locally. Attribution and edit notice are visible in Settings at all times. Provenance and checksums: `public/audio/credits.json`. This replaces Youthful Elf Seeking Adventure only; lobby music and recorded audience applause remain unchanged. Historical sections below/above describe earlier candidates, not the active gameplay recording.
+
+## Owner-selected Heroic Age (2026-10-26)
+
+The user selected Heroic Age after rejecting the comic Run Amok candidate. Heroic Age by Kevin MacLeod (https://incompetech.com/), CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), ISRC USUAN1100848. 32-bar loop, original 129 BPM, normalized, resampled, MP3 encoded with a short cyclic seam crossfade. Linked attribution and edit notice remain visible in Settings. The Run Amok section describes a superseded candidate.

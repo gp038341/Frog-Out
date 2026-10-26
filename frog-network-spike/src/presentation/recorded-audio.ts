@@ -1,5 +1,5 @@
 /** Locally served, licensed recordings. Full provenance and edits: public/audio/credits.json. */
-export const RECORDINGS={adventure:'/audio/pond-chase.mp3',applause:'/audio/audience-applause.mp3'} as const;
+export const RECORDINGS={adventure:'/audio/heroic-age.mp3',applause:'/audio/audience-applause.mp3'} as const;
 export async function decodeRecording(context:BaseAudioContext,url:string){
  const abort=new AbortController(),timer=setTimeout(()=>abort.abort(),12000);
  try{const response=await fetch(url,{signal:abort.signal});if(!response.ok)throw Error('Audio asset unavailable');return await context.decodeAudioData(await response.arrayBuffer());}finally{clearTimeout(timer);}
