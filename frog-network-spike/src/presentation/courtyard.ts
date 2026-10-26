@@ -1,3 +1,4 @@
+import {paintPrintedArena,PRINT_INK} from './printed-arena';
 import {LocalLocator} from './local-locator';
 import {ChaosSounds} from './chaos-sounds';
 import {paintFrogChaos} from './frog-chaos-art';
@@ -20,7 +21,7 @@ import {FROG_COLORS} from './identity';
 import {POISON_ACCENTS,poisonRole} from './poison-identity';
 import {TAG_POOF_MS,paintTagPoof} from './tag-poof';
 import {GameAudio} from './audio';
-const S=30,INK=0x142f35;
+const S=30,INK=PRINT_INK;
 type Point={x:number;y:number};
 type Pop={x:number;y:number;age:number;life:number;color:number;kind:'jump'|'charge'|'attach'|'infect'|'bump'|'swap';strength?:number};
 type Before={stickyAttachTick?:number;stickyReleaseTick?:number;pogoTick?:number;gravityFlipTick?:number;gravityWarningSeconds?:number;balloonPopTick?:number;balloonBounceTick?:number;bubblePressTick?:number;bubbleId?:number;bumperTick?:number;balloonInflated?:boolean;swapTick?:number;bubbleEscapeTick?:number;surfaceBounceTick?:number;vy:number;vx:number;grounded:boolean;charging:boolean;tongue?:string;state?:string;x:number;y:number};
@@ -38,42 +39,16 @@ export class Courtyard {
  constructor(private scene:Phaser.Scene,private audio:GameAudio){
   this.chaosSounds=new ChaosSounds(audio);this.locator=new LocalLocator(scene);
   this.background=scene.add.graphics().setDepth(0);this.ink=scene.add.graphics().setDepth(1);this.effects=scene.add.graphics().setDepth(2);
-  for(let i=0;i<8;i++)this.labels.push(scene.add.text(0,0,'',{fontFamily:'Trebuchet MS, sans-serif',fontSize:'19px',fontStyle:'bold',color:'#fff8d9',stroke:'#142f35',strokeThickness:5,align:'center',lineSpacing:0}).setOrigin(.5,1).setDepth(4));
+  for(let i=0;i<8;i++)this.labels.push(scene.add.text(0,0,'',{fontFamily:'Arial, sans-serif',fontSize:'19px',fontStyle:'bold',color:'#fff8d9',stroke:'#292431',strokeThickness:4,align:'center',lineSpacing:0}).setOrigin(.5,1).setDepth(4));
   this.chaosInk=scene.add.graphics().setDepth(1.5);
-  this.windLabel=scene.add.text(WIDTH*S/2,14,'',{fontFamily:'Trebuchet MS, sans-serif',fontSize:'16px',fontStyle:'bold',color:'#d9faff',stroke:'#142f35',strokeThickness:4}).setOrigin(.5,0).setDepth(4).setVisible(false);
+  this.windLabel=scene.add.text(WIDTH*S/2,14,'',{fontFamily:'Arial, sans-serif',fontSize:'16px',fontStyle:'bold',color:'#d9faff',stroke:'#142f35',strokeThickness:4}).setOrigin(.5,0).setDepth(4).setVisible(false);
   this.feel=new Feel(scene,audio);
   this.paintArena();
  }
  private windLabel:Phaser.GameObjects.Text;chaosInk:Phaser.GameObjects.Graphics;platformInk=new Map<number,Phaser.GameObjects.Graphics>();platformBits=new Map<number,{ink:Phaser.GameObjects.Graphics;mask:Phaser.GameObjects.Graphics}[]>();private chaosLayout='';
  setArena(id:ArenaId){if(this.arenaId!==id){this.arenaId=id;this.paintArena();this.clear();}}
- paintArena(g:Phaser.GameObjects.Graphics=this.background,options:{background?:boolean;filter?:(index:number)=>boolean}={},definition=getArena(this.arenaId)){if(this.arenaId==='bathhouse'){paintBathhouse(g,definition,options);return;}if(this.arenaId==='toyshop'){paintToyshop(g,definition,options);return;}if(this.arenaId==='sunny-pond'){paintSunnyPond(g,definition,options);return;}g.clear();const glass=this.arenaId==='swingworks';
-  if(options.background!==false){g.fillStyle(glass?0x233c5b:0x214d46);g.fillRect(0,0,WIDTH*S,HEIGHT*S);
-  // Background decoration is low contrast and never outlined like collision surfaces.
-  if(glass){
-   g.fillStyle(0x355474,.45);g.fillTriangle(60,180,600,25,1140,180);g.fillRect(60,180,1080,450);
-   g.lineStyle(3,0x7193aa,.22);g.strokeTriangle(60,180,600,25,1140,180);
-   for(let x=60;x<1200;x+=180)g.lineBetween(x,180,x,630);for(let y=180;y<650;y+=120)g.lineBetween(60,y,1140,y);
-   // Rain is outside the glass, baked into the backdrop instead of per-frame particles.
-   g.lineStyle(2,0x94bac9,.14);for(let i=0;i<65;i++){const x=(i*193+19)%1200,y=(i*97)%640;g.lineBetween(x,y,x-3,y+13);}
-   g.fillStyle(0x365b65,.5);for(let i=0;i<8;i++){g.fillEllipse(75+i*150,650,100,40);g.fillTriangle(75+i*150,600,53+i*150,640,97+i*150,640);}
-  }else{
-   g.fillStyle(0xeacb86,.2);g.fillCircle(980,110,68);g.fillStyle(0x377368,.35);g.fillEllipse(600,620,1300,330);
-   for(const x of [30,1170]){g.lineStyle(12,0x386c57,.6);g.lineBetween(x,40,x,660);for(let j=0;j<8;j++){g.fillStyle(0x548c61,.3);g.fillEllipse(x+(j%2?26:-26),60+j*77,70,25);}}
-   // Tiny flower clusters are kept entirely behind the floor and boundary walls.
-   for(let i=0;i<24;i++){const x=20+i*50;g.fillStyle(0x608f67,.6);g.fillEllipse(x,665,24,10);g.fillStyle(0xd4ac8b,.5);g.fillCircle(x+5,659,3);}
-  }
-  }
-  definition.solids.forEach((r,i)=>{if(options.filter&&!options.filter(i))return;const x=(r.x-r.w/2)*S,y=(r.y-r.h/2)*S,w=r.w*S,h=r.h*S;
-   g.fillStyle(INK);g.fillRect(x-2,y-2,w+4,h+4);g.fillStyle(glass?0x647e92:i<4?0x54796a:0x997958);g.fillRect(x,y,w,h);
-   g.fillStyle(glass?0xc0dce5:i<4?0x77a777:0xcba570);g.fillRect(x,y,w,Math.min(5,h));
-   // Exact surface outlines make every wall, underside and overhead grip unambiguous.
-   g.lineStyle(2,glass?0xd6eef0:0xc8e49a);g.strokeRect(x,y,w,h);
-   if(i>=4){g.lineStyle(1,glass?0x3b5266:0x66523f);if(h>w){for(let by=y+14;by<y+h-5;by+=35)g.lineBetween(x+2,by,x+w-2,by);}else{for(let bx=x+12;bx<x+w-3;bx+=45)g.lineBetween(bx,y+6,bx+12,y+6);}
-    g.fillStyle(glass?0xe2c183:0xeac582);g.fillCircle(x+Math.min(6,w/2),y+h/2,2);g.fillCircle(x+w-Math.min(6,w/2),y+h/2,2);
-    if(!glass){g.fillStyle(0x6d9d72);for(let bx=x+4;bx<x+w-4;bx+=20)g.fillTriangle(bx,y+1,bx+7,y+1,bx+3,y-3);}
-   }
-  });
- }
+ paintArena(g:Phaser.GameObjects.Graphics=this.background,options:{background?:boolean;filter?:(index:number)=>boolean}={},definition=getArena(this.arenaId)){paintPrintedArena(g,definition,options);}
+
  renderChaos(state:ArenaChaosState|undefined){this.soundArena=state;const g=this.chaosInk;g.clear();const layout=state?.platforms.length?this.arenaId+':'+(state.crumbling?'crumble':'tilt')+':'+state.platforms.map(p=>p.id).join(','):'';
   if(layout!==this.chaosLayout){for(const ink of this.platformInk.values())ink.destroy();this.platformInk.clear();for(const bits of this.platformBits.values())for(const b of bits){b.ink.clearMask(true);b.ink.destroy();b.mask.destroy();}this.platformBits.clear();this.chaosLayout=layout;
    if(layout&&state){const covered=new Set(state.platforms.map(p=>p.source));this.paintArena(this.background,{filter:i=>!covered.has(i)});for(const p of state.platforms){const ink=this.scene.add.graphics().setDepth(1);const a=getArena(this.arenaId),solids=a.solids.map(r=>({...r,x:r.x-p.solid.x,y:r.y-p.solid.y}));solids[p.source]={...p.solid,x:0,y:0};this.paintArena(ink,{background:false,filter:i=>i===p.source},{...a,solids});this.platformInk.set(p.id,ink);if(state.crumbling){const bits=[];for(let j=0;j<4;j++){const part=this.scene.add.graphics().setDepth(1);this.paintArena(part,{background:false,filter:i=>i===p.source},{...a,solids});const mask=this.scene.add.graphics().setVisible(false);mask.fillStyle(0xffffff);mask.fillRect(-p.solid.w*S/2+j*p.solid.w*S/4,-p.solid.h*S/2-32,p.solid.w*S/4,p.solid.h*S+64);part.setMask(mask.createGeometryMask());bits.push({ink:part,mask});}this.platformBits.set(p.id,bits);}}}else this.paintArena();
@@ -99,7 +74,7 @@ export class Courtyard {
   this.chaosSounds.update(states,this.soundArena,view,local,modifiers);
   if(view?.round!==this.round){this.round=view?.round??-1;this.previous=[];this.pops=[];}
   const g=this.ink;g.clear();this.effects.clear();const time=performance.now()/1000;
-  const ratio=this.scene.scale.width/Math.max(1,this.scene.scale.displaySize.width);const labelSize=Math.ceil(Math.min(28,Math.max(18,10*ratio)));
+  const ratio=this.scene.scale.width/Math.max(1,this.scene.scale.displaySize.width);const labelSize=Math.ceil(Math.min(28,Math.max(15,10*ratio)));
   if(labelSize!==this.labelSize){this.labelSize=labelSize;this.labels.forEach(l=>l.setFontSize(labelSize));}
   for(const b of states[0]?.chaosBubbles??[]){if(b.slot!==undefined)continue;const x=b.x*S,y=b.y*S;g.fillStyle(0xc8f8ff,.10);g.fillCircle(x,y,20);g.lineStyle(2,INK,.7);g.strokeCircle(x,y,21);g.lineStyle(2,0xc9f7ff);g.strokeCircle(x,y,20);g.fillStyle(0xffffff,.8);g.fillEllipse(x-8,y-8,4,7);}
   // Tongues behind bodies, with a sag only when physical rope length permits slack.
@@ -142,7 +117,7 @@ export class Courtyard {
    paintFrogChaos(g,p.x*S,p.y*S,f,view?.tick??0,i);
    const chaosStatus=f.bubbleId!==undefined?(i===local?'○ TAP ACTION TO POP':'○ BUBBLED'):f.swapPartner!==undefined?`⇄ ${names[f.swapPartner]??'SWAP PARTNER'}`:f.balloonWarning?'◍ PUFFING UP…':undefined;
    const label=this.labels[i];
-   label.setBackgroundColor('transparent').setPadding(0,0).setVisible(true).setText(`${i===local?'▼ YOU · ':''}${names[i]}\n${status}${chaosStatus?` · ${chaosStatus}`:''}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-(f.radius??defaults.frogRadius)-.3)*S)).setColor(i===local?'#b9eaff':connected[i]===false?'#b2c7c2':state==='transforming'||state==='infectious'||view?.mode==='classic'&&i===view.classic!.it||view?.mode==='freeze'&&i===view.freeze!.freezer?'#d5a2ff':'#fff8d9');
+   label.setBackgroundColor('transparent').setPadding(0,0).setVisible(true).setText(`${i===local?'▼ YOU · ':''}${names[i]}${['SAFE','NOT IT','RUNNER'].includes(status)?'':'\n'+status}${chaosStatus?` · ${chaosStatus}`:''}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-(f.radius??defaults.frogRadius)-.3)*S)).setColor(i===local?'#b9eaff':connected[i]===false?'#b2c7c2':state==='transforming'||state==='infectious'||view?.mode==='classic'&&i===view.classic!.it||view?.mode==='freeze'&&i===view.freeze!.freezer?'#d5a2ff':'#fff8d9');
    this.previous[i]={stickyAttachTick:f.stickyAttachTick,stickyReleaseTick:f.stickyReleaseTick,pogoTick:f.pogoTick,gravityFlipTick:f.gravityFlipTick,gravityWarningSeconds:f.gravityWarningSeconds,balloonPopTick:f.balloonPopTick,balloonBounceTick:f.balloonBounceTick,bubblePressTick:f.bubblePressTick,bubbleId:f.bubbleId,bumperTick:f.bumperTick,balloonInflated:f.balloonInflated,swapTick:f.swapTick,bubbleEscapeTick:f.bubbleEscapeTick,surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state:view?.mode==='classic'?(i===view.classic!.it?'it':'runner'):view?.mode==='freeze'?(view.freeze!.frozen[i]?'frozen':'runner'):state,x:f.x,y:f.y};
   });
   this.labels.forEach((l,i)=>{if(i>=states.length)l.setVisible(false);});
@@ -163,11 +138,17 @@ export class Courtyard {
   if(poison){g.lineStyle(3,accent);g.strokeCircle(x,y,r+5);for(let j=0;j<3;j++){const a=time*1.4+j*2.1,cx=x+Math.cos(a)*(r+8),cy=y+Math.sin(a)*(r+8);g.fillStyle(accent,.7);g.fillTriangle(cx,cy-3,cx-2.5,cy+2,cx+2.5,cy+2);}}
   if(f.stickyNormal){g.lineStyle(2,0xb6faaa);for(const side of[-1,1])g.strokeEllipse(x+side*r*.78,y+r*.8,r*.9,5);}
   const feet=charging?0:Math.sin(time*16)*Math.min(3,Math.abs(f.vx)*.6);g.fillStyle(INK);g.fillEllipse(x-r*.78,y+r*.68,r*1.12,10);g.fillEllipse(x+r*.78,y+r*.68,r*1.12,10);g.fillStyle(bodyColor);g.fillEllipse(x-r*.78,y+r*.65+feet,r*.88,6);g.fillEllipse(x+r*.78,y+r*.65-feet,r*.88,6);
-  g.fillStyle(INK);g.fillEllipse(x,y,r*2.18*sx,r*2.07*sy);g.fillStyle(online?bodyColor:0x8caaa3);g.fillEllipse(x,y,r*1.93*sx,r*1.81*sy);
-  g.fillStyle(0xfff4bc,.48);g.fillEllipse(x,y+r*.34*sy,r*1.13,r*.65*sy);
+  const bean=[[-.77,-.63],[-.34,-.89],[.35,-.87],[.8,-.6],[1,.02],[.9,.51],[.49,.84],[-.43,.84],[-.91,.53],[-1,.06]].map(([dx,dy])=>({x:x+dx*r*sx,y:y+dy*r*sy}));
+  g.fillStyle(online?bodyColor:0x8caaa3);g.fillPoints(bean,true);g.lineStyle(2.5,INK);g.strokePoints(bean,true);
+  g.fillStyle(0xfff1ce,.66);g.fillEllipse(x,y+r*.43*sy,r*1.26,r*.63*sy);
+  g.lineStyle(1,0xfff1ce,.65);g.lineBetween(x-r*.84*sx,y+r*.08,x-r*.72*sx,y-r*.25);
+  // Three splayed suction toes, a common silhouette in portraits and gameplay.
+  for(const side of[-1,1])for(let toe=0;toe<3;toe++){g.fillStyle(INK);g.fillCircle(x+side*(r*.62+toe*2.8),y+r*.78+(toe%2)*1.5,2.6);g.fillStyle(bodyColor);g.fillCircle(x+side*(r*.62+toe*2.8),y+r*.78+(toe%2)*1.5,1.4);}
   if(layers.showPattern)paintPattern(g,x,y,r,layers.appearance);
   for(const side of [-1,1])paintEye(g,x+side*r*.57*sx,y-r*.67*sy,r,layers.appearance,f.facing,charging,side);
-  g.lineStyle(1.8,INK);g.lineBetween(x-r*.34,y+r*.12,x+r*.34,y+r*.12);if(f.tongue){g.fillStyle(INK);g.fillEllipse(x+f.facing*r*.24,y+r*.14,6,5);}
+  g.fillStyle(0xd77270,.45);g.fillEllipse(x-r*.64,y+r*.12,5,3);g.fillEllipse(x+r*.64,y+r*.12,5,3);
+  g.lineStyle(1.8,INK);g.strokePoints([{x:x-r*.36,y:y+r*.08},{x:x-r*.18,y:y+r*.24},{x:x+r*.15,y:y+r*.25},{x:x+r*.4,y:y+r*.06}],false);if(f.tongue){g.fillStyle(INK);g.fillEllipse(x+f.facing*r*.24,y+r*.14,6,5);}
+  g.fillStyle(INK);g.fillCircle(x-r*.14,y-r*.13,1);g.fillCircle(x+r*.14,y-r*.13,1);
   // Black dart-frog flank spots with bright rims appear immediately during transformation.
   // Kept below eyes/forehead so every permanent player mark remains readable.
   if(role.spotted){for(const side of [-1,1])for(const [px,py,rr]of [[.73,.12,.16],[.56,.58,.19]]){const cx=x+side*r*px*sx,cy=y+r*py*sy;g.fillStyle(INK);g.fillEllipse(cx,cy,r*rr*2,r*rr*2.35);g.lineStyle(1,accent,grace ? .6 : 1);g.strokeEllipse(cx,cy,r*rr*2,r*rr*2.35);}}

@@ -61,3 +61,9 @@ Reedwater is an original Frog-Out modal/minor theme in two synchronized arrangem
 ## Owner-selected Heroic Age (2026-10-26)
 
 The user selected Heroic Age after rejecting the comic Run Amok candidate. Heroic Age by Kevin MacLeod (https://incompetech.com/), CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), ISRC USUAN1100848. 32-bar loop, original 129 BPM, normalized, resampled, MP3 encoded with a short cyclic seam crossfade. Linked attribution and edit notice remain visible in Settings. The Run Amok section describes a superseded candidate.
+
+## Pond Press creative identity experiment
+
+All new frog, arena, poster, icon, rosette and modifier illustrations are original code-native vector artwork created for this repository. No borrowed game art, raster image generator assets, external art libraries, runtime font provider or paid service is used.
+
+The only new third-party visual asset is the 29,948-byte self-hosted **Pond Press Display** font: a Latin subset/WOFF conversion of **Bowlby One SC** by Vernon Adams. Primary font names were changed to respect the reserved-name clause. SIL Open Font License 1.1 and copyright are included in `public/fonts/OFL-BowlbyOneSC.txt`; exact source and modifications are in `public/fonts/SOURCE.md`. Source: https://github.com/google/fonts/tree/main/ofl/bowlbyonesc . Existing music/applause assets and licenses remain unchanged.

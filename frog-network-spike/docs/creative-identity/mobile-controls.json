@@ -1,0 +1,26 @@
+{
+  "scope": "Real Chromium touch protocol using iPhone Safari and Android Chrome UAs. Not physical iOS/WebKit testing.",
+  "checks": [
+    {
+      "device": "iPhone Safari UA",
+      "realCDPTouches": true,
+      "independentReleaseBothOrders": true,
+      "arbitraryAngles": true,
+      "cancelAndRepeat": true,
+      "noMouseAimFields": true,
+      "syntheticMouseIgnored": true,
+      "settings": true
+    },
+    {
+      "device": "Android Chrome UA",
+      "realCDPTouches": true,
+      "independentReleaseBothOrders": true,
+      "arbitraryAngles": true,
+      "cancelAndRepeat": true,
+      "noMouseAimFields": true,
+      "syntheticMouseIgnored": true,
+      "settings": true
+    }
+  ],
+  "errors": []
+}

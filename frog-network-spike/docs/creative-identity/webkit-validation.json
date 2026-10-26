@@ -1,0 +1,21 @@
+{
+  "engine": "Playwright Linux WebKit 26.0 (2248), desktop and touch contexts",
+  "scope": "Actual WebKit engine with locally provided test host dependencies. Not physical iPhone Safari or native simultaneous multi-finger validation. No test dependencies ship in the game.",
+  "errors": [],
+  "screens": 16,
+  "arenas": [
+    "sunny-pond",
+    "bathhouse",
+    "canopy",
+    "toyshop"
+  ],
+  "participants": "one human + seven CPUs",
+  "checks": [
+    "home editor and saved appearance",
+    "Escape settings open/close",
+    "eight lobby slots",
+    "all four playable arena selections and startup",
+    "full single-screen canvas aspect",
+    "no horizontal page overflow"
+  ]
+}

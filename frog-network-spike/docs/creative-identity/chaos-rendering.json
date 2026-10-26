@@ -1,0 +1,914 @@
+{
+  "scope": "Real authoritative test server and Phaser renderer, eight participants, all 20 modifiers on all four arenas plus representative stacks. Normal modifier effects unchanged.",
+  "checks": [
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "moon_frogs"
+      ],
+      "active": [
+        "moon_frogs"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "mega_tongues"
+      ],
+      "active": [
+        "mega_tongues"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "butterfeet"
+      ],
+      "active": [
+        "butterfeet"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "quick_licks"
+      ],
+      "active": [
+        "quick_licks"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "turbo_toads"
+      ],
+      "active": [
+        "turbo_toads"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "tiny_trouble"
+      ],
+      "active": [
+        "tiny_trouble"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "mega_frogs"
+      ],
+      "active": [
+        "mega_frogs"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "super_suckers"
+      ],
+      "active": [
+        "super_suckers"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "magnet_mouths"
+      ],
+      "active": [
+        "magnet_mouths"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "windy_weather"
+      ],
+      "active": [
+        "windy_weather"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "bouncy_bombardment"
+      ],
+      "active": [
+        "bouncy_bombardment"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "crumble_time"
+      ],
+      "active": [
+        "crumble_time"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "tilt_a_frog"
+      ],
+      "active": [
+        "tilt_a_frog"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "bumper_frogs"
+      ],
+      "active": [
+        "bumper_frogs"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "balloon_bellies"
+      ],
+      "active": [
+        "balloon_bellies"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "swap_hop"
+      ],
+      "active": [
+        "swap_hop"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "gravity_flip"
+      ],
+      "active": [
+        "gravity_flip"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "pogo_panic"
+      ],
+      "active": [
+        "pogo_panic"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "bubble_trouble"
+      ],
+      "active": [
+        "bubble_trouble"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "sticky_frogs"
+      ],
+      "active": [
+        "sticky_frogs"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "tilt_a_frog",
+        "super_suckers"
+      ],
+      "active": [
+        "super_suckers",
+        "tilt_a_frog"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "crumble_time",
+        "tiny_trouble"
+      ],
+      "active": [
+        "tiny_trouble",
+        "crumble_time"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "gravity_flip",
+        "windy_weather",
+        "bubble_trouble"
+      ],
+      "active": [
+        "windy_weather",
+        "gravity_flip"
+      ]
+    },
+    {
+      "arena": "sunny-pond",
+      "requested": [
+        "sticky_frogs",
+        "windy_weather",
+        "bubble_trouble"
+      ],
+      "active": [
+        "windy_weather",
+        "bubble_trouble",
+        "sticky_frogs"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "moon_frogs"
+      ],
+      "active": [
+        "moon_frogs"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "mega_tongues"
+      ],
+      "active": [
+        "mega_tongues"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "butterfeet"
+      ],
+      "active": [
+        "butterfeet"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "quick_licks"
+      ],
+      "active": [
+        "quick_licks"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "turbo_toads"
+      ],
+      "active": [
+        "turbo_toads"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "tiny_trouble"
+      ],
+      "active": [
+        "tiny_trouble"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "mega_frogs"
+      ],
+      "active": [
+        "mega_frogs"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "super_suckers"
+      ],
+      "active": [
+        "super_suckers"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "magnet_mouths"
+      ],
+      "active": [
+        "magnet_mouths"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "windy_weather"
+      ],
+      "active": [
+        "windy_weather"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "bouncy_bombardment"
+      ],
+      "active": [
+        "bouncy_bombardment"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "crumble_time"
+      ],
+      "active": [
+        "crumble_time"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "tilt_a_frog"
+      ],
+      "active": [
+        "tilt_a_frog"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "bumper_frogs"
+      ],
+      "active": [
+        "bumper_frogs"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "balloon_bellies"
+      ],
+      "active": [
+        "balloon_bellies"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "swap_hop"
+      ],
+      "active": [
+        "swap_hop"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "gravity_flip"
+      ],
+      "active": [
+        "gravity_flip"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "pogo_panic"
+      ],
+      "active": [
+        "pogo_panic"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "bubble_trouble"
+      ],
+      "active": [
+        "bubble_trouble"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "sticky_frogs"
+      ],
+      "active": [
+        "sticky_frogs"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "tilt_a_frog",
+        "super_suckers"
+      ],
+      "active": [
+        "super_suckers",
+        "tilt_a_frog"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "crumble_time",
+        "tiny_trouble"
+      ],
+      "active": [
+        "tiny_trouble",
+        "crumble_time"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "gravity_flip",
+        "windy_weather",
+        "bubble_trouble"
+      ],
+      "active": [
+        "windy_weather",
+        "gravity_flip"
+      ]
+    },
+    {
+      "arena": "bathhouse",
+      "requested": [
+        "sticky_frogs",
+        "windy_weather",
+        "bubble_trouble"
+      ],
+      "active": [
+        "windy_weather",
+        "bubble_trouble",
+        "sticky_frogs"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "moon_frogs"
+      ],
+      "active": [
+        "moon_frogs"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "mega_tongues"
+      ],
+      "active": [
+        "mega_tongues"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "butterfeet"
+      ],
+      "active": [
+        "butterfeet"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "quick_licks"
+      ],
+      "active": [
+        "quick_licks"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "turbo_toads"
+      ],
+      "active": [
+        "turbo_toads"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "tiny_trouble"
+      ],
+      "active": [
+        "tiny_trouble"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "mega_frogs"
+      ],
+      "active": [
+        "mega_frogs"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "super_suckers"
+      ],
+      "active": [
+        "super_suckers"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "magnet_mouths"
+      ],
+      "active": [
+        "magnet_mouths"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "windy_weather"
+      ],
+      "active": [
+        "windy_weather"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "bouncy_bombardment"
+      ],
+      "active": [
+        "bouncy_bombardment"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "crumble_time"
+      ],
+      "active": [
+        "crumble_time"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "tilt_a_frog"
+      ],
+      "active": [
+        "tilt_a_frog"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "bumper_frogs"
+      ],
+      "active": [
+        "bumper_frogs"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "balloon_bellies"
+      ],
+      "active": [
+        "balloon_bellies"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "swap_hop"
+      ],
+      "active": [
+        "swap_hop"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "gravity_flip"
+      ],
+      "active": [
+        "gravity_flip"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "pogo_panic"
+      ],
+      "active": [
+        "pogo_panic"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "bubble_trouble"
+      ],
+      "active": [
+        "bubble_trouble"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "sticky_frogs"
+      ],
+      "active": [
+        "sticky_frogs"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "tilt_a_frog",
+        "super_suckers"
+      ],
+      "active": [
+        "super_suckers",
+        "tilt_a_frog"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "crumble_time",
+        "tiny_trouble"
+      ],
+      "active": [
+        "tiny_trouble",
+        "crumble_time"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "gravity_flip",
+        "windy_weather",
+        "bubble_trouble"
+      ],
+      "active": [
+        "windy_weather",
+        "gravity_flip"
+      ]
+    },
+    {
+      "arena": "canopy",
+      "requested": [
+        "sticky_frogs",
+        "windy_weather",
+        "bubble_trouble"
+      ],
+      "active": [
+        "windy_weather",
+        "bubble_trouble",
+        "sticky_frogs"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "moon_frogs"
+      ],
+      "active": [
+        "moon_frogs"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "mega_tongues"
+      ],
+      "active": [
+        "mega_tongues"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "butterfeet"
+      ],
+      "active": [
+        "butterfeet"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "quick_licks"
+      ],
+      "active": [
+        "quick_licks"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "turbo_toads"
+      ],
+      "active": [
+        "turbo_toads"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "tiny_trouble"
+      ],
+      "active": [
+        "tiny_trouble"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "mega_frogs"
+      ],
+      "active": [
+        "mega_frogs"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "super_suckers"
+      ],
+      "active": [
+        "super_suckers"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "magnet_mouths"
+      ],
+      "active": [
+        "magnet_mouths"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "windy_weather"
+      ],
+      "active": [
+        "windy_weather"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "bouncy_bombardment"
+      ],
+      "active": [
+        "bouncy_bombardment"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "crumble_time"
+      ],
+      "active": [
+        "crumble_time"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "tilt_a_frog"
+      ],
+      "active": [
+        "tilt_a_frog"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "bumper_frogs"
+      ],
+      "active": [
+        "bumper_frogs"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "balloon_bellies"
+      ],
+      "active": [
+        "balloon_bellies"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "swap_hop"
+      ],
+      "active": [
+        "swap_hop"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "gravity_flip"
+      ],
+      "active": [
+        "gravity_flip"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "pogo_panic"
+      ],
+      "active": [
+        "pogo_panic"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "bubble_trouble"
+      ],
+      "active": [
+        "bubble_trouble"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "sticky_frogs"
+      ],
+      "active": [
+        "sticky_frogs"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "tilt_a_frog",
+        "super_suckers"
+      ],
+      "active": [
+        "super_suckers",
+        "tilt_a_frog"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "crumble_time",
+        "tiny_trouble"
+      ],
+      "active": [
+        "tiny_trouble",
+        "crumble_time"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "gravity_flip",
+        "windy_weather",
+        "bubble_trouble"
+      ],
+      "active": [
+        "windy_weather",
+        "gravity_flip"
+      ]
+    },
+    {
+      "arena": "toyshop",
+      "requested": [
+        "sticky_frogs",
+        "windy_weather",
+        "bubble_trouble"
+      ],
+      "active": [
+        "windy_weather",
+        "bubble_trouble",
+        "sticky_frogs"
+      ]
+    }
+  ],
+  "errors": []
+}

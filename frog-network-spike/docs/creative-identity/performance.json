@@ -1,0 +1,33 @@
+{
+  "scope": "Eight frogs, seven existing CPUs; local Chromium with software graphics. Mobile is viewport/touch emulation, not physical-device performance. Illustrative samples, not controlled hardware benchmarks. Baseline client assets intercepted from exact approved build; server code identical.",
+  "results": [
+    {
+      "device": "desktop",
+      "version": "before",
+      "frames": 170,
+      "medianMs": 16.699999999999818,
+      "p95Ms": 16.700000000000728
+    },
+    {
+      "device": "desktop",
+      "version": "after",
+      "frames": 170,
+      "medianMs": 16.699999999999818,
+      "p95Ms": 16.799999999999727
+    },
+    {
+      "device": "mobile",
+      "version": "before",
+      "frames": 170,
+      "medianMs": 16.699999999999818,
+      "p95Ms": 16.799999999999727
+    },
+    {
+      "device": "mobile",
+      "version": "after",
+      "frames": 170,
+      "medianMs": 16.699999999999818,
+      "p95Ms": 16.799999999999727
+    }
+  ]
+}

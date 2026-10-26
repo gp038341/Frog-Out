@@ -1,0 +1,99 @@
+{
+  "scope": "Compiled local server, real pointer/keyboard events and two independent browser clients. Not physical-device testing.",
+  "checks": [
+    {
+      "mode": "poison",
+      "mouseFire": true,
+      "authoritativeAim": true,
+      "independentMovement": true,
+      "combinedHolds": true,
+      "keyboardFallback": true,
+      "resizeAndStationaryCursor": true,
+      "terrainReel": true,
+      "outsideRelease": true,
+      "chargeJump": true,
+      "menuBlurRapidClicks": true,
+      "visibilityInterruption": true,
+      "roundEndExercised": true,
+      "fullscreen": true
+    },
+    {
+      "mode": "freeze",
+      "mouseFire": true,
+      "authoritativeAim": true,
+      "independentMovement": true,
+      "combinedHolds": true,
+      "keyboardFallback": true,
+      "resizeAndStationaryCursor": true,
+      "terrainReel": true,
+      "outsideRelease": true,
+      "chargeJump": true,
+      "menuBlurRapidClicks": true,
+      "visibilityInterruption": true,
+      "roundEndExercised": true,
+      "fullscreen": true
+    },
+    {
+      "classicTransferStable": {
+        "oldLayout": true,
+        "before": {
+          "x": 10,
+          "y": 55,
+          "width": 1420,
+          "height": 798.75
+        },
+        "during": {
+          "x": 13,
+          "y": 61,
+          "width": 1413.328125,
+          "height": 795
+        },
+        "after": {
+          "x": 10,
+          "y": 59,
+          "width": 1420,
+          "height": 798.75
+        }
+      }
+    },
+    {
+      "classicTransferStable": {
+        "oldLayout": false,
+        "before": {
+          "x": 10,
+          "y": 59,
+          "width": 1420,
+          "height": 798.75
+        },
+        "during": {
+          "x": 10,
+          "y": 59,
+          "width": 1420,
+          "height": 798.75
+        },
+        "after": {
+          "x": 10,
+          "y": 59,
+          "width": 1420,
+          "height": 798.75
+        }
+      }
+    },
+    {
+      "mode": "classic",
+      "mouseFire": true,
+      "authoritativeAim": true,
+      "independentMovement": true,
+      "combinedHolds": true,
+      "keyboardFallback": true,
+      "resizeAndStationaryCursor": true,
+      "terrainReel": true,
+      "outsideRelease": true,
+      "chargeJump": true,
+      "menuBlurRapidClicks": true,
+      "visibilityInterruption": true,
+      "roundEndExercised": false,
+      "fullscreen": true
+    }
+  ]
+}
