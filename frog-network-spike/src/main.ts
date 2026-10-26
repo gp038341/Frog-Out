@@ -1,3 +1,4 @@
+import {roundMusicActive} from './presentation/recorded-audio';
 import {MouseControls,mouseWorld} from './input/mouse';
 import {finalResultsView} from './presentation/final-results';
 import {RoundReadout} from './ui/round-readout';
@@ -205,7 +206,7 @@ setInterval(()=>{const lobby=net.lobby;const phase=lobby?.phase??'home';if(phase
  chaosUI.update();
  resultsUI.update(phase==='game'?finalResultsView(net.outbreak):undefined,lobby,net.playerId,!!net.chaos&&net.chaos.phase!=='idle');
  roundReadout.update(phase==='game'?finalResultsView(net.outbreak):undefined,!!net.chaos&&net.chaos.phase!=='idle');
- musicUI.update(net.playing,audio.enabled);
+ musicUI.update(roundMusicActive(phase,net.outbreak?.phase,!!net.chaos&&net.chaos.phase!=='idle')&&net.status==='connected',audio.enabled);
  resizeGame();
  touch.update(net.playing&&net.status==='connected'&&!guide.blocking,phase==='game'&&!!net.outbreak&&['announcement','countdown','playing'].includes(net.outbreak.phase),f?.grounded??false,f?.charging??false,f?.tongue?.phase==='attached');
  const ready=lobby?.players.filter(participating).every(readyParticipant)&&lobby.players.filter(participating).length>=2;(el('start') as HTMLButtonElement).disabled=!ready||net.status!=='connected';(el('ready') as HTMLButtonElement).disabled=!net.canReady;

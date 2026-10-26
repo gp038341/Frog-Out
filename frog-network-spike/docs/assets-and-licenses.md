@@ -1,3 +1,12 @@
+# Current audio additions
+
+The round-audio revision introduces two self-hosted CC0 recordings. Earlier milestone asset inventories below remain historical descriptions.
+
+- `public/audio/pond-adventure.mp3`: **Youthful Elf Seeking Adventure**, by **Ragnar Random**, [Orchestral and World Music Pack](https://opengameart.org/content/orchestral-and-world-music-pack). Author-published CC0. Edited to a 54.857-second loop excerpt; mono MP3, loudness managed and endpoint fades.
+- `public/audio/audience-applause.mp3`: **Small applause**, by **Breviceps**, [Freesound 462362](https://freesound.org/people/Breviceps/sounds/462362/). Author-published CC0; real applause from roughly 30 people. Edited to 4.4 seconds, lowered loudness and gentle endpoint fades.
+
+See `public/audio/credits.json` for direct sources, licenses, exact edits and checksums. No runtime third-party requests, accounts or paid services. The generated lobby composition remains unchanged. Prior synthetic gameplay/applause candidates are not used by the live playback path.
+
 # Milestone 6 assets and rights
 
 All newly added art and audio are original project source, generated procedurally for Frog-Out. No external game assets, stock artwork, samples, font downloads or paid services were introduced.

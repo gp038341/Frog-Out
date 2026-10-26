@@ -1,5 +1,5 @@
-import {applauseSamples,APPLAUSE_SECONDS} from './applause';
-/** Original Frog-Out rubbery croaks and pond percussion. No external recordings or music. */
+import {decodeRecording,RECORDINGS} from './recorded-audio';
+/** Original Frog-Out effects plus the CC0 audience recording credited in public/audio/credits.json. */
 export type Cue='jump'|'charge'|'build'|'fire'|'attach'|'miss'|'tension'|'impact'|'infect'|'transform'|'reveal'|'count'|'go'|'last'|'round'|'win'|'ui'|'freeze'|'rescue'|'magnet'|'wind'|'boing'|'teleport'|'bubble_pop'|'bubble_in'|'bubble_tap'|'sticky'|'crack'|'ball_thump'|'swap_warn';
 type Note=[number,number,number,number?];
 export const SOUNDS:Record<Cue,{cooldown:number;important?:boolean;ambience?:boolean;noise?:{length:number;cutoff:number;gain:number};type:OscillatorType;notes:Note[]}>= {
@@ -18,7 +18,7 @@ export const SOUNDS:Record<Cue,{cooldown:number;important?:boolean;ambience?:boo
  go:{cooldown:700,important:true,type:'triangle',notes:[[180,600,.12],[420,110,.20,.09]]},
  last:{cooldown:900,important:true,type:'sine',notes:[[280,140,.15],[420,180,.20,.16]]},
  round:{cooldown:800,important:true,type:'sine',notes:[[220,330,.13],[330,440,.14,.11],[440,220,.21,.23]]},
- win:{cooldown:2300,important:true,type:'triangle',notes:[],noise:{length:APPLAUSE_SECONDS,cutoff:6500,gain:.48}},
+ win:{cooldown:4500,important:true,type:'triangle',notes:[],noise:{length:4.4,cutoff:6500,gain:.5}},
  freeze:{cooldown:200,important:true,type:'sine',notes:[[1350,2300,.12],[1850,700,.17,.05]]},
  rescue:{cooldown:240,important:true,type:'sine',notes:[[700,1450,.13],[1000,2100,.12,.06]]},
  magnet:{cooldown:250,type:'sine',notes:[[310,1300,.13],[1250,650,.10,.07]]},
@@ -40,13 +40,16 @@ const CROAKS=new Set<Cue>(['build','tension','infect','transform','reveal','last
 const RUBBER=new Set<Cue>(['jump','charge','fire','attach','miss','impact','ui','boing','sticky','bubble_in','bubble_tap','bubble_pop','ball_thump','count']);
 export class GameAudio {
  enabled=false;context?:AudioContext;last=new Map<Cue,number>();volume=.55;master?:GainNode;
- voices=new Set<AudioScheduledSourceNode>();private voiceCues=new Map<AudioScheduledSourceNode,Cue>();private noiseBuffer?:AudioBuffer;private applauseBuffer?:AudioBuffer;played=0;dropped=0;peakVoices=0;private lastSmall=-999;private compressor?:DynamicsCompressorNode;private croak?:PeriodicWave;private rubber?:PeriodicWave;
- setVolume(value:number){this.volume=Math.max(0,Math.min(1,value));if(this.master&&this.context)this.master.gain.setTargetAtTime(this.volume,this.context.currentTime,.02);try{localStorage.setItem('frog-out-volume',String(this.volume));}catch{/* storage is optional */}}
- toggle(){this.enabled=!this.enabled;if(this.enabled){try{this.context??=new AudioContext();if(!this.master){this.master=this.context.createGain();this.compressor=this.context.createDynamicsCompressor();this.compressor.threshold.value=-20;this.compressor.ratio.value=5;this.master.connect(this.compressor);this.compressor.connect(this.context.destination);this.master.gain.value=this.volume;}void this.context.resume().then(()=>{if(this.enabled)this.play('ui');}).catch(()=>{this.enabled=false;});}catch{this.enabled=false;}}else this.silence();return this.enabled;}
- silence(cue?:Cue){for(const o of [...this.voices]){if(cue&&this.voiceCues.get(o)!==cue)continue;try{o.stop();}catch{/* already stopped */}this.voices.delete(o);this.voiceCues.delete(o);}}
+ voices=new Set<AudioScheduledSourceNode>();private voiceCues=new Map<AudioScheduledSourceNode,Cue>();private noiseBuffer?:AudioBuffer;private applauseBuffer?:AudioBuffer;private applauseLoad?:Promise<void>;private winVersion=0;played=0;dropped=0;peakVoices=0;private lastSmall=-999;private compressor?:DynamicsCompressorNode;private croak?:PeriodicWave;private rubber?:PeriodicWave;
+ constructor(private loadApplause=(context:AudioContext)=>decodeRecording(context,RECORDINGS.applause)){}
+ private prepareApplause(){if(this.applauseBuffer)return Promise.resolve();return this.applauseLoad??=this.loadApplause(this.context!).then(buffer=>{this.applauseBuffer=buffer;}).catch(()=>{}).finally(()=>{this.applauseLoad=undefined;});}
+ setVolume(value:number){if(value<=0)this.winVersion++;this.volume=Math.max(0,Math.min(1,value));if(this.master&&this.context)this.master.gain.setTargetAtTime(this.volume,this.context.currentTime,.02);try{localStorage.setItem('frog-out-volume',String(this.volume));}catch{/* storage is optional */}}
+ toggle(){this.enabled=!this.enabled;if(this.enabled){try{this.context??=new AudioContext();if(!this.master){this.master=this.context.createGain();this.compressor=this.context.createDynamicsCompressor();this.compressor.threshold.value=-20;this.compressor.ratio.value=5;this.master.connect(this.compressor);this.compressor.connect(this.context.destination);this.master.gain.value=this.volume;}void this.context.resume().then(()=>{if(this.enabled){void this.prepareApplause();this.play('ui');}}).catch(()=>{this.enabled=false;});}catch{this.enabled=false;}}else this.silence();return this.enabled;}
+ silence(cue?:Cue){if(!cue||cue==='win')this.winVersion++;for(const o of [...this.voices]){if(cue&&this.voiceCues.get(o)!==cue)continue;try{o.stop();}catch{/* already stopped */}this.voices.delete(o);this.voiceCues.delete(o);}}
  play(cue:Cue,intensity=1){
   const now=performance.now(),spec=SOUNDS[cue],context=this.context;
   if(!this.enabled||document.hidden||!context||context.state!=='running'||!this.master||this.volume===0)return;
+  if(cue==='win'&&!this.applauseBuffer){const version=this.winVersion;void this.prepareApplause().then(()=>{if(version===this.winVersion&&this.applauseBuffer&&performance.now()-now<500)this.play(cue,intensity);});return;}
   if(now-(this.last.get(cue)??-9999)<spec.cooldown||!spec.important&&!spec.ambience&&cue!=='ui'&&now-this.lastSmall<85){this.dropped++;return;}
   // Bounded local synth: at most eight scheduled/active oscillators, no queue or backlog.
   if(this.voices.size+spec.notes.length+(spec.noise?1:0)>8){if(!spec.important){this.dropped++;return;}this.silence();}
@@ -61,9 +64,8 @@ export class GameAudio {
    else{o.frequency.exponentialRampToValueAtTime(Math.sqrt(a*b)*1.18,t+length*.32);o.frequency.exponentialRampToValueAtTime(b,t+length);g.gain.exponentialRampToValueAtTime(peak*.45,t+length*.32);g.gain.exponentialRampToValueAtTime(.0001,t+length);}
    o.connect(g);g.connect(this.master);this.voices.add(o);this.voiceCues.set(o,cue);this.peakVoices=Math.max(this.peakVoices,this.voices.size);o.start(t);o.stop(t+length+.01);o.onended=()=>{this.voices.delete(o);this.voiceCues.delete(o);o.disconnect();g.disconnect();};}
   if(spec.noise&&context.createBufferSource&&context.createBiquadFilter&&context.createBuffer){
-   if(cue==='win'&&!this.applauseBuffer){const data=applauseSamples(context.sampleRate),buffer=context.createBuffer(1,data.length,context.sampleRate);buffer.getChannelData(0).set(data);this.applauseBuffer=buffer;}
    if(cue!=='win'&&!this.noiseBuffer){const buffer=context.createBuffer(1,Math.ceil(context.sampleRate*.6),context.sampleRate),data=buffer.getChannelData(0);let seed=1729;for(let i=0;i<data.length;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;data[i]=(seed/4294967296*2-1);}this.noiseBuffer=buffer;}
-   const source=context.createBufferSource(),filter=context.createBiquadFilter(),gain=context.createGain(),t=context.currentTime,n=spec.noise,peak=n.gain*Math.max(.15,Math.min(1.25,intensity));source.buffer=cue==='win'?this.applauseBuffer!:this.noiseBuffer!;filter.type='lowpass';filter.frequency.setValueAtTime(n.cutoff*.65,t);filter.frequency.linearRampToValueAtTime(n.cutoff,t+n.length*.4);filter.frequency.linearRampToValueAtTime(n.cutoff*.5,t+n.length);gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(peak,t+Math.min(.09,n.length*.25));if(cue==='win')gain.gain.setValueAtTime(peak,t+n.length-.25);gain.gain.exponentialRampToValueAtTime(.0001,t+n.length);source.connect(filter);filter.connect(gain);gain.connect(this.master);this.voices.add(source);this.voiceCues.set(source,cue);this.peakVoices=Math.max(this.peakVoices,this.voices.size);source.onended=()=>{this.voices.delete(source);this.voiceCues.delete(source);source.disconnect();filter.disconnect();gain.disconnect();};source.start(t);source.stop(t+n.length+.01);
+   const source=context.createBufferSource(),filter=context.createBiquadFilter(),gain=context.createGain(),t=context.currentTime,n=spec.noise,peak=n.gain*Math.max(.15,Math.min(1.25,intensity));source.buffer=cue==='win'?this.applauseBuffer!:this.noiseBuffer!;filter.type='lowpass';filter.frequency.setValueAtTime(n.cutoff*.65,t);filter.frequency.linearRampToValueAtTime(n.cutoff,t+n.length*.4);filter.frequency.linearRampToValueAtTime(n.cutoff*.5,t+n.length);gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(peak,t+Math.min(.09,n.length*.25));if(cue==='win')gain.gain.setValueAtTime(peak,t+n.length-.25);gain.gain.exponentialRampToValueAtTime(.0001,t+n.length);if(cue==='win')source.connect(gain);else{source.connect(filter);filter.connect(gain);}gain.connect(this.master);this.voices.add(source);this.voiceCues.set(source,cue);this.peakVoices=Math.max(this.peakVoices,this.voices.size);source.onended=()=>{this.voices.delete(source);this.voiceCues.delete(source);source.disconnect();filter.disconnect();gain.disconnect();};source.start(t);source.stop(t+n.length+.01);
   }
  }
 }

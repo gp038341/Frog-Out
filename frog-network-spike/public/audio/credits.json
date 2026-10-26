@@ -1,0 +1,31 @@
+{
+  "license_verified": "2026-10-25",
+  "assets": [
+    {
+      "file": "pond-adventure.mp3",
+      "title": "Youthful Elf Seeking Adventure",
+      "author": "Ragnar Random",
+      "source": "https://opengameart.org/content/orchestral-and-world-music-pack",
+      "download": "https://opengameart.org/sites/default/files/04_-_youthful_elf_seeking_adventure.ogg",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_sha256": "62533e488e77d6f58053bd6e67669bd6ed591a059363a9d3e651c77bbbd14475",
+      "edits": "54.857-second excerpt; mono 22.05 kHz MP3 at 80kbps; -22 LUFS target, -5dBTP cap; 15ms in/200ms out fades.",
+      "sha256": "244397cc66c81e23d434860b404ada658355e2cf18d4523ddb3e1f9ee9234afc",
+      "bytes": 549400
+    },
+    {
+      "file": "audience-applause.mp3",
+      "title": "Small applause",
+      "author": "Breviceps",
+      "source": "https://freesound.org/people/Breviceps/sounds/462362/",
+      "download": "https://cdn.freesound.org/previews/462/462362_9159316-hq.mp3",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_sha256": "0297dc19883bf2ffd6ea2634101eb744c6d52acb588a7b8eab1760d6ebd543ba",
+      "edits": "4.4-second excerpt; mono 22.05 kHz MP3 at 64kbps; -24 LUFS target, -9dBTP cap; 150ms in/650ms out fades; quiet in-game gain.",
+      "sha256": "4d5e4d509c7a9917ac3937a0fb8956ceccdcbe7a7074d5c4ccaa0cd5fc1a1b67",
+      "bytes": 35779
+    }
+  ]
+}
