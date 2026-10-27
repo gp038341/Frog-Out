@@ -1,0 +1,123 @@
+{
+  "checks": [
+    {
+      "mobile": false,
+      "fullMatch": true,
+      "countdownMusic": true,
+      "voting": true,
+      "results": true,
+      "rematch": true,
+      "reconnect": true,
+      "volumeAndMute": true,
+      "persistedOnRefresh": true,
+      "onlyTwoSources": true
+    },
+    {
+      "mobile": true,
+      "fullMatch": true,
+      "countdownMusic": true,
+      "voting": true,
+      "results": true,
+      "rematch": true,
+      "reconnect": true,
+      "volumeAndMute": true,
+      "persistedOnRefresh": true,
+      "onlyTwoSources": true
+    }
+  ],
+  "loopReport": {
+    "newDuration": 45.714285714285715,
+    "samples": 1008000,
+    "oldDecodedSeconds": 59.456825396825394,
+    "documentedOldBarSeconds": 59.53488372093023,
+    "reports": [
+      {
+        "rate": 22050,
+        "cycles": 6,
+        "seconds": 274.2857142857143,
+        "periodicError": 0,
+        "seams": [
+          {
+            "cycle": 1,
+            "seconds": 45.714285714285715,
+            "quantizationSeconds": 0,
+            "rms": 0.18814523641601358,
+            "step": 0.009074337780475616
+          },
+          {
+            "cycle": 2,
+            "seconds": 91.42857142857143,
+            "quantizationSeconds": 0,
+            "rms": 0.18814523641601358,
+            "step": 0.009074337780475616
+          },
+          {
+            "cycle": 3,
+            "seconds": 137.14285714285714,
+            "quantizationSeconds": 0,
+            "rms": 0.18814523641601358,
+            "step": 0.009074337780475616
+          },
+          {
+            "cycle": 4,
+            "seconds": 182.85714285714286,
+            "quantizationSeconds": 0,
+            "rms": 0.18814523641601358,
+            "step": 0.009074337780475616
+          },
+          {
+            "cycle": 5,
+            "seconds": 228.57142857142858,
+            "quantizationSeconds": 0,
+            "rms": 0.18814523641601358,
+            "step": 0.009074337780475616
+          }
+        ]
+      },
+      {
+        "rate": 48000,
+        "cycles": 6,
+        "seconds": 274.28572916666667,
+        "periodicError": 0,
+        "seams": [
+          {
+            "cycle": 1,
+            "seconds": 45.71429166666667,
+            "quantizationSeconds": 0.000005952380952578551,
+            "rms": 0.18801576816751214,
+            "step": 0.0046088807284832
+          },
+          {
+            "cycle": 2,
+            "seconds": 91.4285625,
+            "quantizationSeconds": 0.00000892857143242054,
+            "rms": 0.18802640224057898,
+            "step": 0.004168525338172913
+          },
+          {
+            "cycle": 3,
+            "seconds": 137.14285416666667,
+            "quantizationSeconds": 0.0000029761904727365618,
+            "rms": 0.18803747598713538,
+            "step": 0.004168517887592316
+          },
+          {
+            "cycle": 4,
+            "seconds": 182.85714583333333,
+            "quantizationSeconds": 0.0000029761904727365618,
+            "rms": 0.1880238295370955,
+            "step": 0.004388280212879181
+          },
+          {
+            "cycle": 5,
+            "seconds": 228.5714375,
+            "quantizationSeconds": 0.000008928571418209685,
+            "rms": 0.1880117269342343,
+            "step": 0.004828635603189468
+          }
+        ]
+      }
+    ]
+  },
+  "errors": []
+}

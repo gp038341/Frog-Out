@@ -195,4 +195,7 @@ export function gameplaySizePreservedSource(path:string,raw=false){const m=JSON.
 export function signatureArenaPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/signature-arenas-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??arenaEnergyPreservedSource(path,raw);}
 
 /** Reverse this owner-requested mechanic tuning/preview update for older guards only. */
-export function arenaEnergyPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/arena-energy-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function arenaEnergyPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/arena-energy-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??gameplayMusicRedesignPreservedSource(path,raw);}
+
+/** Recover previous gameplay music for historical guards; current audio scope has its own protection test. */
+export function gameplayMusicRedesignPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/gameplay-music-redesign-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

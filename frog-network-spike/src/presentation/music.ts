@@ -1,4 +1,3 @@
-import {decodeRecording,musicSamples,RECORDINGS} from './recorded-audio';
 import {MUSIC,type MusicMood,type MusicScore} from './music-score';
 export {MUSIC,composePondMusic,composeSoundtrack} from './music-score';
 export type MusicStatus='waiting'|'playing'|'paused'|'off'|'muted'|'unavailable';
@@ -34,7 +33,7 @@ export class BackgroundMusic {
     const gestureResume=this.gestureResume;this.gestureResume=undefined;await(gestureResume??context.resume());if(version!==this.revision)continue;
     if(context.state!=='running')throw Error('Waiting for browser audio permission');
     if(!this.sources){this.score??=this.loadScore(context).catch(e=>{this.score=undefined;throw e;});const score=await this.score;if(version!==this.revision)continue;this.gain=context.createGain();this.gain.gain.value=0;this.gain.connect(context.destination);const sources={} as Record<MusicMood,AudioBufferSourceNode>,gains={} as Record<MusicMood,GainNode>;
-     for(const mood of ['lobby','adventure'] as const){const samples=score[mood],buffer=context.createBuffer(1,samples.length,MUSIC.sampleRate);buffer.getChannelData(0).set(samples);const source=context.createBufferSource(),gain=context.createGain();source.buffer=buffer;source.loop=true;source.connect(gain);gain.connect(this.gain);sources[mood]=source;gains[mood]=gain;}
+     for(const mood of ['lobby','adventure'] as const){const samples=score[mood],buffer=context.createBuffer(1,samples.length,MUSIC.sampleRate);buffer.getChannelData(0).set(samples);const source=context.createBufferSource(),gain=context.createGain();source.buffer=buffer;source.loop=true;if(mood==='adventure'){source.loopStart=0;source.loopEnd=samples.length/MUSIC.sampleRate;}source.connect(gain);gain.connect(this.gain);sources[mood]=source;gains[mood]=gain;}
      this.moodGains=gains;this.applyMood(true);const at=context.currentTime+.03;for(const source of Object.values(sources))source.start(at);this.sources=sources;this.score=undefined;}
 
     this.gain!.gain.setTargetAtTime(this.volume,context.currentTime,.025);this.status='playing';
@@ -42,10 +41,10 @@ export class BackgroundMusic {
   }catch{this.status='unavailable';if(this.gain&&this.context)this.gain.gain.setValueAtTime(0,this.context.currentTime);}this.notify();}while(version!==this.revision);}
 }
 
-/** Lobby PCM is generated in a worker; gameplay recording is served by this game. */
-async function prepareMusicScore(context?:AudioContext):Promise<MusicScore>{if(!context)throw Error('Audio context unavailable');const recording=decodeRecording(context,RECORDINGS.adventure);const generated=new Promise<MusicScore>((resolve,reject)=>{
+/** Both original scores render once off the main thread; the approved lobby is unchanged. */
+async function prepareMusicScore(context?:AudioContext):Promise<MusicScore>{if(!context)throw Error('Audio context unavailable');const generated=new Promise<MusicScore>((resolve,reject)=>{
  const worker=new Worker(new URL('./music-worker.ts',import.meta.url),{type:'module'});
  const timeout=setTimeout(()=>{worker.terminate();reject(Error('Music generation timed out'));},10000);
- worker.onmessage=(event:MessageEvent<MusicScore>)=>{clearTimeout(timeout);worker.terminate();if(event.data?.lobby instanceof Float32Array&&event.data?.adventure instanceof Float32Array&&event.data.lobby.length>0)resolve(event.data);else reject(Error('Invalid music score'));};
+ worker.onmessage=(event:MessageEvent<MusicScore>)=>{clearTimeout(timeout);worker.terminate();if(event.data?.lobby instanceof Float32Array&&event.data?.adventure instanceof Float32Array&&event.data.lobby.length>0&&event.data.adventure.length>1)resolve(event.data);else reject(Error('Invalid music score'));};
  worker.onerror=()=>{clearTimeout(timeout);worker.terminate();reject(Error('Music generation unavailable'));};worker.postMessage('compose');
-});const [score,buffer]=await Promise.all([generated,recording]);return{lobby:score.lobby,adventure:musicSamples(buffer,MUSIC.sampleRate)};}
+});return generated;}
