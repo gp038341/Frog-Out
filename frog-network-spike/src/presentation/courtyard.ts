@@ -7,7 +7,7 @@ import {ARENA_CHAOS} from '../chaos/arena-chaos';
 import {paintClassicState} from './classic-art';
 import {paintFreezeState} from './freeze-art';
 import {appearanceLayers,type Appearance} from './cosmetics';
-import {paintPattern,paintEye,paintHat} from './cosmetic-art';
+import {paintFrogCore,hatAnchor,paintHat} from './cosmetic-art';
 import {paintBathhouse} from './bathhouse';
 import {paintToyshop} from './toyshop';
 import {paintSunnyPond} from './sunny-pond';
@@ -137,31 +137,11 @@ export class Courtyard {
   // Dart-frog outline and diamond motes; permanent slot color/mark remains visible.
   if(poison){g.lineStyle(3,accent);g.strokeCircle(x,y,r+5);for(let j=0;j<3;j++){const a=time*1.4+j*2.1,cx=x+Math.cos(a)*(r+8),cy=y+Math.sin(a)*(r+8);g.fillStyle(accent,.7);g.fillTriangle(cx,cy-3,cx-2.5,cy+2,cx+2.5,cy+2);}}
   if(f.stickyNormal){g.lineStyle(2,0xb6faaa);for(const side of[-1,1])g.strokeEllipse(x+side*r*.78,y+r*.8,r*.9,5);}
-  const feet=charging?0:Math.sin(time*16)*Math.min(3,Math.abs(f.vx)*.6);g.fillStyle(INK);g.fillEllipse(x-r*.78,y+r*.68,r*1.12,10);g.fillEllipse(x+r*.78,y+r*.68,r*1.12,10);g.fillStyle(bodyColor);g.fillEllipse(x-r*.78,y+r*.65+feet,r*.88,6);g.fillEllipse(x+r*.78,y+r*.65-feet,r*.88,6);
-  const bean=[[-.77,-.63],[-.34,-.89],[.35,-.87],[.8,-.6],[1,.02],[.9,.51],[.49,.84],[-.43,.84],[-.91,.53],[-1,.06]].map(([dx,dy])=>({x:x+dx*r*sx,y:y+dy*r*sy}));
-  g.fillStyle(online?bodyColor:0x8caaa3);g.fillPoints(bean,true);g.lineStyle(2.5,INK);g.strokePoints(bean,true);
-  g.fillStyle(0xffffff,.28);g.fillEllipse(x,y+r*.43*sy,r*1.26,r*.63*sy);
-  g.lineStyle(1,0xffffff,.85);g.lineBetween(x-r*.84*sx,y+r*.08,x-r*.72*sx,y-r*.25);
-  // Three splayed suction toes, a common silhouette in portraits and gameplay.
-  for(const side of[-1,1])for(let toe=0;toe<3;toe++){g.fillStyle(INK);g.fillCircle(x+side*(r*.62+toe*2.8),y+r*.78+(toe%2)*1.5,2.6);g.fillStyle(bodyColor);g.fillCircle(x+side*(r*.62+toe*2.8),y+r*.78+(toe%2)*1.5,1.4);}
-  if(layers.showPattern)paintPattern(g,x,y,r,layers.appearance);
-  for(const side of [-1,1])paintEye(g,x+side*r*.57*sx,y-r*.67*sy,r,layers.appearance,f.facing,charging,side);
-  g.fillStyle(0xd77270,.45);g.fillEllipse(x-r*.64,y+r*.12,5,3);g.fillEllipse(x+r*.64,y+r*.12,5,3);
-  g.lineStyle(1.8,INK);g.strokePoints([{x:x-r*.36,y:y+r*.08},{x:x-r*.18,y:y+r*.24},{x:x+r*.15,y:y+r*.25},{x:x+r*.4,y:y+r*.06}],false);if(f.tongue){g.fillStyle(INK);g.fillEllipse(x+f.facing*r*.24,y+r*.14,6,5);}
-  g.fillStyle(INK);g.fillCircle(x-r*.14,y-r*.13,1);g.fillCircle(x+r*.14,y-r*.13,1);
+  paintFrogCore(g,x,y,r,layers.appearance,{sx,sy,feet:charging?0:Math.sin(time*16)*Math.min(3,Math.abs(f.vx)*.6),online,showPattern:layers.showPattern,facing:f.facing,charging,openMouth:!!f.tongue});
   // Black dart-frog flank spots with bright rims appear immediately during transformation.
   // Kept below eyes/forehead so every permanent player mark remains readable.
   if(role.spotted){for(const side of [-1,1])for(const [px,py,rr]of [[.73,.12,.16],[.56,.58,.19]]){const cx=x+side*r*px*sx,cy=y+r*py*sy;g.fillStyle(INK);g.fillEllipse(cx,cy,r*rr*2,r*rr*2.35);g.lineStyle(1,accent,grace ? .6 : 1);g.strokeEllipse(cx,cy,r*rr*2,r*rr*2.35);}}
-  // Eight permanent non-color markings, including small headband/diamond/stripe variants.
-  g.lineStyle(2,INK);g.fillStyle(INK);const mark=slot%8;
-  if(mark===0)g.fillTriangle(x-3,y-3,x+3,y-3,x,y-8);
-  if(mark===1||mark===3)for(const d of [-1,1]){g.fillCircle(x+d*r*.65,y+2,mark===1?2:1.4);if(mark===3)g.fillCircle(x+d*r*.48,y+5,1.4);}
-  if(mark===2)g.lineBetween(x,y-6,x,y-1);
-  if(mark===4){g.lineBetween(x-r*.9,y-r*.94,x-r*.25,y-r*.87);g.lineBetween(x+r*.25,y-r*.87,x+r*.9,y-r*.94);}
-  if(mark===5)g.strokePoints([{x,y:y-7},{x:x+3,y:y-4},{x,y:y-1},{x:x-3,y:y-4}],true);
-  if(mark===6)g.lineBetween(x-r*.78,y-3,x+r*.78,y-3);
-  if(mark===7){g.lineBetween(x-3,y-5,x+3,y-1);g.lineBetween(x+3,y-5,x-3,y-1);}
-  paintHat(g,x,y-r*1.14-(['crown','cowboy','propeller'].includes(layers.hat)?3:1),r,layers.hat,time);
+  paintHat(g,x,y+hatAnchor(r,layers.hat),r,layers.hat,time);
   if(infection?.patientZero){g.fillStyle(0xffe487);g.lineStyle(2,INK);const points=[{x:x-7,y:y-r-7},{x:x-7,y:y-r-14},{x:x-3,y:y-r-10},{x,y:y-r-16},{x:x+3,y:y-r-10},{x:x+7,y:y-r-14},{x:x+7,y:y-r-7}];g.fillPoints(points,true);g.strokePoints(points,true);}
   if(charging){g.lineStyle(3,INK);g.strokeCircle(x,y,r+9);g.lineStyle(3,0xffe29c);g.beginPath();g.arc(x,y,r+9,-Math.PI/2,-Math.PI/2+Math.PI*2*Math.max(.03,q));g.strokePath();}
   g.restore();

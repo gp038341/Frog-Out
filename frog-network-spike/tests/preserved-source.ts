@@ -179,4 +179,8 @@ export function chaseMusicPreservedSource(path:string,raw=false){const m=JSON.pa
 export function heroicMusicPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/heroic-age-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??creativePreservedSource(path,raw);}
 
 /** Reverse only the explicitly authorized, reversible Pond Press visual experiment. */
-export function creativePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/creative-identity/preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function creativePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/creative-identity/preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??cosmeticOptionsPreservedSource(path,raw);}
+
+/** Recover the approved pre-options cosmetics for historical byte-preservation guards.
+ * cosmetic-options.test.ts separately verifies the exact current adapters and protected systems. */
+export function cosmeticOptionsPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/cosmetic-options-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
