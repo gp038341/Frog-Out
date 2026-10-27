@@ -1,0 +1,379 @@
+{
+  "baseline": "97f55373d267b2019314a907795da81c2c74421f",
+  "checkpoint": "checkpoint/pre-signature-arena-energy-update",
+  "suite": {
+    "passed": 611,
+    "failed": 0
+  },
+  "build": "passed",
+  "sunnyPond": {
+    "identicalTraceScenarios": 23,
+    "previewUnchanged": true
+  },
+  "browser": {
+    "checks": [
+      {
+        "arena": "sunny-pond",
+        "mobile": false,
+        "eightFrogs": true,
+        "pausedClock": true
+      },
+      {
+        "arena": "bathhouse",
+        "mobile": false,
+        "eightFrogs": true,
+        "pausedClock": true,
+        "environment": {
+          "arena": "bathhouse",
+          "clock": 140,
+          "paused": false,
+          "jets": [
+            {
+              "id": 0,
+              "x": 14.1,
+              "y": 21.25,
+              "width": 1.4,
+              "height": 11.5,
+              "stage": "active",
+              "remaining": 70
+            },
+            {
+              "id": 1,
+              "x": 25.7,
+              "y": 21.25,
+              "width": 1.4,
+              "height": 11.5,
+              "stage": "cooldown",
+              "remaining": 160
+            }
+          ],
+          "platforms": [],
+          "belts": []
+        }
+      },
+      {
+        "arena": "canopy",
+        "mobile": false,
+        "eightFrogs": true,
+        "pausedClock": true,
+        "environment": {
+          "arena": "canopy",
+          "clock": 140,
+          "paused": false,
+          "jets": [],
+          "platforms": [
+            {
+              "source": 6,
+              "x": 10.975542578746781,
+              "y": 11.5,
+              "angle": 0,
+              "vx": -2.800102920377725,
+              "vy": 0,
+              "av": 0,
+              "active": true
+            },
+            {
+              "source": 7,
+              "x": 29.024457421253217,
+              "y": 11.5,
+              "angle": 0,
+              "vx": 2.800102920377725,
+              "vy": 0,
+              "av": 0,
+              "active": true
+            }
+          ],
+          "belts": []
+        }
+      },
+      {
+        "arena": "toyshop",
+        "mobile": false,
+        "eightFrogs": true,
+        "pausedClock": true,
+        "environment": {
+          "arena": "toyshop",
+          "clock": 137,
+          "paused": false,
+          "jets": [],
+          "platforms": [],
+          "belts": [
+            {
+              "source": 4,
+              "x": 7,
+              "y": 18,
+              "angle": 0,
+              "vx": 0,
+              "vy": 0,
+              "av": 0,
+              "active": true,
+              "speed": 4,
+              "width": 4,
+              "running": true
+            },
+            {
+              "source": 7,
+              "x": 35,
+              "y": 11.5,
+              "angle": 0,
+              "vx": 0,
+              "vy": 0,
+              "av": 0,
+              "active": true,
+              "speed": -4,
+              "width": 3.6,
+              "running": true
+            }
+          ]
+        }
+      },
+      {
+        "arena": "sunny-pond",
+        "mobile": true,
+        "eightFrogs": true,
+        "pausedClock": true
+      },
+      {
+        "arena": "bathhouse",
+        "mobile": true,
+        "eightFrogs": true,
+        "pausedClock": true,
+        "environment": {
+          "arena": "bathhouse",
+          "clock": 136,
+          "paused": false,
+          "jets": [
+            {
+              "id": 0,
+              "x": 14.1,
+              "y": 21.25,
+              "width": 1.4,
+              "height": 11.5,
+              "stage": "active",
+              "remaining": 74
+            },
+            {
+              "id": 1,
+              "x": 25.7,
+              "y": 21.25,
+              "width": 1.4,
+              "height": 11.5,
+              "stage": "cooldown",
+              "remaining": 164
+            }
+          ],
+          "platforms": [],
+          "belts": []
+        }
+      },
+      {
+        "arena": "canopy",
+        "mobile": true,
+        "eightFrogs": true,
+        "pausedClock": true,
+        "environment": {
+          "arena": "canopy",
+          "clock": 135,
+          "paused": false,
+          "jets": [],
+          "platforms": [
+            {
+              "source": 6,
+              "x": 11.215425328185342,
+              "y": 11.5,
+              "angle": 0,
+              "vx": -2.9863039942571845,
+              "vy": 0,
+              "av": 0,
+              "active": true
+            },
+            {
+              "source": 7,
+              "x": 28.78457467181466,
+              "y": 11.5,
+              "angle": 0,
+              "vx": 2.9863039942571845,
+              "vy": 0,
+              "av": 0,
+              "active": true
+            }
+          ],
+          "belts": []
+        }
+      },
+      {
+        "arena": "toyshop",
+        "mobile": true,
+        "eightFrogs": true,
+        "pausedClock": true,
+        "environment": {
+          "arena": "toyshop",
+          "clock": 135,
+          "paused": false,
+          "jets": [],
+          "platforms": [],
+          "belts": [
+            {
+              "source": 4,
+              "x": 7,
+              "y": 18,
+              "angle": 0,
+              "vx": 0,
+              "vy": 0,
+              "av": 0,
+              "active": true,
+              "speed": 4,
+              "width": 4,
+              "running": true
+            },
+            {
+              "source": 7,
+              "x": 35,
+              "y": 11.5,
+              "angle": 0,
+              "vx": 0,
+              "vy": 0,
+              "av": 0,
+              "active": true,
+              "speed": -4,
+              "width": 3.6,
+              "running": true
+            }
+          ]
+        }
+      }
+    ],
+    "errors": []
+  },
+  "network": {
+    "checks": [
+      {
+        "mode": "poison",
+        "arena": "bathhouse",
+        "count": 2,
+        "matchingSnapshots": 46,
+        "reconnect": false
+      },
+      {
+        "mode": "poison",
+        "arena": "bathhouse",
+        "count": 8,
+        "matchingSnapshots": 47,
+        "reconnect": true
+      },
+      {
+        "mode": "poison",
+        "arena": "canopy",
+        "count": 2,
+        "matchingSnapshots": 47,
+        "reconnect": false
+      },
+      {
+        "mode": "poison",
+        "arena": "canopy",
+        "count": 8,
+        "matchingSnapshots": 48,
+        "reconnect": true
+      },
+      {
+        "mode": "poison",
+        "arena": "toyshop",
+        "count": 2,
+        "matchingSnapshots": 43,
+        "reconnect": false
+      },
+      {
+        "mode": "poison",
+        "arena": "toyshop",
+        "count": 8,
+        "matchingSnapshots": 48,
+        "reconnect": true
+      },
+      {
+        "mode": "freeze",
+        "arena": "bathhouse",
+        "count": 2,
+        "matchingSnapshots": 48,
+        "reconnect": false
+      },
+      {
+        "mode": "freeze",
+        "arena": "bathhouse",
+        "count": 8,
+        "matchingSnapshots": 48,
+        "reconnect": true
+      },
+      {
+        "mode": "freeze",
+        "arena": "canopy",
+        "count": 2,
+        "matchingSnapshots": 45,
+        "reconnect": false
+      },
+      {
+        "mode": "freeze",
+        "arena": "canopy",
+        "count": 8,
+        "matchingSnapshots": 46,
+        "reconnect": true
+      },
+      {
+        "mode": "freeze",
+        "arena": "toyshop",
+        "count": 2,
+        "matchingSnapshots": 46,
+        "reconnect": false
+      },
+      {
+        "mode": "freeze",
+        "arena": "toyshop",
+        "count": 8,
+        "matchingSnapshots": 48,
+        "reconnect": true
+      },
+      {
+        "mode": "classic",
+        "arena": "bathhouse",
+        "count": 2,
+        "matchingSnapshots": 48,
+        "reconnect": false
+      },
+      {
+        "mode": "classic",
+        "arena": "bathhouse",
+        "count": 8,
+        "matchingSnapshots": 37,
+        "reconnect": true
+      },
+      {
+        "mode": "classic",
+        "arena": "canopy",
+        "count": 2,
+        "matchingSnapshots": 43,
+        "reconnect": false
+      },
+      {
+        "mode": "classic",
+        "arena": "canopy",
+        "count": 8,
+        "matchingSnapshots": 48,
+        "reconnect": true
+      },
+      {
+        "mode": "classic",
+        "arena": "toyshop",
+        "count": 2,
+        "matchingSnapshots": 48,
+        "reconnect": false
+      },
+      {
+        "mode": "classic",
+        "arena": "toyshop",
+        "count": 8,
+        "matchingSnapshots": 49,
+        "reconnect": true
+      }
+    ]
+  },
+  "physicalDeviceTesting": false
+}

@@ -192,4 +192,7 @@ export function roundedFrogPreservedSource(path:string,raw=false){const m=JSON.p
 export function gameplaySizePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/gameplay-frog-size-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??signatureArenaPreservedSource(path,raw);}
 
 /** Reverse only the owner-authorized signature arena adapters for older guards. */
-export function signatureArenaPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/signature-arenas-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function signatureArenaPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/signature-arenas-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??arenaEnergyPreservedSource(path,raw);}
+
+/** Reverse this owner-requested mechanic tuning/preview update for older guards only. */
+export function arenaEnergyPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/arena-energy-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

@@ -1,0 +1,195 @@
+{
+  "baseline": "97f55373d267b2019314a907795da81c2c74421f",
+  "measurements": {
+    "before": {
+      "jet": {
+        "rise": 8.482222222222221,
+        "upwardSpeedAfterPoint2Seconds": 5.200000000000001
+      },
+      "vine": {
+        "maxSpeed": 1.0602567682012776,
+        "minX": 10.65351287943954,
+        "maxX": 13.34648712056046
+      },
+      "belts": {
+        "rideSpeed": 2.1350000000000002,
+        "againstSpeed": -3.735,
+        "againstStickyPaint": 2.235
+      }
+    },
+    "after": {
+      "jet": {
+        "rise": 14.89165625,
+        "upwardSpeedAfterPoint2Seconds": 18.799999999999997
+      },
+      "vine": {
+        "maxSpeed": 3.2228925882330373,
+        "minX": 9.960323934253793,
+        "maxX": 14.039676065746207
+      },
+      "belts": {
+        "rideSpeed": 3.935,
+        "againstSpeed": -1.935,
+        "againstStickyPaint": 0.435
+      }
+    },
+    "sunnyPreviewSha256": "781a2c766337888fd3086de60c12af9dea6bc01b2205b55d9b9873b8ef884c8b"
+  },
+  "cpuRoutes": [
+    {
+      "arena": "bathhouse",
+      "start": [
+        14.1,
+        20.95
+      ],
+      "goal": [
+        19,
+        12
+      ],
+      "closest": 0.6278467184455128,
+      "minY": 5.907043899388405,
+      "jetFrames": 10,
+      "travel": 29.678767009805114,
+      "stats": {
+        "goals": 0,
+        "arrivals": 1,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 2,
+        "attachments": 1,
+        "releases": 1,
+        "swings": 3,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 19,
+        "obstructions": 0,
+        "unproductiveGrapples": 0
+      },
+      "ms": 223.24571400000002
+    },
+    {
+      "arena": "canopy",
+      "start": [
+        12,
+        10.77
+      ],
+      "goal": [
+        20,
+        6.2
+      ],
+      "closest": 0.5418991742645943,
+      "minY": 4.708916666666669,
+      "jetFrames": 0,
+      "travel": 15.17907159387526,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 23,
+        "obstructions": 0,
+        "unproductiveGrapples": 0
+      },
+      "ms": 152.19251700000007
+    },
+    {
+      "arena": "canopy",
+      "start": [
+        7,
+        15.3
+      ],
+      "goal": [
+        28,
+        10.77
+      ],
+      "closest": 0.02508740137927003,
+      "minY": 2.5294446254976632,
+      "jetFrames": 0,
+      "travel": 53.4174195758557,
+      "stats": {
+        "goals": 0,
+        "arrivals": 2,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 1,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 1,
+        "recoveries": 1,
+        "plans": 56,
+        "obstructions": 0,
+        "unproductiveGrapples": 0
+      },
+      "ms": 102.09516499999995
+    },
+    {
+      "arena": "toyshop",
+      "start": [
+        7,
+        16.91
+      ],
+      "goal": [
+        3.5,
+        20.9
+      ],
+      "closest": 0.5680150216068437,
+      "minY": 16.91,
+      "jetFrames": 0,
+      "travel": 16.525850056093883,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 28,
+        "obstructions": 0,
+        "unproductiveGrapples": 0
+      },
+      "ms": 77.36795699999993
+    },
+    {
+      "arena": "toyshop",
+      "start": [
+        35,
+        10.31
+      ],
+      "goal": [
+        38,
+        20.9
+      ],
+      "closest": 0.7500928746927505,
+      "minY": 10.31,
+      "jetFrames": 0,
+      "travel": 39.55546343484123,
+      "stats": {
+        "goals": 0,
+        "arrivals": 1,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 1,
+        "attachments": 1,
+        "releases": 1,
+        "swings": 2,
+        "misses": 0,
+        "recoveries": 1,
+        "plans": 37,
+        "obstructions": 0,
+        "unproductiveGrapples": 0
+      },
+      "ms": 104.13336300000003
+    }
+  ]
+}

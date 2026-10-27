@@ -1,11 +1,11 @@
 import {Vec2,RevoluteJoint,type Body} from 'planck';
 import type {Simulation,Frog} from './world';
 import {getArena,type ArenaId} from './arenas';import {DT} from './config';import {platformContact} from './platform-contact';
-export const ARENA_MECHANICS={jetWarning:60,jetActive:150,jetPeriod:600,jetPhase:300,jetAcceleration:52,jetMaxSpeed:12,jetHeight:6.3,jetWidth:1.4,vinePeriod:480,vineLength:10.8,vineAngle:.125,beltSpeed:2.2,beltWarmup:120};
+export const ARENA_MECHANICS={jetWarning:60,jetActive:150,jetPeriod:600,jetPhase:300,jetAcceleration:120,jetMaxSpeed:20,jetHeight:11.5,jetWidth:1.4,vinePeriod:240,vineLength:10.8,vineAngle:.19,beltSpeed:4,beltWarmup:120};
 export type JetView={id:number;x:number;y:number;width:number;height:number;stage:'warning'|'active'|'cooldown';remaining:number};
 export type MovingView={source:number;x:number;y:number;angle:number;vx:number;vy:number;av:number;active:boolean};
 export type ArenaMechanicsState={arena:ArenaId;clock:number;paused:boolean;jets:JetView[];platforms:MovingView[];belts:(MovingView&{speed:number;width:number;running?:boolean})[]};
-const JETS=[{x:14.1,y:21.25},{x:25.7,y:21.25}];const VINES=[6,7];const BELTS=[{source:4,speed:2.2,width:4},{source:7,speed:-2.2,width:3.6}];
+const JETS=[{x:14.1,y:21.25},{x:25.7,y:21.25}];const VINES=[6,7];export const BELTS=[{source:4,speed:ARENA_MECHANICS.beltSpeed,width:4},{source:7,speed:-ARENA_MECHANICS.beltSpeed,width:3.6}];
 export function jetViews(clock:number):JetView[]{const C=ARENA_MECHANICS;return JETS.map((p,id)=>{const phase=(clock+id*C.jetPhase)%C.jetPeriod,stage=phase<C.jetWarning?'warning':phase<C.jetWarning+C.jetActive?'active':'cooldown',end=stage==='warning'?C.jetWarning:stage==='active'?C.jetWarning+C.jetActive:C.jetPeriod;return{id,...p,width:C.jetWidth,height:C.jetHeight,stage,remaining:end-phase};});}
 export function vinePosition(source:number,clock:number){const c=ARENA_MECHANICS,r=getArena('canopy').solids[source],phase=clock*2*Math.PI/c.vinePeriod+(source===7?Math.PI:0),a=Math.sin(phase)*c.vineAngle;return{x:r.x+Math.sin(a)*c.vineLength,y:r.y};}
 /** Arena-local mechanics. Frogs receive ordinary bounded impulses, never scripted positions. */
