@@ -137,11 +137,16 @@ export class Courtyard {
   // Dart-frog outline and diamond motes; permanent slot color/mark remains visible.
   if(poison){g.lineStyle(3,accent);g.strokeCircle(x,y,r+5);for(let j=0;j<3;j++){const a=time*1.4+j*2.1,cx=x+Math.cos(a)*(r+8),cy=y+Math.sin(a)*(r+8);g.fillStyle(accent,.7);g.fillTriangle(cx,cy-3,cx-2.5,cy+2,cx+2.5,cy+2);}}
   if(f.stickyNormal){g.lineStyle(2,0xb6faaa);for(const side of[-1,1])g.strokeEllipse(x+side*r*.78,y+r*.8,r*.9,5);}
+  // Restore the pre-portrait neutral head-to-toe height using art-only scaling.
+  // Old outline: eye top -1.14r; toe bottom .78r+4.1. Rounded art: y=21.5..92.75.
+  const artScale=(1.92*r+4.1)/(71.25*r/38.5),artOffset=.78*r+4.1-(38.75*r/38.5)*artScale;
+  g.save();g.translateCanvas(0,artOffset);g.scaleCanvas(artScale,artScale);
   paintFrogCore(g,x,y,r,layers.appearance,{sx,sy,feet:charging?0:Math.sin(time*16)*Math.min(3,Math.abs(f.vx)*.6),online,showPattern:layers.showPattern,facing:f.facing,charging,openMouth:!!f.tongue});
   // Black dart-frog flank spots with bright rims appear immediately during transformation.
   // Kept below eyes/forehead so every permanent player mark remains readable.
   if(role.spotted){for(const side of [-1,1])for(const [px,py,rr]of [[.73,.12,.16],[.56,.58,.19]]){const cx=x+side*r*px*sx,cy=y+r*py*sy;g.fillStyle(INK);g.fillEllipse(cx,cy,r*rr*2,r*rr*2.35);g.lineStyle(1,accent,grace ? .6 : 1);g.strokeEllipse(cx,cy,r*rr*2,r*rr*2.35);}}
   paintHat(g,x,y+hatAnchor(r,layers.hat),r,layers.hat,time);
+  g.restore();
   if(infection?.patientZero){g.fillStyle(0xffe487);g.lineStyle(2,INK);const points=[{x:x-7,y:y-r-7},{x:x-7,y:y-r-14},{x:x-3,y:y-r-10},{x,y:y-r-16},{x:x+3,y:y-r-10},{x:x+7,y:y-r-14},{x:x+7,y:y-r-7}];g.fillPoints(points,true);g.strokePoints(points,true);}
   if(charging){g.lineStyle(3,INK);g.strokeCircle(x,y,r+9);g.lineStyle(3,0xffe29c);g.beginPath();g.arc(x,y,r+9,-Math.PI/2,-Math.PI/2+Math.PI*2*Math.max(.03,q));g.strokePath();}
   g.restore();

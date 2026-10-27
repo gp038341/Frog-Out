@@ -183,7 +183,10 @@ export function creativePreservedSource(path:string,raw=false){const m=JSON.pars
 
 /** Recover the approved pre-options cosmetics for historical byte-preservation guards.
  * cosmetic-options.test.ts separately verifies the exact current adapters and protected systems. */
-export function cosmeticOptionsPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/cosmetic-options-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function cosmeticOptionsPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/cosmetic-options-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??gameplaySizePreservedSource(path,raw);}
 
 /** Recover the pre-correction render adapters for historical cosmetics guards. */
-export function roundedFrogPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/rounded-frog-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function roundedFrogPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/rounded-frog-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??gameplaySizePreservedSource(path,raw);}
+
+/** Reverse only the owner-requested gameplay artwork scale for historical guards. */
+export function gameplaySizePreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/gameplay-frog-size-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
