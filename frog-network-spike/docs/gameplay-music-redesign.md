@@ -1,4 +1,6 @@
-# Hop Pursuit — gameplay music listening candidate
+# Hop Pursuit — initial gameplay music listening candidate
+
+For the subsequent steady-groove refinement, see `gameplay-music-rhythm.md`. The initial arrangement and measurements below are retained as history.
 
 Baseline: `c0a184e2e9002dac4e1873874ba25fe97e0f4d60`.
 Preserved checkpoint: `checkpoint/pre-gameplay-music-redesign`.

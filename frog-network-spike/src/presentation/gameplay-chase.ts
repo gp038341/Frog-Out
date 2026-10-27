@@ -6,37 +6,24 @@
 export const GAMEPLAY_MUSIC={title:'Hop Pursuit',bpm:168,bars:32,beatsPerBar:4,sampleRate:22050,targetRms:.105,peakLimit:.72}as const;
 type Voice='mallet'|'pluck'|'bass'|'reed'|'brass';
 type Note=readonly[beat:number,midi:number,length:number];
-// A recognizable syncopated question/answer, rather than randomly selected scale notes.
+// One repeatable four-count groove. No off-grid kick substitutions or mid-song style switch.
+export const CHASE_GROOVE={kick:[0,2],snare:[1,3],hat:[0,.5,1,1.5,2,2.5,3,3.5],bass:[0,.5,1.5,2,2.5,3.5]}as const;
+const phrase=(notes:readonly number[]):readonly Note[]=>notes.map((m,i)=>[[0,.5,1,2,2.5,3][i],m,i===2||i===5?.78:.4]as const);
 const A:readonly(readonly Note[])[]=[
- [[0,74,.42],[.75,77,.3],[1.25,81,.45],[2,79,.4],[2.75,77,.3],[3.5,76,.35]],
- [[0,74,.65],[1,69,.3],[1.75,72,.35],[2.5,74,.6],[3.5,77,.3]],
- [[0,79,.45],[.75,81,.25],[1.25,83,.45],[2,81,.4],[2.75,79,.3],[3.5,77,.35]],
- [[0,76,.6],[1,79,.3],[1.75,77,.35],[2.5,76,.4],[3.25,72,.35]],
- [[0,77,.45],[.75,81,.3],[1.5,84,.55],[2.5,81,.4],[3.25,79,.4]],
- [[0,79,.45],[.75,77,.25],[1.25,74,.45],[2,72,.35],[2.75,74,.3],[3.5,77,.35]],
- [[0,76,.5],[.75,79,.3],[1.5,81,.55],[2.5,79,.35],[3.25,76,.35]],
- [[0,73,.6],[1,76,.3],[1.75,79,.35],[2.5,76,.35],[3.25,73,.3],[3.75,76,.2]],
+ phrase([74,77,81,79,77,76]),phrase([74,77,81,84,81,77]),
+ phrase([79,81,83,81,79,77]),phrase([76,79,84,83,79,76]),
+ phrase([77,81,82,81,77,74]),phrase([79,77,74,77,79,81]),
+ phrase([76,79,81,79,76,74]),
+ [[0,73,.4],[.5,76,.4],[1,79,.78],[2,81,.4],[2.5,76,.4],[3,73,.5]],
 ];
-const B:readonly(readonly Note[])[]=[
- [[0,81,.7],[1,79,.35],[1.75,77,.5],[2.75,76,.35],[3.5,77,.35]],
- [[0,79,.7],[1,76,.35],[1.75,72,.5],[2.75,74,.35],[3.5,76,.35]],
- [[0,79,.45],[.75,82,.4],[1.5,81,.55],[2.5,79,.4],[3.25,77,.4]],
- [[0,76,.65],[1,73,.35],[1.75,76,.35],[2.5,79,.5],[3.5,81,.3]],
- [[0,82,.65],[1,81,.35],[1.75,77,.5],[2.75,79,.35],[3.5,81,.35]],
- [[0,79,.6],[1,77,.35],[1.75,74,.5],[2.75,72,.35],[3.5,74,.35]],
- [[0,76,.45],[.75,79,.35],[1.5,82,.5],[2.5,81,.35],[3.25,79,.4]],
- [[0,76,.6],[1,73,.35],[1.75,76,.35],[2.5,79,.5],[3.5,73,.3]],
-];
+// Same eight-bar progression on every pass; small phrase endings provide continuity/variation.
 const H=[
  {root:38,notes:[62,65,69,76]},{root:38,notes:[62,65,69,72]},
  {root:43,notes:[62,65,69,71]},{root:36,notes:[60,64,67,74]},
  {root:34,notes:[62,65,69,70]},{root:43,notes:[62,65,67,70]},
  {root:45,notes:[62,64,67,69]},{root:45,notes:[61,64,67,69]},
- {root:41,notes:[60,64,65,69]},{root:40,notes:[60,64,67,72]},
- {root:43,notes:[62,65,67,70]},{root:45,notes:[61,64,67,69]},
- {root:34,notes:[62,65,67,70]},{root:43,notes:[62,65,67,70]},
- {root:40,notes:[62,64,67,70]},{root:45,notes:[61,64,67,69]},
 ];
+export function gameplayPhrase(bar:number):readonly Note[]{const i=bar%8,a=A[i];return Math.floor(bar/8)%2===1&&(i===1||i===5)?a.map(([b,m,len],j)=>[b,j===a.length-1?m-(i===1?1:2):m,len]as const):a;}
 export function composeGameplayMusic(rate:number=GAMEPLAY_MUSIC.sampleRate):Float32Array{
  const beat=60/GAMEPLAY_MUSIC.bpm,n=Math.round(GAMEPLAY_MUSIC.bars*4*beat*rate),dry=new Float32Array(n);let seed=0x46524f47;
  const noise=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/2147483648-1;};
@@ -55,18 +42,15 @@ export function composeGameplayMusic(rate:number=GAMEPLAY_MUSIC.sampleRate):Floa
   const duration=kind==='hat'?.075:kind==='snare'?.16:.22,offset=Math.round(at*beat*rate);let low=0,last=0;
   for(let i=0;i<duration*rate;i++){const t=i/rate,random=noise();low+=.24*(random-low);const band=low-last;last=low;const wave=kind==='kick'?Math.sin(2*Math.PI*(49*t+1.15*(1-Math.exp(-t*35)))):kind==='tom'?Math.sin(2*Math.PI*(pitch*t+.8*(1-Math.exp(-t*24)))):kind==='hat'?band*1.3:low*.85+.14*Math.sin(2*Math.PI*185*t);const env=Math.min(1,t/.002)*Math.min(1,(duration-t)/.018)*Math.exp(-t/(kind==='hat'?.018:kind==='snare'?.035:.06));dry[(offset+i)%n]+=wave*env*level;}
  };
- for(let bar=0;bar<32;bar++){
-  const contrast=bar>=16&&bar<24,h=H[contrast?8+bar%8:bar%8],base=bar*4,phrase=(contrast?B:A)[bar%8],returning=bar>=24;
-  for(const[b,m,len]of phrase){note(m,base+b,len,contrast?.068:.108,contrast?'reed':'mallet');if(returning&&b===0)note(m-12,base+b,len,.027,'pluck');}
-  // The second A phrase answers with a short lower countermelody, leaving lead space.
-  if(bar>=8&&bar<16){note(h.notes[2],base+2.25,.35,.043,'mallet');note(h.notes[1],base+3.25,.35,.039,'mallet');}
-  for(const [i,b]of[0,.75,1.5,2,2.75,3.5].entries()){const next=H[contrast?8+(bar+1)%8:(bar+1)%8].root,m=i===5&&bar%4===3?next-1:h.root+[0,7,12,0,7,(h.notes[1]-h.root+120)%12][i];note(m,base+b,i%2?.38:.48,.145,'bass');}
-  for(let s=0;s<8;s++){if(contrast&&s%2===0)continue;note(h.notes[(s+bar%2)%4],base+s*.5+(s%2?.015:0),.23,contrast?.036:.048,'pluck');}
-  if(bar%4===1||bar%4===3)for(const b of[1.75,3.25])for(const m of h.notes.slice(0,3))note(m,base+b,.24,.019,'brass');
-  for(const b of[0,1.5,2.75])drum(base+b,'kick',b===0?.18:.13);
-  for(const b of[1,3])drum(base+b,'snare',.12);
-  for(let s=0;s<8;s++){drum(base+s*.5,'hat',s%2?.05:.035);if(!contrast&&s%2===1)drum(base+s*.5+.25,'hat',.018);}
-  if(bar%8===7)for(let s=0;s<4;s++)drum(base+3+s*.25,'tom',.075,150-s*20);
+ for(let bar=0;bar<GAMEPLAY_MUSIC.bars;bar++){
+  const h=H[bar%8],base=bar*4;
+  // One blended lead throughout; changing sections never replaces the lead instrument.
+  for(const[b,m,len]of gameplayPhrase(bar)){note(m,base+b,len,.095,'mallet');note(m,base+b,len,.023,'reed');}
+  for(const[i,b]of CHASE_GROOVE.bass.entries())note(h.root+[0,12,7,0,(h.notes[1]-h.root+120)%12,7][i],base+b,.4,.15,'bass');
+  for(let step=0;step<8;step++)note(h.notes[[0,2,1,3,0,2,1,3][step]],base+step*.5,.23,.036,'pluck');
+  for(const b of CHASE_GROOVE.kick)drum(base+b,'kick',.18);
+  for(const b of CHASE_GROOVE.snare)drum(base+b,'snare',.12);
+  for(const[i,b]of CHASE_GROOVE.hat.entries())drum(base+b,'hat',i%2?.035:.043);
  }
  // Circular early reflections preserve tails across the seam without shortening a bar,
  // fading the end, restarting a timer, or crossfading two copies of the music.
