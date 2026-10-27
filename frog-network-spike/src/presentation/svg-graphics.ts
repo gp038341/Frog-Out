@@ -17,5 +17,6 @@ export class SVGGraphics {
  strokePoints(points:{x:number;y:number}[],close=false){return this.add(close?'polygon':'polyline',`points="${points.map(p=>`${p.x},${p.y}`).join(' ')}"`,true);}
  fillTriangle(x:number,y:number,x2:number,y2:number,x3:number,y3:number){return this.fillPoints([{x,y},{x:x2,y:y2},{x:x3,y:y3}]);}
  lineBetween(x:number,y:number,x2:number,y2:number){return this.add('line',`x1="${x}" y1="${y}" x2="${x2}" y2="${y2}"`,true);}
+ vectorPath(d:string,x:number,y:number,sx:number,sy:number,fill?:number,stroke?:number,width=3,alpha=1){this.parts.push(`<path d="${d}" transform="translate(${x} ${y}) scale(${sx} ${sy})" fill="${fill===undefined?'none':this.hex(fill)}" fill-opacity="${alpha}" stroke="${stroke===undefined?'none':this.hex(stroke)}" stroke-width="${width}" stroke-opacity="${alpha}" stroke-linejoin="round" stroke-linecap="round"/>`);}
  markup(){return this.parts.join('');}
 }
