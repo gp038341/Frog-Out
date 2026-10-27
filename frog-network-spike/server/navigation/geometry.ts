@@ -11,7 +11,7 @@ const ids=new WeakMap<Body,number>();let nextId=0;const caches=new WeakMap<Simul
 export function surfaceY(s:Surface,x:number){return s.a.y+(s.b.y-s.a.y)*(x-s.a.x)/(s.b.x-s.a.x||1);}
 export const clamp=(v:number,a:number,b:number)=>Math.max(a,Math.min(b,v));
 export function standing(s:Surface,x:number,r:number):Point{return{x,y:surfaceY(s,x)+s.normal.y*(r+.035)};}
-export function terrain(sim:Simulation,b:Body){const data=b.getUserData()as any;return b.isActive()&&(!b.isDynamic()||data?.chaosPlatform)&&!data?.chaosBallBoundary&&!data?.chaosBall&&!sim.frogs.some(f=>f.body===b);}
+export function terrain(sim:Simulation,b:Body){const data=b.getUserData()as any;return b.isActive()&&(!b.isDynamic()||data?.chaosPlatform)&&!data?.chaosBallBoundary&&!data?.chaosBall&&!data?.arenaPivot&&!sim.frogs.some(f=>f.body===b);}
 /** One read-only graph per simulation. Static adjacency is reused; transformed polygons refresh at 10 Hz. */
 export function navigationGraph(sim:Simulation){const previous=caches.get(sim);if(previous&&sim.tick>=previous.tick&&sim.tick-previous.tick<NAV.planTicks)return previous;
  const surfaces:Surface[]=[];let key=[sim.tuning.frogRadius,sim.tuning.gravity,sim.tuning.jumpImpulse,sim.tuning.chargedJumpImpulse,sim.tuning.groundSpeed,sim.tuning.tongueRange,sim.chaosGravityDirection,sim.frogs.some(f=>f.balloonInflated)].join(':');

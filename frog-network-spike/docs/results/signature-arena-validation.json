@@ -1,0 +1,587 @@
+{
+  "suite": {
+    "tests": 605,
+    "passed": 605,
+    "failed": 0
+  },
+  "sunny": {
+    "scenarios": 23,
+    "identicalStateTraces": true
+  },
+  "cpuRoutes": [
+    {
+      "arena": "bathhouse",
+      "start": [
+        14.1,
+        20.95
+      ],
+      "goal": [
+        19,
+        12
+      ],
+      "closest": 0.04764793605918229,
+      "minY": 9.059996028688365,
+      "jetFrames": 11,
+      "travel": 83.56075201355597,
+      "stats": {
+        "goals": 0,
+        "arrivals": 1,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 4,
+        "attachments": 3,
+        "releases": 3,
+        "swings": 24,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 31,
+        "obstructions": 0,
+        "unproductiveGrapples": 0
+      },
+      "ms": 988.214532
+    },
+    {
+      "arena": "canopy",
+      "start": [
+        12,
+        10.77
+      ],
+      "goal": [
+        20,
+        6.2
+      ],
+      "closest": 0.5294836431003997,
+      "minY": 4.708916666666669,
+      "jetFrames": 0,
+      "travel": 13.957935047761092,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 1,
+        "charges": 1,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 23,
+        "obstructions": 0,
+        "unproductiveGrapples": 0
+      },
+      "ms": 655.6792230000001
+    },
+    {
+      "arena": "canopy",
+      "start": [
+        7,
+        15.3
+      ],
+      "goal": [
+        28,
+        10.77
+      ],
+      "closest": 0.025061327898380073,
+      "minY": 2.4335417027242894,
+      "jetFrames": 0,
+      "travel": 50.57162652956242,
+      "stats": {
+        "goals": 0,
+        "arrivals": 1,
+        "jumps": 2,
+        "charges": 2,
+        "shots": 1,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 1,
+        "recoveries": 0,
+        "plans": 82,
+        "obstructions": 0,
+        "unproductiveGrapples": 0
+      },
+      "ms": 576.406285
+    },
+    {
+      "arena": "toyshop",
+      "start": [
+        7,
+        16.91
+      ],
+      "goal": [
+        3.5,
+        20.9
+      ],
+      "closest": 0.5680150216068437,
+      "minY": 16.91,
+      "jetFrames": 0,
+      "travel": 16.525850056093883,
+      "stats": {
+        "goals": 0,
+        "arrivals": 0,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 0,
+        "attachments": 0,
+        "releases": 0,
+        "swings": 0,
+        "misses": 0,
+        "recoveries": 0,
+        "plans": 28,
+        "obstructions": 0,
+        "unproductiveGrapples": 0
+      },
+      "ms": 1152.2792279999999
+    },
+    {
+      "arena": "toyshop",
+      "start": [
+        35,
+        10.31
+      ],
+      "goal": [
+        38,
+        20.9
+      ],
+      "closest": 0.7500928746927505,
+      "minY": 10.31,
+      "jetFrames": 0,
+      "travel": 39.55546343484123,
+      "stats": {
+        "goals": 0,
+        "arrivals": 1,
+        "jumps": 0,
+        "charges": 0,
+        "shots": 1,
+        "attachments": 1,
+        "releases": 1,
+        "swings": 2,
+        "misses": 0,
+        "recoveries": 1,
+        "plans": 37,
+        "obstructions": 0,
+        "unproductiveGrapples": 0
+      },
+      "ms": 349.6861340000005
+    }
+  ],
+  "independentClients": {
+    "checks": [
+      {
+        "mode": "poison",
+        "arena": "bathhouse",
+        "count": 2,
+        "matchingSnapshots": 47,
+        "reconnect": false
+      },
+      {
+        "mode": "poison",
+        "arena": "bathhouse",
+        "count": 8,
+        "matchingSnapshots": 47,
+        "reconnect": true
+      },
+      {
+        "mode": "poison",
+        "arena": "canopy",
+        "count": 2,
+        "matchingSnapshots": 48,
+        "reconnect": false
+      },
+      {
+        "mode": "poison",
+        "arena": "canopy",
+        "count": 8,
+        "matchingSnapshots": 47,
+        "reconnect": true
+      },
+      {
+        "mode": "poison",
+        "arena": "toyshop",
+        "count": 2,
+        "matchingSnapshots": 48,
+        "reconnect": false
+      },
+      {
+        "mode": "poison",
+        "arena": "toyshop",
+        "count": 8,
+        "matchingSnapshots": 48,
+        "reconnect": true
+      },
+      {
+        "mode": "freeze",
+        "arena": "bathhouse",
+        "count": 2,
+        "matchingSnapshots": 48,
+        "reconnect": false
+      },
+      {
+        "mode": "freeze",
+        "arena": "bathhouse",
+        "count": 8,
+        "matchingSnapshots": 48,
+        "reconnect": true
+      },
+      {
+        "mode": "freeze",
+        "arena": "canopy",
+        "count": 2,
+        "matchingSnapshots": 48,
+        "reconnect": false
+      },
+      {
+        "mode": "freeze",
+        "arena": "canopy",
+        "count": 8,
+        "matchingSnapshots": 48,
+        "reconnect": true
+      },
+      {
+        "mode": "freeze",
+        "arena": "toyshop",
+        "count": 2,
+        "matchingSnapshots": 48,
+        "reconnect": false
+      },
+      {
+        "mode": "freeze",
+        "arena": "toyshop",
+        "count": 8,
+        "matchingSnapshots": 48,
+        "reconnect": true
+      },
+      {
+        "mode": "classic",
+        "arena": "bathhouse",
+        "count": 2,
+        "matchingSnapshots": 48,
+        "reconnect": false
+      },
+      {
+        "mode": "classic",
+        "arena": "bathhouse",
+        "count": 8,
+        "matchingSnapshots": 48,
+        "reconnect": true
+      },
+      {
+        "mode": "classic",
+        "arena": "canopy",
+        "count": 2,
+        "matchingSnapshots": 48,
+        "reconnect": false
+      },
+      {
+        "mode": "classic",
+        "arena": "canopy",
+        "count": 8,
+        "matchingSnapshots": 48,
+        "reconnect": true
+      },
+      {
+        "mode": "classic",
+        "arena": "toyshop",
+        "count": 2,
+        "matchingSnapshots": 48,
+        "reconnect": false
+      },
+      {
+        "mode": "classic",
+        "arena": "toyshop",
+        "count": 8,
+        "matchingSnapshots": 48,
+        "reconnect": true
+      }
+    ]
+  },
+  "lifecycle": {
+    "scope": "Compiled local server, independent real WebSocket clients; accelerated test countdown/vote/2-second reservations. Not physical-device or Render capacity testing.",
+    "checks": [
+      "manual CPUs, stable seats/cosmetics, invalid cosmetics, no ready reset, full-with-CPU lookup and failed admission preservation",
+      "human replaces oldest CPU in its seat; nonhost add/remove/edit rejected",
+      "one human + seven CPUs replaced by seven humans, concurrent capacity and all-human full rejection",
+      "protected human reservation cannot be displaced",
+      "poison: solo start, same-body snapshots/no CPU ack, roster lock, roles/scoring, CPU vote, both rounds, standings and rematch",
+      "freeze: solo start, same-body snapshots/no CPU ack, roster lock, roles/scoring, CPU vote, both rounds, standings and rematch",
+      "classic: solo start, same-body snapshots/no CPU ack, roster lock, roles/scoring, CPU vote, both rounds, standings and rematch",
+      "mixed humans/CPU: ordinary disconnect reconnect retains frog, CPU remains present, host transfers only to human",
+      "last human disconnect pauses gameplay/CPU clock and reconnect restores same session and human host",
+      "last-human pause preserves voting time and CPU voting; KEEP stays eligible",
+      "reservation expires: orphan room and CPU controllers are disposed",
+      "explicit final-human leave closes CPU room immediately",
+      "eight total frogs and seven CPU controllers tested on all four arenas within local tick budget"
+    ],
+    "stress": [
+      {
+        "arena": "sunny-pond",
+        "p50": 0.6906200000012177,
+        "p95": 1.515800000001036,
+        "p99": 2.582476999999926,
+        "max": 4.714958000000479,
+        "overruns": 0
+      },
+      {
+        "arena": "bathhouse",
+        "p50": 0.6000359999998182,
+        "p95": 1.2639979999985371,
+        "p99": 2.6393559999996796,
+        "max": 8.164436000002752,
+        "overruns": 0
+      },
+      {
+        "arena": "canopy",
+        "p50": 0.6583430000027874,
+        "p95": 1.2706929999985732,
+        "p99": 2.030730999998923,
+        "max": 32.35500300000422,
+        "overruns": 1
+      },
+      {
+        "arena": "toyshop",
+        "p50": 0.5537780000013299,
+        "p95": 1.3492740000001504,
+        "p99": 2.612980999998399,
+        "max": 5.234315999994578,
+        "overruns": 0
+      }
+    ]
+  },
+  "physicalDevicesTested": false,
+  "browser": {
+    "checks": [
+      {
+        "arena": "sunny-pond",
+        "mobile": false,
+        "eightFrogs": true,
+        "pausedClock": true
+      },
+      {
+        "arena": "bathhouse",
+        "mobile": false,
+        "eightFrogs": true,
+        "pausedClock": true,
+        "environment": {
+          "arena": "bathhouse",
+          "clock": 135,
+          "paused": false,
+          "jets": [
+            {
+              "id": 0,
+              "x": 14.1,
+              "y": 21.25,
+              "width": 1.4,
+              "height": 6.3,
+              "stage": "active",
+              "remaining": 75
+            },
+            {
+              "id": 1,
+              "x": 25.7,
+              "y": 21.25,
+              "width": 1.4,
+              "height": 6.3,
+              "stage": "cooldown",
+              "remaining": 165
+            }
+          ],
+          "platforms": [],
+          "belts": []
+        }
+      },
+      {
+        "arena": "canopy",
+        "mobile": false,
+        "eightFrogs": true,
+        "pausedClock": true,
+        "environment": {
+          "arena": "canopy",
+          "clock": 138,
+          "paused": false,
+          "jets": [],
+          "platforms": [
+            {
+              "source": 6,
+              "x": 13.309469587677704,
+              "y": 11.5,
+              "angle": 0,
+              "vx": -0.23898270365702245,
+              "vy": 0,
+              "av": 0,
+              "active": true
+            },
+            {
+              "source": 7,
+              "x": 26.690530412322296,
+              "y": 11.5,
+              "angle": 0,
+              "vx": 0.23898270365691587,
+              "vy": 0,
+              "av": 0,
+              "active": true
+            }
+          ],
+          "belts": []
+        }
+      },
+      {
+        "arena": "toyshop",
+        "mobile": false,
+        "eightFrogs": true,
+        "pausedClock": true,
+        "environment": {
+          "arena": "toyshop",
+          "clock": 135,
+          "paused": false,
+          "jets": [],
+          "platforms": [],
+          "belts": [
+            {
+              "source": 4,
+              "x": 7,
+              "y": 18,
+              "angle": 0,
+              "vx": 0,
+              "vy": 0,
+              "av": 0,
+              "active": true,
+              "speed": 2.2,
+              "width": 4,
+              "running": true
+            },
+            {
+              "source": 7,
+              "x": 35,
+              "y": 11.5,
+              "angle": 0,
+              "vx": 0,
+              "vy": 0,
+              "av": 0,
+              "active": true,
+              "speed": -2.2,
+              "width": 3.6,
+              "running": true
+            }
+          ]
+        }
+      },
+      {
+        "arena": "sunny-pond",
+        "mobile": true,
+        "eightFrogs": true,
+        "pausedClock": true
+      },
+      {
+        "arena": "bathhouse",
+        "mobile": true,
+        "eightFrogs": true,
+        "pausedClock": true,
+        "environment": {
+          "arena": "bathhouse",
+          "clock": 136,
+          "paused": false,
+          "jets": [
+            {
+              "id": 0,
+              "x": 14.1,
+              "y": 21.25,
+              "width": 1.4,
+              "height": 6.3,
+              "stage": "active",
+              "remaining": 74
+            },
+            {
+              "id": 1,
+              "x": 25.7,
+              "y": 21.25,
+              "width": 1.4,
+              "height": 6.3,
+              "stage": "cooldown",
+              "remaining": 164
+            }
+          ],
+          "platforms": [],
+          "belts": []
+        }
+      },
+      {
+        "arena": "canopy",
+        "mobile": true,
+        "eightFrogs": true,
+        "pausedClock": true,
+        "environment": {
+          "arena": "canopy",
+          "clock": 135,
+          "paused": false,
+          "jets": [],
+          "platforms": [
+            {
+              "source": 6,
+              "x": 13.320745781530574,
+              "y": 11.5,
+              "angle": 0,
+              "vx": -0.19853457296921562,
+              "vy": 0,
+              "av": 0,
+              "active": true
+            },
+            {
+              "source": 7,
+              "x": 26.679254218469424,
+              "y": 11.5,
+              "angle": 0,
+              "vx": 0.19853457296910904,
+              "vy": 0,
+              "av": 0,
+              "active": true
+            }
+          ],
+          "belts": []
+        }
+      },
+      {
+        "arena": "toyshop",
+        "mobile": true,
+        "eightFrogs": true,
+        "pausedClock": true,
+        "environment": {
+          "arena": "toyshop",
+          "clock": 136,
+          "paused": false,
+          "jets": [],
+          "platforms": [],
+          "belts": [
+            {
+              "source": 4,
+              "x": 7,
+              "y": 18,
+              "angle": 0,
+              "vx": 0,
+              "vy": 0,
+              "av": 0,
+              "active": true,
+              "speed": 2.2,
+              "width": 4,
+              "running": true
+            },
+            {
+              "source": 7,
+              "x": 35,
+              "y": 11.5,
+              "angle": 0,
+              "vx": 0,
+              "vy": 0,
+              "av": 0,
+              "active": true,
+              "speed": -2.2,
+              "width": 3.6,
+              "running": true
+            }
+          ]
+        }
+      }
+    ],
+    "errors": [],
+    "mobileTouchChecks": "iPhone user-agent, Chromium emulation: both floating controls; arbitrary-angle steering; simultaneous hold; independent releases on all four arenas"
+  }
+}

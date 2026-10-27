@@ -4,7 +4,7 @@ export type Solid={x:number;y:number;w:number;h:number;surface?:'lily'|'mud'|'so
 export type ArenaDefinition={id:ArenaId;name:string;description:string;solids:Solid[];width:number;height:number;geometryPreview:boolean};
 /** Arena 1 is the exact approved geometry; only the second layout is experimental. */
 export const ARENAS:Record<ArenaId,ArenaDefinition>={
- canopy:{id:'canopy',name:'Canopy Courtyard',description:'Sunny garden · balanced crossings and chase routes.',solids:arena,width:WIDTH,height:HEIGHT,geometryPreview:false},
+ canopy:{id:'canopy',name:'Canopy Courtyard',description:'Swaying vine platforms · leap, grapple and swing between garden perches.',solids:arena,width:WIDTH,height:HEIGHT,geometryPreview:false},
  swingworks:{id:'swingworks',name:'Rainbell Conservatory',description:'Glasshouse · climb, swing and launch across open air.',width:WIDTH,height:HEIGHT,geometryPreview:false,solids:[
   ...arena.slice(0,4),
   // Four edge tiers. Charge jumps bridge their 4–4.75 m rises; underside grips give alternatives.
@@ -28,7 +28,7 @@ export const ARENAS:Record<ArenaId,ArenaDefinition>={
   {x:3.8,y:12.8,w:4,h:.7,object:'branch',outline:[[-2,-.25],[1.4,-.25],[2,0],[1.7,.35],[-1.7,.35],[-2,.1]]},
   {x:36.2,y:12.2,w:4,h:.7,object:'branch',outline:[[-2,0],[-1.4,-.25],[2,-.25],[2,.1],[1.7,.35],[-1.7,.35]]},
  ]},
- 'toyshop':{id:'toyshop',name:'Croakwork Toyshop',description:'Toy workshop · rubber cushions bounce; sticky paint slows. Zigzag, swing and intercept.',width:WIDTH,height:HEIGHT,geometryPreview:false,solids:[
+ 'toyshop':{id:'toyshop',name:'Croakwork Toyshop',description:'Toy workshop · opposing conveyor belts, rubber cushions and sticky paint.',width:WIDTH,height:HEIGHT,geometryPreview:false,solids:[
   ...arena.slice(0,4),
   {x:7,y:18,w:7,h:1.2,object:'block',outline:[[-3.2,-.6],[3.2,-.6],[3.5,-.3],[3.5,.3],[3.2,.6],[-3.2,.6],[-3.5,.3],[-3.5,-.3]]},
   {x:30,y:17,w:5,h:.7,object:'cushion',surface:'lily',outline:[[-2.1,-.35],[2.1,-.35],[2.5,-.1],[2.5,.1],[2.1,.35],[-2.1,.35],[-2.5,.1],[-2.5,-.1]]},
@@ -39,7 +39,7 @@ export const ARENAS:Record<ArenaId,ArenaDefinition>={
   {x:12,y:5,w:5,h:.7,object:'cushion',surface:'lily',outline:[[-2.1,-.35],[2.1,-.35],[2.5,-.1],[2.5,.1],[2.1,.35],[-2.1,.35],[-2.5,.1],[-2.5,-.1]]},
   {x:33,y:4,w:6,h:.8,object:'block',surface:'mud',outline:[[-2.7,-.4],[2.7,-.4],[3,-.1],[3,.1],[2.7,.4],[-2.7,.4],[-3,.1],[-3,-.1]]},
  ]},
- bathhouse:{id:'bathhouse',name:'Bubblewash Bathhouse',description:'Frog bathhouse · sponge tops bounce. Water and bubbles are scenery.',width:WIDTH,height:HEIGHT,geometryPreview:false,solids:[
+ bathhouse:{id:'bathhouse',name:'Bubblewash Bathhouse',description:'Bathhouse · upward shower jets, bouncy sponges and slippery soap.',width:WIDTH,height:HEIGHT,geometryPreview:false,solids:[
   ...arena.slice(0,4),
   {x:8,y:18,w:8,h:1.1,object:'dish',outline:[[-3.5,-.55],[3.5,-.55],[4,-.2],[3.4,.55],[-3.4,.55],[-4,-.2]]},
   {x:30,y:17,w:6,h:.9,object:'sponge',surface:'lily',outline:[[-2.7,-.45],[2.7,-.45],[3,-.15],[3,.15],[2.7,.45],[-2.7,.45],[-3,.15],[-3,-.15]]},

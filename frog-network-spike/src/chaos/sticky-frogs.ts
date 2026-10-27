@@ -9,7 +9,7 @@ export const STICKY={speed:5,acceleration:45,brake:55,adhesionSpeed:1,normalAcce
 type Point={x:number;y:number};
 type Attachment={body:Body;point:Point;normal:Point;attachTick:number};
 export type StickyState={paused:boolean;cooldowns:number[];attachments:({terrain:number;point:Point;normal:Point;attachTick:number}|null)[]};
-export function stickyTerrain(sim:Simulation){const bodies:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if((!b.isDynamic()||(b.getUserData()as any)?.chaosPlatform)&&!sim.frogs.some(f=>f.body===b))bodies.push(b);return bodies;}
+export function stickyTerrain(sim:Simulation){const bodies:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if((!b.isDynamic()||(b.getUserData()as any)?.chaosPlatform)&&!(b.getUserData()as any)?.arenaPivot&&!sim.frogs.some(f=>f.body===b))bodies.push(b);return bodies;}
 export class StickyFrogs{
  active=false;private pausedOverride?:boolean;private attachments=new Map<Frog,Attachment>();private cooldowns=new Map<Frog,number>();
  constructor(private sim:Simulation){}

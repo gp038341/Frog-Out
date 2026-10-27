@@ -1,0 +1,3 @@
+import type {Simulation,Frog} from '../../src/simulation/world';import type {Point} from './geometry';
+/** A local visible lift opportunity, never an AI-only action or hidden future prediction. */
+export function jetWaypoint(sim:Simulation,f:Frog,goal:Point):Point|undefined{const env=sim.arenaMechanics.capture();if(env?.arena!=='bathhouse'||env.paused||f.tongue||sim.stickyFrogs.support(f))return;const p=f.body.getPosition();if(goal.y>=p.y-2)return;const jets=env.jets.filter(j=>j.stage!=='cooldown'&&p.y>j.y-j.height+1&&p.y<=j.y+.3&&Math.abs(p.x-j.x)<5&&Math.abs(j.x-goal.x)<Math.abs(p.x-goal.x)+4).sort((a,b)=>Math.abs(a.x-p.x)-Math.abs(b.x-p.x));const j=jets[0];return j?{x:j.x,y:j.y-j.height+.6}:undefined;}

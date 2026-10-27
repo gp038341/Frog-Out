@@ -108,7 +108,7 @@ class Spike extends Phaser.Scene {
   if(mouse?.active)sample(false);
   const latest=net.snapshots.at(-1)!;
   this.art.setArena(net.snapshots.at(-1)?.arenaId??net.lobby?.arenaId??DEFAULT_ARENA);
-  this.art.renderChaos(net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.arenaChaos.capture():latest.state.arenaChaos);
+  this.art.renderChaos(net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.arenaChaos.capture():latest.state.arenaChaos,net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.arenaMechanics.capture():latest.state.arenaMechanics);
   this.art.appearances=states.map((_,i)=>(net.lobby?.players.find(p=>p.slot===i)??net.lobby?.roster?.find(p=>p.slot===i))?.appearance);
   this.art.reserved=states.map((_,i)=>!!net.lobby?.players.some(p=>p.slot===i&&!isCPU(p)&&!p.connected));
   this.art.render(states,this.rendered,net.outbreak,latest.connected,states.map((_,i)=>playerName(i)),net.slot,delta,net.chaos?.active??[]);

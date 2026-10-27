@@ -1,3 +1,4 @@
+import {ArenaMechanics} from './arena-mechanics';
 import {StickyFrogs} from '../chaos/sticky-frogs';
 import {ExtremeChaos} from '../chaos/extreme-chaos';
 import {FrogChaos} from '../chaos/frog-chaos';
@@ -33,6 +34,7 @@ export class Simulation {
   extremeChaos = new ExtremeChaos(this);
   chaosGravityDirection:1|-1=1;
   arenaChaos = new ArenaChaos(this);
+  arenaMechanics = new ArenaMechanics(this);
   frogChaos = new FrogChaos(this);
   chaosAimDegrees = GRAPPLE_AIM.defaultDegrees;
   chaosAimLeadSeconds = GRAPPLE_AIM.defaultLeadSeconds;
@@ -142,6 +144,7 @@ export class Simulation {
   }
   step() {
     const t = this.tuning;
+    this.arenaMechanics.before();
     this.arenaChaos.before();
     this.frogChaos.before();
     this.extremeChaos.before();
@@ -215,7 +218,7 @@ export class Simulation {
         // Do not let a neutral ground controller erase reciprocal grapple momentum.
         dv = x * Math.max(0, Math.min(t.groundAcceleration * DT, t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1) - x * v.x));
       } else if (f.grounded && !f.tongue) {
-        const target = x * t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1) * this.arenaChaos.runningScale(x);
+        const target = x * t.groundSpeed * (f.stickyMud ? SURFACES.mudGroundSpeedMultiplier : 1) * this.arenaChaos.runningScale(x) + this.arenaMechanics.groundVelocity(f);
         const soap = f.slipperySoap ? (x ? SURFACES.soapAccelerationMultiplier : SURFACES.soapBrakeMultiplier) : 1;
         const a = this.chaosButterfeet ? (x ? defaults.groundAcceleration : defaults.groundBrake) * Math.min(x ? t.groundAcceleration / defaults.groundAcceleration : t.groundBrake / defaults.groundBrake, soap) : (x ? t.groundAcceleration : t.groundBrake) * soap;
         dv = Math.max(-a * DT, Math.min(a * DT, target - v.x));
@@ -225,6 +228,7 @@ export class Simulation {
     // Apply pulls after every movement controller: frog order must not cancel target impulses.
     for (const f of this.frogs) this.updateTongue(f);
     this.arenaChaos.applyWind();
+    this.arenaMechanics.applyJets();
     this.world.step(DT, t.velocityIterations, t.positionIterations);
     this.tick++;
     for (const f of this.frogs) {
@@ -242,6 +246,7 @@ export class Simulation {
     }
     resolveSurfaces(this, surfaceFrame);
     this.arenaChaos.after();
+    this.arenaMechanics.after();
     this.frogChaos.after();
     this.extremeChaos.after();
     this.stickyFrogs.after();
@@ -317,6 +322,7 @@ export class Simulation {
     }
   }
   reset() {
+    this.arenaMechanics.reset();
     this.arenaChaos.reset();
     this.frogChaos.reset();
     this.extremeChaos.reset();

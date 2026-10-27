@@ -1,0 +1,36 @@
+import {Vec2,RevoluteJoint,type Body} from 'planck';
+import type {Simulation,Frog} from './world';
+import {getArena,type ArenaId} from './arenas';import {DT} from './config';import {platformContact} from './platform-contact';
+export const ARENA_MECHANICS={jetWarning:60,jetActive:150,jetPeriod:600,jetPhase:300,jetAcceleration:52,jetMaxSpeed:12,jetHeight:6.3,jetWidth:1.4,vinePeriod:480,vineLength:10.8,vineAngle:.125,beltSpeed:2.2,beltWarmup:120};
+export type JetView={id:number;x:number;y:number;width:number;height:number;stage:'warning'|'active'|'cooldown';remaining:number};
+export type MovingView={source:number;x:number;y:number;angle:number;vx:number;vy:number;av:number;active:boolean};
+export type ArenaMechanicsState={arena:ArenaId;clock:number;paused:boolean;jets:JetView[];platforms:MovingView[];belts:(MovingView&{speed:number;width:number;running?:boolean})[]};
+const JETS=[{x:14.1,y:21.25},{x:25.7,y:21.25}];const VINES=[6,7];const BELTS=[{source:4,speed:2.2,width:4},{source:7,speed:-2.2,width:3.6}];
+export function jetViews(clock:number):JetView[]{const C=ARENA_MECHANICS;return JETS.map((p,id)=>{const phase=(clock+id*C.jetPhase)%C.jetPeriod,stage=phase<C.jetWarning?'warning':phase<C.jetWarning+C.jetActive?'active':'cooldown',end=stage==='warning'?C.jetWarning:stage==='active'?C.jetWarning+C.jetActive:C.jetPeriod;return{id,...p,width:C.jetWidth,height:C.jetHeight,stage,remaining:end-phase};});}
+export function vinePosition(source:number,clock:number){const c=ARENA_MECHANICS,r=getArena('canopy').solids[source],phase=clock*2*Math.PI/c.vinePeriod+(source===7?Math.PI:0),a=Math.sin(phase)*c.vineAngle;return{x:r.x+Math.sin(a)*c.vineLength,y:r.y};}
+/** Arena-local mechanics. Frogs receive ordinary bounded impulses, never scripted positions. */
+export class ArenaMechanics {
+ private id?:ArenaId;private clock=0;private pausedOverride?:boolean;private pivots=new Map<Body,Body>();
+ constructor(private sim:Simulation){}
+ get active(){return this.id==='bathhouse'||this.id==='canopy'||this.id==='toyshop';}
+ get arena(){return this.id;}
+ private get paused(){return this.pausedOverride??this.sim.frogChaos.paused;}
+ configure(id:ArenaId){if(this.id===id)return;this.dispose();this.id=id;this.clock=0;if(id==='canopy'||id==='toyshop'){const targets=id==='canopy'?VINES:BELTS.map(b=>b.source);for(const source of targets){const r=getArena(id).solids[source];for(let b=this.sim.world.getBodyList();b;b=b.getNext())if(!this.sim.frogs.some(f=>f.body===b)&&Math.abs(b.getPosition().x-r.x)<1e-8&&Math.abs(b.getPosition().y-r.y)<1e-8){b.setUserData({...b.getUserData()as object,arenaSource:source,...(id==='canopy'?{arenaMoving:true}:{} )});if(id==='canopy'&&!b.isDynamic())b.setType('kinematic');}}}}
+ dispose(){for(const pivot of this.pivots.values())this.sim.world.destroyBody(pivot);this.pivots.clear();this.id=undefined;this.pausedOverride=undefined;this.clock=0;}
+ private bodies(){const bodies:Body[]=[];for(let b=this.sim.world.getBodyList();b;b=b.getNext())if((b.getUserData()as any)?.arenaSource!==undefined)bodies.push(b);return bodies;}
+ private sourceBody(source:number){const list=this.bodies().filter(b=>(b.getUserData()as any).arenaSource===source);return list.find(b=>(b.getUserData()as any).chaosPlatform)??list[0];}
+ reset(){this.clock=0;this.pausedOverride=undefined;this.syncVines(true);}
+ private syncVines(reset=false){if(this.id!=='canopy')return;const all=new Set<Body>();for(let b=this.sim.world.getBodyList();b;b=b.getNext())all.add(b);for(const[body,pivot]of this.pivots)if(!all.has(body)){this.sim.world.destroyBody(pivot);this.pivots.delete(body);}
+  for(const b of this.bodies()){const source=(b.getUserData()as any).arenaSource;if(!VINES.includes(source))continue;const now=vinePosition(source,this.clock),next=vinePosition(source,this.clock+(this.paused?0:1));if(b.isDynamic()){
+   let pivot=this.pivots.get(b);if(!pivot){for(let e=b.getJointList();e;){const next=e.next;if(e.joint?.getType()==='revolute-joint')this.sim.world.destroyJoint(e.joint);e=next;}pivot=this.sim.world.createKinematicBody(Vec2(now.x,now.y));pivot.setUserData({arenaPivot:true});this.sim.world.createJoint(new RevoluteJoint({bodyA:pivot,bodyB:b,localAnchorA:Vec2(0,0),localAnchorB:Vec2(0,0),enableLimit:false}));this.pivots.set(b,pivot);}
+   if(reset||!b.isActive())b.setTransform(Vec2(now.x,now.y),reset?0:b.getAngle());pivot.setTransform(Vec2(now.x,now.y),0);pivot.setLinearVelocity(Vec2((next.x-now.x)/DT,(next.y-now.y)/DT));
+  }else{b.setType('kinematic');b.setTransform(Vec2(now.x,now.y),0);b.setLinearVelocity(Vec2((next.x-now.x)/DT,(next.y-now.y)/DT));}}
+ }
+ before(){if(!this.active)return;this.syncVines();}
+ after(){if(this.active&&!this.paused)this.clock++;}
+ applyJets(){if(this.id!=='bathhouse'||this.paused)return;for(const f of this.sim.frogs){if(!f.body.isActive()||!f.body.isDynamic()||this.sim.frogChaos.trapped(f)||this.sim.stickyFrogs.support(f))continue;const p=f.body.getPosition(),r=this.sim.tuning.frogRadius,jet=jetViews(this.clock).find(j=>j.stage==='active'&&Math.abs(p.x-j.x)<j.width/2+r*.4&&p.y<=j.y&&p.y>=j.y-j.height);if(!jet)continue;const v=f.body.getLinearVelocity(),dv=Math.min(ARENA_MECHANICS.jetAcceleration*DT,Math.max(0,v.y+ARENA_MECHANICS.jetMaxSpeed));f.body.applyLinearImpulse(Vec2(0,-dv*f.body.getMass()),f.body.getWorldCenter(),true);}}
+ /** Existing grounded controller operates relative to the actual carrier's velocity. */
+ groundVelocity(f:Frog){if(!this.active||this.paused)return 0;for(let e=f.body.getContactList();e;e=e.next){const p=platformContact(e.contact,f.body);if(!p||!p.body.isActive()||!(p.top||this.id==='canopy'&&this.sim.chaosGravityDirection<0&&p.out.y>.5))continue;const source=(p.body.getUserData()as any)?.arenaSource;if(source===undefined)continue;if(this.id==='canopy')return p.body.getLinearVelocityFromWorldPoint(p.point).x;if(this.id==='toyshop'&&this.clock>=ARENA_MECHANICS.beltWarmup){const belt=BELTS.find(b=>b.source===source),q=p.body.getLocalPoint(p.point);if(belt&&Math.abs(q.x)<belt.width/2)return p.body.getWorldVector(Vec2(belt.speed,0)).x+p.body.getLinearVelocityFromWorldPoint(p.point).x;}}return 0;}
+ capture():ArenaMechanicsState|undefined{if(!this.active)return;const moving=(source:number):MovingView|undefined=>{const b=this.sourceBody(source);if(!b)return;const p=b.getPosition(),v=b.getLinearVelocity();return{source,x:p.x,y:p.y,angle:Math.atan2(Math.sin(b.getAngle()),Math.cos(b.getAngle())),vx:v.x,vy:v.y,av:b.getAngularVelocity(),active:b.isActive()};};return{arena:this.id!,clock:this.clock,paused:this.paused,jets:this.id==='bathhouse'?jetViews(this.clock):[],platforms:this.id==='canopy'?VINES.map(moving).filter((x):x is MovingView=>!!x):[],belts:this.id==='toyshop'?BELTS.map(b=>({...moving(b.source)!,speed:b.speed,width:b.width,running:!this.paused&&this.clock>=ARENA_MECHANICS.beltWarmup})):[]};}
+ restore(state?:ArenaMechanicsState){if(!state){if(this.active){this.clock=0;this.pausedOverride=undefined;}return;}this.configure(state.arena);this.clock=state.clock;this.pausedOverride=state.paused;this.syncVines();for(const p of state.platforms){const b=this.sourceBody(p.source);if(!b)continue;b.setTransform(Vec2(p.x,p.y),p.angle);b.setLinearVelocity(Vec2(p.vx,p.vy));b.setAngularVelocity(p.av);b.setActive(p.active);}}
+}

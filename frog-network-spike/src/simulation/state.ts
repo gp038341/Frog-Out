@@ -1,3 +1,4 @@
+import type {ArenaMechanicsState} from './arena-mechanics';
 import type {StickyState} from '../chaos/sticky-frogs';
 import type {ExtremeChaosState} from '../chaos/extreme-chaos';
 import type {FrogChaosState} from '../chaos/frog-chaos';
@@ -21,10 +22,10 @@ export type FrogState = {
  tongue?:{phase:Tongue['phase'];direction:{x:number;y:number};tip:{x:number;y:number};distance:number;length:number;
  target?:{frog:number}|{terrain:number};localAnchor?:{x:number;y:number}};
 };
-export type PhysicsState={tick:number;frogs:FrogState[];stickyFrogs?:StickyState;extremeChaos?:ExtremeChaosState;arenaChaos?:ArenaChaosState;frogChaos?:FrogChaosState};
+export type PhysicsState={tick:number;frogs:FrogState[];arenaMechanics?:ArenaMechanicsState;stickyFrogs?:StickyState;extremeChaos?:ExtremeChaosState;arenaChaos?:ArenaChaosState;frogChaos?:FrogChaosState};
 export function capture(sim:Simulation):PhysicsState {
- const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if((!b.isDynamic()||(b.getUserData()as{chaosPlatform?:boolean}|undefined)?.chaosPlatform)&&!sim.frogs.some(f=>f.body===b))terrain.push(b);
- return {tick:sim.tick,...(sim.stickyFrogs.capture()?{stickyFrogs:sim.stickyFrogs.capture()}:{}),...(sim.extremeChaos.capture()?{extremeChaos:sim.extremeChaos.capture()}:{}),...(sim.frogChaos.capture()?{frogChaos:sim.frogChaos.capture()}:{}),...(sim.arenaChaos.capture()?{arenaChaos:sim.arenaChaos.capture()}:{}),frogs:sim.frogs.map(f=>{
+ const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if((!b.isDynamic()||(b.getUserData()as{chaosPlatform?:boolean}|undefined)?.chaosPlatform)&&!(b.getUserData()as{arenaPivot?:boolean}|undefined)?.arenaPivot&&!sim.frogs.some(f=>f.body===b))terrain.push(b);
+ return {tick:sim.tick,...(sim.arenaMechanics.capture()?{arenaMechanics:sim.arenaMechanics.capture()}:{}),...(sim.stickyFrogs.capture()?{stickyFrogs:sim.stickyFrogs.capture()}:{}),...(sim.extremeChaos.capture()?{extremeChaos:sim.extremeChaos.capture()}:{}),...(sim.frogChaos.capture()?{frogChaos:sim.frogChaos.capture()}:{}),...(sim.arenaChaos.capture()?{arenaChaos:sim.arenaChaos.capture()}:{}),frogs:sim.frogs.map(f=>{
   const p=f.body.getPosition(),v=f.body.getLinearVelocity(),t=f.tongue;
   let tongue:FrogState['tongue'];if(t){const frog=t.target?sim.frogs.findIndex(f=>f.body===t.target):-1;
    tongue={phase:t.phase,direction:{...t.direction},tip:{...t.tip},distance:t.distance,length:t.length,
@@ -39,9 +40,9 @@ export function capture(sim:Simulation):PhysicsState {
 export function restore(sim:Simulation,state:PhysicsState){
  if(state.frogs[0]?.radius!==undefined)sim.tuning.frogRadius=state.frogs[0].radius;
  sizeSimulation(sim,state.frogs.length);resizeFrogs(sim);
- const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if((!b.isDynamic()||(b.getUserData()as{chaosPlatform?:boolean}|undefined)?.chaosPlatform)&&!sim.frogs.some(f=>f.body===b))terrain.push(b);
+ const terrain:Body[]=[];for(let b=sim.world.getBodyList();b;b=b.getNext())if((!b.isDynamic()||(b.getUserData()as{chaosPlatform?:boolean}|undefined)?.chaosPlatform)&&!(b.getUserData()as{arenaPivot?:boolean}|undefined)?.arenaPivot&&!sim.frogs.some(f=>f.body===b))terrain.push(b);
  for(const f of sim.frogs)sim.detach(f);
- sim.tick=state.tick;sim.arenaChaos.restore(state.arenaChaos);
+ sim.tick=state.tick;sim.arenaChaos.restore(state.arenaChaos);sim.arenaMechanics.restore(state.arenaMechanics);
  state.frogs.forEach((s,i)=>{const f=sim.frogs[i];f.body.setActive(s.active!==false);f.body.setTransform(Vec2(s.x,s.y),0);f.body.setLinearVelocity(Vec2(s.vx,s.vy));f.body.setAngularVelocity(0);
   for(const key of ['stickyAttachTick','stickyReleaseTick','pogoTick','gravityFlipTick','balloonPopTick','balloonBounceTick','bubbleEscapePresses','bubblePressTick','balloonScale','balloonInflated','balloonWarning','bumperTick','swapTick','swapProtectedUntil','swapPartner','bubbleId','bubbleEscapeTick'] as const)(f as any)[key]=s[key];
   f.aimAssistTick=s.aimAssistTick;f.aimAssistTarget=s.aimAssistTarget;f.slipperySoap=s.slipperySoap;f.stickyMud=s.stickyMud;f.surfaceBounceTick=s.surfaceBounceTick;f.surfaceBounceStrength=s.surfaceBounceStrength;f.surfaceImpactSpeed=s.surfaceImpactSpeed;f.surfaceImpactTick=s.surfaceImpactTick;f.poisonPullFromTick=s.poisonPullFromTick;f.facing=s.facing;f.input={...s.input};f.events=[];f.held=s.held;f.charging=s.charging;f.charge=s.charge;f.grounded=s.grounded;
@@ -58,4 +59,6 @@ export function restore(sim:Simulation,state:PhysicsState){
  sim.extremeChaos.restore(state.extremeChaos);
  sim.stickyFrogs.restore(state.stickyFrogs);
  sim.world.step(0);
+ // New environmental contacts must not invent impact history during a zero-time restore.
+ if(state.arenaMechanics)state.frogs.forEach((v,i)=>{sim.frogs[i].surfaceImpactSpeed=v.surfaceImpactSpeed;sim.frogs[i].surfaceImpactTick=v.surfaceImpactTick;});
 }

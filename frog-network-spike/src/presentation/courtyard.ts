@@ -1,3 +1,5 @@
+import {arenaPlatformState,paintArenaMechanics} from './arena-mechanics-art';
+import type {ArenaMechanicsState} from '../simulation/arena-mechanics';
 import {paintPrintedArena,PRINT_INK} from './printed-arena';
 import {LocalLocator} from './local-locator';
 import {ChaosSounds} from './chaos-sounds';
@@ -41,17 +43,18 @@ export class Courtyard {
   this.background=scene.add.graphics().setDepth(0);this.ink=scene.add.graphics().setDepth(1);this.effects=scene.add.graphics().setDepth(2);
   for(let i=0;i<8;i++)this.labels.push(scene.add.text(0,0,'',{fontFamily:'Arial, sans-serif',fontSize:'19px',fontStyle:'bold',color:'#fff8d9',stroke:'#292431',strokeThickness:4,align:'center',lineSpacing:0}).setOrigin(.5,1).setDepth(4));
   this.chaosInk=scene.add.graphics().setDepth(1.5);
+  this.mechanicInk=scene.add.graphics().setDepth(.9);
   this.windLabel=scene.add.text(WIDTH*S/2,14,'',{fontFamily:'Arial, sans-serif',fontSize:'16px',fontStyle:'bold',color:'#d9faff',stroke:'#142f35',strokeThickness:4}).setOrigin(.5,0).setDepth(4).setVisible(false);
   this.feel=new Feel(scene,audio);
   this.paintArena();
  }
- private windLabel:Phaser.GameObjects.Text;chaosInk:Phaser.GameObjects.Graphics;platformInk=new Map<number,Phaser.GameObjects.Graphics>();platformBits=new Map<number,{ink:Phaser.GameObjects.Graphics;mask:Phaser.GameObjects.Graphics}[]>();private chaosLayout='';
+ private mechanicInk:Phaser.GameObjects.Graphics;private windLabel:Phaser.GameObjects.Text;chaosInk:Phaser.GameObjects.Graphics;platformInk=new Map<number,Phaser.GameObjects.Graphics>();platformBits=new Map<number,{ink:Phaser.GameObjects.Graphics;mask:Phaser.GameObjects.Graphics}[]>();private chaosLayout='';
  setArena(id:ArenaId){if(this.arenaId!==id){this.arenaId=id;this.paintArena();this.clear();}}
  paintArena(g:Phaser.GameObjects.Graphics=this.background,options:{background?:boolean;filter?:(index:number)=>boolean}={},definition=getArena(this.arenaId)){paintPrintedArena(g,definition,options);}
 
- renderChaos(state:ArenaChaosState|undefined){this.soundArena=state;const g=this.chaosInk;g.clear();const layout=state?.platforms.length?this.arenaId+':'+(state.crumbling?'crumble':'tilt')+':'+state.platforms.map(p=>p.id).join(','):'';
+ renderChaos(state:ArenaChaosState|undefined,mechanics?:ArenaMechanicsState){this.soundArena=state;state=arenaPlatformState(state,mechanics);const g=this.chaosInk;g.clear();this.mechanicInk.clear();const layout=state?.platforms.length?this.arenaId+':'+(state.crumbling?'crumble':'tilt')+':'+state.platforms.map(p=>p.id).join(','):'';
   if(layout!==this.chaosLayout){for(const ink of this.platformInk.values())ink.destroy();this.platformInk.clear();for(const bits of this.platformBits.values())for(const b of bits){b.ink.clearMask(true);b.ink.destroy();b.mask.destroy();}this.platformBits.clear();this.chaosLayout=layout;
-   if(layout&&state){const covered=new Set(state.platforms.map(p=>p.source));this.paintArena(this.background,{filter:i=>!covered.has(i)});for(const p of state.platforms){const ink=this.scene.add.graphics().setDepth(1);const a=getArena(this.arenaId),solids=a.solids.map(r=>({...r,x:r.x-p.solid.x,y:r.y-p.solid.y}));solids[p.source]={...p.solid,x:0,y:0};this.paintArena(ink,{background:false,filter:i=>i===p.source},{...a,solids});this.platformInk.set(p.id,ink);if(state.crumbling){const bits=[];for(let j=0;j<4;j++){const part=this.scene.add.graphics().setDepth(1);this.paintArena(part,{background:false,filter:i=>i===p.source},{...a,solids});const mask=this.scene.add.graphics().setVisible(false);mask.fillStyle(0xffffff);mask.fillRect(-p.solid.w*S/2+j*p.solid.w*S/4,-p.solid.h*S/2-32,p.solid.w*S/4,p.solid.h*S+64);part.setMask(mask.createGeometryMask());bits.push({ink:part,mask});}this.platformBits.set(p.id,bits);}}}else this.paintArena();
+   if(layout&&state){const covered=new Set(state.platforms.map(p=>p.source));this.paintArena(this.background,{filter:i=>!covered.has(i)});for(const p of state.platforms){const depth=[...mechanics?.platforms??[],...mechanics?.belts??[]].some(q=>q.source===p.source)?.8:1;const ink=this.scene.add.graphics().setDepth(depth);const a=getArena(this.arenaId),solids=a.solids.map(r=>({...r,x:r.x-p.solid.x,y:r.y-p.solid.y}));solids[p.source]={...p.solid,x:0,y:0};this.paintArena(ink,{background:false,filter:i=>i===p.source},{...a,solids});this.platformInk.set(p.id,ink);if(state.crumbling){const bits=[];for(let j=0;j<4;j++){const part=this.scene.add.graphics().setDepth(depth);this.paintArena(part,{background:false,filter:i=>i===p.source},{...a,solids});const mask=this.scene.add.graphics().setVisible(false);mask.fillStyle(0xffffff);mask.fillRect(-p.solid.w*S/2+j*p.solid.w*S/4,-p.solid.h*S/2-32,p.solid.w*S/4,p.solid.h*S+64);part.setMask(mask.createGeometryMask());bits.push({ink:part,mask});}this.platformBits.set(p.id,bits);}}}else this.paintArena();
   }
   // Bubbles have no solid shell: their captured frog keeps its real collision core.
   for(const p of state?.platforms??[]){const ink=this.platformInk.get(p.id);if(!ink)continue;ink.setPosition((p.x??p.solid.x)*S,(p.y??p.solid.y)*S).setRotation(p.angle).setVisible(p.stage==='solid').setAlpha(1);
@@ -59,6 +62,7 @@ export class Courtyard {
    bits.forEach((b,j)=>{const visible=breaking||fallen&&elapsed<.6,side=j-1.5,dx=breaking?side*progress*2:side*elapsed*34,dy=breaking?Math.abs(side)*progress*2:elapsed*elapsed*230;const x=(p.x??p.solid.x)*S+dx,y=(p.y??p.solid.y)*S+dy,rotation=p.angle+(fallen?side*elapsed*.5:0);b.ink.setPosition(x,y).setRotation(rotation).setAlpha(fallen?Math.max(0,1-elapsed/.6):1).setVisible(visible);b.mask.setPosition(x,y).setRotation(rotation);});
    if(p.stage==='returning'){g.save();g.translateCanvas((p.x??p.solid.x)*S,(p.y??p.solid.y)*S);g.lineStyle(2,0xa6f4e7,.6);g.strokeRect(-p.solid.w*S/2,-p.solid.h*S/2,p.solid.w*S,p.solid.h*S);g.restore();}
   }
+  paintArenaMechanics(this.mechanicInk,mechanics);
   for(const b of state?.balls??[]){const r=ARENA_CHAOS.ballRadius*S;g.fillStyle(0xef9b87);g.fillCircle(b.x*S,b.y*S,r);g.lineStyle(3,INK);g.strokeCircle(b.x*S,b.y*S,r);g.lineStyle(3,0xffedd0);g.strokeCircle(b.x*S,b.y*S,r*.65);}
   if(state?.ballWarning){g.lineStyle(3,0xffdc88);g.strokeCircle(state.ballWarning.x*S,42,24);g.lineBetween(state.ballWarning.x*S,14,state.ballWarning.x*S,38);g.lineBetween(state.ballWarning.x*S-6,31,state.ballWarning.x*S,38);g.lineBetween(state.ballWarning.x*S+6,31,state.ballWarning.x*S,38);}
   const wind=state?.wind,visible=!!wind?.direction&&wind.stage!=='calm';this.windLabel.setVisible(visible);
@@ -68,7 +72,7 @@ export class Courtyard {
    else for(let i=0;i<8;i++){const x=90+i*140,y=55+(i%3)*16;g.lineBetween(x-d*25,y,x+d*25,y);g.lineBetween(x+d*25,y,x+d*14,y-5);g.lineBetween(x+d*25,y,x+d*14,y+5);}
   }
  }
- clear(){this.locator.clear();this.windLabel.setVisible(false);this.chaosSounds.reset();this.tagPuffs=[];this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}
+ clear(){this.mechanicInk.clear();this.locator.clear();this.windLabel.setVisible(false);this.chaosSounds.reset();this.tagPuffs=[];this.feel.clear();this.ink.clear();this.effects.clear();this.labels.forEach(l=>l.setVisible(false));this.previous=[];this.pops=[];}
  pop(x:number,y:number,color:number,kind:Pop['kind'],strength=0){if(this.pops.length<64)this.pops.push({x:x*S,y:y*S,age:0,life:kind==='infect'?650:kind==='swap'?450:360,color,kind,strength});}
  render(states:FrogState[],positions:Point[],view:OutbreakView|undefined,connected:boolean[],names:string[],local:number,delta:number,modifiers:readonly string[]=[]){
   this.chaosSounds.update(states,this.soundArena,view,local,modifiers);

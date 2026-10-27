@@ -1,0 +1,146 @@
+{
+  "baseline": "df20836a9c091fdb5b01d8237b129cfc857514aa",
+  "scenarios": [
+    {
+      "ids": [],
+      "hash": "21aae0e60833dd3e7d042a6889c43e8323faf3c9e04c9ecb54a8784baf0ea753"
+    },
+    {
+      "ids": [
+        "moon_frogs"
+      ],
+      "hash": "8ebc23e411ba43f0cc04e734f1813884a2232a61de5e58e6cbffe146550afcc6"
+    },
+    {
+      "ids": [
+        "mega_tongues"
+      ],
+      "hash": "be6212f1c89a04d5c212fa3f4b4e966f5c5ff37b13168833b042b14e3a861897"
+    },
+    {
+      "ids": [
+        "butterfeet"
+      ],
+      "hash": "85a25d4ec9f0eb1b4a8b4b44ddc898fafabb492b4c40794fe3e28d2f0bd136e8"
+    },
+    {
+      "ids": [
+        "quick_licks"
+      ],
+      "hash": "9717c9c58e3147eafb57270d0688457356aac369f5ccbc33acaf64ac087f3c2f"
+    },
+    {
+      "ids": [
+        "turbo_toads"
+      ],
+      "hash": "41babe8a7d22b1a91a6100c210dfcfb0c852da7baafc75ca55c479e245888a16"
+    },
+    {
+      "ids": [
+        "tiny_trouble"
+      ],
+      "hash": "046edf82e6d55050b23395b93e8a785a8bd7f018da2d8234db2ea37a37220e92"
+    },
+    {
+      "ids": [
+        "mega_frogs"
+      ],
+      "hash": "3d27525dc84593d1894aabc03d786598c70ca5acb5aeb75bbe7328ee5a40b0af"
+    },
+    {
+      "ids": [
+        "super_suckers"
+      ],
+      "hash": "02c2d5ff0dd2c56e674f44536f3288091af7e77ba3ae6e3f48910e6a9de36d03"
+    },
+    {
+      "ids": [
+        "magnet_mouths"
+      ],
+      "hash": "21aae0e60833dd3e7d042a6889c43e8323faf3c9e04c9ecb54a8784baf0ea753"
+    },
+    {
+      "ids": [
+        "windy_weather"
+      ],
+      "hash": "a61334551f2930570d342df72d9f8cae1c02cdd3fea0584f835e11047a8e244f"
+    },
+    {
+      "ids": [
+        "bouncy_bombardment"
+      ],
+      "hash": "d343bf3f80643bf6aeb169ffd0e115b919a5921a575c682b3811fa390733bf00"
+    },
+    {
+      "ids": [
+        "crumble_time"
+      ],
+      "hash": "5eb8822a8b99420710f61b7030a2278ee78e4bbd624396f5215e942100dbfd8a"
+    },
+    {
+      "ids": [
+        "tilt_a_frog"
+      ],
+      "hash": "50f0520825e1b03485746ce7275ed77c52da1d8f0aff83490a30dce69dca3dc4"
+    },
+    {
+      "ids": [
+        "bumper_frogs"
+      ],
+      "hash": "a701d2d063e63d100a9c3f782288b42cd8ee94d55a164d0d08cc006465388f12"
+    },
+    {
+      "ids": [
+        "balloon_bellies"
+      ],
+      "hash": "4063f164bdb22684b14ce788b94f552ff43e7cba87c6cb131817cb89c29396b0"
+    },
+    {
+      "ids": [
+        "swap_hop"
+      ],
+      "hash": "287c9c73ead8162ceed21159d548bcfd850b5bc04b79087a18d492cf4afbed7f"
+    },
+    {
+      "ids": [
+        "gravity_flip"
+      ],
+      "hash": "40334e6c8c9b646a3139045b01453a83daa1acb882c16f9a0f4448a3f818afd7"
+    },
+    {
+      "ids": [
+        "pogo_panic"
+      ],
+      "hash": "1a667fbf470ab3b5d7a152d31fb85ea30172d69f9187dcefe2429dd6d12dd715"
+    },
+    {
+      "ids": [
+        "bubble_trouble"
+      ],
+      "hash": "496226fc104b68f62319c712543f7cd04cff81bced9896ef621e93a0ce701f6b"
+    },
+    {
+      "ids": [
+        "sticky_frogs"
+      ],
+      "hash": "694a1ba69729777ac0341b63784bde2e9a8ef45dfd3c7043211ab87bfa7326c4"
+    },
+    {
+      "ids": [
+        "windy_weather",
+        "butterfeet",
+        "mega_tongues"
+      ],
+      "hash": "af265088e9478b337aff20c18e1cc2814437c88cce5282c5f80694f72e77dcd0"
+    },
+    {
+      "ids": [
+        "crumble_time",
+        "tiny_trouble",
+        "super_suckers"
+      ],
+      "hash": "f5d3cc98f97b33d2fe618812e11816c431463a3df512bdaa5b8deedd99317e95"
+    }
+  ],
+  "exactStateTraceMatch": true
+}
