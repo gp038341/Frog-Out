@@ -21,11 +21,11 @@ Neutral appearance matches across home, editor, lobby, results and gameplay. Gaz
 
 ## Data compatibility
 
-The existing appearance object gains an optional catalog-validated `pattern` ID, carried through existing appearance messages, lobby/roster snapshots and localStorage. No new message, socket, account or server state system. New selections include an explicit pattern. Legacy three-field saved appearances and existing CPU defaults resolve to their former bundled pattern. Explicit designs persist when changing colors. Unknown IDs are rejected by the existing server validation path; normalization copies only known cosmetic fields. Existing ready-state and lobby-only edit restrictions remain intact.
+The existing appearance object gains an optional catalog-validated `pattern` ID, carried through existing appearance messages, lobby/roster snapshots and localStorage. No new message, socket, account or server state system. New selections include an explicit pattern. Legacy three-field saved appearances and existing CPU defaults resolve to their former bundled pattern. Explicit designs persist when changing colors. The editor retains its latest optimistic cosmetic draft until that exact appearance is acknowledged, so earlier server echoes cannot replace newer color, design, eye or hat selections during quick edits. Editing becoming disabled clears the draft and restores authoritative appearance. Unknown IDs are rejected by the existing server validation path; normalization copies only known cosmetic fields. Existing ready-state and lobby-only edit restrictions remain intact.
 
 ## Verification
 
-- 514 automated tests pass, including all 8,000 combinations, distinct pattern geometry, legacy migration, invalid IDs, persistence, identical portrait/game draw commands, poison priority, size transforms and exact protected runtime bytes.
+- 515 automated tests pass, including all 8,000 combinations, distinct pattern geometry, legacy migration, invalid IDs, persistence, identical portrait/game draw commands, poison priority, size transforms and exact protected runtime bytes.
 - Production build passes; existing Phaser bundle-size advisory remains.
 - Real Chromium UI checks at 1280×800, 844×390 and 667×375: independent selectors, refresh persistence, two human clients plus edited CPU, ready/start, identity sync, Tiny Trouble and Mega Frogs; no browser errors.
 - Additional desktop/mobile gameplay checks across all four arenas, including Daisy and long-name announcements: eight cases passed.
