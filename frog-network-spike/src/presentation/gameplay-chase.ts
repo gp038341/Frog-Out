@@ -4,7 +4,9 @@
  * wraps on the exact bar clock, so the buffer represents a periodic steady state.
  */
 export const GAMEPLAY_MUSIC={title:'Hop Pursuit',bpm:168,bars:32,beatsPerBar:4,sampleRate:22050,targetRms:.105,peakLimit:.72}as const;
-type Voice='mallet'|'pluck'|'bass'|'reed'|'brass';
+type Voice='arcade'|'bass'|'keys';
+/** Warm band-limited synths; the rhythm section leads, without bell/reed timbres. */
+export const ARCADE_MIX={lead:.045,bass:.22,keys:.013,kick:.23,snare:.16,hatDown:.028,hatUp:.024,leadTranspose:-12,cutoff:{arcade:1350,bass:650,keys:1050}}as const;
 type Note=readonly[beat:number,midi:number,length:number];
 // One repeatable four-count groove. No off-grid kick substitutions or mid-song style switch.
 export const CHASE_GROOVE={kick:[0,2],snare:[1,3],hat:[0,.5,1,1.5,2,2.5,3,3.5],bass:[0,.5,1.5,2,2.5,3.5]}as const;
@@ -28,29 +30,26 @@ export function composeGameplayMusic(rate:number=GAMEPLAY_MUSIC.sampleRate):Floa
  const beat=60/GAMEPLAY_MUSIC.bpm,n=Math.round(GAMEPLAY_MUSIC.bars*4*beat*rate),dry=new Float32Array(n);let seed=0x46524f47;
  const noise=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/2147483648-1;};
  const note=(midi:number,at:number,beats:number,level:number,voice:Voice)=>{
-  const duration=beats*beat+(voice==='mallet'?.16:voice==='pluck'?.09:.055),offset=Math.round(at*beat*rate),count=Math.ceil(duration*rate),hz=440*2**((midi-69)/12),attack=voice==='reed'||voice==='brass'?.014:.003;
-  for(let i=0;i<count;i++){const t=i/rate,p=2*Math.PI*hz*t,fade=Math.sin(Math.min(1,t/attack)*Math.PI/2)**2*Math.sin(Math.min(1,(duration-t)/.045)*Math.PI/2)**2;let wave=0;
-   if(voice==='mallet')wave=Math.sin(p)*Math.exp(-t*7)+.24*Math.sin(p*3.99)*Math.exp(-t*20)+.09*Math.sin(p*6.78)*Math.exp(-t*35);
-   else if(voice==='pluck')wave=(Math.sin(p)+.3*Math.sin(p*2)*Math.exp(-t*14)+.12*Math.sin(p*3)*Math.exp(-t*22))*Math.exp(-t*11);
-   else if(voice==='bass')wave=(Math.sin(p)+.28*Math.sin(p*2)*Math.exp(-t*8)+.07*Math.sin(p*3)*Math.exp(-t*15))*Math.exp(-t*5);
-   else if(voice==='reed')wave=(Math.sin(p+.012*Math.sin(t*29))+.16*Math.sin(p*3)+.035*Math.sin(p*5))*(.72+.28*Math.exp(-t*10));
-   else wave=(Math.sin(p)+.28*Math.sin(p*2)+.11*Math.sin(p*3))*(.55+.45*Math.exp(-t*16));
+  const duration=beats*beat+.055,offset=Math.round(at*beat*rate),count=Math.ceil(duration*rate),hz=440*2**((midi-69)/12),attack=voice==='bass'?.005:.009,pole=1-Math.exp(-2*Math.PI*ARCADE_MIX.cutoff[voice]/rate);let filtered=0;
+  for(let i=0;i<count;i++){const t=i/rate,p=2*Math.PI*hz*t,fade=Math.sin(Math.min(1,t/attack)*Math.PI/2)**2*Math.sin(Math.min(1,(duration-t)/.045)*Math.PI/2)**2;
+   const raw=voice==='bass'?(Math.sin(p)+.38*Math.sin(p*2)+.15*Math.sin(p*3)+.055*Math.sin(p*4))*(.65+.35*Math.exp(-t*18)):voice==='arcade'?(Math.sin(p)+.22*Math.sin(p*3)+.06*Math.sin(p*5))*(.72+.28*Math.exp(-t*12)):(Math.sin(p)+.16*Math.sin(p*2)+.055*Math.sin(p*3))*(.6+.4*Math.exp(-t*8));
+   filtered+=pole*(raw-filtered);const wave=filtered;
    dry[(offset+i)%n]+=wave*fade*level;
   }
  };
- const drum=(at:number,kind:'kick'|'snare'|'hat'|'tom',level:number,pitch=105)=>{
+ const drum=(at:number,kind:'kick'|'snare'|'hat',level:number)=>{
   const duration=kind==='hat'?.075:kind==='snare'?.16:.22,offset=Math.round(at*beat*rate);let low=0,last=0;
-  for(let i=0;i<duration*rate;i++){const t=i/rate,random=noise();low+=.24*(random-low);const band=low-last;last=low;const wave=kind==='kick'?Math.sin(2*Math.PI*(49*t+1.15*(1-Math.exp(-t*35)))):kind==='tom'?Math.sin(2*Math.PI*(pitch*t+.8*(1-Math.exp(-t*24)))):kind==='hat'?band*1.3:low*.85+.14*Math.sin(2*Math.PI*185*t);const env=Math.min(1,t/.002)*Math.min(1,(duration-t)/.018)*Math.exp(-t/(kind==='hat'?.018:kind==='snare'?.035:.06));dry[(offset+i)%n]+=wave*env*level;}
+  for(let i=0;i<duration*rate;i++){const t=i/rate,random=noise();low+=.24*(random-low);const band=low-last;last=low;const wave=kind==='kick'?Math.sin(2*Math.PI*(49*t+1.15*(1-Math.exp(-t*35)))):kind==='hat'?band*1.3:low*.85+.14*Math.sin(2*Math.PI*185*t);const env=Math.min(1,t/.002)*Math.min(1,(duration-t)/.018)*Math.exp(-t/(kind==='hat'?.018:kind==='snare'?.035:.06));dry[(offset+i)%n]+=wave*env*level;}
  };
  for(let bar=0;bar<GAMEPLAY_MUSIC.bars;bar++){
   const h=H[bar%8],base=bar*4;
-  // One blended lead throughout; changing sections never replaces the lead instrument.
-  for(const[b,m,len]of gameplayPhrase(bar)){note(m,base+b,len,.095,'mallet');note(m,base+b,len,.023,'reed');}
-  for(const[i,b]of CHASE_GROOVE.bass.entries())note(h.root+[0,12,7,0,(h.notes[1]-h.root+120)%12,7][i],base+b,.4,.15,'bass');
-  for(let step=0;step<8;step++)note(h.notes[[0,2,1,3,0,2,1,3][step]],base+step*.5,.23,.036,'pluck');
-  for(const b of CHASE_GROOVE.kick)drum(base+b,'kick',.18);
-  for(const b of CHASE_GROOVE.snare)drum(base+b,'snare',.12);
-  for(const[i,b]of CHASE_GROOVE.hat.entries())drum(base+b,'hat',i%2?.035:.043);
+  // One restrained, lower-register arcade lead stays behind the bass/drum groove.
+  for(const[b,m,len]of gameplayPhrase(bar))note(m+ARCADE_MIX.leadTranspose,base+b,len,ARCADE_MIX.lead,'arcade');
+  for(const[i,b]of CHASE_GROOVE.bass.entries())note(h.root+[0,12,7,0,(h.notes[1]-h.root+120)%12,7][i],base+b,.4,ARCADE_MIX.bass,'bass');
+  for(const b of[0,2])for(const m of h.notes.slice(0,3))note(m,base+b,1.45,ARCADE_MIX.keys,'keys');
+  for(const b of CHASE_GROOVE.kick)drum(base+b,'kick',ARCADE_MIX.kick);
+  for(const b of CHASE_GROOVE.snare)drum(base+b,'snare',ARCADE_MIX.snare);
+  for(const[i,b]of CHASE_GROOVE.hat.entries())drum(base+b,'hat',i%2?ARCADE_MIX.hatUp:ARCADE_MIX.hatDown);
  }
  // Circular early reflections preserve tails across the seam without shortening a bar,
  // fading the end, restarting a timer, or crossfading two copies of the music.

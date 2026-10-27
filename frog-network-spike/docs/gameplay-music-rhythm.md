@@ -1,5 +1,7 @@
 # Hop Pursuit — steady groove refinement
 
+For the subsequent bass-and-drums instrumentation, see `arcade-gameplay-music.md`. The steady rhythm described here remains in place; the previous sound palette below is historical.
+
 Baseline: `4173878755d93896b8aee006c8fc55e1e1f1b185`.
 Checkpoint: `checkpoint/pre-gameplay-music-rhythm-refinement`.
 This candidate responds to the owner's report of sporadic beats and an unrelated-feeling middle section.
