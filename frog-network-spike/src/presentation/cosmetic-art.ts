@@ -28,7 +28,7 @@ export function paintHat(g:Phaser.GameObjects.Graphics,x:number,y:number,r:numbe
   g.lineStyle(2,INK);g.lineBetween(x,y-13,x,y-20);
   const wobble=Math.sin(time*9)*1.3;g.fillStyle(0xffd67d);g.fillEllipse(x-7,y-20-wobble,15,5);g.strokeEllipse(x-7,y-20-wobble,15,5);g.fillEllipse(x+7,y-20+wobble,15,5);g.strokeEllipse(x+7,y-20+wobble,15,5);g.fillStyle(0xf37c83);g.fillCircle(x,y-20,2.5);
  }
- if(hat==='flower'){g.lineStyle(2,0x407d55);g.lineBetween(x,y,x+4,y-9);g.fillStyle(0xfff8d8);for(let j=0;j<5;j++)g.fillCircle(x+4+Math.cos(j*Math.PI*2/5)*4,y-10+Math.sin(j*Math.PI*2/5)*4,3);g.fillStyle(0xffc868);g.fillCircle(x+4,y-10,3);}
+ if(hat==='flower'){g.lineStyle(2,0x407d55);g.lineBetween(x,y,x+4,y-9);g.lineStyle(1.5,INK);g.fillStyle(0xfff8d8);for(let j=0;j<5;j++){const px=x+4+Math.cos(j*Math.PI*2/5)*4,py=y-10+Math.sin(j*Math.PI*2/5)*4;g.fillCircle(px,py,3);g.strokeCircle(px,py,3);}g.fillStyle(0xffc868);g.fillCircle(x+4,y-10,3);g.strokeCircle(x+4,y-10,3);}
 }
 /** Lightweight lobby portrait, generated from the same catalog; only fixed strings/IDs enter markup. */
 export function appearancePreview(value:unknown,openMouth=false){const a=normalizeAppearance(value),s=skinFor(a),color='#'+s.color.toString(16).padStart(6,'0'),mark='#'+s.mark.toString(16).padStart(6,'0');const pattern=s.pattern==='stripe'?`<path d="M37 61h46" stroke="${mark}" stroke-width="5"/>`:s.pattern==='chevron'?`<path d="M40 57l20 14 20-14" fill="none" stroke="${mark}" stroke-width="5"/>`:s.pattern==='diamonds'?`<path d="M35 64l5-5 5 5-5 5zM75 64l5-5 5 5-5 5z" fill="${mark}"/>`:`<g fill="${mark}"><circle cx="37" cy="64" r="${s.pattern==='spots'?5:3}"/><circle cx="83" cy="64" r="${s.pattern==='spots'?5:3}"/><circle cx="46" cy="74" r="3"/><circle cx="74" cy="74" r="3"/></g>`;

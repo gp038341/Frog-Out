@@ -1,0 +1,387 @@
+{
+  "baseline": "975710b3f805edf6f4250b4fa8d6ed217923790e",
+  "unitTests": 507,
+  "failures": 0,
+  "productionBuild": "passed; unchanged large Phaser bundle warning",
+  "chromium": {
+    "checks": [
+      {
+        "mode": "desktop",
+        "arena": "sunny-pond",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Alexandria Hopperton III",
+          "height": 280.58258056640625,
+          "gameHeight": 704
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "desktop",
+        "arena": "bathhouse",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Daisy Peer",
+          "height": 227,
+          "gameHeight": 704
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "desktop",
+        "arena": "canopy",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Alexandria Hopperton III",
+          "height": 281.4987487792969,
+          "gameHeight": 704
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "desktop",
+        "arena": "toyshop",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Alexandria Hopperton III",
+          "height": 282,
+          "gameHeight": 704
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "mobile",
+        "arena": "sunny-pond",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Alexandria Hopperton III",
+          "height": 222.984375,
+          "gameHeight": 294
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "mobile",
+        "arena": "bathhouse",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Alexandria Hopperton III",
+          "height": 222.984375,
+          "gameHeight": 294
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "mobile",
+        "arena": "canopy",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Alexandria Hopperton III",
+          "height": 222.984375,
+          "gameHeight": 294
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "mobile",
+        "arena": "toyshop",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Alexandria Hopperton III",
+          "height": 222.984375,
+          "gameHeight": 294
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "webkit": {
+    "checks": [
+      {
+        "mode": "desktop",
+        "arena": "sunny-pond",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Alexandria Hopperton III",
+          "height": 282,
+          "gameHeight": 685
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "desktop",
+        "arena": "bathhouse",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Daisy Peer",
+          "height": 226.17477416992188,
+          "gameHeight": 685
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "desktop",
+        "arena": "canopy",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Daisy Peer",
+          "height": 227,
+          "gameHeight": 685
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "desktop",
+        "arena": "toyshop",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Alexandria Hopperton III",
+          "height": 281.322021484375,
+          "gameHeight": 685
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "mobile",
+        "arena": "sunny-pond",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Daisy Peer",
+          "height": 180,
+          "gameHeight": 275
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "mobile",
+        "arena": "bathhouse",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Daisy Peer",
+          "height": 180,
+          "gameHeight": 275
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "mobile",
+        "arena": "canopy",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Daisy Peer",
+          "height": 180,
+          "gameHeight": 275
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      },
+      {
+        "mode": "mobile",
+        "arena": "toyshop",
+        "reveal": {
+          "color": "rgb(255, 247, 176)",
+          "stroke": "1px",
+          "shadow": "rgb(41, 36, 49) 2px 2px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px",
+          "text": "Daisy Peer",
+          "height": 180,
+          "gameHeight": 275
+        },
+        "last": {
+          "text": "LAST SAFE FROG!",
+          "color": "rgb(255, 247, 176)",
+          "background": "rgb(48, 113, 131)",
+          "shadow": "rgb(41, 36, 49) 1px 1px 0px, rgb(41, 36, 49) -1px -1px 0px, rgb(41, 36, 49) 1px -1px 0px, rgb(41, 36, 49) -1px 1px 0px"
+        },
+        "sizes": [
+          0.3375,
+          0.6075
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "votingLayouts": 70,
+  "mobileMultitouch": [
+    "iPhone Safari UA in Chromium CDP: passed",
+    "Android Chrome UA in Chromium CDP: passed"
+  ],
+  "physicalDeviceTesting": false,
+  "gameplayInputsPhysicsAIAndNetworking": "unchanged; byte guards passed",
+  "results": {
+    "componentLayouts": 30,
+    "liveModes": [
+      "poison",
+      "freeze",
+      "classic"
+    ],
+    "twoIndependentClients": true,
+    "roundTransitionsVotingFinalRevealRematch": true,
+    "productionLengthCountdown": true,
+    "note": "The existing artificially shortened 0.3s intro assertion was timing-sensitive in two runs; live lifecycle validation passed with the unchanged production countdown."
+  }
+}

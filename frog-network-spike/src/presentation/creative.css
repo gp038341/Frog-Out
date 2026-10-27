@@ -109,3 +109,30 @@ body:not(.game-active):not(.results-celebration) #chaos-voting{
  #chaos-voting .voter-stamp{width:18px;height:18px;flex-basis:18px;padding:1px}
  #chaos-voting .vote-stamps{min-height:20px;gap:2px;padding-top:3px}
 }
+
+/* Bright print stock around the approved artwork; no layout/camera/input changes. */
+:root{--pond:#b6e6ed}
+body,body:not(.game-active):not(.results-celebration){background-color:#b6e6ed;background-image:radial-gradient(ellipse at 90% 5%,#fff0c7 0,transparent 42%),radial-gradient(#348d9220 .8px,transparent .8px),linear-gradient(155deg,#b8e8f3,#bce7d1);background-size:auto,8px 8px,auto;color:#292431}
+body.game-active{background:linear-gradient(160deg,#b8e8f3,#bce7d1);color:#292431}
+body.results-celebration{background-color:#ffe1bd!important;background-image:radial-gradient(ellipse at 12% 18%,#c7edd1 0,transparent 48%),radial-gradient(#a3704b18 .8px,transparent .8px),linear-gradient(150deg,#ffebbf,#f4cbdc)!important;background-size:auto,8px 8px,auto!important}
+body:not(.game-active):not(.results-celebration) #brand h1,body:not(.game-active):not(.results-celebration) #brand h1 span,.game-active #brand h1,.game-active #brand h1 span,.results-celebration #brand h1,.results-celebration #brand h1 span{color:#292431}
+body:not(.game-active):not(.results-celebration) #brand h1 span{color:#427743}
+body:not(.game-active):not(.results-celebration) #brand h1 small,body:not(.game-active):not(.results-celebration) #connection,.game-active #connection,.game-active #outbreak-heading,.game-active #phase-message,.results-celebration #connection{color:#31575e}
+#connection:before{color:#427743}
+.game-active #round-timer{color:#292431}
+.game-active #game{background:linear-gradient(135deg,#b6deed,#c5eadb)}
+:fullscreen{background:#b6e6ed}
+body:not(.game-active):not(.results-celebration) #session-footer button,.game-active #session-footer button,.results-celebration #session-footer button,.touch-enabled:not(.game-active) #session-footer #help{background:#fff1ce;color:#292431;border-color:#52696a;box-shadow:2px 2px #52696a55}
+body:not(.game-active):not(.results-celebration) #session-footer button:hover:not(:disabled),.game-active #session-footer button:hover:not(:disabled),.results-celebration #session-footer button:hover:not(:disabled){background:#e2efb9}
+#chaos-voting{box-shadow:7px 7px 0 #597c8170,0 0 0 100vmax #b6e6edf5}
+.player-dialog::backdrop{background:#82bdc5b8}
+#rotate-prompt{background:#c5e9e7f5;color:#292431}
+/* Explicit ID scope beats legacy Poison Tag rules, without touching event timing. */
+#phase-overlay{background:#a5dce72b}
+#phase-overlay .reveal-card{background:#fff1cef5;border-color:#52696a}
+#phase-overlay #reveal-name{color:#fff7b0;-webkit-text-stroke:1px #292431;text-shadow:2px 2px 0 #292431,-1px -1px 0 #292431,1px -1px 0 #292431,-1px 1px 0 #292431}
+#phase-overlay .reveal-card .eyebrow,#phase-overlay .reveal-card small,#phase-overlay .pond-reveal-caption{color:#31575e}
+#pond-moment[data-kind=last]{background:#307183;color:#fff7b0;border-color:#fff1ce;text-shadow:1px 1px 0 #292431,-1px -1px 0 #292431,1px -1px 0 #292431,-1px 1px 0 #292431}
+.game-active #healthy-count{color:#31575e}.game-active #live-score,.game-active.pond-last #healthy-count{color:#6d3b65;text-shadow:none}
+/* The fixed gameplay shell leaves body out of flow; give its gradient a real paint area. */
+body.game-active{min-height:100dvh;background-color:#b6e6ed}
