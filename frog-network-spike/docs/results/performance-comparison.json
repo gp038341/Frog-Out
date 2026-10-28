@@ -1,0 +1,68 @@
+[
+  {
+    "case": "A-two",
+    "baselineFps": 59.46160221989981,
+    "candidateFps": 60.002507567480436,
+    "baselineRenderMeanMs": 0.6163690476359556,
+    "candidateRenderMeanMs": 0.29853372433143627,
+    "baselineTextRasters": 2016,
+    "candidateTextRasters": 0,
+    "baselineScriptMs": 824.737,
+    "candidateScriptMs": 706.372
+  },
+  {
+    "case": "B-eight",
+    "baselineFps": 59.82356512732598,
+    "candidateFps": 60.002507567480436,
+    "baselineRenderMeanMs": 1.717008797647131,
+    "candidateRenderMeanMs": 0.818768328446294,
+    "baselineTextRasters": 8186,
+    "candidateTextRasters": 4,
+    "baselineScriptMs": 1789.944,
+    "candidateScriptMs": 1288.264
+  },
+  {
+    "case": "C-three",
+    "baselineFps": 59.64428364170444,
+    "candidateFps": 59.82322506467375,
+    "baselineRenderMeanMs": 1.7797058823545846,
+    "candidateRenderMeanMs": 0.9214705882415942,
+    "baselineTextRasters": 8166,
+    "candidateTextRasters": 4,
+    "baselineScriptMs": 1942.5990000000002,
+    "candidateScriptMs": 1542.478
+  },
+  {
+    "case": "E-jets",
+    "baselineFps": 59.29064881418703,
+    "candidateFps": 60.00287438919229,
+    "baselineRenderMeanMs": 1.7212389380558446,
+    "candidateRenderMeanMs": 0.8161764705772786,
+    "baselineTextRasters": 8138,
+    "candidateTextRasters": 8,
+    "baselineScriptMs": 1899.791,
+    "candidateScriptMs": 1295.777
+  },
+  {
+    "case": "E-vines",
+    "baselineFps": 60.002507567480436,
+    "candidateFps": 60.001432870038684,
+    "baselineRenderMeanMs": 1.483577712605601,
+    "candidateRenderMeanMs": 0.878654970769765,
+    "baselineTextRasters": 8194,
+    "candidateTextRasters": 10,
+    "baselineScriptMs": 1738.736,
+    "candidateScriptMs": 1370.8369999999998
+  },
+  {
+    "case": "E-conveyors",
+    "baselineFps": 59.82479880350403,
+    "candidateFps": 60.002142933676204,
+    "baselineRenderMeanMs": 1.5504373178040778,
+    "candidateRenderMeanMs": 1.1174927113697193,
+    "baselineTextRasters": 8238,
+    "candidateTextRasters": 9,
+    "baselineScriptMs": 1821.9589999999998,
+    "candidateScriptMs": 1662.982
+  }
+]

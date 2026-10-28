@@ -1,0 +1,313 @@
+{
+  "records": [
+    {
+      "match": 0,
+      "round": 1,
+      "active": [],
+      "objects": 17,
+      "textures": 10,
+      "tick": {
+        "p50": 0.96511600000008,
+        "p95": 3.485508000000209,
+        "p99": 9.763872999999876,
+        "max": 13.973698000000013
+      },
+      "dom": 1655,
+      "heap": 9784428,
+      "listeners": 177
+    },
+    {
+      "match": 0,
+      "round": 2,
+      "active": [
+        "pogo_panic"
+      ],
+      "objects": 17,
+      "textures": 10,
+      "tick": {
+        "p50": 0.7757300000002942,
+        "p95": 2.3820489999998244,
+        "p99": 5.186052999999902,
+        "max": 13.973698000000013
+      },
+      "dom": 1645,
+      "heap": 9290244,
+      "listeners": 181
+    },
+    {
+      "match": 0,
+      "round": 3,
+      "active": [
+        "pogo_panic",
+        "bouncy_bombardment"
+      ],
+      "objects": 17,
+      "textures": 10,
+      "tick": {
+        "p50": 0.7466359999998531,
+        "p95": 2.265277999999853,
+        "p99": 5.135607999998683,
+        "max": 13.973698000000013
+      },
+      "dom": 1609,
+      "heap": 9417712,
+      "listeners": 181
+    },
+    {
+      "match": 0,
+      "round": 4,
+      "active": [
+        "pogo_panic",
+        "bouncy_bombardment",
+        "tiny_trouble"
+      ],
+      "objects": 17,
+      "textures": 10,
+      "tick": {
+        "p50": 0.7278779999996914,
+        "p95": 2.2975759999999354,
+        "p99": 5.186052999999902,
+        "max": 17.24646799999755
+      },
+      "dom": 1569,
+      "heap": 9582572,
+      "listeners": 181
+    },
+    {
+      "match": 0,
+      "round": 5,
+      "active": [
+        "bouncy_bombardment",
+        "tiny_trouble",
+        "super_suckers"
+      ],
+      "objects": 17,
+      "textures": 10,
+      "tick": {
+        "p50": 0.711884000000282,
+        "p95": 2.0753010000007635,
+        "p99": 4.888600000002043,
+        "max": 17.24646799999755
+      },
+      "dom": 1567,
+      "heap": 9907008,
+      "listeners": 181
+    },
+    {
+      "match": 0,
+      "round": 6,
+      "active": [
+        "tiny_trouble",
+        "super_suckers",
+        "turbo_toads"
+      ],
+      "objects": 17,
+      "textures": 10,
+      "tick": {
+        "p50": 0.6880879999989702,
+        "p95": 1.966671999999562,
+        "p99": 4.638357000000269,
+        "max": 17.24646799999755
+      },
+      "dom": 1567,
+      "heap": 9931000,
+      "listeners": 181
+    },
+    {
+      "match": 0,
+      "round": 7,
+      "active": [
+        "super_suckers",
+        "turbo_toads",
+        "moon_frogs"
+      ],
+      "objects": 17,
+      "textures": 10,
+      "tick": {
+        "p50": 0.6677270000000135,
+        "p95": 1.844092000001183,
+        "p99": 4.3057560000015656,
+        "max": 17.24646799999755
+      },
+      "dom": 1576,
+      "heap": 9993380,
+      "listeners": 181
+    },
+    {
+      "match": 0,
+      "round": 8,
+      "active": [
+        "turbo_toads",
+        "moon_frogs",
+        "mega_frogs"
+      ],
+      "objects": 17,
+      "textures": 10,
+      "tick": {
+        "p50": 0.6448830000008456,
+        "p95": 1.7706809999999678,
+        "p99": 4.044280000000072,
+        "max": 17.24646799999755
+      },
+      "dom": 1542,
+      "heap": 9986940,
+      "listeners": 181
+    },
+    {
+      "match": 1,
+      "round": 1,
+      "active": [],
+      "objects": 17,
+      "textures": 10,
+      "tick": {
+        "p50": 0.6457740000005288,
+        "p95": 1.7507110000005923,
+        "p99": 3.9416569999993953,
+        "max": 84.85265999999683
+      },
+      "dom": 1778,
+      "heap": 10102156,
+      "listeners": 178
+    },
+    {
+      "match": 1,
+      "round": 2,
+      "active": [
+        "magnet_mouths"
+      ],
+      "objects": 17,
+      "textures": 10,
+      "tick": {
+        "p50": 0.6354789999968489,
+        "p95": 1.7340149999945424,
+        "p99": 4.044280000000072,
+        "max": 84.85265999999683
+      },
+      "dom": 1656,
+      "heap": 10236684,
+      "listeners": 181
+    },
+    {
+      "match": 1,
+      "round": 3,
+      "active": [
+        "magnet_mouths",
+        "tilt_a_frog"
+      ],
+      "objects": 27,
+      "textures": 10,
+      "tick": {
+        "p50": 0.6536459999988438,
+        "p95": 1.8258639999999104,
+        "p99": 4.311052999997628,
+        "max": 84.85265999999683
+      },
+      "dom": 1577,
+      "heap": 10323664,
+      "listeners": 181
+    },
+    {
+      "match": 1,
+      "round": 4,
+      "active": [
+        "magnet_mouths",
+        "tilt_a_frog",
+        "mega_frogs"
+      ],
+      "objects": 27,
+      "textures": 10,
+      "tick": {
+        "p50": 0.6438510000007227,
+        "p95": 1.676938999997219,
+        "p99": 3.4838249999993423,
+        "max": 84.85265999999683
+      },
+      "dom": 1577,
+      "heap": 10421056,
+      "listeners": 181
+    },
+    {
+      "match": 1,
+      "round": 5,
+      "active": [
+        "tilt_a_frog",
+        "mega_frogs",
+        "butterfeet"
+      ],
+      "objects": 27,
+      "textures": 10,
+      "tick": {
+        "p50": 0.6492489999945974,
+        "p95": 1.6966800000009243,
+        "p99": 3.7109679999994114,
+        "max": 84.85265999999683
+      },
+      "dom": 1582,
+      "heap": 10511108,
+      "listeners": 181
+    },
+    {
+      "match": 1,
+      "round": 6,
+      "active": [
+        "mega_frogs",
+        "butterfeet",
+        "tilt_a_frog"
+      ],
+      "objects": 27,
+      "textures": 10,
+      "tick": {
+        "p50": 0.640136000001803,
+        "p95": 1.6560570000001462,
+        "p99": 3.373419000003196,
+        "max": 84.85265999999683
+      },
+      "dom": 1565,
+      "heap": 10469580,
+      "listeners": 181
+    },
+    {
+      "match": 1,
+      "round": 7,
+      "active": [
+        "butterfeet",
+        "tilt_a_frog",
+        "turbo_toads"
+      ],
+      "objects": 27,
+      "textures": 10,
+      "tick": {
+        "p50": 0.64050600000337,
+        "p95": 1.6010450000030687,
+        "p99": 3.251604999997653,
+        "max": 84.85265999999683
+      },
+      "dom": 1591,
+      "heap": 10497528,
+      "listeners": 181
+    },
+    {
+      "match": 1,
+      "round": 8,
+      "active": [
+        "tilt_a_frog",
+        "turbo_toads",
+        "quick_licks"
+      ],
+      "objects": 27,
+      "textures": 10,
+      "tick": {
+        "p50": 0.640136000001803,
+        "p95": 1.5982110000040848,
+        "p99": 3.344454999998561,
+        "max": 84.85265999999683
+      },
+      "dom": 1533,
+      "heap": 10611656,
+      "listeners": 181
+    }
+  ],
+  "heapRangeAfterWarm": 1029084,
+  "listenerRangeAfterWarm": 0,
+  "errors": []
+}

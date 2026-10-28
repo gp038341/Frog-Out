@@ -1,0 +1,63 @@
+{
+  "counts": [
+    {
+      "ids": [],
+      "objects": 17,
+      "platforms": 0,
+      "bits": 0,
+      "textures": 10
+    },
+    {
+      "ids": [
+        "crumble_time",
+        "bubble_trouble",
+        "windy_weather"
+      ],
+      "objects": 107,
+      "platforms": 10,
+      "bits": 10,
+      "textures": 10
+    },
+    {
+      "ids": [],
+      "objects": 17,
+      "platforms": 0,
+      "bits": 0,
+      "textures": 10
+    },
+    {
+      "ids": [
+        "tilt_a_frog",
+        "mega_tongues",
+        "super_suckers"
+      ],
+      "objects": 27,
+      "platforms": 10,
+      "bits": 0,
+      "textures": 10
+    },
+    {
+      "ids": [],
+      "objects": 17,
+      "platforms": 0,
+      "bits": 0,
+      "textures": 10
+    },
+    {
+      "ids": [
+        "crumble_time"
+      ],
+      "objects": 107,
+      "platforms": 10,
+      "bits": 10,
+      "textures": 10
+    },
+    {
+      "ids": [],
+      "objects": 17,
+      "platforms": 0,
+      "bits": 0,
+      "textures": 10
+    }
+  ]
+}

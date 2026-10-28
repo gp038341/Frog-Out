@@ -41,7 +41,7 @@ export class Courtyard {
  constructor(private scene:Phaser.Scene,private audio:GameAudio){
   this.chaosSounds=new ChaosSounds(audio);this.locator=new LocalLocator(scene);
   this.background=scene.add.graphics().setDepth(0);this.ink=scene.add.graphics().setDepth(1);this.effects=scene.add.graphics().setDepth(2);
-  for(let i=0;i<8;i++)this.labels.push(scene.add.text(0,0,'',{fontFamily:'Arial, sans-serif',fontSize:'19px',fontStyle:'bold',color:'#fff8d9',stroke:'#292431',strokeThickness:4,align:'center',lineSpacing:0}).setOrigin(.5,1).setDepth(4));
+  for(let i=0;i<8;i++)this.labels.push(scene.add.text(0,0,'',{fontFamily:'Arial, sans-serif',fontSize:'19px',fontStyle:'bold',color:'#fff8d9',stroke:'#292431',strokeThickness:4,align:'center',lineSpacing:0}).setOrigin(.5,1).setDepth(4).setBackgroundColor('transparent').setPadding(0,0));
   this.chaosInk=scene.add.graphics().setDepth(1.5);
   this.mechanicInk=scene.add.graphics().setDepth(.9);
   this.windLabel=scene.add.text(WIDTH*S/2,14,'',{fontFamily:'Arial, sans-serif',fontSize:'16px',fontStyle:'bold',color:'#d9faff',stroke:'#142f35',strokeThickness:4}).setOrigin(.5,0).setDepth(4).setVisible(false);
@@ -121,7 +121,10 @@ export class Courtyard {
    paintFrogChaos(g,p.x*S,p.y*S,f,view?.tick??0,i);
    const chaosStatus=f.bubbleId!==undefined?(i===local?'○ TAP ACTION TO POP':'○ BUBBLED'):f.swapPartner!==undefined?`⇄ ${names[f.swapPartner]??'SWAP PARTNER'}`:f.balloonWarning?'◍ PUFFING UP…':undefined;
    const label=this.labels[i];
-   label.setBackgroundColor('transparent').setPadding(0,0).setVisible(true).setText(`${i===local?'▼ YOU · ':''}${names[i]}${['SAFE','NOT IT','RUNNER'].includes(status)?'':'\n'+status}${chaosStatus?` · ${chaosStatus}`:''}`).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-(f.radius??defaults.frogRadius)-.3)*S)).setColor(i===local?'#b9eaff':connected[i]===false?'#b2c7c2':state==='transforming'||state==='infectious'||view?.mode==='classic'&&i===view.classic!.it||view?.mode==='freeze'&&i===view.freeze!.freezer?'#d5a2ff':'#fff8d9');
+   const text=`${i===local?'▼ YOU · ':''}${names[i]}${['SAFE','NOT IT','RUNNER'].includes(status)?'':'\n'+status}${chaosStatus?` · ${chaosStatus}`:''}`,labelColor=i===local?'#b9eaff':connected[i]===false?'#b2c7c2':state==='transforming'||state==='infectious'||view?.mode==='classic'&&i===view.classic!.it||view?.mode==='freeze'&&i===view.freeze!.freezer?'#d5a2ff':'#fff8d9';
+   if(label.text!==text)label.setText(text);
+   if(label.style.color!==labelColor)label.setColor(labelColor);
+   label.setVisible(true).setPosition(Phaser.Math.Clamp(p.x*S,label.width/2+4,WIDTH*S-label.width/2-4),Math.max(42,(p.y-(f.radius??defaults.frogRadius)-.3)*S));
    this.previous[i]={stickyAttachTick:f.stickyAttachTick,stickyReleaseTick:f.stickyReleaseTick,pogoTick:f.pogoTick,gravityFlipTick:f.gravityFlipTick,gravityWarningSeconds:f.gravityWarningSeconds,balloonPopTick:f.balloonPopTick,balloonBounceTick:f.balloonBounceTick,bubblePressTick:f.bubblePressTick,bubbleId:f.bubbleId,bumperTick:f.bumperTick,balloonInflated:f.balloonInflated,swapTick:f.swapTick,bubbleEscapeTick:f.bubbleEscapeTick,surfaceBounceTick:f.surfaceBounceTick,vy:f.vy,vx:f.vx,grounded:f.grounded,charging:f.charging,tongue:f.tongue?.phase,state:view?.mode==='classic'?(i===view.classic!.it?'it':'runner'):view?.mode==='freeze'?(view.freeze!.frozen[i]?'frozen':'runner'):state,x:f.x,y:f.y};
   });
   this.labels.forEach((l,i)=>{if(i>=states.length)l.setVisible(false);});

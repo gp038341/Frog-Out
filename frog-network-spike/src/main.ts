@@ -81,12 +81,15 @@ class Spike extends Phaser.Scene {
  create(){inputScene=this;this.art=new Courtyard(this,audio);}
 
  update(_time:number,delta:number){
-  if(net.lobby?.phase!=='game'){this.art.clear();return;}
+  const inArena=net.lobby?.phase==='game'&&!['round-results','match-results'].includes(net.outbreak?.phase??'')&&(!net.chaos||net.chaos.phase==='idle');
+  this.sys.setVisible(inArena);
+  if(!inArena){if(this.rendered.length){this.art.clear();this.rendered=[];}return;}
   const now=Date.now(),nowServer=now+net.offset;
   if(net.prediction&&net.playing&&!net.stale)net.predictor.advance(nowServer);
   const states=interpolate(net.snapshots,nowServer-NETWORK.interpolationMs);
   if(states.length<2){document.querySelector('#status')!.textContent=net.status;return;}
-  const predicted=net.prediction&&net.playing&&net.predictor.initialized?capture(net.predictor.sim).frogs:undefined;
+  const predictedState=net.prediction&&net.playing&&net.predictor.initialized?capture(net.predictor.sim):undefined;
+  const predicted=predictedState?.frogs;
   const coupledSlots=new Set<number>();
   if(predicted&&net.slot>=0&&predicted[net.slot]){
    coupledSlots.add(net.slot);let changed=true;
@@ -108,7 +111,7 @@ class Spike extends Phaser.Scene {
   if(mouse?.active)sample(false);
   const latest=net.snapshots.at(-1)!;
   this.art.setArena(net.snapshots.at(-1)?.arenaId??net.lobby?.arenaId??DEFAULT_ARENA);
-  this.art.renderChaos(net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.arenaChaos.capture():latest.state.arenaChaos,net.prediction&&net.playing&&net.predictor.initialized?net.predictor.sim.arenaMechanics.capture():latest.state.arenaMechanics);
+  this.art.renderChaos(predictedState?predictedState.arenaChaos:latest.state.arenaChaos,predictedState?predictedState.arenaMechanics:latest.state.arenaMechanics);
   this.art.appearances=states.map((_,i)=>(net.lobby?.players.find(p=>p.slot===i)??net.lobby?.roster?.find(p=>p.slot===i))?.appearance);
   this.art.reserved=states.map((_,i)=>!!net.lobby?.players.some(p=>p.slot===i&&!isCPU(p)&&!p.connected));
   this.art.render(states,this.rendered,net.outbreak,latest.connected,states.map((_,i)=>playerName(i)),net.slot,delta,net.chaos?.active??[]);

@@ -201,4 +201,7 @@ export function arenaEnergyPreservedSource(path:string,raw=false){const m=JSON.p
 export function gameplayMusicRedesignPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/gameplay-music-redesign-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??howToPlayPreservedSource(path,raw);}
 
 /** Reverse only the dedicated instructional entry/panel for historical guards. */
-export function howToPlayPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/how-to-play-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??m.historicalTests?.[path]??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function howToPlayPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/how-to-play-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??m.historicalTests?.[path]??performanceResultsPreservedSource(path,raw);}
+
+/** Recover only the pre-optimization capture/presentation adapters for historical checks. */
+export function performanceResultsPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/performance-results-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??m.historicalTests?.[path]??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

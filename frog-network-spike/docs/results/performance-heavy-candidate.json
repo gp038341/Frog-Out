@@ -1,0 +1,111 @@
+{
+  "environment": "Local Chromium software graphics, real loopback WebSocket backend and seven CPUs in eight-frog cases. Test-only modifier injection after ordinary Round 1 begins. Headless timings are not physical-device or Render capacity estimates.",
+  "results": [
+    {
+      "name": "C-three",
+      "n": 8,
+      "arena": "sunny-pond",
+      "mods": [
+        "bouncy_bombardment",
+        "bubble_trouble",
+        "windy_weather"
+      ],
+      "version": "candidate-heavy-repeat",
+      "seconds": 5.654900000000187,
+      "fps": 59.1069477530404,
+      "frameMs": {
+        "n": 330,
+        "mean": 16.918484848484855,
+        "p50": 16.69999999999709,
+        "p95": 16.799999999999272,
+        "p99": 33.29999999999927,
+        "max": 50
+      },
+      "longTasks": [],
+      "cold": {
+        "start": 415.5,
+        "active": 4616.4000000003725,
+        "long": [],
+        "calls": {
+          "renderChaos": 242,
+          "textRaster": 26,
+          "render": 242,
+          "reconcile": 1,
+          "advance": 1
+        }
+      },
+      "rttMs": 6.458273236894867,
+      "tickMs": {
+        "p50": 0.7978929999990214,
+        "p95": 1.8241109999999026,
+        "p99": 3.605793000000631,
+        "max": 13.497072000000117
+      },
+      "overruns": 0,
+      "calls": {
+        "advance": 505,
+        "renderChaos": 335,
+        "render": 335,
+        "reconcile": 170,
+        "textRaster": 17
+      },
+      "timings": {
+        "advance": {
+          "n": 505,
+          "mean": 0.3247524752327711,
+          "p50": 0.2999999998137355,
+          "p95": 0.7999999998137355,
+          "p99": 1.900000000372529,
+          "max": 3.3999999994412065
+        },
+        "renderChaos": {
+          "n": 335,
+          "mean": 0.06298507463409385,
+          "p50": 0,
+          "p95": 0.10000000055879354,
+          "p99": 0.40000000037252903,
+          "max": 12.700000000186265
+        },
+        "render": {
+          "n": 335,
+          "mean": 1.0653731343294703,
+          "p50": 0.900000000372529,
+          "p95": 2.099999999627471,
+          "p99": 3.900000000372529,
+          "max": 6.2999999998137355
+        },
+        "reconcile": {
+          "n": 170,
+          "mean": 0.8488235294380608,
+          "p50": 0.7000000001862645,
+          "p95": 1.7999999998137355,
+          "p99": 3.400000000372529,
+          "max": 3.5
+        },
+        "textRaster": {
+          "n": 17,
+          "mean": 1.0529411764377181,
+          "p50": 0.2999999998137355,
+          "p95": 12.700000000186265,
+          "p99": 12.700000000186265,
+          "max": 12.700000000186265
+        }
+      },
+      "snapshotGapMs": {
+        "n": 169,
+        "mean": 33.328402366863905,
+        "p50": 33,
+        "p95": 53.200000000186265,
+        "p99": 67.40000000037253,
+        "max": 71.80000000074506
+      },
+      "snapshotBytes": 1197512,
+      "ballsObserved": 8,
+      "objects": 17,
+      "textures": 10,
+      "heapBytes": 41277224,
+      "scriptMs": 1706.6340000000002,
+      "layoutMs": 6.495000000000001
+    }
+  ]
+}

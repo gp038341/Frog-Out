@@ -1,0 +1,907 @@
+[
+  {
+    "w": 1280,
+    "h": 800,
+    "n": 2,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 0,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 1280,
+      "scrollH": 800,
+      "h": 800,
+      "w": 1280,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 57.5,
+          "parent": 259.921875,
+          "height": 44,
+          "parentH": 60
+        },
+        {
+          "text": "2nd",
+          "width": 63.1875,
+          "parent": 226.03125,
+          "height": 44,
+          "parentH": 48
+        }
+      ],
+      "allCards": 2,
+      "host": {
+        "x": 571.328125,
+        "y": 669,
+        "width": 137.328125,
+        "height": 45,
+        "top": 669,
+        "right": 708.65625,
+        "bottom": 714,
+        "left": 571.328125
+      }
+    }
+  },
+  {
+    "w": 1280,
+    "h": 800,
+    "n": 8,
+    "stageHeightChange": 28,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 14,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 1280,
+      "scrollH": 832,
+      "h": 800,
+      "w": 1280,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 57.5,
+          "parent": 259.921875,
+          "height": 44,
+          "parentH": 60
+        },
+        {
+          "text": "2nd",
+          "width": 63.1875,
+          "parent": 226.03125,
+          "height": 44,
+          "parentH": 48
+        },
+        {
+          "text": "3rd",
+          "width": 61.0625,
+          "parent": 226.03125,
+          "height": 44,
+          "parentH": 36
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 571.328125,
+        "y": 701.484375,
+        "width": 137.328125,
+        "height": 45,
+        "top": 701.484375,
+        "right": 708.65625,
+        "bottom": 746.484375,
+        "left": 571.328125
+      }
+    }
+  },
+  {
+    "w": 1280,
+    "h": 800,
+    "n": 8,
+    "tied": true,
+    "stageHeightChange": 28,
+    "podiumTopChange": 1,
+    "tierTopChange": 1,
+    "cardHeightChange": 14,
+    "frogTopChange": 1,
+    "settled": {
+      "scrollW": 1280,
+      "scrollH": 826,
+      "h": 800,
+      "w": 1280,
+      "placements": [
+        {
+          "text": "1st · tied",
+          "width": 150.328125,
+          "parent": 876,
+          "height": 44,
+          "parentH": 60
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 571.328125,
+        "y": 695.484375,
+        "width": 137.328125,
+        "height": 45,
+        "top": 695.484375,
+        "right": 708.65625,
+        "bottom": 740.484375,
+        "left": 571.328125
+      }
+    }
+  },
+  {
+    "w": 1280,
+    "h": 800,
+    "n": 8,
+    "final": true,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 0,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 1280,
+      "scrollH": 800,
+      "h": 800,
+      "w": 1280,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 57.5,
+          "parent": 259.921875,
+          "height": 44,
+          "parentH": 60
+        },
+        {
+          "text": "2nd",
+          "width": 63.1875,
+          "parent": 226.03125,
+          "height": 44,
+          "parentH": 48
+        },
+        {
+          "text": "3rd",
+          "width": 61.0625,
+          "parent": 226.03125,
+          "height": 44,
+          "parentH": 36
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 571.328125,
+        "y": 669,
+        "width": 137.328125,
+        "height": 45,
+        "top": 669,
+        "right": 708.65625,
+        "bottom": 714,
+        "left": 571.328125
+      }
+    }
+  },
+  {
+    "w": 1024,
+    "h": 650,
+    "n": 2,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 14,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 1024,
+      "scrollH": 650,
+      "h": 650,
+      "w": 1024,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 57.5,
+          "parent": 136.046875,
+          "height": 44,
+          "parentH": 60
+        },
+        {
+          "text": "2nd",
+          "width": 63.1875,
+          "parent": 118.28125,
+          "height": 44,
+          "parentH": 48
+        }
+      ],
+      "allCards": 2,
+      "host": {
+        "x": 443.328125,
+        "y": 531,
+        "width": 137.328125,
+        "height": 45,
+        "top": 531,
+        "right": 580.65625,
+        "bottom": 576,
+        "left": 443.328125
+      }
+    }
+  },
+  {
+    "w": 1024,
+    "h": 650,
+    "n": 8,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 14,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 1024,
+      "scrollH": 650,
+      "h": 650,
+      "w": 1024,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 57.5,
+          "parent": 136.046875,
+          "height": 44,
+          "parentH": 60
+        },
+        {
+          "text": "2nd",
+          "width": 63.1875,
+          "parent": 118.28125,
+          "height": 44,
+          "parentH": 48
+        },
+        {
+          "text": "3rd",
+          "width": 61.0625,
+          "parent": 118.28125,
+          "height": 44,
+          "parentH": 36
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 443.328125,
+        "y": 531,
+        "width": 137.328125,
+        "height": 45,
+        "top": 531,
+        "right": 580.65625,
+        "bottom": 576,
+        "left": 443.328125
+      }
+    }
+  },
+  {
+    "w": 1024,
+    "h": 650,
+    "n": 8,
+    "tied": true,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 14,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 1024,
+      "scrollH": 650,
+      "h": 650,
+      "w": 1024,
+      "placements": [
+        {
+          "text": "1st · tied",
+          "width": 150.328125,
+          "parent": 388.625,
+          "height": 44,
+          "parentH": 60
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 443.328125,
+        "y": 531,
+        "width": 137.328125,
+        "height": 45,
+        "top": 531,
+        "right": 580.65625,
+        "bottom": 576,
+        "left": 443.328125
+      }
+    }
+  },
+  {
+    "w": 1024,
+    "h": 650,
+    "n": 8,
+    "final": true,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 0,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 1024,
+      "scrollH": 650,
+      "h": 650,
+      "w": 1024,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 57.5,
+          "parent": 136.046875,
+          "height": 44,
+          "parentH": 60
+        },
+        {
+          "text": "2nd",
+          "width": 63.1875,
+          "parent": 118.28125,
+          "height": 44,
+          "parentH": 48
+        },
+        {
+          "text": "3rd",
+          "width": 61.0625,
+          "parent": 118.28125,
+          "height": 44,
+          "parentH": 36
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 443.328125,
+        "y": 531,
+        "width": 137.328125,
+        "height": 45,
+        "top": 531,
+        "right": 580.65625,
+        "bottom": 576,
+        "left": 443.328125
+      }
+    }
+  },
+  {
+    "w": 844,
+    "h": 390,
+    "n": 2,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 12,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 844,
+      "scrollH": 390,
+      "h": 390,
+      "w": 844,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 39.65625,
+          "parent": 106.40625,
+          "height": 31,
+          "parentH": 38
+        },
+        {
+          "text": "2nd",
+          "width": 43.578125,
+          "parent": 92.515625,
+          "height": 31,
+          "parentH": 30
+        }
+      ],
+      "allCards": 2,
+      "host": {
+        "x": 355.328125,
+        "y": 294,
+        "width": 133.328125,
+        "height": 44,
+        "top": 294,
+        "right": 488.65625,
+        "bottom": 338,
+        "left": 355.328125
+      }
+    }
+  },
+  {
+    "w": 844,
+    "h": 390,
+    "n": 8,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 0,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 844,
+      "scrollH": 390,
+      "h": 390,
+      "w": 844,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 39.65625,
+          "parent": 106.40625,
+          "height": 31,
+          "parentH": 38
+        },
+        {
+          "text": "2nd",
+          "width": 43.578125,
+          "parent": 92.515625,
+          "height": 31,
+          "parentH": 30
+        },
+        {
+          "text": "3rd",
+          "width": 42.109375,
+          "parent": 92.515625,
+          "height": 31,
+          "parentH": 24
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 355.328125,
+        "y": 294,
+        "width": 133.328125,
+        "height": 44,
+        "top": 294,
+        "right": 488.65625,
+        "bottom": 338,
+        "left": 355.328125
+      }
+    }
+  },
+  {
+    "w": 844,
+    "h": 390,
+    "n": 8,
+    "tied": true,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 0,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 844,
+      "scrollH": 390,
+      "h": 390,
+      "w": 844,
+      "placements": [
+        {
+          "text": "1st · tied",
+          "width": 103.671875,
+          "parent": 806,
+          "height": 31,
+          "parentH": 38
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 355.328125,
+        "y": 294,
+        "width": 133.328125,
+        "height": 44,
+        "top": 294,
+        "right": 488.65625,
+        "bottom": 338,
+        "left": 355.328125
+      }
+    }
+  },
+  {
+    "w": 844,
+    "h": 390,
+    "n": 8,
+    "final": true,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 0,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 844,
+      "scrollH": 390,
+      "h": 390,
+      "w": 844,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 39.65625,
+          "parent": 106.40625,
+          "height": 31,
+          "parentH": 38
+        },
+        {
+          "text": "2nd",
+          "width": 43.578125,
+          "parent": 92.515625,
+          "height": 31,
+          "parentH": 30
+        },
+        {
+          "text": "3rd",
+          "width": 42.109375,
+          "parent": 92.515625,
+          "height": 31,
+          "parentH": 24
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 355.328125,
+        "y": 294,
+        "width": 133.328125,
+        "height": 44,
+        "top": 294,
+        "right": 488.65625,
+        "bottom": 338,
+        "left": 355.328125
+      }
+    }
+  },
+  {
+    "w": 667,
+    "h": 375,
+    "n": 2,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 0,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 667,
+      "scrollH": 375,
+      "h": 375,
+      "w": 667,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 39.65625,
+          "parent": 81.984375,
+          "height": 31,
+          "parentH": 38
+        },
+        {
+          "text": "2nd",
+          "width": 43.578125,
+          "parent": 71.296875,
+          "height": 31,
+          "parentH": 30
+        }
+      ],
+      "allCards": 2,
+      "host": {
+        "x": 266.828125,
+        "y": 279,
+        "width": 133.328125,
+        "height": 44,
+        "top": 279,
+        "right": 400.15625,
+        "bottom": 323,
+        "left": 266.828125
+      }
+    }
+  },
+  {
+    "w": 667,
+    "h": 375,
+    "n": 8,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 0,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 667,
+      "scrollH": 375,
+      "h": 375,
+      "w": 667,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 39.65625,
+          "parent": 81.984375,
+          "height": 31,
+          "parentH": 38
+        },
+        {
+          "text": "2nd",
+          "width": 43.578125,
+          "parent": 71.296875,
+          "height": 31,
+          "parentH": 30
+        },
+        {
+          "text": "3rd",
+          "width": 42.109375,
+          "parent": 71.296875,
+          "height": 31,
+          "parentH": 24
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 266.828125,
+        "y": 279,
+        "width": 133.328125,
+        "height": 44,
+        "top": 279,
+        "right": 400.15625,
+        "bottom": 323,
+        "left": 266.828125
+      }
+    }
+  },
+  {
+    "w": 667,
+    "h": 375,
+    "n": 8,
+    "tied": true,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 0,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 667,
+      "scrollH": 375,
+      "h": 375,
+      "w": 667,
+      "placements": [
+        {
+          "text": "1st · tied",
+          "width": 103.671875,
+          "parent": 629,
+          "height": 31,
+          "parentH": 38
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 266.828125,
+        "y": 279,
+        "width": 133.328125,
+        "height": 44,
+        "top": 279,
+        "right": 400.15625,
+        "bottom": 323,
+        "left": 266.828125
+      }
+    }
+  },
+  {
+    "w": 667,
+    "h": 375,
+    "n": 8,
+    "final": true,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 0,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 667,
+      "scrollH": 375,
+      "h": 375,
+      "w": 667,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 39.65625,
+          "parent": 81.984375,
+          "height": 31,
+          "parentH": 38
+        },
+        {
+          "text": "2nd",
+          "width": 43.578125,
+          "parent": 71.296875,
+          "height": 31,
+          "parentH": 30
+        },
+        {
+          "text": "3rd",
+          "width": 42.109375,
+          "parent": 71.296875,
+          "height": 31,
+          "parentH": 24
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 266.828125,
+        "y": 279,
+        "width": 133.328125,
+        "height": 44,
+        "top": 279,
+        "right": 400.15625,
+        "bottom": 323,
+        "left": 266.828125
+      }
+    }
+  },
+  {
+    "w": 568,
+    "h": 320,
+    "n": 2,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 12,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 568,
+      "scrollH": 320,
+      "h": 320,
+      "w": 568,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 39.65625,
+          "parent": 68.328125,
+          "height": 31,
+          "parentH": 34
+        },
+        {
+          "text": "2nd",
+          "width": 43.578125,
+          "parent": 59.421875,
+          "height": 31,
+          "parentH": 27
+        }
+      ],
+      "allCards": 2,
+      "host": {
+        "x": 217.328125,
+        "y": 224,
+        "width": 133.328125,
+        "height": 44,
+        "top": 224,
+        "right": 350.65625,
+        "bottom": 268,
+        "left": 217.328125
+      }
+    }
+  },
+  {
+    "w": 568,
+    "h": 320,
+    "n": 8,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 0,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 568,
+      "scrollH": 320,
+      "h": 320,
+      "w": 568,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 39.65625,
+          "parent": 68.328125,
+          "height": 31,
+          "parentH": 34
+        },
+        {
+          "text": "2nd",
+          "width": 43.578125,
+          "parent": 59.421875,
+          "height": 31,
+          "parentH": 27
+        },
+        {
+          "text": "3rd",
+          "width": 42.109375,
+          "parent": 59.421875,
+          "height": 31,
+          "parentH": 20
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 217.328125,
+        "y": 224,
+        "width": 133.328125,
+        "height": 44,
+        "top": 224,
+        "right": 350.65625,
+        "bottom": 268,
+        "left": 217.328125
+      }
+    }
+  },
+  {
+    "w": 568,
+    "h": 320,
+    "n": 8,
+    "tied": true,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 0,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 568,
+      "scrollH": 320,
+      "h": 320,
+      "w": 568,
+      "placements": [
+        {
+          "text": "1st · tied",
+          "width": 103.671875,
+          "parent": 530,
+          "height": 31,
+          "parentH": 34
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 217.328125,
+        "y": 224,
+        "width": 133.328125,
+        "height": 44,
+        "top": 224,
+        "right": 350.65625,
+        "bottom": 268,
+        "left": 217.328125
+      }
+    }
+  },
+  {
+    "w": 568,
+    "h": 320,
+    "n": 8,
+    "final": true,
+    "stageHeightChange": 0,
+    "podiumTopChange": 0,
+    "tierTopChange": 0,
+    "cardHeightChange": 0,
+    "frogTopChange": 0,
+    "settled": {
+      "scrollW": 568,
+      "scrollH": 320,
+      "h": 320,
+      "w": 568,
+      "placements": [
+        {
+          "text": "1st",
+          "width": 39.65625,
+          "parent": 68.328125,
+          "height": 31,
+          "parentH": 34
+        },
+        {
+          "text": "2nd",
+          "width": 43.578125,
+          "parent": 59.421875,
+          "height": 31,
+          "parentH": 27
+        },
+        {
+          "text": "3rd",
+          "width": 42.109375,
+          "parent": 59.421875,
+          "height": 31,
+          "parentH": 20
+        }
+      ],
+      "allCards": 8,
+      "host": {
+        "x": 217.328125,
+        "y": 224,
+        "width": 133.328125,
+        "height": 44,
+        "top": 224,
+        "right": 350.65625,
+        "bottom": 268,
+        "left": 217.328125
+      }
+    }
+  }
+]
