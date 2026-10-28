@@ -104,7 +104,7 @@ export class TouchControls {
   const portrait=innerHeight>innerWidth;const next=active&&this.enabled&&!portrait;
   if(this.active&&!next)this.reset(true,portrait?'portrait':'inactive');this.active=next;
   document.body.classList.toggle('touch-game',this.enabled&&session);
-  document.getElementById('rotate-prompt')!.hidden=!(this.enabled&&session&&portrait);
+  document.getElementById('rotate-prompt')!.hidden=!(this.enabled&&portrait);
   document.getElementById('touch-controls-left')!.hidden=!this.enabled;
   document.getElementById('touch-controls-right')!.hidden=!this.enabled;
   this.action.disabled=!next;this.pad.setAttribute('aria-disabled',String(!next));
