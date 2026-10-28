@@ -15,3 +15,36 @@
 /* Keep the existing gameplay toolbar untouched. Reserve room for mobile access on longer pages. */
 .touch-enabled:not(.game-active) main{padding-bottom:64px}
 .touch-enabled:not(.game-active) #help{position:fixed;right:max(10px,env(safe-area-inset-right));bottom:max(10px,env(safe-area-inset-bottom));z-index:12;min-height:44px;margin:0;box-shadow:0 3px 10px #102e3455}
+
+
+/* Dedicated instructions: explicit ink/cream colors prevent legacy pale list text.
+   The fixed header stays available; only the content region scrolls. */
+#help-dialog.player-dialog{color-scheme:light;box-sizing:border-box;padding:0;width:min(800px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:hidden;color:#292431!important;background:#fff1ce!important}
+#help-dialog[open]{display:flex;flex-direction:column}
+#help-dialog .how-to-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:2px solid #baa78d;flex-shrink:0;background:#fff1ce}
+#help-dialog .how-to-header h2{margin:4px 0 0;font-size:26px;color:#292431}
+#help-dialog .how-to-header .eyebrow{font-size:10px;letter-spacing:1px;color:#31575e}
+#help-dialog #help-close{min-height:44px;flex-shrink:0;margin:0;background:#e2efb9;color:#292431;border-color:#52696a}
+#help-dialog #help-content{overflow:auto;min-height:0;overscroll-behavior:contain;touch-action:pan-y;padding:16px 18px;scroll-padding:12px;color:#292431}
+#help-dialog #help-content :is(p,li,summary,strong,h3,kbd),#help-dialog #help-live-note,#help-dialog .guide-note{color:#292431!important}
+#help-dialog #help-content h3{color:#31575e!important;font-size:18px;margin:0 0 8px}
+#help-dialog #help-content p,#help-dialog #help-content li{font-size:14px;line-height:1.6}
+#help-dialog #help-content ul{padding-left:20px}
+#help-dialog #help-content kbd{background:#e2efb9;color:#292431!important;border:1px solid #52696a;line-height:1.8}
+#help-dialog .chaos-guide{margin-bottom:18px;background:#e2efb9;border-color:#52696a;padding:14px}
+#help-dialog .guide-grid{gap:22px;grid-template-columns:1fr 1fr}
+#help-dialog .guide-modes summary{padding:8px 0;min-height:40px}
+#help-dialog .guide-modes p{margin:8px 0}
+#help-dialog .winning-guide{border-top:2px solid #baa78d;margin-top:18px;padding-top:14px}
+#help-dialog .dialog-actions{position:static;background:#fff1ce;padding:0;margin-top:12px}
+#help-dialog :focus-visible{outline:3px solid #31575e;outline-offset:2px}
+#help-dialog #help-content:focus-visible{outline-offset:-3px}
+/* Use the existing footer row; do not add another floating touch control. */
+#session-footer #how-to-play{white-space:nowrap;min-height:44px}
+.game-active #session-footer #how-to-play{min-height:30px}
+@media(max-width:700px){#help-dialog .guide-grid{grid-template-columns:1fr}#help-dialog .how-to-header{padding:10px 14px}#help-dialog #help-content{padding:12px 14px}}
+@media(max-height:540px) and (orientation:landscape){#help-dialog.player-dialog{max-height:calc(100dvh - 16px)}#help-dialog .how-to-header{padding:6px 12px}#help-dialog .how-to-header h2{font-size:23px}#help-dialog .how-to-header .eyebrow{display:none}#help-dialog .guide-grid{grid-template-columns:1fr 1fr}#help-dialog #help-content{padding:12px}}
+/* Keep the desktop toolbar inside the fixed shell, so focusing a footer button
+   cannot scroll the hidden main container and shift the arena. */
+.game-active:not(.touch-game) #session-footer{margin-top:8px}
+.game-active.touch-game #session-footer{margin-top:0}

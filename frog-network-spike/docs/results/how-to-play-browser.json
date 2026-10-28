@@ -1,0 +1,653 @@
+{
+  "checks": [
+    {
+      "device": "desktop",
+      "screen": "home",
+      "metrics": {
+        "dialog": {
+          "x": 240,
+          "y": 12,
+          "w": 800,
+          "h": 776,
+          "b": 788,
+          "r": 1040
+        },
+        "close": {
+          "x": 938.40625,
+          "y": 34,
+          "w": 80.59375,
+          "h": 45,
+          "b": 79,
+          "r": 1019
+        },
+        "scrollHeight": 1464,
+        "clientHeight": 685,
+        "pageWidth": 1280,
+        "viewportWidth": 1280,
+        "viewportHeight": 800,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "desktop",
+      "screen": "lobby",
+      "metrics": {
+        "dialog": {
+          "x": 240,
+          "y": 12,
+          "w": 800,
+          "h": 776,
+          "b": 788,
+          "r": 1040
+        },
+        "close": {
+          "x": 938.40625,
+          "y": 34,
+          "w": 80.59375,
+          "h": 45,
+          "b": 79,
+          "r": 1019
+        },
+        "scrollHeight": 1464,
+        "clientHeight": 685,
+        "pageWidth": 1280,
+        "viewportWidth": 1280,
+        "viewportHeight": 800,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "desktop",
+      "screen": "game",
+      "metrics": {
+        "dialog": {
+          "x": 240,
+          "y": 12,
+          "w": 800,
+          "h": 776,
+          "b": 788,
+          "r": 1040
+        },
+        "close": {
+          "x": 944.46875,
+          "y": 34.5,
+          "w": 74.53125,
+          "h": 44,
+          "b": 78.5,
+          "r": 1019
+        },
+        "scrollHeight": 1499,
+        "clientHeight": 685,
+        "pageWidth": 1280,
+        "viewportWidth": 1280,
+        "viewportHeight": 800,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "desktop",
+      "screen": "results",
+      "metrics": {
+        "dialog": {
+          "x": 240,
+          "y": 12,
+          "w": 800,
+          "h": 776,
+          "b": 788,
+          "r": 1040
+        },
+        "close": {
+          "x": 938.40625,
+          "y": 34,
+          "w": 80.59375,
+          "h": 45,
+          "b": 79,
+          "r": 1019
+        },
+        "scrollHeight": 1464,
+        "clientHeight": 685,
+        "pageWidth": 1280,
+        "viewportWidth": 1280,
+        "viewportHeight": 800,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "desktop",
+      "screen": "voting",
+      "metrics": {
+        "dialog": {
+          "x": 240,
+          "y": 12,
+          "w": 800,
+          "h": 776,
+          "b": 788,
+          "r": 1040
+        },
+        "close": {
+          "x": 938.40625,
+          "y": 34,
+          "w": 80.59375,
+          "h": 45,
+          "b": 79,
+          "r": 1019
+        },
+        "scrollHeight": 1464,
+        "clientHeight": 685,
+        "pageWidth": 1280,
+        "viewportWidth": 1280,
+        "viewportHeight": 800,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "laptop",
+      "screen": "home",
+      "metrics": {
+        "dialog": {
+          "x": 112,
+          "y": 12,
+          "w": 800,
+          "h": 576,
+          "b": 588,
+          "r": 912
+        },
+        "close": {
+          "x": 810.40625,
+          "y": 34,
+          "w": 80.59375,
+          "h": 45,
+          "b": 79,
+          "r": 891
+        },
+        "scrollHeight": 1464,
+        "clientHeight": 485,
+        "pageWidth": 1024,
+        "viewportWidth": 1024,
+        "viewportHeight": 600,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "laptop",
+      "screen": "lobby",
+      "metrics": {
+        "dialog": {
+          "x": 112,
+          "y": 12,
+          "w": 800,
+          "h": 576,
+          "b": 588,
+          "r": 912
+        },
+        "close": {
+          "x": 810.40625,
+          "y": 34,
+          "w": 80.59375,
+          "h": 45,
+          "b": 79,
+          "r": 891
+        },
+        "scrollHeight": 1464,
+        "clientHeight": 485,
+        "pageWidth": 1024,
+        "viewportWidth": 1024,
+        "viewportHeight": 600,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "laptop",
+      "screen": "game",
+      "metrics": {
+        "dialog": {
+          "x": 112,
+          "y": 12,
+          "w": 800,
+          "h": 576,
+          "b": 588,
+          "r": 912
+        },
+        "close": {
+          "x": 816.46875,
+          "y": 34.5,
+          "w": 74.53125,
+          "h": 44,
+          "b": 78.5,
+          "r": 891
+        },
+        "scrollHeight": 1499,
+        "clientHeight": 485,
+        "pageWidth": 1024,
+        "viewportWidth": 1024,
+        "viewportHeight": 600,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "laptop",
+      "screen": "results",
+      "metrics": {
+        "dialog": {
+          "x": 112,
+          "y": 12,
+          "w": 800,
+          "h": 576,
+          "b": 588,
+          "r": 912
+        },
+        "close": {
+          "x": 810.40625,
+          "y": 34,
+          "w": 80.59375,
+          "h": 45,
+          "b": 79,
+          "r": 891
+        },
+        "scrollHeight": 1464,
+        "clientHeight": 485,
+        "pageWidth": 1024,
+        "viewportWidth": 1024,
+        "viewportHeight": 600,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "laptop",
+      "screen": "voting",
+      "metrics": {
+        "dialog": {
+          "x": 112,
+          "y": 12,
+          "w": 800,
+          "h": 576,
+          "b": 588,
+          "r": 912
+        },
+        "close": {
+          "x": 810.40625,
+          "y": 34,
+          "w": 80.59375,
+          "h": 45,
+          "b": 79,
+          "r": 891
+        },
+        "scrollHeight": 1464,
+        "clientHeight": 485,
+        "pageWidth": 1024,
+        "viewportWidth": 1024,
+        "viewportHeight": 600,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "iphone-landscape",
+      "screen": "home",
+      "metrics": {
+        "dialog": {
+          "x": 22,
+          "y": 8,
+          "w": 800,
+          "h": 374,
+          "b": 382,
+          "r": 822
+        },
+        "close": {
+          "x": 726.40625,
+          "y": 17,
+          "w": 80.59375,
+          "h": 45,
+          "b": 62,
+          "r": 807
+        },
+        "scrollHeight": 1434,
+        "clientHeight": 309,
+        "pageWidth": 844,
+        "viewportWidth": 844,
+        "viewportHeight": 390,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "iphone-landscape",
+      "screen": "lobby",
+      "metrics": {
+        "dialog": {
+          "x": 22,
+          "y": 8,
+          "w": 800,
+          "h": 374,
+          "b": 382,
+          "r": 822
+        },
+        "close": {
+          "x": 726.40625,
+          "y": 17,
+          "w": 80.59375,
+          "h": 45,
+          "b": 62,
+          "r": 807
+        },
+        "scrollHeight": 1434,
+        "clientHeight": 309,
+        "pageWidth": 844,
+        "viewportWidth": 844,
+        "viewportHeight": 390,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "iphone-landscape",
+      "screen": "game",
+      "metrics": {
+        "dialog": {
+          "x": 22,
+          "y": 8,
+          "w": 800,
+          "h": 374,
+          "b": 382,
+          "r": 822
+        },
+        "close": {
+          "x": 732.46875,
+          "y": 17,
+          "w": 74.53125,
+          "h": 44,
+          "b": 61,
+          "r": 807
+        },
+        "scrollHeight": 1469,
+        "clientHeight": 310,
+        "pageWidth": 844,
+        "viewportWidth": 844,
+        "viewportHeight": 390,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "iphone-landscape",
+      "screen": "results",
+      "metrics": {
+        "dialog": {
+          "x": 22,
+          "y": 8,
+          "w": 800,
+          "h": 374,
+          "b": 382,
+          "r": 822
+        },
+        "close": {
+          "x": 726.40625,
+          "y": 17,
+          "w": 80.59375,
+          "h": 45,
+          "b": 62,
+          "r": 807
+        },
+        "scrollHeight": 1434,
+        "clientHeight": 309,
+        "pageWidth": 844,
+        "viewportWidth": 844,
+        "viewportHeight": 390,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "iphone-landscape",
+      "screen": "voting",
+      "metrics": {
+        "dialog": {
+          "x": 22,
+          "y": 8,
+          "w": 800,
+          "h": 374,
+          "b": 382,
+          "r": 822
+        },
+        "close": {
+          "x": 732.46875,
+          "y": 17,
+          "w": 74.53125,
+          "h": 44,
+          "b": 61,
+          "r": 807
+        },
+        "scrollHeight": 1433,
+        "clientHeight": 310,
+        "pageWidth": 844,
+        "viewportWidth": 844,
+        "viewportHeight": 390,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "small-landscape",
+      "screen": "home",
+      "metrics": {
+        "dialog": {
+          "x": 19,
+          "y": 8,
+          "w": 629,
+          "h": 359,
+          "b": 367,
+          "r": 648
+        },
+        "close": {
+          "x": 552.40625,
+          "y": 17,
+          "w": 80.59375,
+          "h": 45,
+          "b": 62,
+          "r": 633
+        },
+        "scrollHeight": 1613,
+        "clientHeight": 294,
+        "pageWidth": 667,
+        "viewportWidth": 667,
+        "viewportHeight": 375,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "small-landscape",
+      "screen": "lobby",
+      "metrics": {
+        "dialog": {
+          "x": 19,
+          "y": 8,
+          "w": 629,
+          "h": 359,
+          "b": 367,
+          "r": 648
+        },
+        "close": {
+          "x": 552.40625,
+          "y": 17,
+          "w": 80.59375,
+          "h": 45,
+          "b": 62,
+          "r": 633
+        },
+        "scrollHeight": 1613,
+        "clientHeight": 294,
+        "pageWidth": 667,
+        "viewportWidth": 667,
+        "viewportHeight": 375,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "small-landscape",
+      "screen": "game",
+      "metrics": {
+        "dialog": {
+          "x": 19,
+          "y": 8,
+          "w": 629,
+          "h": 359,
+          "b": 367,
+          "r": 648
+        },
+        "close": {
+          "x": 558.46875,
+          "y": 17,
+          "w": 74.53125,
+          "h": 44,
+          "b": 61,
+          "r": 633
+        },
+        "scrollHeight": 1648,
+        "clientHeight": 295,
+        "pageWidth": 667,
+        "viewportWidth": 667,
+        "viewportHeight": 375,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "small-landscape",
+      "screen": "results",
+      "metrics": {
+        "dialog": {
+          "x": 19,
+          "y": 8,
+          "w": 629,
+          "h": 359,
+          "b": 367,
+          "r": 648
+        },
+        "close": {
+          "x": 552.40625,
+          "y": 17,
+          "w": 80.59375,
+          "h": 45,
+          "b": 62,
+          "r": 633
+        },
+        "scrollHeight": 1613,
+        "clientHeight": 294,
+        "pageWidth": 667,
+        "viewportWidth": 667,
+        "viewportHeight": 375,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    },
+    {
+      "device": "small-landscape",
+      "screen": "voting",
+      "metrics": {
+        "dialog": {
+          "x": 19,
+          "y": 8,
+          "w": 629,
+          "h": 359,
+          "b": 367,
+          "r": 648
+        },
+        "close": {
+          "x": 558.46875,
+          "y": 17,
+          "w": 74.53125,
+          "h": 44,
+          "b": 61,
+          "r": 633
+        },
+        "scrollHeight": 1612,
+        "clientHeight": 295,
+        "pageWidth": 667,
+        "viewportWidth": 667,
+        "viewportHeight": 375,
+        "topLevelContent": true,
+        "textColors": [
+          "rgb(41, 36, 49)",
+          "rgb(49, 87, 94)"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "contrast": {
+    "inkOnCream": 13.46,
+    "inkOnMint": 12.42,
+    "tealOnCream": 7.05,
+    "tealOnMint": 6.51
+  },
+  "automatedTests": 629,
+  "physicalDevicesTested": false
+}

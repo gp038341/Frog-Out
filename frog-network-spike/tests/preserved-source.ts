@@ -198,4 +198,7 @@ export function signatureArenaPreservedSource(path:string,raw=false){const m=JSO
 export function arenaEnergyPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/arena-energy-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??gameplayMusicRedesignPreservedSource(path,raw);}
 
 /** Recover previous gameplay music for historical guards; current audio scope has its own protection test. */
-export function gameplayMusicRedesignPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/gameplay-music-redesign-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function gameplayMusicRedesignPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/gameplay-music-redesign-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??howToPlayPreservedSource(path,raw);}
+
+/** Reverse only the dedicated instructional entry/panel for historical guards. */
+export function howToPlayPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/how-to-play-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??m.historicalTests?.[path]??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

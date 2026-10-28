@@ -12,12 +12,13 @@ export class PlayerGuide {
   document.getElementById('help')!.onclick=()=>this.toggleSettings();
   for(const id of ['customization-settings','help-settings'])document.getElementById(id)!.onclick=()=>this.toggleSettings();
   document.getElementById('menu-resume')!.onclick=()=>this.closeSettings();
-  document.getElementById('menu-help')!.onclick=()=>{this.closeDialog(this.menu);if(this.suspended===this.help)this.suspended=undefined;this.open(this.help);};
+  document.getElementById('how-to-play')!.onclick=()=>this.open(this.help);
   document.getElementById('menu-leave')!.onclick=()=>{this.closeSettings(false);if(this.leaveAction){if(this.phase==='game')this.confirmLeave(this.leaveAction);else this.leaveAction();}};
   document.addEventListener('keydown',e=>{
    if(e.code!=='Escape'||e.repeat)return;
    e.preventDefault();e.stopPropagation();
    if(this.leave.open)this.closeDialog(this.leave);
+   else if(this.help.open){this.closeDialog(this.help);this.restore();}
    else this.toggleSettings();
   },true);
   document.getElementById('help-close')!.onclick=()=>{this.closeDialog(this.help);this.restore();};
