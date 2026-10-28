@@ -207,4 +207,7 @@ export function howToPlayPreservedSource(path:string,raw=false){const m=JSON.par
 export function performanceResultsPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/performance-results-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??m.historicalTests?.[path]??mobilePresentationPreservedSource(path,raw);}
 
 /** Reverse only the approved-baseline mobile presentation corrections. */
-export function mobilePresentationPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/mobile-presentation-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}
+export function mobilePresentationPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/mobile-presentation-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??visibleChaosLayoutPreservedSource(path,raw);}
+
+/** Recover only the pre-correction display/layout adapters for older scope guards. */
+export function visibleChaosLayoutPreservedSource(path:string,raw=false){const m=JSON.parse(readFileSync(new URL('../docs/visible-chaos-layout-preservation.json',import.meta.url),'utf8'));return m.files[path]?.original??readFileSync(new URL(`../${path}`,import.meta.url),raw?undefined:'utf8');}

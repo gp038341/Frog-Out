@@ -42,5 +42,12 @@
 @media(max-height:540px) and (orientation:landscape){#chaos-voting{padding:10px 14px;max-height:calc(100dvh - 70px)}#chaos-voting h2{font-size:23px}#chaos-voting>p{margin:5px 0;font-size:11px}#chaos-timer{font-size:17px;margin:4px 0}#chaos-voting .chaos-card{min-height:145px;padding:10px;gap:7px}#chaos-voting .chaos-card strong{font-size:17px}#chaos-voting .chaos-card>span{font-size:11px;line-height:1.35}.voter-stamp{width:27px;height:27px;flex-basis:27px}.vote-stamps{min-height:28px;gap:3px}#chaos-toggle{font-size:17px;min-height:50px}#chaos-toggle svg{width:32px;height:32px}}
 @media(max-width:500px) and (orientation:portrait){#chaos-voting .chaos-cards,#chaos-voting .chaos-cards[data-count="2"]{grid-template-columns:1fr}#chaos-voting .chaos-card{min-height:160px}}
 
-/* Full modifier names belong in Settings, never over the playable arena. */
-#game-menu #chaos-active{position:static;max-width:none;margin:12px 0;padding:10px 12px;pointer-events:auto;white-space:normal;overflow-wrap:anywhere;font-size:14px;line-height:1.5;background:#e2efb9;color:#292431;border:2px solid #292431}
+/* The existing top bar is outside the arena; no new row or map overlay. */
+.game-active #brand #chaos-active{position:static;inset:auto;flex:1 1 auto;min-width:0;max-width:none;margin:0;padding:1px 5px;pointer-events:none;white-space:normal;text-align:center;font-size:11px;line-height:12px;background:transparent;color:#292431;border:0}
+.game-active #brand #chaos-active[hidden]{display:none}
+.game-active #brand{gap:6px}
+.game-active #brand:has(#chaos-active:not([hidden])) h1{display:none}
+.game-active #brand #connection{flex:0 0 auto;font-size:10px}
+@media(max-height:540px) and (orientation:landscape){
+ .game-active #brand #chaos-active{font-size:10px;line-height:11px}
+}

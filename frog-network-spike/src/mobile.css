@@ -37,3 +37,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .game-active.touch-game #infection-feedback{position:absolute;top:38px;left:20%;right:20%;z-index:6;margin:0;pointer-events:none;text-align:center;max-height:32px;overflow:hidden}
 .game-active.touch-game #session-footer{grid-row:3;min-width:0;min-height:0;height:var(--game-toolbar-height,36px);flex-wrap:wrap;align-content:flex-start;justify-content:center;overflow:hidden;white-space:nowrap;padding-bottom:0}
 .game-active.touch-game #session-footer button,.game-active.touch-game #fullscreen-unavailable{flex-shrink:0}
+
+/* Compact the existing touch shell for browser chrome as well as fullscreen.
+   Keep the visual-viewport bounds, FIT camera and independent touch lanes. */
+body.game-active.touch-game main{grid-template-rows:22px minmax(0,1fr) 32px;gap:0;padding-top:max(2px,env(safe-area-inset-top));padding-bottom:max(2px,env(safe-area-inset-bottom))}
+body.game-active.touch-game #brand{height:22px}
+body.game-active.touch-game #game-stage{inset:16px 0 0;grid-template-columns:clamp(82px,11vw,100px) minmax(0,1fr) clamp(82px,11vw,100px)}
+body.game-active.touch-game #phase-message,body.game-active.touch-game #healthy-count,body.game-active.touch-game #live-score{font-size:10px;line-height:14px;max-height:14px}
+body.game-active.touch-game #round-timer{font-size:15px!important;line-height:16px;max-height:16px}
+body.game-active.touch-game #session-footer{height:32px;min-height:32px;margin:0;align-items:center;align-content:center;flex-wrap:nowrap}
+body.game-active.touch-game #session-footer button{min-height:28px;height:28px;padding:2px 6px;margin:1px;font-size:10px;line-height:1.1}
+body.game-active.touch-game #session-footer #how-to-play{min-height:28px}

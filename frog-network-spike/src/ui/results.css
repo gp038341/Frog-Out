@@ -177,3 +177,8 @@ body.results-celebration{min-height:100vh;min-height:100dvh;background-repeat:no
  .results-celebration .score-breakdown[open]{grid-column:1/-1;max-width:100%;max-height:80px;overflow:auto}
  .results-celebration .awards-actions{grid-row:5;grid-column:2;align-self:center}.results-celebration .score-breakdown[open]~.awards-actions{grid-row:6}
 }
+
+/* A single compact footer treatment overrides the home-screen floating Settings
+   rule and the separate How to Play minimum, without touching Next/Rematch. */
+body.results-celebration #session-footer{gap:3px;align-items:center;justify-content:center}
+body.results-celebration #session-footer :is(#help,#how-to-play,#sound,#fullscreen){position:static;inset:auto;min-width:0;width:auto;min-height:32px;height:32px;max-height:32px;padding:4px 8px;margin:1px;flex:0 0 auto;font:700 11px/1.1 'Trebuchet MS',sans-serif;letter-spacing:0;transform:none;border-width:2px;box-shadow:1px 1px #52696a55}
